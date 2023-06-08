@@ -21,7 +21,7 @@ class Utilisateurs extends Migration
                 'null' => true,
             ],
             'profil' => [
-                'type' => 'VARCHAR',
+                'type' => 'ENUM("ADMIN","FACTURATION","CONTROLE","TRANSPORT","FINANCE")',
                 'constraint' => 255,
                 'null' => true,
             ],
