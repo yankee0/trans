@@ -52,8 +52,7 @@ class FactLiv extends Migration
                 'null' => true,
             ],
             'date_creation' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
+                'type' => 'DATE',
                 'null' => true,
             ],
         ]);

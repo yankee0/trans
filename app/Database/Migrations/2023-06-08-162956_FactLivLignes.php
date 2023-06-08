@@ -42,12 +42,12 @@ class FactLivLignes extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('id_lieu','fact_liv_lieux','id','CASCADE','CASCADE');
-        $this->forge->createTable('fact_liv_lignes',true);
+        $this->forge->addForeignKey('id_lieu', 'fact_liv_lieux', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('fact_liv_lignes', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('fact_liv_lignes',true);
+        $this->forge->dropTable('fact_liv_lignes', true);
     }
 }
