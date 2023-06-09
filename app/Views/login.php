@@ -15,7 +15,7 @@
 
 <body>
   <main class="d-flex w-100">
-    <div class="container d-flex flex-column">
+    <div class="container d-flex flex-column overflow-hidden">
       <div class="row vh-100">
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
@@ -26,16 +26,23 @@
                   <div class="text-center">
                     <img src="<?= base_url('assets/img/logo.png') ?>" alt="<?= APP_NAME ?> - Logo" class="img-fluid" width="132" height="132" />
                   </div>
-                  <div class="text-center mt-4">
+                  <div class="text-center mt-3">
                     <h1 class="h2 text-primary"><?= APP_NAME ?> APP</h1>
+                  </div>
+                  <div class="text-center mt-3">
+                    <?php if (session()->has('n')) : ?>
+                      <div class="alert text-<?= (session()->n) ? 'success' : 'danger' ?>" role="alert">
+                        <strong><?= (session()->n) ? 'Succès!' : 'Echec!' ?></strong> <?= session()->m ?>
+                      </div>
+                    <?php endif ?>
                   </div>
                   <form method="post" action="<?= base_url() ?>">
                     <div class="mb-3">
-                      <label class="form-label">Email</label>
+                      <label class="form-label">Email<span class="text-danger">*</span></label>
                       <input class="form-control form-control-lg" value="<?= set_value('email','') ?>" type="email" name="email" placeholder="Votre email" required />
                     </div>
                     <div class="mb-3">
-                      <label class="form-label">Mot de passe</label>
+                      <label class="form-label">Mot de passe<span class="text-danger">*</span></label>
                       <input class="form-control form-control-lg" value="<?= set_value('mdp','') ?>" type="password" name="mdp" placeholder="Votre mot de passe" required />
 
                     </div>

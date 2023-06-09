@@ -55,6 +55,28 @@ class FactLiv extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
+            'annulation' => [
+                'type' => 'ENUM("OUI","NON")',
+                'default' => 'NON',
+                'null' => true,
+            ],
+            'motif' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('id_client','clients','id','CASCADE','SET NULL');
