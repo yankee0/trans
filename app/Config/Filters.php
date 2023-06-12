@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Filters\Admin;
+use App\Filters\Api;
 use App\Filters\Auth;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -24,7 +25,8 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'auth'          => Auth::class,
-        'admin'         => Admin::class
+        'admin'         => Admin::class,
+        'api-auth'      => Api::class,
     ];
 
     /**

@@ -18,7 +18,10 @@ Liste des utilisateurs
       <div class="card flex-fill">
         <div class="card-header">
 
-          <h5 class="card-title mb-0">Liste des utilisateurs (<span class="text-primary"><?= $count ?></span>)</h5>
+          <h5 class="card-title mb-3">Liste des utilisateurs (<span class="text-primary"><?= $count ?></span>)</h5>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdGDel">
+            Suppression groupée
+          </button>
         </div>
         <?php if ($count == 0) : ?>
           <div class="card-body">
@@ -40,7 +43,9 @@ Liste des utilisateurs
               </tr>
             </thead>
             <tbody>
-              <?= form_open() ?>
+              <?= form_open(base_url(session()->r.'/utilisateurs/del'),[
+                'id' => 'delG'
+              ]) ?>
               <?php foreach ($list as $l) : ?>
                 <tr>
                   <td id="<?= $l['id'] ?>">
@@ -56,7 +61,7 @@ Liste des utilisateurs
                       <button type="button" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
+                      <button type="button" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -76,6 +81,26 @@ Liste des utilisateurs
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="modalIdGDel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="gdel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="gdel">Suppression groupée</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Supprimer les utilisateurs sélectionnés?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-primary" form="delG">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="delete" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="deleteTi" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
@@ -102,7 +127,7 @@ Liste des utilisateurs
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitleId">Modal title</h5>
+        <h5 class="modal-title" id="modalTitleId">Ajouter un utilisateurs</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -113,45 +138,93 @@ Liste des utilisateurs
         <div class="mb-3">
           <label for="profil" class="form-label">Profil<span class="text-danger">*</span> </label>
           <select class="form-select" name="profil" id="profil" required>
-            <option <?= set_select('profil','',true) ?> hidden value="">Sélectionner un profil</option>
-            <option <?= set_select('profil','AMDIN') ?> value="ADMIN">ADMIN</option>
-            <option <?= set_select('profil','FACTURATION') ?> value="FACTURATION">FACTURATION</option>
-            <option <?= set_select('profil','CONTROLE') ?> value="CONTROLE">CONTROLE</option>
-            <option <?= set_select('profil','TRANSPORT') ?> value="TRANSPORT">TRANSPORT</option>
-            <option <?= set_select('profil','FINANCE') ?> value="FINANCE">FINANCE</option>
-            <option <?= set_select('profil','FLOTTE') ?> value="FLOTTE">FLOTTE</option>
+            <option <?= set_select('profil', '', true) ?> hidden value="">Sélectionner un profil</option>
+            <option <?= set_select('profil', 'AMDIN') ?> value="ADMIN">ADMIN</option>
+            <option <?= set_select('profil', 'FACTURATION') ?> value="FACTURATION">FACTURATION</option>
+            <option <?= set_select('profil', 'CONTROLE') ?> value="CONTROLE">CONTROLE</option>
+            <option <?= set_select('profil', 'TRANSPORT') ?> value="TRANSPORT">TRANSPORT</option>
+            <option <?= set_select('profil', 'FINANCE') ?> value="FINANCE">FINANCE</option>
+            <option <?= set_select('profil', 'FLOTTE') ?> value="FLOTTE">FLOTTE</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="nom" class="form-label">Nom<span class="text-danger">*</span></label>
-          <input required type="text" value="<?= set_value('nom','') ?>" class="form-control" name="nom" id="nom" placeholder="Nom de l'utilisateur">
+          <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nom" placeholder="Nom de l'utilisateur">
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" value="<?= set_value('email','') ?>" id="email" placeholder="Email de l'utilisateur">
+          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email de l'utilisateur">
         </div>
         <div class="mb-3">
           <label for="tel" class="form-label">Téléphone</label>
-          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel','') ?>" placeholder="Numéro de téléphone de l'utilisateur">
+          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>" placeholder="Numéro de téléphone de l'utilisateur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
         <button type="submit" form="newUser" class="btn btn-primary">Créer le compte</button>
       </div>
     </div>
   </div>
 </div>
 
+<div class="modal fade" id="modalIdmodu" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodu" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdmodu">Modifier utilisateur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(base_url(session()->r . '/utilisateurs/edit'), [
+          'id' => 'modUser'
+        ]) ?>
+        <div class="mb-3">
+          <label for="profilmod" class="form-label">Profil<span class="text-danger">*</span> </label>
+          <select class="form-select" name="profil" id="profilmod" required>
+            <option class="op" <?= set_select('profil', '', true) ?> hidden value="">Sélectionner un profil</option>
+            <option class="op" <?= set_select('profil', 'AMDIN') ?> value="ADMIN">ADMIN</option>
+            <option class="op" <?= set_select('profil', 'FACTURATION') ?> value="FACTURATION">FACTURATION</option>
+            <option class="op" <?= set_select('profil', 'CONTROLE') ?> value="CONTROLE">CONTROLE</option>
+            <option class="op" <?= set_select('profil', 'TRANSPORT') ?> value="TRANSPORT">TRANSPORT</option>
+            <option class="op" <?= set_select('profil', 'FINANCE') ?> value="FINANCE">FINANCE</option>
+            <option class="op" <?= set_select('profil', 'FLOTTE') ?> value="FLOTTE">FLOTTE</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="nommod" class="form-label">Nom<span class="text-danger">*</span></label>
+          <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nommod" placeholder="Nom de l'utilisateur">
+        </div>
+        <div class="mb-3">
+          <label for="emailmod" class="form-label">Email<span class="text-danger">*</span></label>
+          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod" placeholder="Email de l'utilisateur">
+        </div>
+        <div class="mb-3">
+          <label for="telmod" class="form-label">Téléphone</label>
+          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>" placeholder="Numéro de téléphone de l'utilisateur">
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modUser" name="id" id="submod" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Optional: Place to the bottom of scripts -->
+<script>
+  const myModalDelG = new bootstrap.Modal(document.getElementById('modalIdGDel'), options)
+</script>
+<script>
+  const myModalmod = new bootstrap.Modal(document.getElementById('modalIdmodu'), options)
+</script>
 <script>
   const newuMod = new bootstrap.Modal(document.getElementById('newumod'), options)
 </script>
-
-
 <script>
   const deletemodal = new bootstrap.Modal(document.getElementById('delete'), options)
 </script>
@@ -165,6 +238,32 @@ Liste des utilisateurs
 
     $('#delUser').html(name);
     $('#delsubmit').attr('href', '<?= base_url(session()->r . '/utilisateurs/del?id=') ?>' + id);
+  });
+</script>
+<script>
+  $('.update').click(function(e) {
+    e.preventDefault();
+    const i = $(this).val();
+    $.ajax({
+      type: "get",
+      url: "<?= base_url('api/utilisateurs') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>',
+        index: i
+      },
+      dataType: "JSON",
+      success: function(response) {
+        document.querySelectorAll('.op').forEach(element => {
+          if (element.value == response.profil) {
+            $(element).attr('selected', 'selected')
+          }
+        });
+        $('#nommod').val(response.nom);
+        $('#emailmod').val(response.email);
+        $('#telmod').val(response.tel);
+        $('#submod').val(response.id);
+      }
+    });
   });
 </script>
 <?= $this->endSection(); ?>

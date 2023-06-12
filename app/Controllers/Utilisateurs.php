@@ -70,18 +70,20 @@ class Utilisateurs extends BaseController
         $modele = new ModelsUtilisateurs();
         $data = [
             'count' => $modele->countAll(),
-            'list' => $modele->paginate(100),
+            'list' => $modele->paginate(25),
             'pager' => $modele->pager
         ];
         return view('utilisateurs/list', $data);
     }
 
+    
+
     public function delete()
     {
         $data = $this->request->getVar();
         try {
-            (new ModelsUtilisateurs())->delete($data);
-            if (in_array(session()->u['id'],$data)) {
+            (new ModelsUtilisateurs())->delete($data['id']);
+            if (in_array(session()->u['id'], $data)) {
                 return redirect()->to('deconnexion');
             }
         } catch (\Throwable $th) {
@@ -134,7 +136,47 @@ class Utilisateurs extends BaseController
             return redirect()
                 ->back()
                 ->with('n', true)
-                ->with('m', 'Ajout réussie.');
+                ->with('m', 'Ajout réussi.');
+        }
+    }
+
+    public function edit()
+    {
+        $data = $this->request->getPost();
+        $rules = [
+            'email' => [
+                'rules' => 'is_unique[utilisateurs.email,email,' . $data['email'] . ']',
+                'errors' => [
+                    'is_unique' => 'Cet email existe déjà.'
+                ]
+            ],
+            'tel' => [
+                'rules' => 'is_unique[utilisateurs.tel,tel,' . $data['tel'] . ']',
+                'errors' => [
+                    'is_unique' => 'Ce numéro de téléphone existe déjà.'
+                ]
+            ],
+        ];
+        if (!$this->validate($rules)) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $this->validator->listErrors());
+        } else {
+            try {
+                (new ModelsUtilisateurs())->save($data);
+            } catch (Exception $e) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('n', false)
+                    ->with('m', '<br />' . $e->getMessage());
+            }
+            return redirect()
+                ->back()
+                ->with('n', true)
+                ->with('m', 'Modification réussie.');
         }
     }
 }

@@ -42,9 +42,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('utilisateurs', function ($routes) {
             $routes->get('/', 'utilisateurs::list');
             $routes->post('/', 'utilisateurs::add');
-            $routes->get('del', 'utilisateurs::delete');
+            $routes->add('del', 'utilisateurs::delete');
+            $routes->post('edit', 'utilisateurs::edit');
         });
     });
+});
+
+$routes->group('api',['filter' => 'api-auth'], function($routes)
+{
+    $routes->get('utilisateurs','api\utilisateurs::get');
 });
 
 /*
