@@ -29,5 +29,21 @@ class Yankee extends Seeder
             ];
         }
         $this->db->table('utilisateurs')->insertBatch($data);
+
+        $zones[] = [];
+        $tva = [
+            '18','0' 
+        ];
+        for ($i=0; $i < 100; $i++) { 
+            $zones[$i] = [
+                'nom' => $faker->address(),
+                'tva' => array_rand($tva),
+                'ht_20' => $faker->numberBetween(100000,300000),
+                'ht_40' => $faker->numberBetween(100000,300000),
+                'carburant' => $faker->numberBetween(20,400),
+            ];
+        }
+
+        $this->db->table('zones')->insertBatch($zones);
     }
 }

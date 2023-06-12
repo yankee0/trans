@@ -46,12 +46,30 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'utilisateurs::edit');
             $routes->get('search', 'utilisateurs::search');
         });
+
+        //gestion des zones
+        $routes->group('zones', function ($routes) {
+            $routes->get('/', 'zones::list');
+            $routes->post('/', 'zones::add');
+            $routes->add('del', 'zones::delete');
+            $routes->post('edit', 'zones::edit');
+            $routes->get('search', 'zones::search');
+        });
     });
 });
 
+//-------------------Routes API
 $routes->group('api',['filter' => 'api-auth'], function($routes)
 {
-    $routes->get('utilisateurs','api\utilisateurs::get');
+    $routes->group('utilisateurs', function($routes)
+    {
+        $routes->get('/','api\utilisateurs::get');
+    });
+
+    $routes->group('zones', function($routes)
+    {
+        $routes->get('/','api\zones::get');
+    });
 });
 
 /*
