@@ -44,6 +44,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('/', 'utilisateurs::add');
             $routes->add('del', 'utilisateurs::delete');
             $routes->post('edit', 'utilisateurs::edit');
+            $routes->get('search', 'utilisateurs::search');
         });
     });
 });

@@ -6,7 +6,7 @@ Liste des utilisateurs
 <?= $this->section('main'); ?>
 <div class=" container-fluid p-0">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h1 class="h3"><strong>Suivie</strong> Utilisateurs</h1>
+    <h1 class="h3"><strong>Gestion</strong> Utilisateurs</h1>
     <div>
       <a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#newumod">
         <i data-feather="plus"></i> Ajouter
@@ -14,6 +14,17 @@ Liste des utilisateurs
     </div>
   </div>
   <div class="row">
+    <div class="col-12 d-flex">
+      <div class="card flex-fill">
+        <div class="card-body ">
+          <form action="<?= base_url(session()->r.'/utilisateurs/search') ?>" class="d-flex gap-2">
+            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un utilisateur">
+            <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
@@ -26,7 +37,7 @@ Liste des utilisateurs
         <?php if ($count == 0) : ?>
           <div class="card-body">
             <div class="alert alert-warning" role="alert">
-              Aucun utilisateur enregistré.
+              Aucun utilisateur trouvé.
             </div>
           </div>
         <?php else :  ?>
@@ -43,7 +54,7 @@ Liste des utilisateurs
               </tr>
             </thead>
             <tbody>
-              <?= form_open(base_url(session()->r.'/utilisateurs/del'),[
+              <?= form_open(base_url(session()->r . '/utilisateurs/del'), [
                 'id' => 'delG'
               ]) ?>
               <?php foreach ($list as $l) : ?>

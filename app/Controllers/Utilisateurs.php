@@ -179,4 +179,25 @@ class Utilisateurs extends BaseController
                 ->with('m', 'Modification réussie.');
         }
     }
+
+    public function search(){
+        $s = $this->request->getVar('search');
+        if (empty($s)) {
+            return redirect()->to(session()->r.'/utilisateurs');
+        }
+        $modele = new ModelsUtilisateurs();
+        $r = $modele
+        ->like('nom',$s)
+        ->orLike('profil',$s)
+        ->orLike('tel',$s)
+        ->orLike('email',$s)
+        ->paginate(25);
+        $data = [
+            'count' => sizeof($r),
+            'list' => $r,
+            'pager' => $modele->pager,
+            'search' => $s
+        ];
+        return view('utilisateurs/list', $data);
+    }
 }
