@@ -9,11 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" />
   <title><?= $this->renderSection('title'); ?></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="position-relative">
   <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
       <div class="sidebar-content js-simplebar">
@@ -23,7 +25,7 @@
 
         <ul class="sidebar-nav">
 
-          <li class="sidebar-item active">
+          <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
@@ -33,13 +35,13 @@
             Administration
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'utilisateurs') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/utilisateurs') ?>">
               <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilisateurs</span>
             </a>
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
               <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
             </a>
@@ -49,19 +51,19 @@
             Flotte
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'chauffeurs') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/chauffeurs') ?>">
               <i class="align-middle" data-feather="users"></i> <span class="align-middle">Chauffeurs</span>
             </a>
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'camions') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/camions') ?>">
               <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Camions</span>
             </a>
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'remorques') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/remorques') ?>">
               <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Remorques</span>
             </a>
@@ -71,13 +73,13 @@
             Opérations
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
               <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
             </a>
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
               <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
             </a>
@@ -87,13 +89,13 @@
             Facturation
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'f-livraisons') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/livraisons') ?>">
               <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures livraisons</span>
             </a>
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'f-transferts') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/transferts') ?>">
               <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures transferts</span>
             </a>
@@ -104,13 +106,13 @@
             Rapports
           </li>
 
-          <li class="sidebar-item">
+          <li class="sidebar-item <?= (session()->p == 'r-livraions') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/livraisons') ?>">
               <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
             </a>
           </li>
 
-          <li class="sidebar-item mb-5">
+          <li class="sidebar-item  mb-5 <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/transferts') ?>">
               <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
             </a>
@@ -272,10 +274,10 @@
                 <a class="dropdown-item disabled" href="#"><i class="align-middle me-1" data-feather="user"></i> Profil</a>
                 <a class="dropdown-item disabled" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="lock"></i> Modifier mon mot de passe</a>
-                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modmdp"><i class="align-middle me-1" data-feather="lock"></i> Modifier mon mot de passe</a>
+                <a class="dropdown-item disabled" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?= base_url('deconnexion') ?>"><i class="align-middle me-1" data-feather="power"></i> Se déconnecter</a>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutMo"><i class="align-middle me-1" data-feather="power"></i> Se déconnecter</a>
               </div>
             </li>
           </ul>
@@ -284,6 +286,8 @@
 
       <main class="content">
         <?= $this->renderSection('main'); ?>
+
+
       </main>
 
       <footer class="footer">
@@ -307,7 +311,89 @@
     </div>
   </div>
 
+  <div class="modal fade" id="logoutMo" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="logmodtit" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logmodtit">Déconnexion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Souhaitez-vous fermer cette session?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary text-dark" data-bs-dismiss="modal">Non, fermer</button>
+          <button type="button" onclick="window.location='<?= base_url('deconnexion') ?>'" class="btn btn-primary">Oui, se déconnecter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modmdp" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="mdptitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mdptitle">Modifier mon mot de passe</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <?= form_open(base_url(session()->r) . '/modifier_mdp', ['id' => 'mdpForm']) ?>
+          <div class="mb-3">
+            <label for="mdpa" class="form-label">Mot de passe actuel</label>
+            <input type="password" class="form-control" required name="mdpa" id="mdpa" placeholder="Entrez votre mot de passe actuel">
+          </div>
+          <div class="mb-3">
+            <label for="mdp" class="form-label">Nouveau mot de passe</label>
+            <input type="password" class="form-control" required value="<?= set_value('mdp', '') ?>" name="mdp" id="mdp" placeholder="Entrez le nouveau mot de passe">
+          </div>
+          <div class="mb-3">
+            <label for="mdpc" class="form-label">Confirmer le mot de passe</label>
+            <input type="password" class="form-control" required name="mdpc" id="mdpc" placeholder="Confirmez le mot de passe">
+          </div>
+          <?= csrf_field() ?>
+          <?= form_close() ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" name="id" value="<?= session()->u['id'] ?>" form="mdpForm" class="btn btn-primary">Modifier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <?php if (session()->has('n')) : ?>
+    <div class=" position-fixed bottom-0 end-0 p-2 notif">
+      <div class="alert alert-<?= (session()->n) ? 'success' : 'danger' ?>" role="alert">
+        <strong><?= (session()->n) ? 'Succès!' : 'Echec!' ?></strong> <?= session()->m ?>
+      </div>
+    </div>
+  <?php endif ?>
+
+  <div id="backTop" class=" position-fixed bottom-0 end-0 p-4 d-none">
+    <a class="btn btn-primary btn-lg display-4" href="#" role="button"><i class="align-middle " data-feather="arrow-up"></i></a>
+  </div>
+
+  <script>
+    const momdp = new bootstrap.Modal(document.getElementById('modmdp'), options)
+  </script>
+
+  <script>
+    const logout = new bootstrap.Modal(document.getElementById('logoutMo'), options)
+  </script>
+
+  <script>
+    document.addEventListener('scroll', () => {
+      const s = window.scrollY
+      if (s > 300) {
+        $('#backTop').addClass('d-block');
+      } else {
+        $('#backTop').removeClass('d-block');
+      }
+    })
+  </script>
+
   <script src="<?= base_url('assets/js/app.js') ?>"></script>
+
 
 </body>
 

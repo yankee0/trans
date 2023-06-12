@@ -25,7 +25,8 @@
           </div>
           <h1 class="mt-1 mb-3">2.382</h1>
           <div class="mb-0">
-            <span class="text-muted">Total mensuel</span>
+            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+            <span class="text-muted">/ mois dernier</span>
           </div>
         </div>
       </div>
@@ -46,7 +47,8 @@
           </div>
           <h1 class="mt-1 mb-3">2.382</h1>
           <div class="mb-0">
-            <span class="text-muted">Total mensuel</span>
+            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+            <span class="text-muted">/ mois dernier</span>
           </div>
         </div>
       </div>
@@ -67,8 +69,7 @@
           </div>
           <h1 class="mt-1 mb-3">2.382</h1>
           <div class="mb-0">
-            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-            <span class="text-muted">/ mois dernier</span>
+            <span class="text-muted">Total mensuel</span>
           </div>
         </div>
       </div>
@@ -89,8 +90,7 @@
           </div>
           <h1 class="mt-1 mb-3">2.382</h1>
           <div class="mb-0">
-            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-            <span class="text-muted">/ mois dernier</span>
+            <span class="text-muted">Total mensuel</span>
           </div>
         </div>
       </div>
@@ -98,10 +98,22 @@
   </div>
 
   <div class="row">
-    <div class="col d-flex order-2 order-xxl-3">
+    <div class="col-md-6 col-lg-7 col-xl-8 d-flex">
       <div class="card flex-fill w-100">
         <div class="card-header">
 
+          <h5 class="card-title mb-0">Monthly Sales</h5>
+        </div>
+        <div class="card-body d-flex w-100">
+          <div class="align-self-center chart chart-lg">
+            <canvas id="chartjs-dashboard-bar"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-4 d-flex">
+      <div class="card flex-fill w-100">
+        <div class="card-header">
           <h5 class="card-title mb-0">Browser Usage</h5>
         </div>
         <div class="card-body d-flex">
@@ -145,19 +157,7 @@
         </div>
       </div>
     </div> -->
-    <div class="col-12 col-lg-8 d-flex">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
 
-          <h5 class="card-title mb-0">Monthly Sales</h5>
-        </div>
-        <div class="card-body d-flex w-100">
-          <div class="align-self-center chart chart-lg">
-            <canvas id="chartjs-dashboard-bar"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="row">

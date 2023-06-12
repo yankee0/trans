@@ -16,6 +16,7 @@
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 defined('APP_NAME') || define('APP_NAME', 'POLY-TRANS');
 defined('APP_WEB') || define('APP_WEB', 'https://www.poly-trans.sn');
+defined('APP_DEFAULT_PWD') || define('APP_DEFAULT_PWD', sha1('polytrans123'));
 
 /*
  | --------------------------------------------------------------------------

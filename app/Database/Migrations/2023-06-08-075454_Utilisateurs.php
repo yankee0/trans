@@ -21,7 +21,7 @@ class Utilisateurs extends Migration
                 'null' => true,
             ],
             'profil' => [
-                'type' => 'ENUM("ADMIN","FACTURATION","CONTROLE","TRANSPORT","FINANCE")',
+                'type' => 'ENUM("ADMIN","FACTURATION","CONTROLE","TRANSPORT","FINANCE","FLOTTE")',
                 'null' => true,
             ],
             'tel' => [

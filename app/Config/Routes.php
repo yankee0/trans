@@ -33,11 +33,17 @@ $routes->get('/', 'Auth::index');
 $routes->post('/', 'Auth::login');
 $routes->get('/deconnexion', 'Auth::logout');
 
-$routes->group('',['filter' => 'auth'], function($routes)
-{
-    $routes->group('admin', function($routes)
-    {
-        $routes->get('/','admin::index');
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+    $routes->group('admin', ['filter' => 'admin'], function ($routes) {
+        $routes->get('/', 'admin::index');
+        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+
+        //gestion des utilisateurs
+        $routes->group('utilisateurs', function ($routes) {
+            $routes->get('/', 'utilisateurs::list');
+            $routes->post('/', 'utilisateurs::add');
+            $routes->get('del', 'utilisateurs::delete');
+        });
     });
 });
 

@@ -61,6 +61,15 @@ class Livraisons extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'annulation' => [
+                'type' => 'ENUM("OUI","NON")',
+                'default' => "NON",
+            ],
+            'motif' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

@@ -29,6 +29,7 @@ class Auth extends BaseController
         } else {
             unset($occ['mdp']);
             session()->set('u', $occ);
+            session()->set('p','dashboard');
             switch (session()->u['profil']) {
                 case 'ADMIN':
                     session()->set('r', 'admin');
