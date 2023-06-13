@@ -1,12 +1,12 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Liste des camions
+Liste des remorques
 <?= $this->endSection(); ?>
 
 <?= $this->section('main'); ?>
 <div class=" container-fluid p-0">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h1 class="h3"><strong>Gestion</strong> camions</h1>
+    <h1 class="h3"><strong>Gestion</strong> Remorques</h1>
     <div>
       <a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#modalIdadd">
         <i data-feather="plus"></i> Ajouter
@@ -17,8 +17,8 @@ Liste des camions
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-body ">
-          <form action="<?= base_url(session()->r . '/camions/search') ?>" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un camion">
+          <form action="<?= base_url(session()->r . '/remorques/search') ?>" class="d-flex gap-2">
+            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher une remorque">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
           </form>
         </div>
@@ -27,7 +27,7 @@ Liste des camions
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
-          <h5 class="card-title mb-3">Liste des camions (<span class="text-primary"><?= $count ?></span>)</h5>
+          <h5 class="card-title mb-3">Liste des remorques (<span class="text-primary"><?= $count ?></span>)</h5>
           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalIddelG">
             Suppression groupée
           </button>
@@ -40,7 +40,7 @@ Liste des camions
           </div>
 
         <?php else : ?>
-          <?= form_open(base_url(session()->r . '/camions/del'), [
+          <?= form_open(base_url(session()->r . '/remorques/del'), [
             'id' => 'gd'
           ]) ?>
           <table class="table table-hover my-0">
@@ -66,10 +66,10 @@ Liste des camions
                   <td class="d-none d-xl-table-cell"><?= $l['as'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la remorque" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la camion" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la remorque" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -99,7 +99,7 @@ Liste des camions
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?= form_open(base_url(session()->r . '/camions'), [
+        <?= form_open(base_url(session()->r . '/remorques'), [
           'id' =>  'ezna'
         ]) ?>
         <div class="mb-3">
@@ -148,7 +148,7 @@ Liste des camions
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?= form_open(base_url(session()->r . '/camions/edit'), [
+        <?= form_open(base_url(session()->r . '/remorques/edit'), [
           'id' =>  'ezn'
         ]) ?>
         <div class="mb-3">
@@ -198,8 +198,8 @@ Liste des camions
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Supprimer le camion: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/camions/del') ?>" id="delForm" method="get"></form>
+        Supprimer le remorque: <span id="zn" class="text-primary"></span>
+        <form action="<?= base_url(session()->r . '/remorques/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -218,7 +218,7 @@ Liste des camions
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Supprimer les camions sélectionnés?
+        Supprimer les remorques sélectionnées?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -233,7 +233,6 @@ Liste des camions
 <script>
   const myModal = new bootstrap.Modal(document.getElementById('modalIddelG'), options)
 </script>
-
 <script>
   const myModalDelete = new bootstrap.Modal(document.getElementById('modalIdDelete'), options)
 </script>
@@ -243,7 +242,7 @@ Liste des camions
     const i = $(this).val();
     $.ajax({
       type: "get",
-      url: "<?= base_url('api/camions') ?>",
+      url: "<?= base_url('api/remorques') ?>",
       data: {
         token: '<?= csrf_hash() ?>',
         index: i
@@ -261,7 +260,7 @@ Liste des camions
     const i = $(this).val();
     $.ajax({
       type: "get",
-      url: "<?= base_url('api/camions') ?>",
+      url: "<?= base_url('api/remorques') ?>",
       data: {
         token: '<?= csrf_hash() ?>',
         index: i

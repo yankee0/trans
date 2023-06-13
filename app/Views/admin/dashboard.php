@@ -67,7 +67,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">2.382</h1>
+          <h1 class="mt-1 mb-3"><?= $chauffeur ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -88,7 +88,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">2.382</h1>
+          <h1 class="mt-1 mb-3"><?= $camion ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>

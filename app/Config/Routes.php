@@ -73,30 +73,38 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'camions::edit');
             $routes->get('search', 'camions::search');
         });
+
+        //gestion des remorques
+        $routes->group('remorques', function ($routes) {
+            $routes->get('/', 'remorques::list');
+            $routes->post('/', 'remorques::add');
+            $routes->add('del', 'remorques::delete');
+            $routes->post('edit', 'remorques::edit');
+            $routes->get('search', 'remorques::search');
+        });
     });
 });
 
 //-------------------Routes API
-$routes->group('api',['filter' => 'api-auth'], function($routes)
-{
-    $routes->group('utilisateurs', function($routes)
-    {
-        $routes->get('/','api\utilisateurs::get');
+$routes->group('api', ['filter' => 'api-auth'], function ($routes) {
+    $routes->group('utilisateurs', function ($routes) {
+        $routes->get('/', 'api\utilisateurs::get');
     });
 
-    $routes->group('zones', function($routes)
-    {
-        $routes->get('/','api\zones::get');
+    $routes->group('zones', function ($routes) {
+        $routes->get('/', 'api\zones::get');
     });
 
-    $routes->group('chauffeurs', function($routes)
-    {
-        $routes->get('/','api\chauffeurs::get');
+    $routes->group('chauffeurs', function ($routes) {
+        $routes->get('/', 'api\chauffeurs::get');
     });
 
-    $routes->group('camions', function($routes)
-    {
-        $routes->get('/','api\camions::get');
+    $routes->group('camions', function ($routes) {
+        $routes->get('/', 'api\camions::get');
+    });
+
+    $routes->group('remorques', function ($routes) {
+        $routes->get('/', 'api\remorques::get');
     });
 });
 
