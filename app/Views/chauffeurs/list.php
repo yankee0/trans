@@ -1,12 +1,12 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Liste des zones
+Liste des chauffeurs
 <?= $this->endSection(); ?>
 
 <?= $this->section('main'); ?>
 <div class=" container-fluid p-0">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h1 class="h3"><strong>Gestion</strong> Zones</h1>
+    <h1 class="h3"><strong>Gestion</strong> chauffeurs</h1>
     <div>
       <a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#modalIdadd">
         <i data-feather="plus"></i> Ajouter
@@ -17,8 +17,8 @@ Liste des zones
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-body ">
-          <form action="<?= base_url(session()->r . '/zones/search') ?>" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher une zone">
+          <form action="<?= base_url(session()->r . '/chauffeurs/search') ?>" class="d-flex gap-2">
+            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un chauffeur">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
           </form>
         </div>
@@ -27,7 +27,7 @@ Liste des zones
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
-          <h5 class="card-title mb-3">Liste des zones (<span class="text-primary"><?= $count ?></span>)</h5>
+          <h5 class="card-title mb-3">Liste des chauffeurs (<span class="text-primary"><?= $count ?></span>)</h5>
           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalIddelG">
             Suppression groupée
           </button>
@@ -35,12 +35,12 @@ Liste des zones
         <?php if (sizeof($list) == 0) : ?>
           <div class="card-body">
             <div class="alert alert-warning" role="alert">
-              Aucune zone trouvée.
+              Aucun résultat.
             </div>
           </div>
 
         <?php else : ?>
-          <?= form_open(base_url(session()->r . '/zones/del'), [
+          <?= form_open(base_url(session()->r . '/chauffeurs/del'), [
             'id' => 'gd'
           ]) ?>
           <table class="table table-hover my-0">
@@ -48,10 +48,9 @@ Liste des zones
               <tr>
                 <th></th>
                 <th>Nom</th>
-                <th class="d-none d-xl-table-cell">TVA (en %)</th>
-                <th class="d-none d-sm-table-cell">HT 20'</th>
-                <th class="d-none d-xl-table-cell">HT 40'</th>
-                <th class="d-none d-sm-table-cell">Carburant (en L)</th>
+                <th class="d-none d-xl-table-cell">Téléphone</th>
+                <th class="d-none d-sm-table-cell">Compagnie</th>
+                <th class="d-none d-xl-table-cell">Camion</th>
                 <th></th>
               </tr>
             </thead>
@@ -62,16 +61,16 @@ Liste des zones
                     <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                   </td>
                   <td><?= $l['nom'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['tva'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['ht_20'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['ht_40'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['carburant'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
+                  <td class="d-none d-sm-table-cell"><?= $l['societe'] ?></td>
+
+                  <td class="d-none d-xl-table-cell"><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -101,28 +100,30 @@ Liste des zones
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?= form_open(base_url(session()->r . '/zones'), [
+        <?= form_open(base_url(session()->r . '/chauffeurs'), [
           'id' =>  'ezna'
         ]) ?>
         <div class="mb-3">
-          <label for="nom" class="form-label">Nom de la zone<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="nom" id="nom" value="<?= set_value('nom') ?>" placeholder="Entrez le nom de la zone" required>
+          <label for="nom" class="form-label">Nom du chauffeur<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" value="<?= set_value('nom') ?>" name="nom" id="nom" placeholder="Entrez le nom du chauffeur" required>
         </div>
         <div class="mb-3">
-          <label for="tva" class="form-label">TVA de la zone</label>
-          <input type="number" class="form-control" name="tva" id="tva" value="<?= set_value('tva', 0) ?>" placeholder="Entrez la valeur">
+          <label for="tel" class="form-label">Numéro de téléphone<span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" required value="<?= set_value('tel') ?>" name="tel" id="tel" placeholder="Entrez le numéro de téléphone du chauffeur">
         </div>
         <div class="mb-3">
-          <label for="ht_20" class="form-label">Hors taxes 20'</label>
-          <input type="number" class="form-control" name="ht_20" id="ht_20" value="<?= set_value('ht_20', 0) ?>" placeholder="Entrez la valeur">
+          <label for="societe" class="form-label">Compagnie<span class="text-danger">*</span></label>
+          <select class="form-select " name="societe" id="societe">
+            <option value="POLY-TRANS SUARL" <?= set_select('societe', 'POLY-TRANS SUARL', true) ?>>POLY-TRANS SUARL</option>
+            <option value="CMA" <?= set_select('societe', 'CMA', false) ?>>CMA</option>
+          </select>
         </div>
         <div class="mb-3">
-          <label for="ht_40" class="form-label">Hors taxes 40'</label>
-          <input type="number" class="form-control" name="ht_40" id="ht_40" value="<?= set_value('ht_40', 0) ?>" placeholder="Entrez la valeur">
-        </div>
-        <div class="mb-3">
-          <label for="carburant" class="form-label">Carburant</label>
-          <input type="number" class="form-control" name="carburant" id="carburant" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
+          <label for="camion" class="form-label">Camions</label>
+          <select class="form-select" name="camion" id="camion" required>
+            <option value="" hidden selected>Sélectionner un camion</option>
+            <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
+          </select>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -148,28 +149,30 @@ Liste des zones
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?= form_open(base_url(session()->r . '/zones/edit'), [
+        <?= form_open(base_url(session()->r . '/chauffeurs/edit'), [
           'id' =>  'ezn'
         ]) ?>
         <div class="mb-3">
-          <label for="nom" class="form-label">Nom de la zone<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="nom" id="nommod" value="<?= set_value('nom') ?>" placeholder="Entrez le nom de la zone" required>
+          <label for="nom" class="form-label">Nom du chauffeur<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" value="<?= set_value('nom') ?>" name="nom" id="nommod" placeholder="Entrez le nom du chauffeur" required>
         </div>
         <div class="mb-3">
-          <label for="tva" class="form-label">TVA de la zone</label>
-          <input type="number" class="form-control" name="tva" id="tvamod" value="<?= set_value('tva', 0) ?>" placeholder="Entrez la valeur">
+          <label for="tel" class="form-label">Numéro de téléphone<span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" required value="<?= set_value('tel') ?>" name="tel" id="telmod" placeholder="Entrez le numéro de téléphone du chauffeur">
         </div>
         <div class="mb-3">
-          <label for="ht_20" class="form-label">Hors taxes 20'</label>
-          <input type="number" class="form-control" name="ht_20" id="ht_20mod" value="<?= set_value('ht_20', 0) ?>" placeholder="Entrez la valeur">
+          <label for="societe" class="form-label">Compagnie<span class="text-danger">*</span></label>
+          <select class="form-select " name="societe" id="societemod">
+            <option value="POLY-TRANS SUARL" <?= set_select('societe', 'POLY-TRANS SUARL', true) ?>>POLY-TRANS SUARL</option>
+            <option value="CMA" <?= set_select('societe', 'CMA', false) ?>>CMA</option>
+          </select>
         </div>
         <div class="mb-3">
-          <label for="ht_40" class="form-label">Hors taxes 40'</label>
-          <input type="number" class="form-control" name="ht_40" id="ht_40mod" value="<?= set_value('ht_40', 0) ?>" placeholder="Entrez la valeur">
-        </div>
-        <div class="mb-3">
-          <label for="carburant" class="form-label">Carburant</label>
-          <input type="number" class="form-control" name="carburant" id="carburantmod" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
+          <label for="camion" class="form-label">Camions</label>
+          <select class="form-select" name="camion" id="camionmod" required>
+            <option value="" hidden selected>Sélectionner un camion</option>
+            <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
+          </select>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -197,8 +200,8 @@ Liste des zones
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Supprimer la zone: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/zones/del') ?>" id="delForm" method="get"></form>
+        Supprimer la chauffeur: <span id="zn" class="text-primary"></span>
+        <form action="<?= base_url(session()->r . '/chauffeurs/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -217,7 +220,7 @@ Liste des zones
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Supprimer les zones sélectionnées?
+        Supprimer les chauffeurs sélectionnées?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -242,7 +245,7 @@ Liste des zones
     const i = $(this).val();
     $.ajax({
       type: "get",
-      url: "<?= base_url('api/zones') ?>",
+      url: "<?= base_url('api/chauffeurs') ?>",
       data: {
         token: '<?= csrf_hash() ?>',
         index: i
@@ -260,22 +263,31 @@ Liste des zones
     const i = $(this).val();
     $.ajax({
       type: "get",
-      url: "<?= base_url('api/zones') ?>",
+      url: "<?= base_url('api/chauffeurs') ?>",
       data: {
         token: '<?= csrf_hash() ?>',
         index: i
       },
       dataType: "JSON",
       success: function(response) {
-        $('#nommod').val(response.nom);
-        $('#tvamod').val(response.tva);
-        $('#ht_20mod').val(response.ht_20);
-        $('#ht_40mod').val(response.ht_40);
-        $('#carburantmod').val(response.carburant);
         $('#eznb').val(response.id);
+        $('#nommod').val(response.nom);
+        $('#telmod').val(response.tel);
+        document.querySelectorAll('#camionmod option').forEach(element => {
+          if (element.value == response.camion) {
+            $(element).attr('selected', 'selected')
+          }
+        })
+        document.querySelectorAll('#societemod option').forEach(element => {
+          if (element.value == response.societe) {
+            $(element).attr('selected', 'selected')
+          }
+        })
       }
     });
   });
+
+  
 </script>
 
 <?= $this->endSection(); ?>

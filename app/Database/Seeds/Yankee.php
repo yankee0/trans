@@ -31,9 +31,7 @@ class Yankee extends Seeder
         $this->db->table('utilisateurs')->insertBatch($data);
 
         $zones[] = [];
-        $tva = [
-            '18','0' 
-        ];
+        $tva = ["18","0"];
         for ($i=0; $i < 100; $i++) { 
             $zones[$i] = [
                 'nom' => $faker->address(),
@@ -45,5 +43,17 @@ class Yankee extends Seeder
         }
 
         $this->db->table('zones')->insertBatch($zones);
+
+        $drivers[] = [];
+        $society = ["CMA","POLY-TRANS"];
+        for ($i=0; $i < 100; $i++) { 
+            $drivers[$i] = [
+                'nom' => $faker->name(),
+                'tel' => $faker->phoneNumber(),
+                'societe' => array_rand($society),
+            ];
+        }
+        $this->db->table('chauffeurs')->insertBatch($drivers);
+
     }
 }

@@ -143,15 +143,16 @@ class Utilisateurs extends BaseController
     public function edit()
     {
         $data = $this->request->getPost();
+        $u = (new ModelsUtilisateurs())->find($data['id']);
         $rules = [
             'email' => [
-                'rules' => 'is_unique[utilisateurs.email,email,' . $data['email'] . ']',
+                'rules' => 'is_unique[utilisateurs.email,email,' . $u['email'] . ']',
                 'errors' => [
                     'is_unique' => 'Cet email existe déjà.'
                 ]
             ],
             'tel' => [
-                'rules' => 'is_unique[utilisateurs.tel,tel,' . $data['tel'] . ']',
+                'rules' => 'is_unique[utilisateurs.tel,tel,' . $u['tel'] . ']',
                 'errors' => [
                     'is_unique' => 'Ce numéro de téléphone existe déjà.'
                 ]

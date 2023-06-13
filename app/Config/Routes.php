@@ -55,6 +55,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'zones::edit');
             $routes->get('search', 'zones::search');
         });
+
+        //gestion des chauffeurs
+        $routes->group('chauffeurs', function ($routes) {
+            $routes->get('/', 'chauffeurs::list');
+            $routes->post('/', 'chauffeurs::add');
+            $routes->add('del', 'chauffeurs::delete');
+            $routes->post('edit', 'chauffeurs::edit');
+            $routes->get('search', 'chauffeurs::search');
+        });
     });
 });
 
@@ -69,6 +78,11 @@ $routes->group('api',['filter' => 'api-auth'], function($routes)
     $routes->group('zones', function($routes)
     {
         $routes->get('/','api\zones::get');
+    });
+
+    $routes->group('chauffeurs', function($routes)
+    {
+        $routes->get('/','api\chauffeurs::get');
     });
 });
 

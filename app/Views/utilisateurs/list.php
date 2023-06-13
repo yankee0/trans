@@ -138,7 +138,7 @@ Liste des utilisateurs
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitleId">Ajouter un utilisateurs</h5>
+        <h5 class="modal-title" id="modalTitleId">Ajouter un utilisateur</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -164,11 +164,11 @@ Liste des utilisateurs
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email de l'utilisateur">
+          <input required type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email de l'utilisateur">
         </div>
         <div class="mb-3">
-          <label for="tel" class="form-label">Téléphone</label>
-          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>" placeholder="Numéro de téléphone de l'utilisateur">
+          <label for="tel" class="form-label">Téléphone<span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone de l'utilisateur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -210,11 +210,11 @@ Liste des utilisateurs
         </div>
         <div class="mb-3">
           <label for="emailmod" class="form-label">Email<span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod" placeholder="Email de l'utilisateur">
+          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod" required placeholder="Email de l'utilisateur">
         </div>
         <div class="mb-3">
-          <label for="telmod" class="form-label">Téléphone</label>
-          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>" placeholder="Numéro de téléphone de l'utilisateur">
+          <label for="telmod" class="form-label">Téléphone<span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone de l'utilisateur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
