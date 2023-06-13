@@ -1,12 +1,12 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Liste des chauffeurs
+Liste des camions
 <?= $this->endSection(); ?>
 
 <?= $this->section('main'); ?>
 <div class=" container-fluid p-0">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h1 class="h3"><strong>Gestion</strong> chauffeurs</h1>
+    <h1 class="h3"><strong>Gestion</strong> camions</h1>
     <div>
       <a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#modalIdadd">
         <i data-feather="plus"></i> Ajouter
@@ -17,8 +17,8 @@ Liste des chauffeurs
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-body ">
-          <form action="<?= base_url(session()->r . '/chauffeurs/search') ?>" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un chauffeur">
+          <form action="<?= base_url(session()->r . '/camions/search') ?>" class="d-flex gap-2">
+            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un camion">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
           </form>
         </div>
@@ -27,7 +27,7 @@ Liste des chauffeurs
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
-          <h5 class="card-title mb-3">Liste des chauffeurs (<span class="text-primary"><?= $count ?></span>)</h5>
+          <h5 class="card-title mb-3">Liste des camions (<span class="text-primary"><?= $count ?></span>)</h5>
           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalIddelG">
             Suppression groupée
           </button>
@@ -40,17 +40,17 @@ Liste des chauffeurs
           </div>
 
         <?php else : ?>
-          <?= form_open(base_url(session()->r . '/chauffeurs/del'), [
+          <?= form_open(base_url(session()->r . '/camions/del'), [
             'id' => 'gd'
           ]) ?>
           <table class="table table-hover my-0">
             <thead>
               <tr>
                 <th></th>
-                <th>Nom</th>
-                <th class="d-none d-xl-table-cell">Téléphone</th>
-                <th class="d-none d-sm-table-cell">Société</th>
-                <th class="d-none d-xl-table-cell">Camion</th>
+                <th>Immatriculation</th>
+                <th class="d-none d-xl-table-cell">Société</th>
+                <th class="d-none d-sm-table-cell">Fin visite technique</th>
+                <th class="d-none d-xl-table-cell">Fin assurance</th>
                 <th></th>
               </tr>
             </thead>
@@ -60,17 +60,16 @@ Liste des chauffeurs
                   <td id="<?= $l['id'] ?>">
                     <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                   </td>
-                  <td><?= $l['nom'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['societe'] ?></td>
-
-                  <td class="d-none d-xl-table-cell"><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
+                  <td><?= $l['im'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $l['societe'] ?></td>
+                  <td class="d-none d-sm-table-cell"><?= $l['vt'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $l['as'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la camion" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -100,34 +99,31 @@ Liste des chauffeurs
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?= form_open(base_url(session()->r . '/chauffeurs'), [
+        <?= form_open(base_url(session()->r . '/camions'), [
           'id' =>  'ezna'
         ]) ?>
         <div class="mb-3">
-          <label for="nom" class="form-label">Nom du chauffeur<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" value="<?= set_value('nom') ?>" name="nom" id="nom" placeholder="Entrez le nom du chauffeur" required>
+          <label for="im" class="form-label">Immatriculation<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" name="im" id="im" value="<?= set_value('im') ?>" placeholder="Entrez le numéro d'immatriculation" required>
         </div>
         <div class="mb-3">
-          <label for="tel" class="form-label">Numéro de téléphone<span class="text-danger">*</span></label>
-          <input type="tel" class="form-control" required value="<?= set_value('tel') ?>" name="tel" id="tel" placeholder="Entrez le numéro de téléphone du chauffeur">
-        </div>
-        <div class="mb-3">
-          <label for="societe" class="form-label">Société<span class="text-danger">*</span></label>
+          <label for="societe" class="form-label">Compagnie<span class="text-danger">*</span></label>
           <select class="form-select " name="societe" id="societe">
             <option value="POLY-TRANS SUARL" <?= set_select('societe', 'POLY-TRANS SUARL', true) ?>>POLY-TRANS SUARL</option>
             <option value="CMA" <?= set_select('societe', 'CMA', false) ?>>CMA</option>
           </select>
         </div>
         <div class="mb-3">
-          <label for="camion" class="form-label">Camions</label>
-          <select class="form-select" name="camion" id="camion" required>
-            <option value="" hidden selected>Sélectionner un camion</option>
-            <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
-            <?php foreach ($cam as $c) : ?>
-              <option value="<?= $c['id'] ?>" <?= set_select('camion', $c['id'], false) ?>><?= $c['im'] ?></option>
-            <?php endforeach ?>
-          </select>
+          <label for="vt" class="form-label">Fin visite technique</label>
+          <input type="date" class="form-control" name="vt" id="vt" aria-describedby="helpIdvt" value="<?= set_value('vt', null) ?>">
+          <small id="helpIdvt" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
         </div>
+        <div class="mb-3">
+          <label for="as" class="form-label">Fin assurrance</label>
+          <input type="date" class="form-control" name="as" id="as" aria-describedby="helpIdas" value="<?= set_value('as', null) ?>">
+          <small id="helpIdas" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
+        </div>
+
         <?= csrf_field() ?>
         <?= form_close() ?>
       </div>
@@ -152,33 +148,29 @@ Liste des chauffeurs
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?= form_open(base_url(session()->r . '/chauffeurs/edit'), [
+        <?= form_open(base_url(session()->r . '/camions/edit'), [
           'id' =>  'ezn'
         ]) ?>
         <div class="mb-3">
-          <label for="nom" class="form-label">Nom du chauffeur<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" value="<?= set_value('nom') ?>" name="nom" id="nommod" placeholder="Entrez le nom du chauffeur" required>
+          <label for="immod" class="form-label">Immatriculation<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" name="im" id="immod" value="<?= set_value('im') ?>" placeholder="Entrez le numéro d'immatriculation" required>
         </div>
         <div class="mb-3">
-          <label for="tel" class="form-label">Numéro de téléphone<span class="text-danger">*</span></label>
-          <input type="tel" class="form-control" required value="<?= set_value('tel') ?>" name="tel" id="telmod" placeholder="Entrez le numéro de téléphone du chauffeur">
-        </div>
-        <div class="mb-3">
-          <label for="societe" class="form-label">Société<span class="text-danger">*</span></label>
+          <label for="societemod" class="form-label">Compagnie<span class="text-danger">*</span></label>
           <select class="form-select " name="societe" id="societemod">
             <option value="POLY-TRANS SUARL" <?= set_select('societe', 'POLY-TRANS SUARL', true) ?>>POLY-TRANS SUARL</option>
             <option value="CMA" <?= set_select('societe', 'CMA', false) ?>>CMA</option>
           </select>
         </div>
         <div class="mb-3">
-          <label for="camion" class="form-label">Camions</label>
-          <select class="form-select" name="camion" id="camionmod" required>
-            <option value="" hidden selected>Sélectionner un camion</option>
-            <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
-            <?php foreach ($cam as $c) : ?>
-              <option value="<?= $c['id'] ?>" <?= set_select('camion', $c['id'], false) ?>><?= $c['im'] ?></option>
-            <?php endforeach ?>
-          </select>
+          <label for="vtmod" class="form-label">Fin visite technique</label>
+          <input type="date" class="form-control" name="vt" id="vtmod" aria-describedby="helpIdvt" value="<?= set_value('vt', null) ?>">
+          <small id="helpIdvt" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
+        </div>
+        <div class="mb-3">
+          <label for="asmod" class="form-label">Fin assurrance</label>
+          <input type="date" class="form-control" name="as" id="asmod" aria-describedby="helpIdas" value="<?= set_value('as', null) ?>">
+          <small id="helpIdas" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -206,8 +198,8 @@ Liste des chauffeurs
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Supprimer le chauffeur: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/chauffeurs/del') ?>" id="delForm" method="get"></form>
+        Supprimer le camion: <span id="zn" class="text-primary"></span>
+        <form action="<?= base_url(session()->r . '/camions/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -226,7 +218,7 @@ Liste des chauffeurs
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Supprimer les chauffeurs sélectionnées?
+        Supprimer les camions sélectionnées?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -251,14 +243,14 @@ Liste des chauffeurs
     const i = $(this).val();
     $.ajax({
       type: "get",
-      url: "<?= base_url('api/chauffeurs') ?>",
+      url: "<?= base_url('api/camions') ?>",
       data: {
         token: '<?= csrf_hash() ?>',
         index: i
       },
       dataType: "JSON",
       success: function(response) {
-        $('#zn').html(response.nom);
+        $('#zn').html(response.im);
         $('#znb').val(response.id);
       }
     });
@@ -269,31 +261,25 @@ Liste des chauffeurs
     const i = $(this).val();
     $.ajax({
       type: "get",
-      url: "<?= base_url('api/chauffeurs') ?>",
+      url: "<?= base_url('api/camions') ?>",
       data: {
         token: '<?= csrf_hash() ?>',
         index: i
       },
       dataType: "JSON",
       success: function(response) {
-        $('#eznb').val(response.id);
-        $('#nommod').val(response.nom);
-        $('#telmod').val(response.tel);
-        document.querySelectorAll('#camionmod option').forEach(element => {
-          if (element.value == response.camion) {
-            $(element).attr('selected', 'selected')
-          }
-        })
+        $('#immod').val(response.im);
+        $('#vtmod').val(response.vt);
+        $('#asmod').val(response.as);
         document.querySelectorAll('#societemod option').forEach(element => {
           if (element.value == response.societe) {
             $(element).attr('selected', 'selected')
           }
         })
+        $('#eznb').val(response.id);
       }
     });
   });
-
-  
 </script>
 
 <?= $this->endSection(); ?>

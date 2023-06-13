@@ -4,38 +4,27 @@ namespace App\Controllers;
 
 use Exception;
 use App\Controllers\BaseController;
-use App\Models\Camions;
-use App\Models\Chauffeurs as ModelsChauffeurs;
+use App\Models\Camions as ModelsCamions;
 
-class Chauffeurs extends BaseController
+class Camions extends BaseController
 {
     public function list()
     {
-        session()->p = 'chauffeurs';
-        $modele = new ModelsChauffeurs();
-        $list = $modele->paginate(25);
-        for ($i = 0; $i < sizeof($list); $i++) {
-            if (!empty($list[$i]['camion'])) {
-                $l = (new Camions())->find($list[$i]['camion']);
-                if ($l) {
-                    $list[$i]['camion'] = $l['im'];
-                }
-            }
-        }
+        session()->p = 'camions';
+        $modele = new ModelsCamions();
         $data = [
             'count' => $modele->countAll(),
-            'list' => $list,
-            'pager' => $modele->pager,
-            'cam' => (new Camions())->orderBy('im')->findAll()
+            'list' => $modele->paginate(25),
+            'pager' => $modele->pager
         ];
-        return view('chauffeurs/list', $data);
+        return view('camions/list', $data);
     }
 
     public function delete()
     {
         $data = $this->request->getVar();
         try {
-            (new ModelsChauffeurs())->delete($data['id']);
+            (new ModelsCamions())->delete($data['id']);
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
@@ -51,14 +40,14 @@ class Chauffeurs extends BaseController
     public function edit()
     {
         $data = $this->request->getPost();
-        $u = (new ModelsChauffeurs())->find($data['id']);
+        $u = (new ModelsCamions())->find($data['id']);
         $rules = [
-            'tel' => [
-                'rules' => 'is_unique[chauffeurs.tel,tel,' . $u['tel'] . ']',
+            'im' => [
+                'rules' => 'is_unique[camions.im,im,' . $u['im'] . ']',
                 'errors' => [
-                    'is_unique' => 'Numéro de téléphone en doublons.'
+                    'is_unique' => 'Immatriculation en doublon.'
                 ],
-            ],
+            ]
         ];
         if (!$this->validate($rules)) {
             return redirect()
@@ -68,10 +57,14 @@ class Chauffeurs extends BaseController
                 ->with('m', '<br />' . $this->validator->listErrors());
         } else {
             try {
-                if (empty($data['camion'])) {
-                    $data['camion'] = null;
+                $data['im'] = strtoupper($data['im']);
+                if (empty($data['vt'])) {
+                    unset($data['vt']);
                 }
-                (new ModelsChauffeurs())->save($data);
+                if (empty($data['as'])) {
+                    unset($data['as']);
+                }
+                (new ModelsCamions())->save($data);
             } catch (Exception $e) {
                 return redirect()
                     ->back()
@@ -90,12 +83,12 @@ class Chauffeurs extends BaseController
     {
         $data = $this->request->getPost();
         $rules = [
-            'tel' => [
-                'rules' => 'is_unique[chauffeurs.tel]',
+            'im' => [
+                'rules' => 'is_unique[camions.im]',
                 'errors' => [
-                    'is_unique' => 'Numéro de téléphone en doublons.'
+                    'is_unique' => 'Immatriculation en doublon.'
                 ],
-            ],
+            ]
         ];
         if (!$this->validate($rules)) {
             return redirect()
@@ -105,11 +98,14 @@ class Chauffeurs extends BaseController
                 ->with('m', '<br />' . $this->validator->listErrors());
         } else {
             try {
-                $data['nom'] = ucwords($data['nom']);
-                if (empty($data['camion'])) {
-                    unset($data['camion']);
+                $data['im'] = strtoupper($data['im']);
+                if (empty($data['vt'])) {
+                    unset($data['vt']);
                 }
-                (new ModelsChauffeurs())->insert($data);
+                if (empty($data['as'])) {
+                    unset($data['as']);
+                }
+                (new ModelsCamions())->insert($data);
             } catch (Exception $e) {
                 return redirect()
                     ->back()
@@ -128,30 +124,21 @@ class Chauffeurs extends BaseController
     {
         $s = $this->request->getVar('search');
         if (empty($s)) {
-            return redirect()->to(session()->r . '/chauffeurs');
+            return redirect()->to(session()->r . '/camions');
         }
-        $modele = new ModelsChauffeurs();
+        $modele = new ModelsCamions();
         $r = $modele
-            ->like('nom', $s)
-            ->orLike('tel', $s)
+            ->like('im', $s)
             ->orLike('societe', $s)
-            ->orLike('camion', $s)
+            ->orLike('as', $s)
+            ->orLike('vt', $s)
             ->paginate(25);
-        for ($i = 0; $i < sizeof($r); $i++) {
-            if (!empty($r[$i]['camion'])) {
-                $l = (new Camions())->find($r[$i]['camion']);
-                if ($l) {
-                    $r[$i]['camion'] = $l['im'];
-                }
-            }
-        }
         $data = [
             'count' => sizeof($r),
             'list' => $r,
             'pager' => $modele->pager,
-            'cam' => (new Camions())->orderBy('im')->findAll(),
             'search' => $s
         ];
-        return view('chauffeurs/list', $data);
+        return view('camions/list', $data);
     }
 }

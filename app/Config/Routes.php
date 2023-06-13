@@ -64,6 +64,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'chauffeurs::edit');
             $routes->get('search', 'chauffeurs::search');
         });
+
+        //gestion des camions
+        $routes->group('camions', function ($routes) {
+            $routes->get('/', 'camions::list');
+            $routes->post('/', 'camions::add');
+            $routes->add('del', 'camions::delete');
+            $routes->post('edit', 'camions::edit');
+            $routes->get('search', 'camions::search');
+        });
     });
 });
 
@@ -83,6 +92,11 @@ $routes->group('api',['filter' => 'api-auth'], function($routes)
     $routes->group('chauffeurs', function($routes)
     {
         $routes->get('/','api\chauffeurs::get');
+    });
+
+    $routes->group('camions', function($routes)
+    {
+        $routes->get('/','api\camions::get');
     });
 });
 
