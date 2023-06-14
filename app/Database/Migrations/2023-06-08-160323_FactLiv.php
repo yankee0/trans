@@ -55,6 +55,15 @@ class FactLiv extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
+            'preget' => [
+                'type' => 'ENUM("OUI","NON")',
+                'null' => true,
+                'default' => "NON"
+            ],
+            'date_pg' => [
+                'type' => 'DATE',
+                'null' => true,
+            ],
             'annulation' => [
                 'type' => 'ENUM("OUI","NON")',
                 'default' => 'NON',

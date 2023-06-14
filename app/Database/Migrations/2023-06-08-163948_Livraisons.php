@@ -15,15 +15,6 @@ class Livraisons extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'preget' => [
-                'type' => 'ENUM("OUI","NON")',
-                'null' => true,
-                'default' => "NON"
-            ],
-            'date_pg' => [
-                'type' => 'DATE',
-                'null' => true,
-            ],
             'ch_aller' => [
                 'type' => 'INT',
                 'constraint' => 11,

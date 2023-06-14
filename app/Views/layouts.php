@@ -24,99 +24,135 @@
         </a>
 
         <ul class="sidebar-nav">
+          <?php if (session()->r == 'admin') : ?>
+            <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
+                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-header">
+              Administration
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'utilisateurs') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/utilisateurs') ?>">
+                <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilisateurs</span>
+              </a>
+            </li>
+          <?php endif ?>
+          <?php if (
+            session()->r == 'admin'
+            or session()->r == 'flotte'
+          ) : ?>
 
-          <li class="sidebar-header">
-            Administration
-          </li>
+            <li class="sidebar-header">
+              Flotte
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'utilisateurs') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/utilisateurs') ?>">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilisateurs</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'chauffeurs') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/chauffeurs') ?>">
+                <i class="align-middle" data-feather="users"></i> <span class="align-middle">Chauffeurs</span>
+              </a>
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
-              <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'camions') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/camions') ?>">
+                <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Camions</span>
+              </a>
+            </li>
 
-          <li class="sidebar-header">
-            Flotte
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'remorques') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/remorques') ?>">
+                <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Remorques</span>
+              </a>
+            </li>
+          <?php endif ?>
 
-          <li class="sidebar-item <?= (session()->p == 'chauffeurs') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/chauffeurs') ?>">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Chauffeurs</span>
-            </a>
-          </li>
+          <?php if (
+            session()->r == 'admin'
+            or session()->r == 'controle'
+            or session()->r == 'transport'
+          ) : ?>
+            <li class="sidebar-header">
+              Opérations
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'camions') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/camions') ?>">
-              <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Camions</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
+                <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
+              </a>
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'remorques') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/remorques') ?>">
-              <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Remorques</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
+                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
+              </a>
+            </li>
 
-          <li class="sidebar-header">
-            Opérations
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
+                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+              </a>
+            </li>
+          <?php endif; ?>
+          <?php if (
+            session()->r == 'admin'
+            or session()->r == 'facturation'
+          ) : ?>
+            <li class="sidebar-header">
+              Facturation
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
-              <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'f-livraisons') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/livraisons') ?>">
+                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures livraisons</span>
+              </a>
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
-              <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'f-transferts') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/transferts') ?>">
+                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures transferts</span>
+              </a>
+            </li>
 
-          <li class="sidebar-header">
-            Facturation
-          </li>
+          <?php endif; ?>
+          <?php if (
+            session()->r == 'admin'
+            or session()->r == 'finance'
+          ) : ?>
+            <li class="sidebar-header">
+              Finances
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'f-livraisons') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/livraisons') ?>">
-              <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures livraisons</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'r-livraions') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/finances/livraisons') ?>">
+                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+              </a>
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'f-transferts') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/transferts') ?>">
-              <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures transferts</span>
-            </a>
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/finances/transferts') ?>">
+                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
+              </a>
+            </li>
 
+            <li class="sidebar-header">
+              Rapports
+            </li>
 
-          <li class="sidebar-header">
-            Rapports
-          </li>
+            <li class="sidebar-item <?= (session()->p == 'r-livraions') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/livraisons') ?>">
+                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+              </a>
+            </li>
 
-          <li class="sidebar-item <?= (session()->p == 'r-livraions') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/livraisons') ?>">
-              <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
-            </a>
-          </li>
+            <li class="sidebar-item  mb-5 <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/transferts') ?>">
+                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
+              </a>
+            </li>
+          <?php endif; ?>
 
-          <li class="sidebar-item  mb-5 <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/transferts') ?>">
-              <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
-            </a>
-          </li>
 
         </ul>
       </div>

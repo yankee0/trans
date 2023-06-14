@@ -29,10 +29,18 @@ class Auth extends BaseController
         } else {
             unset($occ['mdp']);
             session()->set('u', $occ);
-            session()->set('p','dashboard');
+            session()->set('p', 'dashboard');
             switch (session()->u['profil']) {
                 case 'ADMIN':
                     session()->set('r', 'admin');
+                    return redirect()->to(session()->r);
+                    break;
+                case 'FLOTTE':
+                    session()->set('r', 'flotte');
+                    return redirect()->to(session()->r);
+                    break;
+                case 'FACTURATION':
+                    session()->set('r', 'facturation');
                     return redirect()->to(session()->r);
                     break;
 
@@ -41,13 +49,14 @@ class Auth extends BaseController
                         ->back()
                         ->withInput()
                         ->with('n', false)
-                        ->with('m', 'Profil incorrect, merci de le signaler à la section IT.');
+                        ->with('m', 'Profil incorrect, merci de signaler l\'incident à la section IT.');
                     break;
             }
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session()->remove('u');
         session()->remove('r');
         return redirect()->to('/');
