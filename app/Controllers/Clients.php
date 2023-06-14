@@ -131,7 +131,6 @@ class Clients extends BaseController
         $modele = new ModelsClients();
         $r = $modele
         ->like('nom',$s)
-        ->orLike('profil',$s)
         ->orLike('tel',$s)
         ->orLike('email',$s)
         ->paginate(25);
