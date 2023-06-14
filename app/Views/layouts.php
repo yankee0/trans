@@ -22,14 +22,18 @@
         <a class="sidebar-brand" href="<?= base_url(session()->r) ?>" target="_blank">
           <span class="align-middle"><?= APP_NAME ?></span>
         </a>
-
+        <?php if (
+          session()->r == 'admin'
+          or (session()->r == 'facturation')
+        ) : ?>
+          <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
+            <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+            </a>
+          </li>
+        <?php endif ?>
         <ul class="sidebar-nav">
           <?php if (session()->r == 'admin') : ?>
-            <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
-                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-              </a>
-            </li>
             <li class="sidebar-header">
               Administration
             </li>
@@ -103,14 +107,20 @@
               Facturation
             </li>
 
+            <li class="sidebar-item <?= (session()->p == 'clients') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/clients') ?>">
+                <i class="align-middle" data-feather="users"></i> <span class="align-middle">Clients</span>
+              </a>
+            </li>
+
             <li class="sidebar-item <?= (session()->p == 'f-livraisons') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/livraisons') ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
                 <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures livraisons</span>
               </a>
             </li>
 
             <li class="sidebar-item <?= (session()->p == 'f-transferts') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/factures/transferts') ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
                 <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures transferts</span>
               </a>
             </li>

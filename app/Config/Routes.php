@@ -117,10 +117,19 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     });
 
     $routes->group('facturation', ['filter' => 'facturation'], function ($routes) {
-        $routes->get('/', 'chauffeurs::list');
+        $routes->get('/', 'facturations::index');
         $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
 
+        //gestion des clients
+        $routes->group('clients', function ($routes) {
+            $routes->get('/', 'clients::list');
+            $routes->post('/', 'clients::add');
+            $routes->add('del', 'clients::delete');
+            $routes->post('edit', 'clients::edit');
+            $routes->get('search', 'clients::search');
+        });
 
+        
     });
 });
 
@@ -144,6 +153,10 @@ $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
 
     $routes->group('remorques', function ($routes) {
         $routes->get('/', 'api\remorques::get');
+    });
+
+    $routes->group('clients', function ($routes) {
+        $routes->get('/', 'api\clients::get');
     });
 });
 
