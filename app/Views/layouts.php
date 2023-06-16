@@ -87,11 +87,11 @@
               </a>
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
+            <!-- <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
                 <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
               </a>
-            </li>
+            </li> -->
 
             <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
@@ -100,8 +100,7 @@
             </li>
           <?php endif; ?>
           <?php if (
-            session()->r == 'admin'
-            or session()->r == 'facturation'
+            session()->r == 'facturation'
           ) : ?>
             <li class="sidebar-header">
               Facturation
@@ -113,17 +112,23 @@
               </a>
             </li>
 
+            <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
+                <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
+              </a>
+            </li>
+
             <li class="sidebar-item <?= (session()->p == 'f-livraisons') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
                 <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures livraisons</span>
               </a>
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'f-transferts') ? 'active' : '' ?>">
+            <!-- <li class="sidebar-item <?= (session()->p == 'f-transferts') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
                 <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures transferts</span>
               </a>
-            </li>
+            </li> -->
 
           <?php endif; ?>
           <?php if (
@@ -140,11 +145,11 @@
               </a>
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
+            <!-- <li class="sidebar-item <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/finances/transferts') ?>">
                 <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
               </a>
-            </li>
+            </li> -->
 
             <li class="sidebar-header">
               Rapports
@@ -156,11 +161,11 @@
               </a>
             </li>
 
-            <li class="sidebar-item  mb-5 <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
+            <!-- <li class="sidebar-item  mb-5 <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/transferts') ?>">
                 <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
               </a>
-            </li>
+            </li> -->
           <?php endif; ?>
 
 

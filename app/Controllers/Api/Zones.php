@@ -10,7 +10,7 @@ class Zones extends BaseController
     public function get()
     {
         $id = $this->request->getVar('index');
-        $occ = (new ModelsZones())->find($id);
+        $occ = (!empty($id)) ? (new ModelsZones())->find($id) : (new ModelsZones())->findAll();
         $this->response->setStatusCode(200);
         $this->response->setJSON($occ);
         $this->response->send();

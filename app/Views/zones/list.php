@@ -48,9 +48,8 @@ Liste des zones
               <tr>
                 <th></th>
                 <th>Nom</th>
-                <th class="d-none d-xl-table-cell">TVA (en %)</th>
-                <th class="d-none d-sm-table-cell">HT 20'</th>
-                <th class="d-none d-xl-table-cell">HT 40'</th>
+                <th class="d-none d-sm-table-cell">HT Livraison 20'</th>
+                <th class="d-none d-xl-table-cell">HT Livraison 40'</th>
                 <th class="d-none d-sm-table-cell">Carburant (en L)</th>
                 <th></th>
               </tr>
@@ -62,9 +61,8 @@ Liste des zones
                     <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                   </td>
                   <td><?= $l['nom'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['tva'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['ht_20'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['ht_40'] ?></td>
+                  <td class="d-none d-sm-table-cell"><?= $l['ht_liv_20'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $l['ht_liv_40'] ?></td>
                   <td class="d-none d-sm-table-cell"><?= $l['carburant'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
@@ -109,16 +107,12 @@ Liste des zones
           <input type="text" class="form-control" name="nom" id="nom" value="<?= set_value('nom') ?>" placeholder="Entrez le nom de la zone" required>
         </div>
         <div class="mb-3">
-          <label for="tva" class="form-label">TVA de la zone</label>
-          <input type="number" class="form-control" name="tva" id="tva" value="<?= set_value('tva', 0) ?>" placeholder="Entrez la valeur">
+          <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
+          <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
-          <label for="ht_20" class="form-label">Hors taxes 20'</label>
-          <input type="number" class="form-control" name="ht_20" id="ht_20" value="<?= set_value('ht_20', 0) ?>" placeholder="Entrez la valeur">
-        </div>
-        <div class="mb-3">
-          <label for="ht_40" class="form-label">Hors taxes 40'</label>
-          <input type="number" class="form-control" name="ht_40" id="ht_40" value="<?= set_value('ht_40', 0) ?>" placeholder="Entrez la valeur">
+          <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
+          <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
@@ -156,16 +150,12 @@ Liste des zones
           <input type="text" class="form-control" name="nom" id="nommod" value="<?= set_value('nom') ?>" placeholder="Entrez le nom de la zone" required>
         </div>
         <div class="mb-3">
-          <label for="tva" class="form-label">TVA de la zone</label>
-          <input type="number" class="form-control" name="tva" id="tvamod" value="<?= set_value('tva', 0) ?>" placeholder="Entrez la valeur">
+          <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
+          <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
-          <label for="ht_20" class="form-label">Hors taxes 20'</label>
-          <input type="number" class="form-control" name="ht_20" id="ht_20mod" value="<?= set_value('ht_20', 0) ?>" placeholder="Entrez la valeur">
-        </div>
-        <div class="mb-3">
-          <label for="ht_40" class="form-label">Hors taxes 40'</label>
-          <input type="number" class="form-control" name="ht_40" id="ht_40mod" value="<?= set_value('ht_40', 0) ?>" placeholder="Entrez la valeur">
+          <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
+          <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
@@ -268,9 +258,8 @@ Liste des zones
       dataType: "JSON",
       success: function(response) {
         $('#nommod').val(response.nom);
-        $('#tvamod').val(response.tva);
-        $('#ht_20mod').val(response.ht_20);
-        $('#ht_40mod').val(response.ht_40);
+        $('#ht_liv_20mod').val(response.ht_liv_20);
+        $('#ht_liv_40mod').val(response.ht_liv_40);
         $('#carburantmod').val(response.carburant);
         $('#eznb').val(response.id);
       }

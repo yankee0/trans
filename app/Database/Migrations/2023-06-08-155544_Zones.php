@@ -20,19 +20,13 @@ class Zones extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
-            'tva' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'null' => true,
-                'default' => 0
-            ],
-            'ht_20' => [
+            'ht_liv_20' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,
                 'default' => 0
             ],
-            'ht_40' => [
+            'ht_liv_40' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,

@@ -12,7 +12,7 @@
       <div class="card flex-fill">
         <div class="card-body ">
           <form action="<?= base_url(session()->r . '/zones/search') ?>" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un client, un BL">
+            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un client, un BL, un numéro de conteneur">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
           </form>
         </div>
@@ -102,7 +102,7 @@
       </div>
     </div>
 
-    <div class="col-lg-6 d-flex">
+    <div class="col-lg-8 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
           <h5 class="card-title mb-0">Dernières facturations de livraisons</h5>

@@ -27,6 +27,11 @@ class FactLivLieux extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
+            'designation' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
             'adresse' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

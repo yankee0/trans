@@ -20,14 +20,13 @@ class Clients extends BaseController
         return view('clients/list', $data);
     }
 
-    
+
 
     public function delete()
     {
         $data = $this->request->getVar();
         try {
             (new ModelsClients())->delete($data['id']);
-
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
@@ -64,8 +63,7 @@ class Clients extends BaseController
                 ->with('n', false)
                 ->with('m', '<br />' . $this->validator->listErrors());
         } else {
-            $data['nom'] = ucwords($data['nom']);
-            $data['mdp'] = APP_DEFAULT_PWD;
+            $data['nom'] = strtoupper($data['nom']);
             try {
                 (new ModelsClients())->insert($data);
             } catch (Exception $e) {
@@ -108,6 +106,7 @@ class Clients extends BaseController
                 ->with('m', '<br />' . $this->validator->listErrors());
         } else {
             try {
+                $data['nom'] = strtoupper($data['nom']);
                 (new ModelsClients())->save($data);
             } catch (Exception $e) {
                 return redirect()
@@ -123,17 +122,18 @@ class Clients extends BaseController
         }
     }
 
-    public function search(){
+    public function search()
+    {
         $s = $this->request->getVar('search');
         if (empty($s)) {
-            return redirect()->to(session()->r.'/clients');
+            return redirect()->to(session()->r . '/clients');
         }
         $modele = new ModelsClients();
         $r = $modele
-        ->like('nom',$s)
-        ->orLike('tel',$s)
-        ->orLike('email',$s)
-        ->paginate(25);
+            ->like('nom', $s)
+            ->orLike('tel', $s)
+            ->orLike('email', $s)
+            ->paginate(25);
         $data = [
             'count' => sizeof($r),
             'list' => $r,

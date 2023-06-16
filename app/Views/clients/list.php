@@ -70,7 +70,7 @@ Liste des clients
                       <button type="button" class="delete btn text-danger" title="Supprimer l'client" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'client">
+                      <button type="button" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations du client">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -146,15 +146,15 @@ Liste des clients
 
         <div class="mb-3">
           <label for="nom" class="form-label">Nom<span class="text-danger">*</span></label>
-          <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nom" placeholder="Nom de l'client">
+          <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nom" placeholder="Nom du client">
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-          <input required type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email de l'client">
+          <input required type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email du client">
         </div>
         <div class="mb-3">
           <label for="tel" class="form-label">Téléphone<span class="text-danger">*</span></label>
-          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone de l'client">
+          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone du client">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -180,15 +180,15 @@ Liste des clients
         ]) ?>
         <div class="mb-3">
           <label for="nommod" class="form-label">Nom<span class="text-danger">*</span></label>
-          <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nommod" placeholder="Nom de l'client">
+          <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nommod" placeholder="Nom du client">
         </div>
         <div class="mb-3">
           <label for="emailmod" class="form-label">Email<span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod" required placeholder="Email de l'client">
+          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod" required placeholder="Email du client">
         </div>
         <div class="mb-3">
           <label for="telmod" class="form-label">Téléphone<span class="text-danger">*</span></label>
-          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone de l'client">
+          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone du client">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>

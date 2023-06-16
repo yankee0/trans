@@ -21,11 +21,6 @@ class FactLivLignes extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
-            'designation' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
             'conteneur' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

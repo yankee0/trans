@@ -41,6 +41,7 @@ class Zones extends BaseController
     {
         $data = $this->request->getPost();
         try {
+            $data['nom'] = strtoupper($data['nom']);
             (new ModelsZones())->save($data);
         } catch (Exception $e) {
             return redirect()
@@ -59,6 +60,7 @@ class Zones extends BaseController
     {
         $data = $this->request->getPost();
         try {
+            $data['nom'] = strtoupper($data['nom']);
             (new ModelsZones())->insert($data);
         } catch (Exception $e) {
             return redirect()

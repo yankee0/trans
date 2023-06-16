@@ -4,21 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Zones extends Model
+class FactLivLieux extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'zones';
+    protected $table            = 'fact_liv_lieux';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'nom',
-        'ht_liv_20',
-        'ht_liv_40',
-        'carburant',
-    ];
+    protected $allowedFields    = [];
 
     // Dates
     protected $useTimestamps = false;

@@ -36,7 +36,7 @@ class Api implements FilterInterface
             $res->setJSON([
                 'error' => 'Accès refusé.'
             ]);
-            $res->send();
+            return $res->send();
         }
     }
 

@@ -9,6 +9,7 @@ class Facturations extends BaseController
 {
     public function index()
     {
+        session()->p = 'dashboard';
         $data = [
             'f' => (new FactLiv())->countAll()
         ];

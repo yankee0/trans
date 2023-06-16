@@ -129,7 +129,24 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('search', 'clients::search');
         });
 
-        
+        //gestion des facturations de livraisons
+        $routes->group('livraisons', function ($routes) {
+            $routes->get('/', 'factLiv::list');
+            $routes->post('/', 'factLiv::add');
+            $routes->add('del', 'factLiv::delete');
+            $routes->post('edit', 'factLiv::edit');
+            $routes->get('search', 'factLiv::search');
+        });
+
+        //gestion des zones
+        $routes->group('zones', function ($routes) {
+            $routes->get('/', 'zones::list');
+            $routes->post('/', 'zones::add');
+            $routes->add('del', 'zones::delete');
+            $routes->post('edit', 'zones::edit');
+            $routes->get('search', 'zones::search');
+        });
+
     });
 });
 
@@ -157,6 +174,11 @@ $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
 
     $routes->group('clients', function ($routes) {
         $routes->get('/', 'api\clients::get');
+    });
+
+    $routes->group('utils', function($routes)
+    {
+        $routes->post('checkData','api\utils::checkDoubleContainer');
     });
 });
 
