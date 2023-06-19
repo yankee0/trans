@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Utilisateurs extends Model
+class Clients extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'utilisateurs';
+    protected $table            = 'clients';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -15,10 +15,8 @@ class Utilisateurs extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nom',
-        'profil',
         'tel',
         'email',
-        'mdp',
     ];
 
     // Dates

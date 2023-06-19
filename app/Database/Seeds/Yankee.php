@@ -3,16 +3,33 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
+use Faker\Factory;
 
 class Yankee extends Seeder
 {
     public function run()
     {
-        $this->db->table('utilisateurs')->insertBatch([
-            'nom' => 'Yankee',
-            'profil' => 'ADMIN',
-            'email' => 'yankee@poly-trans.sn',
-            'mdp' => sha1('yankee')
-        ]);
+        $data = [
+            [
+                'nom' => 'Yankee',
+                'profil' => 'ADMIN',
+                'tel' => '776998882',
+                'email' => 'yankee@poly-trans.sn',
+                'mdp' => sha1('yankee')
+            ],
+            [
+                'nom' => 'Yankee',
+                'profil' => 'FACTURATION',
+                'tel' => '776998883',
+                'email' => 'facturation@poly-trans.sn',
+                'mdp' => sha1('yankee')
+            ],
+        ];
+
+        
+        $this->db->table('utilisateurs')->insertBatch($data);
+
+        
+
     }
 }

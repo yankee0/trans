@@ -35,6 +35,7 @@ class Chauffeurs extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
                 'null' => true,
+                'default' => null
             ],
         ]);
         $this->forge->addPrimaryKey('id');

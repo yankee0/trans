@@ -4,21 +4,28 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Utilisateurs extends Model
+class FactLiv extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'utilisateurs';
+    protected $table            = 'fact_liv';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'nom',
-        'profil',
-        'tel',
-        'email',
-        'mdp',
+        'id_client',
+        'consignataire',
+        'bl',
+        'compagnie',
+        'reglement',
+        'paiement',
+        'date_paiement',
+        'date_creation',
+        'preget',
+        'date_pg',
+        'annulation',
+        'motif',
     ];
 
     // Dates

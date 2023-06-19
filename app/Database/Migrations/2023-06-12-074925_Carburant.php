@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class FactLivLieux extends Migration
+class Carburant extends Migration
 {
     public function up()
     {
@@ -15,43 +15,43 @@ class FactLivLieux extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'id_fact' => [
+            'id_op' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => true,
+                'null' => true
             ],
-            'id_zone' => [
+            'id_vehicule' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => true,
+                'null' => true
             ],
-            'designation' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
-            'adresse' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
-            'carburant' => [
+            'litres' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
                 'default' => 0
             ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('id_fact','fact_liv','id','CASCASE','CASCADE');
-        $this->forge->addForeignKey('id_zone','fact_liv','id','CASCASE','SET NULL');
-        $this->forge->createTable('fact_liv_lieux',true);
+        $this->forge->createTable('carburants',true);
     }
-    
+
     public function down()
     {
-        $this->forge->dropTable('fact_liv_lieux',true);
+        $this->forge->dropTable('carburants',true);
     }
 }

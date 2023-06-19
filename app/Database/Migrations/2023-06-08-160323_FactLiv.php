@@ -55,6 +55,15 @@ class FactLiv extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
+            'preget' => [
+                'type' => 'ENUM("OUI","NON")',
+                'null' => true,
+                'default' => "NON"
+            ],
+            'date_pg' => [
+                'type' => 'DATE',
+                'null' => true,
+            ],
             'annulation' => [
                 'type' => 'ENUM("OUI","NON")',
                 'default' => 'NON',
@@ -79,6 +88,7 @@ class FactLiv extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey('bl');
         $this->forge->addForeignKey('id_client','clients','id','CASCADE','SET NULL');
         $this->forge->createTable('fact_liv',true);
     }

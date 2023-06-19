@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Utilisateurs extends Model
+class Zones extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'utilisateurs';
+    protected $table            = 'zones';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -15,14 +15,13 @@ class Utilisateurs extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nom',
-        'profil',
-        'tel',
-        'email',
-        'mdp',
+        'ht_liv_20',
+        'ht_liv_40',
+        'carburant',
     ];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

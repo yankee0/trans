@@ -4,21 +4,26 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Utilisateurs extends Model
+class Livraisons extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'utilisateurs';
+    protected $table            = 'livraisons';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'nom',
-        'profil',
-        'tel',
-        'email',
-        'mdp',
+        'id_fact_ligne',
+        'ch_aller',
+        'cam_aller',
+        'date_aller',
+        'ch_retour',
+        'cam_retour',
+        'date_retour',
+        'commentaire',
+        'annulation',
+        'motif',
     ];
 
     // Dates
