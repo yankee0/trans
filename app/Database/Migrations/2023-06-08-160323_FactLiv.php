@@ -88,6 +88,7 @@ class FactLiv extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey('bl');
         $this->forge->addForeignKey('id_client','clients','id','CASCADE','SET NULL');
         $this->forge->createTable('fact_liv',true);
     }

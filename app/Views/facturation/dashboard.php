@@ -102,7 +102,7 @@
       </div>
     </div>
 
-    <div class="col-lg-8 d-flex">
+    <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
           <h5 class="card-title mb-0">Dernières facturations de livraisons</h5>
@@ -111,7 +111,11 @@
           <thead>
             <tr>
               <th>Client</th>
-              <th class="d-none d-xl-table-cell">Montant</th>
+              <th class="d-none d-lg-table-cell">Consignataire</th>
+              <th class="d-none d-lg-table-cell">Compagnie</th>
+              <th class="d-none d-xl-table-cell">Nombre de 20'</th>
+              <th class="d-none d-xl-table-cell">Nombre de 40'</th>
+              <th class="d-none d-md-table-cell">Montant</th>
               <th class="d-none d-xl-table-cell">Date</th>
               <th>Statut</th>
               <th></th>

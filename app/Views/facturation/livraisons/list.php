@@ -3,7 +3,20 @@
 Facturation livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-
+<script>
+  let zones = [];
+  config = {
+    type: "get",
+    url: "<?= base_url('api/zones') ?>",
+    data: {
+      token: '<?= csrf_hash() ?>'
+    },
+    dataType: "JSON",
+    success: function(response) {
+      zones = response;
+    },
+  };
+</script>
 
 <h1 class="h3 mb-3"><strong>Facturations</strong> Livraisons</h1>
 <div class="row">
@@ -54,9 +67,36 @@ Facturation livraisons
         </div>
         <h5 class="card-title mb-0 text-dark mb-2">Informations sur le transport</h5>
         <div id="yankee"></div>
-        
+
         <?= form_close() ?>
       </div>
+    </div>
+  </div>
+  <div class="col-12 d-flex">
+    <div class="card flex-fill">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Derniers enregistrements</h5>
+      </div>
+      <table class="table table-hover my-0">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th class="d-none d-lg-table-cell">Consignataire</th>
+            <th class="d-none d-lg-table-cell">Compagnie</th>
+            <th class="d-none d-xl-table-cell">Nombre de 20'</th>
+            <th class="d-none d-xl-table-cell">Nombre de 40'</th>
+            <th class="d-none d-md-table-cell">Montant</th>
+            <th class="d-none d-xl-table-cell">Date</th>
+            <th>Statut</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
     </div>
   </div>
 </div>
@@ -66,18 +106,6 @@ Facturation livraisons
 <script>
   const checkUrl = '<?= base_url('api/utils/checkData') ?>';
   const token = '<?= csrf_hash() ?>';
-  let zones = [];
-  config = {
-    type: "get",
-    url: "<?= base_url('api/zones') ?>",
-    data: {
-      token: '<?= csrf_hash() ?>'
-    },
-    dataType: "JSON",
-    success: function(response) {
-      zones = response;
-    },
-  };
 </script>
 
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>

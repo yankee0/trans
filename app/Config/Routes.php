@@ -132,6 +132,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des facturations de livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'factLiv::list');
+            $routes->get('details/(:segment)', 'factLiv::showInvoice/$1');
             $routes->post('/', 'factLiv::add');
             $routes->add('del', 'factLiv::delete');
             $routes->post('edit', 'factLiv::edit');

@@ -21,8 +21,8 @@ class Zones extends Migration
                 'null' => true,
             ],
             'ht_liv_20' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
+                'type' => 'INT',
+                'constraint' => 11,
                 'null' => true,
                 'default' => 0
             ],

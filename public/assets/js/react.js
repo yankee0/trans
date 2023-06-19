@@ -31,12 +31,12 @@ const Item = ({ onRemove }) => {
   const [c, setC] = useState(["", ""]);
 
   const handleC1 = (e) => {
-    setC([e, c[1]+'-']);
+    setC([e, c[1] + "-"]);
     checkDoubles(c[0], c[1]);
   };
 
   const handleC2 = (e) => {
-    setC([c[0]+'-', e]);
+    setC([c[0] + "-", e]);
     checkDoubles(c[0], c[1]);
   };
 
@@ -117,7 +117,6 @@ const Item = ({ onRemove }) => {
               className="form-control  text-uppercase"
               name="c_20[]"
               rows="2"
-              required
               placeholder="Conteneurs 20'"
               onKeyUp={(e) => {
                 handleC1(e.target.value);
@@ -125,7 +124,9 @@ const Item = ({ onRemove }) => {
               onBlur={(e) => {
                 handleC1(e.target.value);
               }}
-            >{c[0]}</textarea>
+            >
+              {c[0]}
+            </textarea>
             <div className="text-sm text-muted ">
               Séparer les conteneurs par des tirés (-). Exemple:
               QWER1234567-ABCD0987654-...
@@ -149,7 +150,6 @@ const Item = ({ onRemove }) => {
               className="form-control text-uppercase"
               name="c_40[]"
               rows="2"
-              required
               placeholder="Conteneurs 40'"
               onKeyUp={(e) => {
                 handleC2(e.target.value);
@@ -157,7 +157,9 @@ const Item = ({ onRemove }) => {
               onBlur={(e) => {
                 handleC2(e.target.value);
               }}
-            >{c[0]}</textarea>
+            >
+              {c[0]}
+            </textarea>
             <div className="text-sm text-muted">
               Séparer les conteneurs par des tirés (-). Exemple:
               QWER1234567-ABCD0987654-...
@@ -205,7 +207,7 @@ const ReactAppFromCDN = () => {
         </button>
       </div>
       <div className="d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary" >
+        <button type="submit" className="btn btn-primary">
           Créer la facture
         </button>
       </div>

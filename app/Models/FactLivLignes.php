@@ -4,21 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class FactLivLieux extends Model
+class FactLivLignes extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'fact_liv_lieux';
+    protected $table            = 'fact_liv_lignes';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_fact',
-        'id_zone',
-        'designation',
-        'adresse',
-        'carburant',
+        'id_lieu',
+        'conteneur',
+        'type',
+        'prix',
     ];
 
     // Dates

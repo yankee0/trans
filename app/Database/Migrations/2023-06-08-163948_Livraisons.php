@@ -15,6 +15,11 @@ class Livraisons extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'id_fact_ligne' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+            ],
             'ch_aller' => [
                 'type' => 'INT',
                 'constraint' => 11,
@@ -75,6 +80,7 @@ class Livraisons extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
+        $this->forge->addForeignKey('id_fact_ligne','fact_liv_lignes','id','CASCADE','CASCADE');
         $this->forge->addForeignKey('ch_aller','chauffeurs','id','CASCADE','RESTRICT');
         $this->forge->addForeignKey('cam_aller','camions','id','CASCADE','RESTRICT');
         $this->forge->addForeignKey('ch_retour','chauffeurs','id','CASCADE','RESTRICT');
