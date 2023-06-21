@@ -96,16 +96,17 @@
         padding: 20px, 20px, 20px, 20px;
       }
 
-      .align-items-start{
+      .align-items-start {
         text-align: left;
       }
 
-      tr > td, tr > th{
+      tr>td,
+      tr>th {
         min-width: max-content;
         flex-grow: 1;
       }
 
-      
+
 
     }
   </style>
@@ -128,16 +129,16 @@
       </div>
     </div>
     <hr>
-    <h2 class="invoice-title text-center text-capitalize text-primary"><span class="text-dark">Facture</span> N<?= $facture['id'] ?></h2>
+    <h2 class="invoice-title text-center text-capitalize text-primary"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
     <div class="invoice-details d-flex align-items-center justify-content-between">
       <div>
         <p class="fs-1">Yankee</p>
-        <p>Numéro de compte: <?= $facture['id_client'] ?></p>
+        <p>Compte Nº <?= $facture['id_client'] ?></p>
         <p>Date de facture : <?= $facture['created_at'] ?></p>
       </div>
       <div>
         <p class="fs-1"></p>
-        <p>BL N: <?= $facture['bl'] ?></p>
+        <p>BL Nº <?= $facture['bl'] ?></p>
       </div>
     </div>
     <table class="table invoice-table">
@@ -217,7 +218,7 @@
         </tr>
       </tfoot>
     </table>
-    <p class=" text-end"><strong>Arretée la présente facture à la somme de Francs CFA: <span id="lettre" class=" text-uppercase text-primary"></span></strong></p>
+    <p class=""><strong>Arrête la présente facture à la somme de Francs CFA: <span id="lettre" class=" text-uppercase text-primary"></span></strong></p>
     <p class="text-sm">
       44, Av Lamine GUEYE Immeuble BHT 2ème étage porte B <br>
       Tél/Fax: 33 842 52 58 <br>
@@ -239,7 +240,7 @@
   </div>
   <script>
     generateQRCode(
-      'Yankee with no brim',
+      'Facture de <?= $facture['consignataire'] ?>',
       'qrcode'
     )
 

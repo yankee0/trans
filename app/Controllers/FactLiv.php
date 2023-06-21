@@ -16,16 +16,29 @@ class FactLiv extends BaseController
     public function list()
     {
         session()->p = 'f-livraisons';
-
+        $factLiv = (new ModelsFactLiv())->limit(5)->findAll();
+        for ($i = 0; $i < sizeof($factLiv); $i++) {
+            $factLiv[$i] = (new Facturations())->FactLivInfos($factLiv[$i]);
+        }
 
         return view('facturation/livraisons/list', [
-            'cli' => (new Clients())->findAll()
+            'cli' => (new Clients())->findAll(),
+            'fact_liv_last' => $factLiv,
+
         ]);
     }
 
     public function add()
     {
         $data = $this->request->getPost();
+        // dd($data);
+        if (!isset($data['zone']) or (empty($data['c_20']) and empty($data['c_40']))) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', 'Facturation incorrecte.');
+        }
 
         $rules = [
             'bl' => [
@@ -200,15 +213,30 @@ class FactLiv extends BaseController
                 'facture' => $invoice,
                 'zones' => $zones,
                 'total' => $total,
-                'taxe' => $total*18/100,
-                'ttc' => $total + $total*18/100,
+                'taxe' => $total * 18 / 100,
+                'ttc' => $total + $total * 18 / 100,
             ];
 
             return view('facturation/livraisons/factures', $data);
         }
     }
 
-    public function lastInvoices()
+    public function delete($seg)
     {
+        $data = explode(' ', $seg);
+        $id = $data[1];
+        try {
+            (new ModelsFactLiv())->delete($id);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Suppression réussie');
     }
 }

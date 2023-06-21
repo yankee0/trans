@@ -134,7 +134,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('/', 'factLiv::list');
             $routes->get('details/(:segment)', 'factLiv::showInvoice/$1');
             $routes->post('/', 'factLiv::add');
-            $routes->add('del', 'factLiv::delete');
+            $routes->add('del/(:segment)', 'factLiv::delete/$1');
             $routes->post('edit', 'factLiv::edit');
             $routes->get('search', 'factLiv::search');
         });
