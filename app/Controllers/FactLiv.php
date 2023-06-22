@@ -16,13 +16,18 @@ class FactLiv extends BaseController
     public function list()
     {
         session()->p = 'f-livraisons';
-        $factLiv = (new ModelsFactLiv())->limit(5)->findAll();
+        $factLiv = (new ModelsFactLiv())
+            ->limit(5)
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations())->FactLivInfos($factLiv[$i]);
         }
 
         return view('facturation/livraisons/list', [
-            'cli' => (new Clients())->findAll(),
+            'cli' => (new Clients())
+                ->orderBy('nom')
+                ->findAll(),
             'fact_liv_last' => $factLiv,
 
         ]);
@@ -265,5 +270,30 @@ class FactLiv extends BaseController
             ->back()
             ->with('n', true)
             ->with('m', 'Suppression réussie');
+    }
+
+    public function search()
+    {
+        $s = $this->request->getVar('search');
+        $modele = new ModelsFactLiv();
+        $r = $modele
+            ->like('bl', $s)
+            ->orLike('id_client', $s)
+            ->orLike('compagnie', $s)
+            ->orLike('created_at', $s)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
+        // if (!empty($r)) {
+        //     for ($i = 0; $i < sizeof($r); $i++) {
+        //         (new Facturations)->FactLivInfos($r);
+        //     }
+        // }
+        $data = [
+            'r' => $r,
+            'pager' => $modele->pager,
+            'search' => $s
+        ];
+
+        return view('facturation/livraisons/search', $data);
     }
 }

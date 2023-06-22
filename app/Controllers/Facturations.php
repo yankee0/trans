@@ -7,7 +7,6 @@ use App\Models\Clients;
 use App\Models\FactLiv;
 use App\Models\FactLivLieux;
 use App\Models\FactLivLignes;
-use CodeIgniter\Model;
 
 class Facturations extends BaseController
 {
@@ -15,13 +14,23 @@ class Facturations extends BaseController
     {
         session()->p = 'dashboard';
         $model_fact_liv = new FactLiv();
-        $factLiv = $model_fact_liv->limit(5)->findAll();
+        $factLiv = $model_fact_liv
+            ->limit(5)
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = $this->FactLivInfos($factLiv[$i]);
         }
         // dd($factLiv);
         $data = [
             'fact_liv_count' => $model_fact_liv->countAll(),
+            'fact_liv_last' => $factLiv,
+            'cli' => (new Clients())->countAll(),
+            'liv' => (new FactLiv())
+                ->countAll(),
+            'liv_preget' => (new FactLiv())
+                ->where('preget', 'NON')
+                ->findAll(),
             'fact_liv_last' => $factLiv,
         ];
         return view('facturation/dashboard', $data);
@@ -50,7 +59,7 @@ class Facturations extends BaseController
             $n20 += sizeof($c);
 
             //la bizarrerie du total
-            foreach($c as $item) {
+            foreach ($c as $item) {
                 $total += intval($item['prix']);
             }
         }
@@ -66,7 +75,7 @@ class Facturations extends BaseController
             $n40 += sizeof($c);
 
             //la bizarrerie du total
-            foreach($c as $item) {
+            foreach ($c as $item) {
                 $total += intval($item['prix']);
             }
         }
@@ -76,6 +85,5 @@ class Facturations extends BaseController
         $factLiv['total'] = $total + ($total * 18 / 100);
 
         return $factLiv;
-        
     }
 }

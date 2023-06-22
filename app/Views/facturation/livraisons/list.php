@@ -24,8 +24,8 @@ Facturation livraisons
   <div class="col-12 d-flex">
     <div class="card flex-fill">
       <div class="card-body ">
-        <form action="<?= base_url(session()->r . '/zones/search') ?>" class="d-flex gap-2">
-          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un client, un BL, un numéro de conteneur">
+        <form action="<?= base_url(session()->r . '/livraisons/search') ?>" class="d-flex gap-2">
+          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher par Nº Facture, BL ou nom de la Compagnie">
           <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
         </form>
       </div>
@@ -80,28 +80,28 @@ Facturation livraisons
       <table class="table table-hover my-0">
         <thead>
           <tr>
-            <th>Nº Facture</th>
-            <th class="d-none d-lg-table-cell">BL</th>
+            <th class="d-none d-sm-table-cell">Nº Facture</th>
+            <th class="">BL</th>
             <th class="d-none d-xl-table-cell">Nombre de 20'</th>
             <th class="d-none d-xl-table-cell">Nombre de 40'</th>
             <th class="d-none d-md-table-cell">Montant</th>
             <th class="d-none d-xl-table-cell">Date</th>
-            <th>Preget</th>
-            <th>Paiement</th>
+            <th class="d-none d-sm-table-cell">Preget</th>
+            <th class="d-none d-sm-table-cell">Paiement</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($fact_liv_last as $line) : ?>
             <tr>
-              <td>Nº <?= $line['id'] ?></td>
-              <td class="d-none d-lg-table-cell"><?= $line['bl'] ?></td>
+              <td class="d-none d-sm-table-cell"><?= $line['id'] ?></td>
+              <td class=""><?= $line['bl'] ?></td>
               <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
               <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
               <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
               <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
-              <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU LE ' . $line['date_preget'] ?></span></td>
-              <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ LE ' . $line['date_paiement'] ?></span></td>
+              <td class="d-none d-sm-table-cell"><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU'?></span></td>
+              <td class="d-none d-sm-table-cell"><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ'?></span></td>
               <td class="d-flex gap-1">
                 <button value="Nº <?= $line['id'] ?>" class="delfLiv btn btn-danger btn-sm d-flex align-items-center justify-content-center gap-2" type="button" title="Supprimer la facture" data-bs-toggle="modal" data-bs-target="#delFactLiv"><i class="align-middle" data-feather="trash"></i></button>
                 <a class="btn btn-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
@@ -115,7 +115,7 @@ Facturation livraisons
       <div class=" card-footer">
         <div class="text-center">
           <?php if (sizeof($fact_liv_last) > 0) : ?>
-            <a href="#">Tout voir</a>
+            <a href="<?= base_url(session()->r . '/livraisons/search?search=') ?>">Tout voir</a>
           <?php else : ?>
             <div class="alert alert-warning" role="alert">
               Vide.

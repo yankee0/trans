@@ -133,12 +133,12 @@
       </div>
     </div>
     <hr>
-    <h2 class="invoice-title text-center text-capitalize text-primary"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
+    <h2 class="invoice-title text-center text-capitalize text-primary fs-1"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
     <div class="invoice-details d-flex align-items-center justify-content-between">
       <div>
         <p class="fs-1">Yankee</p>
         <p>Compte Nº <?= $facture['id_client'] ?></p>
-        <p>Date de facture : <?= $facture['created_at'] ?></p>
+        <p>Date de facturation : <?= $facture['created_at'] ?></p>
       </div>
       <div>
         <p class="fs-1"></p>

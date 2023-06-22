@@ -31,7 +31,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= '[]' ?></h1>
+          <h1 class="mt-1 mb-3"><?= $cli ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span><br>
           </div>
@@ -52,9 +52,9 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= '#' ?></h1>
+          <h1 class="mt-1 mb-3"><?= $liv ?></h1>
           <div class="mb-0">
-            <span class="text-warning"> <i class="mdi mdi-arrow-bottom-right"></i> <?= '#' ?> en attente PREGET</span>
+            <span class="text-muted"> <i class="mdi mdi-arrow-bottom-right"></i> <?= count($liv_preget) ?> en attente de PREGET</span>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
           <tbody>
             <?php foreach ($fact_liv_last as $line) : ?>
               <tr>
-                <td>Nº <?= $line['id'] ?></td>
+                <td><?= $line['id'] ?></td>
                 <td class="d-none d-lg-table-cell"><?= $line['bl'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
@@ -145,7 +145,7 @@
         <div class=" card-footer">
           <div class="text-center">
             <?php if (sizeof($fact_liv_last) > 0) : ?>
-              <a href="#">Tout voir</a>
+              <a href="<?= base_url(session()->r . '/livraisons/search?search=') ?>">Tout voir</a>
             <?php else : ?>
               <div class="alert alert-warning" role="alert">
                 Vide.
