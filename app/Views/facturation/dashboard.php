@@ -111,7 +111,7 @@
           <thead>
             <tr>
               <th>Nº Facture</th>
-              <th class="d-none d-lg-table-cell">CIE</th>
+              <th class="d-none d-lg-table-cell">BL</th>
               <th class="d-none d-xl-table-cell">Nombre de 20'</th>
               <th class="d-none d-xl-table-cell">Nombre de 40'</th>
               <th class="d-none d-md-table-cell">Montant</th>
@@ -125,7 +125,7 @@
             <?php foreach ($fact_liv_last as $line) : ?>
               <tr>
                 <td>Nº <?= $line['id'] ?></td>
-                <td class="d-none d-lg-table-cell"><?= $line['compagnie'] ?></td>
+                <td class="d-none d-lg-table-cell"><?= $line['bl'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
                 <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>

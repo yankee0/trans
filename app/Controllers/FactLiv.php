@@ -31,8 +31,9 @@ class FactLiv extends BaseController
     public function add()
     {
         $data = $this->request->getPost();
-        // dd($data);
-        if (!isset($data['zone']) or (empty($data['c_20']) and empty($data['c_40']))) {
+
+        // Zones de livraisons requises
+        if (!isset($data['zone'])) {
             return redirect()
                 ->back()
                 ->withInput()
@@ -40,12 +41,16 @@ class FactLiv extends BaseController
                 ->with('m', 'Facturation incorrecte.');
         }
 
+        //le BL doit etre unique
         $rules = [
             'bl' => [
                 'rules' => 'is_unique[fact_liv.bl]',
-                'errors' => 'Le BL saisie a déjà été l\'objet d\'une facture.'
+                'errors' => [
+                    'is_unique' => 'BL en doublon.'
+                ]
             ],
         ];
+
         if (!$this->validate($rules)) {
             return redirect()
                 ->back()
@@ -76,8 +81,12 @@ class FactLiv extends BaseController
             $c_20 = $data['c_20'];
             for ($i = 0; $i < sizeof($c_20); $i++) {
                 $c_20[$i] = explode('-', $c_20[$i]);
+
+                //supprimer les cases vides
                 for ($j = 0; $j < sizeof($c_20[$i]); $j++) {
-                    $c_20[$i][$j] = strtoupper($c_20[$i][$j]);
+                    if (empty($c_20[$i][$j])) {
+                        unset($c_20[$i][$j]);
+                    }
                 }
             }
 
@@ -85,8 +94,12 @@ class FactLiv extends BaseController
             $c_40 = $data['c_40'];
             for ($i = 0; $i < sizeof($c_40); $i++) {
                 $c_40[$i] = explode('-', $c_40[$i]);
+
+                //supprimer les cases vides
                 for ($j = 0; $j < sizeof($c_40[$i]); $j++) {
-                    $c_40[$i][$j] = strtoupper($c_40[$i][$j]);
+                    if (empty($c_40[$i][$j])) {
+                        unset($c_40[$i][$j]);
+                    }
                 }
             }
 
@@ -96,15 +109,29 @@ class FactLiv extends BaseController
 
                     // recuperation des infos de la zones
                     $zone = (new Zones())->find($data['zone'][$i]);
+                    if (empty($zone)) {
+                        $zone['id'] = null;
+                    }
+                    // dd($zone['id']);
+                    //création de la relation facture-zone (lieux de livraisons)
+                    try {
 
-                    //creation de la relation facture-zone (lieux de livraisons)
-                    $lieux = (new FactLivLieux())->insert([
-                        'id_fact' => intval($facture),
-                        'id_zone' => intval($zone['id']),
-                        'designation' => 'LIVRAISON ' . $zone['nom'],
-                        'carburant' => $zone['carburant'],
-                        'adresse' => $data['address'][$i],
-                    ], true);
+                        $lieux = (new FactLivLieux())->insert([
+                            'id_fact' => intval($facture),
+                            'id_zone' => intval($zone['id']),
+                            'designation' => 'LIVRAISON ' . $zone['nom'],
+                            'carburant' => $zone['carburant'],
+                            'adresse' => $data['address'][$i],
+                        ], true);
+                        // dd($lieux);
+                    } catch (Exception $e) {
+                        (new ModelsFactLiv())->delete($facture);
+                        return redirect()
+                            ->back()
+                            ->withInput()
+                            ->with('n', false)
+                            ->with('m', '<br />' . $e->getMessage());
+                    }
 
                     //pour les 20'
                     foreach ($c_20[$i] as $c) {

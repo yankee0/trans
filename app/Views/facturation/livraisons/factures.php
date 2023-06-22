@@ -106,6 +106,10 @@
         flex-grow: 1;
       }
 
+      tr:nth-of-type(even){
+        background: red;
+      }
+
 
 
     }

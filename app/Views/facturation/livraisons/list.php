@@ -52,16 +52,16 @@ Facturation livraisons
               </select>
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
+              <input type="text" class="form-control text-uppercase" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
             </div>
           </div>
           <div>
             <h5 class="card-title mb-0 text-dark mb-2">Informations sur les containers</h5>
             <div class="mb-3">
-              <input type="text" class="form-control" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
+              <input type="text" class="form-control text-uppercase" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
+              <input type="text" class="form-control text-uppercase" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ Facturation livraisons
         <thead>
           <tr>
             <th>Nº Facture</th>
-            <th class="d-none d-lg-table-cell">CIE</th>
+            <th class="d-none d-lg-table-cell">BL</th>
             <th class="d-none d-xl-table-cell">Nombre de 20'</th>
             <th class="d-none d-xl-table-cell">Nombre de 40'</th>
             <th class="d-none d-md-table-cell">Montant</th>
@@ -95,7 +95,7 @@ Facturation livraisons
           <?php foreach ($fact_liv_last as $line) : ?>
             <tr>
               <td>Nº <?= $line['id'] ?></td>
-              <td class="d-none d-lg-table-cell"><?= $line['compagnie'] ?></td>
+              <td class="d-none d-lg-table-cell"><?= $line['bl'] ?></td>
               <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
               <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
               <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>

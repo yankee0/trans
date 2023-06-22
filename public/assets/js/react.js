@@ -16,30 +16,31 @@ const AlertMessage = (props) => {
 };
 
 const Item = ({ onRemove }) => {
-  //valeur ht
+
+  //valeur des hors taxes
   const [ht, setHt] = useState([0, 0]);
   const handleHt = (e) => {
-    // console.log(zones[e]);
+    const i = e.selectedIndex - 1;
+    // console.log(i);
 
     setHt([
-      zones[e - 1].ht_liv_20 ? zones[e - 1].ht_liv_20 : 0,
-      zones[e - 1].ht_liv_40 ? zones[e - 1].ht_liv_40 : 0,
+      zones[i].ht_liv_20 ? zones[i].ht_liv_20 : 0,
+      zones[i].ht_liv_40 ? zones[i].ht_liv_40 : 0,
     ]);
   };
 
   //conteneurs
   const [c, setC] = useState(["", ""]);
-
   const handleC1 = (e) => {
     setC([e, c[1] + "-"]);
     checkDoubles(c[0], c[1]);
   };
-
   const handleC2 = (e) => {
     setC([c[0] + "-", e]);
     checkDoubles(c[0], c[1]);
   };
 
+  //notification de control de saisie
   const [a, setA] = useState({ m: true, err: [] });
   function checkDoubles() {
     axios.post(checkUrl, { token: token, data: c }).then((res) => {
@@ -72,7 +73,7 @@ const Item = ({ onRemove }) => {
               name="zone[]"
               required
               onChange={(e) => {
-                handleHt(e.target.value);
+                handleHt(e.target);
               }}
             >
               <option value="" hidden>
@@ -185,7 +186,7 @@ const ReactAppFromCDN = () => {
     setStack((prevStack) => prevStack.filter((item, i) => i !== index));
   };
 
-  console.log(stack);
+  // console.log(stack);
   return (
     <div>
       <div className="row row-cols-md-2 row-cols-xl-3 gx-3 gy-3 mb-3">
