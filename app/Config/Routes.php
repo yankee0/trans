@@ -133,6 +133,13 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'factLiv::list');
             $routes->get('details/(:segment)', 'factLiv::showInvoice/$1');
+            $routes->get('edit/', '');
+            $routes->group('edit', function($routes)
+            {
+                $routes->get('(:segment)','factLiv::showEdit/$1');
+                $routes->post('entete/(:segment)','factLiv::editFactLiveHeader/$1');
+
+            });
             $routes->post('/', 'factLiv::add');
             $routes->add('del/(:segment)', 'factLiv::delete/$1');
             $routes->post('edit', 'factLiv::edit');

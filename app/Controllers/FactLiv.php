@@ -10,6 +10,7 @@ use App\Models\FactLivLignes;
 use App\Models\Livraisons;
 use App\Models\Zones;
 use Exception;
+use PhpParser\Node\Stmt\TryCatch;
 
 class FactLiv extends BaseController
 {
@@ -89,6 +90,7 @@ class FactLiv extends BaseController
 
                 //supprimer les cases vides
                 for ($j = 0; $j < sizeof($c_20[$i]); $j++) {
+                    $c_20[$i][$j] = strtoupper($c_20[$i][$j]);
                     if (empty($c_20[$i][$j])) {
                         unset($c_20[$i][$j]);
                     }
@@ -102,6 +104,7 @@ class FactLiv extends BaseController
 
                 //supprimer les cases vides
                 for ($j = 0; $j < sizeof($c_40[$i]); $j++) {
+                    $c_40[$i][$j] = strtoupper($c_40[$i][$j]);
                     if (empty($c_40[$i][$j])) {
                         unset($c_40[$i][$j]);
                     }
@@ -124,7 +127,7 @@ class FactLiv extends BaseController
                         $lieux = (new FactLivLieux())->insert([
                             'id_fact' => intval($facture),
                             'id_zone' => intval($zone['id']),
-                            'designation' => 'LIVRAISON ' . $zone['nom'],
+                            'designation' => 'Livraison' . $zone['nom'],
                             'carburant' => $zone['carburant'],
                             'adresse' => $data['address'][$i],
                         ], true);
@@ -197,6 +200,55 @@ class FactLiv extends BaseController
 
     public function showInvoice($id = null)
     {
+        return view('facturation/livraisons/factures', $this->getInvoice($id));
+    }
+
+    public function delete($seg)
+    {
+        $data = explode(' ', $seg);
+        $id = $data[1];
+        try {
+            (new ModelsFactLiv())->delete($id);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Suppression réussie');
+    }
+
+    public function search()
+    {
+        $s = $this->request->getVar('search');
+        $modele = new ModelsFactLiv();
+        $r = $modele
+            ->like('bl', $s)
+            ->orLike('id_client', $s)
+            ->orLike('compagnie', $s)
+            ->orLike('created_at', $s)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
+        // if (!empty($r)) {
+        //     for ($i = 0; $i < sizeof($r); $i++) {
+        //         (new Facturations)->FactLivInfos($r);
+        //     }
+        // }
+        $data = [
+            'r' => $r,
+            'pager' => $modele->pager,
+            'search' => $s
+        ];
+
+        return view('facturation/livraisons/search', $data);
+    }
+
+    public function getInvoice($id)
+    {
         $invoice = (new ModelsFactLiv())->find($id);
         if (empty($invoice)) {
             return view('errors/cli/error_404', [
@@ -248,17 +300,35 @@ class FactLiv extends BaseController
                 'taxe' => $total * 18 / 100,
                 'ttc' => $total + $total * 18 / 100,
             ];
-
-            return view('facturation/livraisons/factures', $data);
         }
+        return $data;
     }
 
-    public function delete($seg)
+    public function showEdit($id)
     {
-        $data = explode(' ', $seg);
-        $id = $data[1];
+        $data = $this->getInvoice($id);
+        $data['cli'] = (new Clients())
+            ->orderBy('nom')
+            ->findAll();
+
+        return view('facturation/livraisons/edit', $data);
+    }
+
+    public function editFactLiveHeader($id)
+    {
+        $data = $this->request->getPost();
+        $data['id'] = $id;
+        if (isset($data['consignataire'])) {
+            $data['consignataire'] = strtoupper($data['consignataire']);
+        }
+        if (isset($data['compagnie'])) {
+            $data['compagnie'] = strtoupper($data['compagnie']);
+        }
+        if (isset($data['bl'])) {
+            $data['bl'] = strtoupper($data['bl']);
+        }
         try {
-            (new ModelsFactLiv())->delete($id);
+            (new ModelsFactLiv())->save($data);
         } catch (Exception $e) {
             return redirect()
                 ->back()
@@ -268,32 +338,8 @@ class FactLiv extends BaseController
         }
         return redirect()
             ->back()
+            ->withInput()
             ->with('n', true)
-            ->with('m', 'Suppression réussie');
-    }
-
-    public function search()
-    {
-        $s = $this->request->getVar('search');
-        $modele = new ModelsFactLiv();
-        $r = $modele
-            ->like('bl', $s)
-            ->orLike('id_client', $s)
-            ->orLike('compagnie', $s)
-            ->orLike('created_at', $s)
-            ->orderBy('created_at', 'DESC')
-            ->paginate(20);
-        // if (!empty($r)) {
-        //     for ($i = 0; $i < sizeof($r); $i++) {
-        //         (new Facturations)->FactLivInfos($r);
-        //     }
-        // }
-        $data = [
-            'r' => $r,
-            'pager' => $modele->pager,
-            'search' => $s
-        ];
-
-        return view('facturation/livraisons/search', $data);
+            ->with('m', 'Modification réussie.');
     }
 }

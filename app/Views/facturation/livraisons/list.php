@@ -47,12 +47,12 @@ Facturation livraisons
               <select class="form-select" name="id_client" id="id_client" required>
                 <option selected value="" hidden>Sélectionner un compte</option>
                 <?php foreach ($cli as $c) : ?>
-                  <option value="<?= $c['id'] ?>"><?= $c['id'] . ' - ' . $c['nom'] ?></option>
+                  <option value="<?= $c['id'] ?>"  <?= set_select('id_client', $c['id'],false) ?>><?= $c['id'] . ' - ' . $c['nom'] ?></option>
                 <?php endforeach ?>
               </select>
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control text-uppercase" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
+              <input type="text" value="<?= set_value('consignataire') ?>" class="form-control text-uppercase" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
             </div>
           </div>
           <div>

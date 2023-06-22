@@ -53,15 +53,15 @@ class Graph extends BaseController
                 ->where('preget', 'NON')
                 ->where('paiement', 'OUI')
                 ->find()),
-            // 'yes_preget_yes_paiement' => 
-            count($modele
-                ->where('preget', 'OUI')
-                ->where('paiement', 'OUI')
-                ->find()),
-            // 'yes_preget_no_paiement' => $modele
+            // // 'yes_preget_yes_paiement' => 
+            // count($modele
             //     ->where('preget', 'OUI')
             //     ->where('paiement', 'OUI')
-            //     ->find(),
+            //     ->find()),
+            count($modele
+                ->where('preget', 'OUI')
+                ->where('paiement', 'NON')
+                ->find()),
         ];
 
         $this->response->setJSON($data)->send();
