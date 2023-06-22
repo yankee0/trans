@@ -136,7 +136,7 @@
     <h2 class="invoice-title text-center text-capitalize text-primary fs-1"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
     <div class="invoice-details d-flex align-items-center justify-content-between">
       <div>
-        <p class="fs-1">Yankee</p>
+        <p class="fs-1"><?= $facture['consignataire'] ?></p>
         <p>Compte Nº <?= $facture['id_client'] ?></p>
         <p>Date de facturation : <?= $facture['created_at'] ?></p>
       </div>
@@ -244,7 +244,7 @@
   </div>
   <script>
     generateQRCode(
-      'Facture de <?= $facture['consignataire'] ?>',
+      'Facture de <?= $facture['consignataire'] ?> | Montant: <?= $ttc ?>',
       'qrcode'
     )
 

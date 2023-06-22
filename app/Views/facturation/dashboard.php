@@ -4,20 +4,8 @@
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <div class="container-fluid p-0">
-
   <h1 class="h3 mb-3"><strong>Facturations</strong> Dashboard</h1>
   <div class="row">
-
-    <div class="col-12 d-flex">
-      <div class="card flex-fill">
-        <div class="card-body ">
-          <form action="<?= base_url(session()->r . '/zones/search') ?>" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un client, un BL, un numéro de conteneur">
-            <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
-          </form>
-        </div>
-      </div>
-    </div>
     <div class="col-md-6 col-lg-3">
       <div class="card">
         <div class="card-body">
@@ -64,7 +52,7 @@
     <div class="col-md-6 col-lg-5 col-xl-4 d-flex">
       <div class="card flex-fill w-100">
         <div class="card-header">
-          <h5 class="card-title mb-0">Statistiques mensuel des factures</h5>
+          <h5 class="card-title mb-0">État des factures de livraisons</h5>
         </div>
         <div class="card-body d-flex">
           <div class="align-self-center w-100">
@@ -73,19 +61,6 @@
                 <canvas id="chartjs-dashboard-pie"></canvas>
               </div>
             </div>
-
-            <table class="table mb-0">
-              <tbody>
-                <tr>
-                  <td>En attente preget</td>
-                  <td class="text-end">[]</td>
-                </tr>
-                <tr>
-                  <td>Annulé</td>
-                  <td class="text-end">[]</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -130,8 +105,8 @@
                 <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
                 <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
-                <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU LE ' . $line['date_preget'] ?></span></td>
-                <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ LE ' . $line['date_paiement'] ?></span></td>
+                <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
+                <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                 <td class="d-flex gap-1">
                   <button value="Nº <?= $line['id'] ?>" class="delfLiv btn btn-danger btn-sm d-flex align-items-center justify-content-center gap-2" type="button" title="Supprimer la facture" data-bs-toggle="modal" data-bs-target="#delFactLiv"><i class="align-middle" data-feather="trash"></i></button>
                   <a class="btn btn-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
@@ -190,82 +165,110 @@
   const myModaldelfliv = new bootstrap.Modal(document.getElementById('delFactLiv'), options)
 </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Pie chart
-    new Chart(document.getElementById("chartjs-dashboard-pie"), {
-      type: "pie",
-      data: {
-        labels: ["En attente preget", "Annulé"],
-        datasets: [{
-          data: [4306, 3801],
-          backgroundColor: [
-            window.theme.primary,
-            window.theme.danger,
-          ],
-          borderWidth: 5
-        }]
-      },
-      options: {
-        responsive: !window.MSInputMethodContext,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        cutoutPercentage: 75
-      }
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Bar chart
-    new Chart(document.getElementById("chartjs-dashboard-bar"), {
-      type: "bar",
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Livraisons",
-          backgroundColor: window.theme.primary,
-          borderColor: window.theme.primary,
-          hoverBackgroundColor: window.theme.primary,
-          hoverBorderColor: window.theme.primary,
-          data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-          barPercentage: .75,
-          categoryPercentage: .5
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: true
-        },
-        scales: {
-          yAxes: [{
-            gridLines: {
-              display: false
-            },
-            stacked: false,
-            ticks: {
-              stepSize: 20
-            }
-          }],
-          xAxes: [{
-            stacked: false,
-            gridLines: {
-              color: "transparent"
-            }
-          }]
-        }
-      }
-    });
-  });
-</script>
-
-<script>
   $('.delfLiv').click(function(e) {
     e.preventDefault();
     $('#nFactLiv').html($(this).val());
-    $('#delfLivB').attr('href', '<?= base_url(session()->r.'/livraisons/del/') ?>'+$(this).val());
+    $('#delfLivB').attr('href', '<?= base_url(session()->r . '/livraisons/del/') ?>' + $(this).val());
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const pie_data = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/pie_fact_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
+    });
+
+    pie_data.done(res => {
+      // Pie chart
+      new Chart(document.getElementById("chartjs-dashboard-pie"), {
+        type: "pie",
+        data: {
+          labels: [
+            'Paiement et preget non reçus',
+            'Paiement reçu et preget non reçu',
+            'Paiement non reçu et preget reçu',
+            // 'Paiment et preget reçus'
+          ],
+          datasets: [{
+            data: res,
+            backgroundColor: [
+              '#0097e6',
+              '#fbc531',
+              '#9c88ff',
+              // '#2ecc71'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: !window.MSInputMethodContext,
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
+          cutoutPercentage: 70
+        }
+      });
+    })
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const bar_data = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/bar_fact_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
+    });
+    // Bar chart
+    bar_data.done(res => {
+      new Chart(document.getElementById("chartjs-dashboard-bar"), {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jlt", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+          datasets: [{
+            label: "Livraisons",
+            backgroundColor: '#0097e6',
+            borderColor: '#0097e6',
+            hoverBackgroundColor: '#0097e6',
+            hoverBorderColor: '#0097e6',
+            data: res.liv,
+            barPercentage: .60,
+            categoryPercentage: .5
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                display: false
+              },
+              stacked: false,
+              ticks: {
+                stepSize: 10000000
+              }
+            }],
+            xAxes: [{
+              stacked: false,
+              gridLines: {
+                color: "transparent"
+              }
+            }]
+          }
+        }
+      });
+    })
   });
 </script>
 

@@ -147,12 +147,18 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'zones::edit');
             $routes->get('search', 'zones::search');
         });
-
     });
 });
 
 //-------------------Routes API
 $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
+    // $routes->group('api', function ($routes) {
+        
+    $routes->group('graph', function ($routes) {
+        $routes->add('bar_fact_liv', 'api\graph::bar_fact_liv');
+        $routes->add('pie_fact_liv', 'api\graph::pie_fact_liv');
+    });
+
     $routes->group('utilisateurs', function ($routes) {
         $routes->get('/', 'api\utilisateurs::get');
     });
@@ -177,9 +183,8 @@ $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
         $routes->get('/', 'api\clients::get');
     });
 
-    $routes->group('utils', function($routes)
-    {
-        $routes->post('checkData','api\utils::checkDoubleContainer');
+    $routes->group('utils', function ($routes) {
+        $routes->post('checkData', 'api\utils::checkDoubleContainer');
     });
 });
 
