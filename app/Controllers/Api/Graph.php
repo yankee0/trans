@@ -45,22 +45,24 @@ class Graph extends BaseController
         $data = [
             // 'no_preget_no_paiement'
             count($modele
-                ->where('preget', 'NON')
                 ->where('paiement', 'NON')
+                ->where('preget', 'NON')
+                ->where('annulation', 'NON')
                 ->find()),
             // 'no_preget_yes_paiement' => 
             count($modele
-                ->where('preget', 'NON')
                 ->where('paiement', 'OUI')
+                ->where('preget', 'NON')
+                ->where('annulation', 'NON')
                 ->find()),
-            // // 'yes_preget_yes_paiement' => 
-            // count($modele
-            //     ->where('preget', 'OUI')
-            //     ->where('paiement', 'OUI')
-            //     ->find()),
             count($modele
-                ->where('preget', 'OUI')
                 ->where('paiement', 'NON')
+                ->where('preget', 'OUI')
+                ->where('annulation', 'NON')
+                ->find()),
+            // 'Annulée' => 
+            count($modele
+                ->where('annulation', 'OUI')
                 ->find()),
         ];
 

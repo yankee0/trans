@@ -174,7 +174,6 @@
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-
     const pie_data = $.ajax({
       type: "get",
       url: "<?= base_url('api/graph/pie_fact_liv') ?>",
@@ -190,10 +189,10 @@
         type: "pie",
         data: {
           labels: [
-            'Paiement et preget non reçus',
-            'Paiement reçu et preget non reçu',
-            'Paiement non reçu et preget reçu',
-            // 'Paiment et preget reçus'
+            'Factures non payées et sans preget',
+            'Factures payées et sans preget',
+            'Factures non payées et preget reçu',
+            'Factures annulées'
           ],
           datasets: [{
             data: res,
@@ -201,7 +200,7 @@
               '#0097e6',
               '#fbc531',
               '#9c88ff',
-              // '#2ecc71'
+              '#e74c3c'
             ],
             borderWidth: 2
           }]
