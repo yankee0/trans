@@ -326,6 +326,23 @@ class FactLiv extends BaseController
         }
         if (isset($data['bl'])) {
             $data['bl'] = strtoupper($data['bl']);
+            //le BL doit etre unique
+            $rules = [
+                'bl' => [
+                    'rules' => 'is_unique[fact_liv.bl,bl,'.strtoupper($data['last_bl']).']',
+                    'errors' => [
+                        'is_unique' => 'BL en doublon.'
+                    ]
+                ],
+            ];
+
+            if (!$this->validate($rules)) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('n', false)
+                    ->with('m', '<br />' . $this->validator->listErrors());
+            }
         }
         try {
             (new ModelsFactLiv())->save($data);
@@ -341,5 +358,27 @@ class FactLiv extends BaseController
             ->withInput()
             ->with('n', true)
             ->with('m', 'Modification réussie.');
+    }
+
+    public function deleteZone($f,$z){
+        // dd($f);
+        try {
+            (new FactLivLieux())
+            ->where('id_fact' ,$f)
+            ->where('id_zone',$z)
+            ->delete();
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Suppression réussie.');
+
     }
 }

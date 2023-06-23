@@ -138,6 +138,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             {
                 $routes->get('(:segment)','factLiv::showEdit/$1');
                 $routes->post('entete/(:segment)','factLiv::editFactLiveHeader/$1');
+                $routes->get('zones/(:num)/(:num)','factLiv::deleteZone/$1/$2');
 
             });
             $routes->post('/', 'factLiv::add');

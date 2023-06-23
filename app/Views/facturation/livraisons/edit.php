@@ -3,7 +3,7 @@
 Facturation livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<div class="container-fluid">
+<div class="container-fluid p-0">
   <h1 class="h3 mb-3"><strong class="text-primary">Modification</strong> Facture <span class="text-primary">Nº <?= $facture['id'] ?></span></h1>
   <div class="row">
     <div class="col-12 d-flex">
@@ -14,9 +14,9 @@ Facturation livraisons
         <div class="card-body">
 
           <div class="row row-cols-md-2 mb-3">
-            <div>
+            <div class="mb-3">
               <h5 class="card-title text-dark">Informations sur le client</h5>
-              <hr>
+              <hr class="mb-1">
 
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">Compte:</strong> Nº <?= $facture['id_client'] ?></span>
@@ -27,76 +27,79 @@ Facturation livraisons
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodconsi"><i data-feather="edit"></i></button>
               </div>
             </div>
-            <div>
+            <div class="mb-3">
               <h5 class="card-title text-dark">Informations sur les containers</h5>
-              <hr>
+              <hr class="mb-1">
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">BL:</strong> Nº <?= $facture['bl'] ?></span>
-                <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modBL"><i data-feather="edit"></i></button>
               </div>
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">Compagnie:</strong> <?= $facture['compagnie'] ?></span>
-                <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modCie"><i data-feather="edit"></i></button>
               </div>
             </div>
           </div>
           <div class="row">
             <h5 class="card-title text-dark">Informations sur le transport</h5>
-            <hr>
-            <div class="row mb-3">
-              <?php foreach ($zones as $z) : ?>
-                <div class="col-md-2 col-xl-3 mb-4">
-                  <div class="text-muted d-flex align-items-center">
-                    <strong class="text-primary"><?= $z['designation'] ?></strong>
-                    <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                    <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <div><strong class="text-primary">Adresse:</strong> <?= $z['adresse'] ?></div>
-                    <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                  </div>
+            <hr class="mb-1">
+            <div class="container-fluid p-3">
 
-
-                  <?php if (!empty($z['c_20'])) : ?>
+              <div class="row mb-3 gap-3">
+                <?php foreach ($zones as $z) : ?>
+                  <div class="col-md-6 col-lg-4 border flex-fill">
+                    <div class="text-muted d-flex align-items-center">
+                      <strong class="text-primary"><?= $z['designation'] ?></strong>
+                      <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                      <button class="btn btn-sm text-danger dz" id="<?= $facture['id'] . '/' . $z['id_zone'] ?>" value="<?= $z['designation'] ?>" data-bs-toggle="modal" data-bs-target="#delzone"><i data-feather="trash"></i></button>
+                    </div>
                     <div class="d-flex align-items-center">
-                      <div><strong class="text-primary">HT pour 20':</strong> <?= $z['c_20'][0]['prix'] ?></div>
+                      <div><strong class="text-primary">Adresse:</strong> <?= $z['adresse'] ?></div>
                       <button class="btn btn-sm"><i data-feather="edit"></i></button>
                     </div>
-                    <div class="text-sm">Les conteneurs 20'</div>
-                    <ul>
-                      <?php foreach ($z['c_20'] as $c) : ?>
-                        <li class="d-flex align-items-center">
-                          <?= $c['conteneur'] ?>
-                          <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                          <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
-                        </li>
-                      <?php endforeach ?>
-                    </ul>
-                  <?php else : ?>
-                    <div><i>Aucun conteneur 20'</i></div>
-                  <?php endif ?>
 
-                  <?php if (!empty($z['c_40'])) : ?>
-                    <div class="d-flex align-items-center">
-                      <div><strong class="text-primary">HT pour 40':</strong> <?= $z['c_40'][0]['prix'] ?></div>
-                      <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                    </div>
-                    <div class="text-sm">Les conteneurs 40'</div>
-                    <ul>
-                      <?php foreach ($z['c_40'] as $c) : ?>
-                        <li class="d-flex align-items-center">
-                          <?= $c['conteneur'] ?>
-                          <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                          <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
-                        </li>
-                      <?php endforeach ?>
-                    </ul>
-                  <?php else : ?>
-                    <div><i>Aucun conteneur 40'</i></div>
-                  <?php endif ?>
-                  <div class="d-flex align-items-center gap-1"><button class="btn btn-sm text-primary"><i data-feather="plus"></i> Ajouter un conteneur</button></div>
-                </div>
-              <?php endforeach ?>
+
+                    <?php if (!empty($z['c_20'])) : ?>
+                      <div class="d-flex align-items-center">
+                        <div><strong class="text-primary">HT pour 20':</strong> <?= $z['c_20'][0]['prix'] ?></div>
+                        <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                      </div>
+                      <div class="text-sm">Les conteneurs 20'</div>
+                      <ul>
+                        <?php foreach ($z['c_20'] as $c) : ?>
+                          <li class="d-flex align-items-center">
+                            <?= $c['conteneur'] ?>
+                            <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                            <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
+                          </li>
+                        <?php endforeach ?>
+                      </ul>
+                    <?php else : ?>
+                      <div><i>Aucun conteneur 20'</i></div>
+                    <?php endif ?>
+
+                    <?php if (!empty($z['c_40'])) : ?>
+                      <div class="d-flex align-items-center">
+                        <div><strong class="text-primary">HT pour 40':</strong> <?= $z['c_40'][0]['prix'] ?></div>
+                        <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                      </div>
+                      <div class="text-sm">Les conteneurs 40'</div>
+                      <ul>
+                        <?php foreach ($z['c_40'] as $c) : ?>
+                          <li class="d-flex align-items-center">
+                            <?= $c['conteneur'] ?>
+                            <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                            <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
+                          </li>
+                        <?php endforeach ?>
+                      </ul>
+                    <?php else : ?>
+                      <div><i>Aucun conteneur 40'</i></div>
+                    <?php endif ?>
+                    <div class="d-flex align-items-center gap-1"><button class="btn btn-sm text-primary"><i data-feather="plus"></i> Ajouter un conteneur</button></div>
+                  </div>
+                <?php endforeach ?>
+              </div>
             </div>
           </div>
         </div>
@@ -110,6 +113,16 @@ Facturation livraisons
   </div>
 </div>
 
+<script>
+  $(document).ready(function() {
+
+    $('.dz').click(function(e) {
+      e.preventDefault();
+      $('#dz').html($(this).val());
+      $('#dzl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/zones/') ?>' + $(this).attr('id'));
+    });
+  });
+</script>
 
 
 <div class="modal fade" id="modalIdmodcompte" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodclient" aria-hidden="true">
@@ -151,7 +164,6 @@ Facturation livraisons
 </script>
 
 <!-- mod consignataire -->
-
 <div class="modal fade" id="modalIdmodconsi" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodcons" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
@@ -179,10 +191,101 @@ Facturation livraisons
     </div>
   </div>
 </div>
-
-
-<!-- Optional: Place to the bottom of scripts -->
 <script>
   const myModalcons = new bootstrap.Modal(document.getElementById('modalIdmodconsi'), options)
 </script>
+
+<!-- mod bl -->
+<div class="modal fade" id="modBL" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodBl" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdmodBl">Modifier le BL</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/entete/' . $facture['id']),
+          [
+            'id' => 'modblform'
+          ]
+        ) ?>
+        <div>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('bl', $facture['bl']) ?>" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
+          <input type="text" hidden readonly class="form-control text-uppercase" value="<?= set_value('bl', $facture['bl']) ?>" name="last_bl" aria-describedby="helpId" placeholder="BL" required>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modblform" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalmodbl = new bootstrap.Modal(document.getElementById('modBL'), options)
+</script>
+
+<!-- mod bl -->
+<div class="modal fade" id="modCie" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodCie" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdmodCie">Modifier la compagnie</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/entete/' . $facture['id']),
+          [
+            'id' => 'modCieform'
+          ]
+        ) ?>
+        <div>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('compagnie', $facture['compagnie']) ?>" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modCieform" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalmodCie = new bootstrap.Modal(document.getElementById('modCie'), options)
+</script>
+
+
+<!-- del zone -->
+<div class="modal fade" id="delzone" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="tdelzone" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tdelzone">Suppression de la zone</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Supprimer: <span id="dz" class="text-primary"></span> ?</p>
+        <div class="alert alert-warning" role="alert">
+          <strong>ATTENTION!</strong> Supprimer la zone de livraison implique la suppression des conteneurs devant y être livrés. <br>
+          <strong class="textdanger">CETTE ACTION EST IRREVERSIBLE!</strong>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non, annuler.</button>
+        <a type="button" id="dzl" role="button" class="btn btn-primary">Oui, supprimer.</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const delzone = new bootstrap.Modal(document.getElementById('delzone'), options)
+</script>
+
 <?= $this->endSection(); ?>

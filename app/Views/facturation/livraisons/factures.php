@@ -19,11 +19,6 @@
       /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     }
 
-    #the {
-      background-color: #f5f6fa;
-      background: #f5f6fa;
-    }
-
     #logo {
       display: block;
     }
@@ -70,6 +65,12 @@
       font-weight: bold;
     }
 
+    tr,
+    td {
+      border: solid 1px #34495e;
+      border-color: #34495e;
+    }
+
     @media print {
       @page {
         size: A4;
@@ -78,12 +79,6 @@
 
       .btn {
         display: none;
-      }
-
-
-      #the {
-        background-color: #f5f6fa;
-        background: #f5f6fa;
       }
 
       #logo {
@@ -106,7 +101,7 @@
         flex-grow: 1;
       }
 
-      tr:nth-of-type(even){
+      tr:nth-of-type(even) {
         background: red;
       }
 
@@ -146,7 +141,7 @@
       </div>
     </div>
     <table class="table invoice-table">
-      <thead id="the" class="bg-light">
+      <thead>
         <tr>
           <th>Désignation</th>
           <th>Quantité 20'</th>
