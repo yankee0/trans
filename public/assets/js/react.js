@@ -16,7 +16,6 @@ const AlertMessage = (props) => {
 };
 
 const Item = ({ onRemove }) => {
-
   //valeur des hors taxes
   const [ht, setHt] = useState([0, 0]);
   const handleHt = (e) => {
@@ -207,11 +206,28 @@ const ReactAppFromCDN = () => {
           Ajouter une zone
         </button>
       </div>
-      <div className="d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary">
-          Enregistrer
-        </button>
-      </div>
+      <SubmitButton />
+    </div>
+  );
+};
+
+const SubmitButton = () => {
+  return addZone != false ? (
+    <div className="d-flex justify-content-center">
+      <button
+        type="submit"
+        name="facture"
+        value={addZone}
+        className="btn btn-primary"
+      >
+        Enregistrer
+      </button>
+    </div>
+  ) : (
+    <div className="d-flex justify-content-center">
+      <button type="submit" className="btn btn-primary">
+        Créer la facture
+      </button>
     </div>
   );
 };

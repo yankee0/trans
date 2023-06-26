@@ -159,6 +159,7 @@ Facturation livraisons
 <script>
   const checkUrl = '<?= base_url('api/utils/checkData') ?>';
   const token = '<?= csrf_hash() ?>';
+  const addZone = false;
 </script>
 
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>

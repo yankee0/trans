@@ -17,6 +17,64 @@ Facturation livraisons
     },
   };
 </script>
+<script>
+  $(document).ready(function() {
+
+    $('.dz').click(function(e) {
+      e.preventDefault();
+      $('#dz').html($(this).val());
+      $('#dzl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/zones/') ?>' + $(this).attr('id'));
+    });
+
+    $('.modadr').click(function(e) {
+      e.preventDefault();
+      console.log($(this).attr('data-ci'));
+      $('#madr').html($(this).attr('data-ci'));
+      $('#mas').attr('formaction', '<?= base_url(session()->r . '/livraisons/edit/adresse/') ?>' + $(this).val());
+    });
+
+    $('.pht20,.pht40').click(function(e) {
+      e.preventDefault();
+      // $('#prix_20').val($(this).attr('data-price-20'));
+      // $('#prix_40').val($(this).attr('data-price-40'));
+      $('#modpriceform').attr('action', '<?= base_url(session()->r . '/livraisons/edit/price/') ?>' + $(this).val());
+    });
+
+    $('.dcb').click(function(e) {
+      e.preventDefault();
+      $('#dcon').html($(this).attr('data-container'));
+      $('#dcl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/delete/container/') ?>' + $(this).val());
+    });
+
+    $('.ecb').click(function(e) {
+      e.preventDefault();
+      $('#conteneur').val($(this).attr('data-tc'));
+      let type = $(this).attr('data-type');
+      switch (type) {
+        case '20':
+          $('#t20').attr('selected', 'selected');
+          break;
+        case '40':
+          $('#t40').attr('selected', 'selected');
+          break;
+        default:
+          break;
+      }
+      $('#modtcformu').attr('action', '<?= base_url(session()->r . '/livraisons/edit/container/') ?>' + $(this).attr('data-id'));
+    });
+
+    $('.addtcb').click(function(e) {
+      e.preventDefault();
+      $('#addtcs').val($(this).val());
+    });
+
+    $('.chz').click(function(e) {
+      e.preventDefault();
+      $('#chzn').val($(this).val());
+    });
+
+  });
+</script>
 <div class="container-fluid p-0">
   <h1 class="h3 mb-3"><strong class="text-primary">Modification</strong> Facture <span class="text-primary">Nº <?= $facture['id'] ?></span></h1>
   <div class="row">
@@ -31,7 +89,6 @@ Facturation livraisons
             <div class="mb-3">
               <h5 class="card-title text-dark">Informations sur le client</h5>
               <hr class="mb-1">
-
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">Compte:</strong> Nº <?= $facture['id_client'] ?></span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodcompte"><i data-feather="edit" class="text-warning"></i></button>
@@ -114,7 +171,7 @@ Facturation livraisons
               </div>
             </div>
           </div>
-          <form action="#" class="row">
+          <form action="<?= base_url(session()->r.'/livraisons/edit/addzone') ?>" method="post" class="row">
             <div id="yankee"></div>
           </form>
         </div>
@@ -127,66 +184,6 @@ Facturation livraisons
 
   </div>
 </div>
-
-<script>
-  $(document).ready(function() {
-
-    $('.dz').click(function(e) {
-      e.preventDefault();
-      $('#dz').html($(this).val());
-      $('#dzl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/zones/') ?>' + $(this).attr('id'));
-    });
-
-    $('.modadr').click(function(e) {
-      e.preventDefault();
-      console.log($(this).attr('data-ci'));
-      $('#madr').html($(this).attr('data-ci'));
-      $('#mas').attr('formaction', '<?= base_url(session()->r . '/livraisons/edit/adresse/') ?>' + $(this).val());
-    });
-
-    $('.pht20,.pht40').click(function(e) {
-      e.preventDefault();
-      // $('#prix_20').val($(this).attr('data-price-20'));
-      // $('#prix_40').val($(this).attr('data-price-40'));
-      $('#modpriceform').attr('action', '<?= base_url(session()->r . '/livraisons/edit/price/') ?>' + $(this).val());
-    });
-
-    $('.dcb').click(function(e) {
-      e.preventDefault();
-      $('#dcon').html($(this).attr('data-container'));
-      $('#dcl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/delete/container/') ?>' + $(this).val());
-    });
-
-    $('.ecb').click(function(e) {
-      e.preventDefault();
-      $('#conteneur').val($(this).attr('data-tc'));
-      let type = $(this).attr('data-type');
-      switch (type) {
-        case '20':
-          $('#t20').attr('selected', 'selected');
-          break;
-        case '40':
-          $('#t40').attr('selected', 'selected');
-          break;
-        default:
-          break;
-      }
-      $('#modtcformu').attr('action', '<?= base_url(session()->r . '/livraisons/edit/container/') ?>' + $(this).attr('data-id'));
-    });
-
-    $('.addtcb').click(function(e) {
-      e.preventDefault();
-      $('#addtcs').val($(this).val());
-    });
-
-    $('.chz').click(function(e) {
-      e.preventDefault();
-      $('#chzn').val($(this).val());
-    });
-
-  });
-</script>
-
 
 <div class="modal fade" id="modalIdmodcompte" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodclient" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
@@ -572,4 +569,15 @@ Facturation livraisons
 <script>
   const myModalnz = new bootstrap.Modal(document.getElementById('modzname'), options)
 </script>
+<script>
+  const checkUrl = '<?= base_url('api/utils/checkData') ?>';
+  const token = '<?= csrf_hash() ?>';
+  const addZone = '<?= $facture['id'] ?>';
+</script>
+
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="<?= base_url('assets/js/react.js') ?>" type="text/babel"></script>
 <?= $this->endSection(); ?>
