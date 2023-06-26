@@ -60,7 +60,7 @@ Facturation livraisons
                     <?php if (!empty($z['c_20'])) : ?>
                       <div class="d-flex align-items-center">
                         <div><strong class="text-primary">HT pour 20':</strong> <?= $z['c_20'][0]['prix'] ?></div>
-                        <button class="btn btn-sm pht20" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
+                        <button class="btn btn-sm pht20" data-bs-toggle="modal" data-bs-target="#modprice" data-price-20="<?= $z['c_20'][0]['prix'] ?>" data-price-40="<?= $z['c_40'][0]['prix'] ?>" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       </div>
                       <div class="text-sm">Les conteneurs 20'</div>
                       <ul>
@@ -79,7 +79,7 @@ Facturation livraisons
                     <?php if (!empty($z['c_40'])) : ?>
                       <div class="d-flex align-items-center">
                         <div><strong class="text-primary">HT pour 40':</strong> <?= $z['c_40'][0]['prix'] ?></div>
-                        <button class="btn btn-sm" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
+                        <button class="btn btn-sm pht40" data-bs-toggle="modal" data-bs-target="#modprice" data-price-20="<?= $z['c_20'][0]['prix'] ?>" data-price-40="<?= $z['c_40'][0]['prix'] ?>" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       </div>
                       <div class="text-sm">Les conteneurs 40'</div>
                       <ul>
@@ -120,12 +120,21 @@ Facturation livraisons
       $('#dzl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/zones/') ?>' + $(this).attr('id'));
     });
 
-    $('.modadr').click(function (e) { 
+    $('.modadr').click(function(e) {
       e.preventDefault();
       console.log($(this).attr('data-ci'));
       $('#madr').html($(this).attr('data-ci'));
       $('#mas').attr('formaction', '<?= base_url(session()->r . '/livraisons/edit/adresse/') ?>' + $(this).val());
     });
+
+    $('.pht20,.pht40').click(function (e) { 
+      e.preventDefault();
+      $('#prix_20').val($(this).attr('data-price-20'));
+      $('#prix_40').val($(this).attr('data-price-40'));
+      console.log($(this).val());
+      $('#modpriceform').attr('action', '<?= base_url(session()->r . '/livraisons/edit/price/') ?>'+$(this).val());
+    });
+
   });
 </script>
 
@@ -325,4 +334,42 @@ Facturation livraisons
   const myModal = new bootstrap.Modal(document.getElementById('modadres'), options)
 </script>
 
+<!-- mod prix -->
+<div class="modal fade" id="modprice" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modliv" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modliv">Modifier le prix de livraison</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          '/',
+          [
+            'id' => 'modpriceform'
+          ]
+        ) ?>
+        <div class="mb-3">
+          <p class="mb-0">Prix de livraisons 20'</p>
+          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_20" id="prix_20" aria-describedby="helpId" placeholder="Nouveaux prix de livraison" required>
+        </div>
+        <div>
+
+          <p class="mb-0">Prix de livraisons 40'</p>
+          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_40" id="prix_40" aria-describedby="helpId" placeholder="Nouveaux prix de livraison" required>
+        </div>
+
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modpriceform" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalprice = new bootstrap.Modal(document.getElementById('modprice'), options)
+</script>
 <?= $this->endSection(); ?>

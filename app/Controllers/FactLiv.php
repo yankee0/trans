@@ -403,4 +403,53 @@ class FactLiv extends BaseController
             ->with('n', true)
             ->with('m', 'Modification réussie.');
     }
+
+    public function editPrice($id)
+    {
+
+        $c_20 = (new FactLivLignes())
+            ->where('id_lieu', $id)
+            ->where('type', '20')
+            ->find();
+        $c_40 = (new FactLivLignes())
+            ->where('id_lieu', $id)
+            ->where('type', '40')
+            ->find();
+
+        foreach ($c_20 as $c) {
+            try {
+                (new FactLivLignes())
+                    ->update($c['id'], [
+                        'prix' => intval($this->request->getVar('prix_20'))
+                    ]);
+            } catch (Exception $e) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('n', false)
+                    ->with('m', '<br />' . $e->getMessage());
+            }
+        }
+
+        foreach ($c_40 as $c) {
+            try {
+                (new FactLivLignes())
+                    ->update($c['id'], [
+                        'prix' => intval($this->request->getVar('prix_40'))
+                    ]);
+            } catch (Exception $e) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('n', false)
+                    ->with('m', '<br />' . $e->getMessage());
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Modification réussie.');
+    }
 }
