@@ -3,6 +3,20 @@
 Facturation livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
+<script>
+  let zones = [];
+  config = {
+    type: "get",
+    url: "<?= base_url('api/zones') ?>",
+    data: {
+      token: '<?= csrf_hash() ?>'
+    },
+    dataType: "JSON",
+    success: function(response) {
+      zones = response;
+    },
+  };
+</script>
 <div class="container-fluid p-0">
   <h1 class="h3 mb-3"><strong class="text-primary">Modification</strong> Facture <span class="text-primary">Nº <?= $facture['id'] ?></span></h1>
   <div class="row">
@@ -47,10 +61,10 @@ Facturation livraisons
 
               <div class="row mb-3 gap-3">
                 <?php foreach ($zones as $z) : ?>
-                  <div class="col-md-6 col-lg-4 border flex-fill">
+                  <div class="col-md-6 col-lg-4 flex-fill">
                     <div class="text-muted d-flex align-items-center">
                       <strong class="text-primary"><?= $z['designation'] ?></strong>
-                      <button class="btn btn-sm"><i data-feather="edit" class="text-warning"></i></button>
+                      <button class="btn btn-sm chz" data-bs-toggle="modal" data-bs-target="#modzname" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       <button class="btn btn-sm  dz" id="<?= $facture['id'] . '/' . $z['id_zone'] ?>" value="<?= $z['designation'] ?>" data-bs-toggle="modal" data-bs-target="#delzone"><i data-feather="trash" class="text-danger"></i></button>
                     </div>
                     <div class="d-flex align-items-center">
@@ -94,12 +108,15 @@ Facturation livraisons
                     <?php else : ?>
                       <div><i>Aucun conteneur 40'</i></div>
                     <?php endif ?>
-                    <div class="d-flex align-items-center gap-1"><button class="btn btn-sm text-primary"><i data-feather="plus"></i> Ajouter un conteneur</button></div>
+                    <div class="d-flex align-items-center gap-1"><button class="btn btn-sm text-primary addtcb" data-bs-toggle="modal" data-bs-target="#addtc" value="<?= $z['id'] ?>"><i data-feather="plus"></i> Ajouter un conteneur</button></div>
                   </div>
                 <?php endforeach ?>
               </div>
             </div>
           </div>
+          <form action="#" class="row">
+            <div id="yankee"></div>
+          </form>
         </div>
         <div class="card-footer text-muted d-flex align-items-center justify-content-center gap-1">
           <a class="btn btn-primary" href="<?= base_url(session()->r) ?>">Retour au Dashboard</a>
@@ -129,8 +146,8 @@ Facturation livraisons
 
     $('.pht20,.pht40').click(function(e) {
       e.preventDefault();
-      $('#prix_20').val($(this).attr('data-price-20'));
-      $('#prix_40').val($(this).attr('data-price-40'));
+      // $('#prix_20').val($(this).attr('data-price-20'));
+      // $('#prix_40').val($(this).attr('data-price-40'));
       $('#modpriceform').attr('action', '<?= base_url(session()->r . '/livraisons/edit/price/') ?>' + $(this).val());
     });
 
@@ -154,7 +171,17 @@ Facturation livraisons
         default:
           break;
       }
-      $('#modtcformu').attr('action', '<?= base_url(session()->r . '/livraisons/edit/container/') ?>'+$(this).attr('data-id'));
+      $('#modtcformu').attr('action', '<?= base_url(session()->r . '/livraisons/edit/container/') ?>' + $(this).attr('data-id'));
+    });
+
+    $('.addtcb').click(function(e) {
+      e.preventDefault();
+      $('#addtcs').val($(this).val());
+    });
+
+    $('.chz').click(function(e) {
+      e.preventDefault();
+      $('#chzn').val($(this).val());
     });
 
   });
@@ -458,5 +485,91 @@ Facturation livraisons
 </div>
 <script>
   const myModaltc = new bootstrap.Modal(document.getElementById('editcontainer'), options)
+</script>
+
+<!-- add container -->
+<div class="modal fade" id="addtc" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="addtctitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addtctitle">Ajouter un conteneur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/container/add'),
+          [
+            'id' => 'addtcformu'
+          ]
+        ) ?>
+        <div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Type de conteneur</label>
+            <select class="form-select" name="type" id="type" required>
+              <option selected hidden value="">Sélectionnner un type de conteneur</option>
+              <option <?= set_select('type', '20') ?> value="20">20'</option>
+              <option <?= set_select('type', '40') ?> value="40">40'</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="conteneur" class="form-label">Numéro du conteneur</label>
+            <input type="text" class="form-control" name="conteneur" id="conteneur" placeholder="Numéro du conteneur" required>
+          </div>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" id="addtcs" name="id_lieu" form="addtcformu" class="btn btn-primary">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModaladdtc = new bootstrap.Modal(document.getElementById('addtc'), options)
+</script>
+
+<!-- changer destinations -->
+<button type="button" class="btn btn-primary btn-lg">
+  Launch
+</button>
+<div class="modal fade" id="modzname" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modzti" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modzti">Modification de la zone</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/zones/new'),
+          [
+            'id' => 'chzoneform'
+          ]
+        ) ?>
+        <div>
+          <div class="mb-3">
+            <label for="zone" class="form-label">Choisir la nouvelle zone de livraison</label>
+            <select class="form-select " name="zone" id="zone" required>
+              <option selected value="" hidden>Sélectionnez une zone</option>
+              <?php foreach ($zn as $z) : ?>
+                <option value="<?= $z['id'] ?>"><?= $z['nom'] ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="chzoneform" id="chzn" name="lastzone" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalnz = new bootstrap.Modal(document.getElementById('modzname'), options)
 </script>
 <?= $this->endSection(); ?>

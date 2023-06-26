@@ -261,5 +261,15 @@ Liste des zones
     });
   });
 </script>
+<script>
+  const checkUrl = '<?= base_url('api/utils/checkData') ?>';
+  const token = '<?= csrf_hash() ?>';
+</script>
+
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="<?= base_url('assets/js/react.js') ?>" type="text/babel"></script>
 
 <?= $this->endSection(); ?>

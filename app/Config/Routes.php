@@ -139,10 +139,12 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->get('(:segment)','factLiv::showEdit/$1');
                 $routes->post('entete/(:segment)','factLiv::editFactLiveHeader/$1');
                 $routes->get('zones/(:num)/(:num)','factLiv::deleteZone/$1/$2');
+                $routes->post('zones/new','factLiv::changeZone');
                 $routes->post('adresse/(:num)','factLiv::editAddress/$1');
                 $routes->post('price/(:num)','factLiv::editPrice/$1');
                 $routes->get('delete/container/(:num)','factLiv::deleteContainer/$1');
                 $routes->post('container/(:num)','factLiv::editContainer/$1');
+                $routes->post('container/add','factLiv::addContainer');
             });
             $routes->post('/', 'factLiv::add');
             $routes->add('del/(:segment)', 'factLiv::delete/$1');

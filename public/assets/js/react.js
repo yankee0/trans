@@ -209,7 +209,7 @@ const ReactAppFromCDN = () => {
       </div>
       <div className="d-flex justify-content-center">
         <button type="submit" className="btn btn-primary">
-          Créer la facture
+          Enregistrer
         </button>
       </div>
     </div>

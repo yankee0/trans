@@ -45,6 +45,9 @@ class FactLivLieux extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey([
+            'id_fact','id_zone'
+        ]);
         $this->forge->addForeignKey('id_fact','fact_liv','id','CASCASE','CASCADE');
         $this->forge->addForeignKey('id_zone','zones','id','CASCASE','SET NULL');
         $this->forge->createTable('fact_liv_lieux',true);

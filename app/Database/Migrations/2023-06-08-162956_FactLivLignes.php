@@ -37,6 +37,9 @@ class FactLivLignes extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey([
+            'conteneur','id_lieu'
+        ]);
         $this->forge->addForeignKey('id_lieu', 'fact_liv_lieux', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('fact_liv_lignes', true);
     }

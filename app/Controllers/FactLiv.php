@@ -34,7 +34,7 @@ class FactLiv extends BaseController
         ]);
     }
 
-    public function add()
+    public function add($define_invoice = null)
     {
         $data = $this->request->getPost();
 
@@ -66,15 +66,17 @@ class FactLiv extends BaseController
         } else {
 
             //creation de la facture
-            $data_liv = [
-                'consignataire' => strtoupper($data['consignataire']),
-                'id_client' => intval($data['id_client']),
-                'compagnie' => strtoupper($data['compagnie']),
-                'bl' => strtoupper($data['bl']),
-                'csrf_test_name' => $data['csrf_test_name']
-            ];
+            if (empty($define_invoice)) {
+                $data_liv = [
+                    'consignataire' => strtoupper($data['consignataire']),
+                    'id_client' => intval($data['id_client']),
+                    'compagnie' => strtoupper($data['compagnie']),
+                    'bl' => strtoupper($data['bl']),
+                    'csrf_test_name' => $data['csrf_test_name']
+                ];
+            }
             try {
-                $facture = (new ModelsFactLiv())->insert($data_liv, true);
+                $facture = (empty($define_invoice)) ? (new ModelsFactLiv())->insert($data_liv, true) : $define_invoice;
             } catch (Exception $e) {
                 return redirect()
                     ->back()
@@ -123,7 +125,15 @@ class FactLiv extends BaseController
                     // dd($zone['id']);
                     //création de la relation facture-zone (lieux de livraisons)
                     try {
+                        $check = (new FactLivLieux())->where([
+                            'id_fact' => intval($facture),
+                            'id_zone' => intval($zone['id']),
+                        ])->find();
 
+                        if (sizeof($check) != 0) {
+                            (new FactLiv)->delete($facture);
+                            throw new Exception('Un doublon de zone détecté.');
+                        }
                         $lieux = (new FactLivLieux())->insert([
                             'id_fact' => intval($facture),
                             'id_zone' => intval($zone['id']),
@@ -147,13 +157,32 @@ class FactLiv extends BaseController
                         if (!empty($c)) {
                             $trimed = trim($c);
 
-                            //création de la ligne de facture
-                            $ligne = (new FactLivLignes())->insert([
-                                'id_lieu' => intval($lieux),
-                                'conteneur' => $trimed,
-                                'type' => '20',
-                                'prix' => intval($data['ht_20'][$i])
-                            ], true);
+                            try {
+                                $check = (new FactLivLignes())->where([
+                                    'id_lieu' => intval($lieux),
+                                    'conteneur' => $trimed,
+                                ])->find();
+
+                                if (sizeof($check) != 0) {
+                                    (new FactLiv)->delete($facture);
+                                    throw new Exception('Un doublon de conteneur détecté, supprimez la facture et rééssayez');
+                                }
+
+                                //création de la ligne de facture
+                                $ligne = (new FactLivLignes())->insert([
+                                    'id_lieu' => intval($lieux),
+                                    'conteneur' => $trimed,
+                                    'type' => '20',
+                                    'prix' => intval($data['ht_20'][$i])
+                                ], true);
+                            } catch (Exception $e) {
+                                return redirect()
+                                    ->back()
+                                    ->withInput()
+                                    ->with('n', false)
+                                    ->with('m', '<br />' . $e->getMessage());
+                            }
+
 
                             //création de la livraison
                             (new Livraisons())->insert([
@@ -168,16 +197,35 @@ class FactLiv extends BaseController
                         if (!empty($c)) {
                             $trimed = trim($c);
 
-                            //création de la ligne de facture
-                            $ligne = (new FactLivLignes())->insert([
-                                'id_lieu' => intval($lieux),
-                                'conteneur' => $trimed,
-                                'type' => '40',
-                                'prix' => intval($data['ht_40'][$i])
-                            ], true);
+                            try {
+                                $check = (new FactLivLignes())->where([
+                                    'id_lieu' => intval($lieux),
+                                    'conteneur' => $trimed,
+                                ])->find();
+
+                                if (sizeof($check) != 0) {
+                                    (new FactLiv)->delete($facture);
+                                    throw new Exception('Un doublon de conteneur détecté.');
+                                }
+
+                                //création de la ligne de facture
+                                $ligne = (new FactLivLignes())->insert([
+                                    'id_lieu' => intval($lieux),
+                                    'conteneur' => $trimed,
+                                    'type' => '40',
+                                    'prix' => intval($data['ht_40'][$i])
+                                ], true);
+                            } catch (Exception $e) {
+                                return redirect()
+                                    ->back()
+                                    ->withInput()
+                                    ->with('n', false)
+                                    ->with('m', '<br />' . $e->getMessage());
+                            }
+
 
                             //création de la livraison
-                            $livraison = (new Livraisons())->insert([
+                            (new Livraisons())->insert([
                                 'id_fact_ligne' => $ligne
                             ], true);
                         }
@@ -310,7 +358,9 @@ class FactLiv extends BaseController
         $data['cli'] = (new Clients())
             ->orderBy('nom')
             ->findAll();
-
+        $data['zn'] = (new Zones())
+            ->orderBy('nom')
+            ->findAll();
         return view('facturation/livraisons/edit', $data);
     }
 
@@ -380,6 +430,48 @@ class FactLiv extends BaseController
             ->withInput()
             ->with('n', true)
             ->with('m', 'Suppression réussie.');
+    }
+
+    public function changeZone()
+    {
+        $new_zone = (new Zones())->find($this->request->getVar('zone'));
+        try {
+            (new FactLivLieux())
+                ->save([
+                    'id' => $this->request->getVar('lastzone'),
+                    'id_zone' => $new_zone['id'],
+                    'designation' => 'Livraison ' . $new_zone['nom']
+                ]);
+
+            //mettre a jour le prix des livraisons
+            (new FactLivLignes())
+                ->where('id_lieu', $this->request->getVar('lastzone'))
+                ->where('type', '20')
+                ->set([
+                    'prix' => $new_zone['ht_liv_20']
+                ])
+                ->update();
+
+            (new FactLivLignes())
+                ->where('id_lieu', $this->request->getVar('lastzone'))
+                ->where('type', '40')
+                ->set([
+                    'prix' => $new_zone['ht_liv_40']
+                ])
+                ->update();
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Modification réussie.');
     }
 
     public function editAddress($id)
@@ -453,16 +545,17 @@ class FactLiv extends BaseController
             ->with('m', 'Modification réussie.');
     }
 
-    public function deleteContainer($id){
+    public function deleteContainer($id)
+    {
 
         try {
             (new FactLivLignes())->delete($id);
         } catch (Exception $e) {
             return redirect()
-            ->back()
-            ->withInput()
-            ->with('n', false)
-            ->with('m', '<br />' . $e->getMessage());
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
         }
 
         return redirect()
@@ -472,7 +565,8 @@ class FactLiv extends BaseController
             ->with('m', 'Suppression réussie.');
     }
 
-    public function editContainer($id){
+    public function editContainer($id)
+    {
         $data = $this->request->getPost();
         $data['id'] = $id;
 
@@ -480,10 +574,10 @@ class FactLiv extends BaseController
             (new FactLivLignes())->save($data);
         } catch (Exception $e) {
             return redirect()
-            ->back()
-            ->withInput()
-            ->with('n', false)
-            ->with('m', '<br />' . $e->getMessage());
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
         }
 
         return redirect()
@@ -491,5 +585,27 @@ class FactLiv extends BaseController
             ->withInput()
             ->with('n', true)
             ->with('m', 'Modification réussie.');
+    }
+
+    public function addContainer()
+    {
+        $data = $this->request->getPost();
+        $data['conteneur'] = strtoupper($data['conteneur']);
+        // dd($data);
+        try {
+            (new FactLivLignes())->save($data);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Ajout réussie.');
     }
 }
