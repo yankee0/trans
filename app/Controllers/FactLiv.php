@@ -127,7 +127,7 @@ class FactLiv extends BaseController
                         $lieux = (new FactLivLieux())->insert([
                             'id_fact' => intval($facture),
                             'id_zone' => intval($zone['id']),
-                            'designation' => 'Livraison' . $zone['nom'],
+                            'designation' => 'Livraison ' . $zone['nom'],
                             'carburant' => $zone['carburant'],
                             'adresse' => $data['address'][$i],
                         ], true);
@@ -329,7 +329,7 @@ class FactLiv extends BaseController
             //le BL doit etre unique
             $rules = [
                 'bl' => [
-                    'rules' => 'is_unique[fact_liv.bl,bl,'.strtoupper($data['last_bl']).']',
+                    'rules' => 'is_unique[fact_liv.bl,bl,' . strtoupper($data['last_bl']) . ']',
                     'errors' => [
                         'is_unique' => 'BL en doublon.'
                     ]
@@ -360,13 +360,14 @@ class FactLiv extends BaseController
             ->with('m', 'Modification réussie.');
     }
 
-    public function deleteZone($f,$z){
+    public function deleteZone($f, $z)
+    {
         // dd($f);
         try {
             (new FactLivLieux())
-            ->where('id_fact' ,$f)
-            ->where('id_zone',$z)
-            ->delete();
+                ->where('id_fact', $f)
+                ->where('id_zone', $z)
+                ->delete();
         } catch (Exception $e) {
             return redirect()
                 ->back()
@@ -379,6 +380,27 @@ class FactLiv extends BaseController
             ->withInput()
             ->with('n', true)
             ->with('m', 'Suppression réussie.');
+    }
 
+    public function editAddress($id)
+    {
+        $data = $this->request->getPost();
+        $data = array_merge($data, ['id' => $id]);
+        $data['adresse'] = strtoupper($data['adresse']);
+        try {
+            (new FactLivLieux())
+                ->save($data);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Modification réussie.');
     }
 }

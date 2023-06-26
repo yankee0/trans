@@ -108,11 +108,11 @@ Liste des zones
         </div>
         <div class="mb-3">
           <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
-          <input type="number" step="10000" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
           <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
-          <input type="number" step="10000" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
@@ -151,11 +151,11 @@ Liste des zones
         </div>
         <div class="mb-3">
           <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
-          <input type="number" step="10000" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
           <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
-          <input type="number" step="10000" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>

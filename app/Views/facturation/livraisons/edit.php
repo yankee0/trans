@@ -20,11 +20,11 @@ Facturation livraisons
 
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">Compte:</strong> Nº <?= $facture['id_client'] ?></span>
-                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodcompte"><i data-feather="edit"></i></button>
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodcompte"><i data-feather="edit" class="text-warning"></i></button>
               </div>
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">Consignataire:</strong> <?= $facture['consignataire'] ?></span>
-                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodconsi"><i data-feather="edit"></i></button>
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodconsi"><i data-feather="edit" class="text-warning"></i></button>
               </div>
             </div>
             <div class="mb-3">
@@ -32,11 +32,11 @@ Facturation livraisons
               <hr class="mb-1">
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">BL:</strong> Nº <?= $facture['bl'] ?></span>
-                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modBL"><i data-feather="edit"></i></button>
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modBL"><i data-feather="edit" class="text-warning"></i></button>
               </div>
               <div class="d-flex align-items-center">
                 <span><strong class="text-primary">Compagnie:</strong> <?= $facture['compagnie'] ?></span>
-                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modCie"><i data-feather="edit"></i></button>
+                <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modCie"><i data-feather="edit" class="text-warning"></i></button>
               </div>
             </div>
           </div>
@@ -50,27 +50,25 @@ Facturation livraisons
                   <div class="col-md-6 col-lg-4 border flex-fill">
                     <div class="text-muted d-flex align-items-center">
                       <strong class="text-primary"><?= $z['designation'] ?></strong>
-                      <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                      <button class="btn btn-sm text-danger dz" id="<?= $facture['id'] . '/' . $z['id_zone'] ?>" value="<?= $z['designation'] ?>" data-bs-toggle="modal" data-bs-target="#delzone"><i data-feather="trash"></i></button>
+                      <button class="btn btn-sm"><i data-feather="edit" class="text-warning"></i></button>
+                      <button class="btn btn-sm  dz" id="<?= $facture['id'] . '/' . $z['id_zone'] ?>" value="<?= $z['designation'] ?>" data-bs-toggle="modal" data-bs-target="#delzone"><i data-feather="trash" class="text-danger"></i></button>
                     </div>
                     <div class="d-flex align-items-center">
                       <div><strong class="text-primary">Adresse:</strong> <?= $z['adresse'] ?></div>
-                      <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                      <button value="<?= $z['id'] ?>" data-ci="<?= $z['designation'] ?>" class="btn btn-sm modadr" data-bs-toggle="modal" data-bs-target="#modadres"><i data-feather="edit" class="text-warning"></i></button>
                     </div>
-
-
                     <?php if (!empty($z['c_20'])) : ?>
                       <div class="d-flex align-items-center">
                         <div><strong class="text-primary">HT pour 20':</strong> <?= $z['c_20'][0]['prix'] ?></div>
-                        <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                        <button class="btn btn-sm pht20" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       </div>
                       <div class="text-sm">Les conteneurs 20'</div>
                       <ul>
                         <?php foreach ($z['c_20'] as $c) : ?>
                           <li class="d-flex align-items-center">
                             <?= $c['conteneur'] ?>
-                            <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                            <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
+                            <button class="btn btn-sm"><i data-feather="edit" class="text-warning"></i></button>
+                            <button class="btn btn-sm "><i data-feather="trash" class="text-danger"></i></button>
                           </li>
                         <?php endforeach ?>
                       </ul>
@@ -81,15 +79,15 @@ Facturation livraisons
                     <?php if (!empty($z['c_40'])) : ?>
                       <div class="d-flex align-items-center">
                         <div><strong class="text-primary">HT pour 40':</strong> <?= $z['c_40'][0]['prix'] ?></div>
-                        <button class="btn btn-sm"><i data-feather="edit"></i></button>
+                        <button class="btn btn-sm" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       </div>
                       <div class="text-sm">Les conteneurs 40'</div>
                       <ul>
                         <?php foreach ($z['c_40'] as $c) : ?>
                           <li class="d-flex align-items-center">
                             <?= $c['conteneur'] ?>
-                            <button class="btn btn-sm"><i data-feather="edit"></i></button>
-                            <button class="btn btn-sm text-danger"><i data-feather="trash"></i></button>
+                            <button class="btn btn-sm"><i data-feather="edit" class="text-warning"></i></button>
+                            <button class="btn btn-sm "><i data-feather="trash" class="text-danger"></i></button>
                           </li>
                         <?php endforeach ?>
                       </ul>
@@ -120,6 +118,13 @@ Facturation livraisons
       e.preventDefault();
       $('#dz').html($(this).val());
       $('#dzl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/zones/') ?>' + $(this).attr('id'));
+    });
+
+    $('.modadr').click(function (e) { 
+      e.preventDefault();
+      console.log($(this).attr('data-ci'));
+      $('#madr').html($(this).attr('data-ci'));
+      $('#mas').attr('formaction', '<?= base_url(session()->r . '/livraisons/edit/adresse/') ?>' + $(this).val());
     });
   });
 </script>
@@ -260,7 +265,6 @@ Facturation livraisons
   const myModalmodCie = new bootstrap.Modal(document.getElementById('modCie'), options)
 </script>
 
-
 <!-- del zone -->
 <div class="modal fade" id="delzone" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="tdelzone" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
@@ -286,6 +290,39 @@ Facturation livraisons
 </div>
 <script>
   const delzone = new bootstrap.Modal(document.getElementById('delzone'), options)
+</script>
+
+<!-- mod adr -->
+<div class="modal fade" id="modadres" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modadrtitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modadrtitle">Modification de l'adresse</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/adres/' . $facture['id']),
+          [
+            'id' => 'modadrform'
+          ]
+        ) ?>
+        <div>
+          <p>Nouvelle adresse pour la <span id="madr"></span></p>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('adresse') ?>" name="adresse" id="adresse" aria-describedby="helpId" placeholder="Saisir la nouvelle adresse" required>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modadrform" class="btn btn-primary" id="mas">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModal = new bootstrap.Modal(document.getElementById('modadres'), options)
 </script>
 
 <?= $this->endSection(); ?>
