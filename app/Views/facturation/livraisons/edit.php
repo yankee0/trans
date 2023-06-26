@@ -60,15 +60,15 @@ Facturation livraisons
                     <?php if (!empty($z['c_20'])) : ?>
                       <div class="d-flex align-items-center">
                         <div><strong class="text-primary">HT pour 20':</strong> <?= $z['c_20'][0]['prix'] ?></div>
-                        <button class="btn btn-sm pht20" data-bs-toggle="modal" data-bs-target="#modprice" data-price-20="<?= $z['c_20'][0]['prix'] ?>" data-price-40="<?= $z['c_40'][0]['prix'] ?>" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
+                        <button class="btn btn-sm pht20" data-bs-toggle="modal" data-bs-target="#modprice" data-price-40="<?= (isset($z['c_20'][0])) ? $z['c_20'][0]['prix'] : 0 ?>" data-price-40="<?= (isset($z['c_40'][0])) ? $z['c_40'][0]['prix'] : 0 ?>" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       </div>
                       <div class="text-sm">Les conteneurs 20'</div>
                       <ul>
                         <?php foreach ($z['c_20'] as $c) : ?>
                           <li class="d-flex align-items-center">
                             <?= $c['conteneur'] ?>
-                            <button class="btn btn-sm"><i data-feather="edit" class="text-warning"></i></button>
-                            <button class="btn btn-sm "><i data-feather="trash" class="text-danger"></i></button>
+                            <button class="btn btn-sm ecb" data-type="<?= $c['type'] ?>" data-tc="<?= $c['conteneur'] ?>" data-id="<?= $c['id'] ?>" data-bs-toggle="modal" data-bs-target="#editcontainer"><i data-feather="edit" class="text-warning"></i></button>
+                            <button class="btn btn-sm dcb" data-container="<?= $c['conteneur'] ?>" value="<?= $c['id'] ?>" data-bs-toggle="modal" data-bs-target="#delcontainer"><i data-feather="trash" class="text-danger"></i></button>
                           </li>
                         <?php endforeach ?>
                       </ul>
@@ -79,15 +79,15 @@ Facturation livraisons
                     <?php if (!empty($z['c_40'])) : ?>
                       <div class="d-flex align-items-center">
                         <div><strong class="text-primary">HT pour 40':</strong> <?= $z['c_40'][0]['prix'] ?></div>
-                        <button class="btn btn-sm pht40" data-bs-toggle="modal" data-bs-target="#modprice" data-price-20="<?= $z['c_20'][0]['prix'] ?>" data-price-40="<?= $z['c_40'][0]['prix'] ?>" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
+                        <button class="btn btn-sm pht40" data-bs-toggle="modal" data-bs-target="#modprice" data-price-40="<?= (isset($z['c_20'][0])) ? $z['c_20'][0]['prix'] : 0 ?>" data-price-40="<?= (isset($z['c_40'][0])) ? $z['c_40'][0]['prix'] : 0 ?>" value="<?= $z['id'] ?>"><i data-feather="edit" class="text-warning"></i></button>
                       </div>
                       <div class="text-sm">Les conteneurs 40'</div>
                       <ul>
                         <?php foreach ($z['c_40'] as $c) : ?>
                           <li class="d-flex align-items-center">
                             <?= $c['conteneur'] ?>
-                            <button class="btn btn-sm"><i data-feather="edit" class="text-warning"></i></button>
-                            <button class="btn btn-sm "><i data-feather="trash" class="text-danger"></i></button>
+                            <button class="btn btn-sm ecb" data-type="<?= $c['type'] ?>" data-tc="<?= $c['conteneur'] ?>" data-id="<?= $c['id'] ?>" data-bs-toggle="modal" data-bs-target="#editcontainer"><i data-feather="edit" class="text-warning"></i></button>
+                            <button class="btn btn-sm dcb" data-container="<?= $c['conteneur'] ?>" value="<?= $c['id'] ?>" data-bs-toggle="modal" data-bs-target="#delcontainer"><i data-feather="trash" class="text-danger"></i></button>
                           </li>
                         <?php endforeach ?>
                       </ul>
@@ -127,12 +127,34 @@ Facturation livraisons
       $('#mas').attr('formaction', '<?= base_url(session()->r . '/livraisons/edit/adresse/') ?>' + $(this).val());
     });
 
-    $('.pht20,.pht40').click(function (e) { 
+    $('.pht20,.pht40').click(function(e) {
       e.preventDefault();
       $('#prix_20').val($(this).attr('data-price-20'));
       $('#prix_40').val($(this).attr('data-price-40'));
-      console.log($(this).val());
-      $('#modpriceform').attr('action', '<?= base_url(session()->r . '/livraisons/edit/price/') ?>'+$(this).val());
+      $('#modpriceform').attr('action', '<?= base_url(session()->r . '/livraisons/edit/price/') ?>' + $(this).val());
+    });
+
+    $('.dcb').click(function(e) {
+      e.preventDefault();
+      $('#dcon').html($(this).attr('data-container'));
+      $('#dcl').attr('href', '<?= base_url(session()->r . '/livraisons/edit/delete/container/') ?>' + $(this).val());
+    });
+
+    $('.ecb').click(function(e) {
+      e.preventDefault();
+      $('#conteneur').val($(this).attr('data-tc'));
+      let type = $(this).attr('data-type');
+      switch (type) {
+        case '20':
+          $('#t20').attr('selected', 'selected');
+          break;
+        case '40':
+          $('#t40').attr('selected', 'selected');
+          break;
+        default:
+          break;
+      }
+      $('#modtcformu').attr('action', '<?= base_url(session()->r . '/livraisons/edit/container/') ?>'+$(this).attr('data-id'));
     });
 
   });
@@ -193,7 +215,7 @@ Facturation livraisons
           ]
         ) ?>
         <div>
-          <input type="text" class="form-control text-uppercase" value="<?= set_value('consignataire', $facture['consignataire']) ?>" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('consignataire', $facture['consignataire']) ?>" name="consignataire" id="consignataire" placeholder="Consignataire" required>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -225,8 +247,8 @@ Facturation livraisons
           ]
         ) ?>
         <div>
-          <input type="text" class="form-control text-uppercase" value="<?= set_value('bl', $facture['bl']) ?>" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
-          <input type="text" hidden readonly class="form-control text-uppercase" value="<?= set_value('bl', $facture['bl']) ?>" name="last_bl" aria-describedby="helpId" placeholder="BL" required>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('bl', $facture['bl']) ?>" name="bl" id="bl" placeholder="BL" required>
+          <input type="text" hidden readonly class="form-control text-uppercase" value="<?= set_value('bl', $facture['bl']) ?>" name="last_bl" placeholder="BL" required>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -258,7 +280,7 @@ Facturation livraisons
           ]
         ) ?>
         <div>
-          <input type="text" class="form-control text-uppercase" value="<?= set_value('compagnie', $facture['compagnie']) ?>" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('compagnie', $facture['compagnie']) ?>" name="compagnie" id="compagnie" placeholder="Compagnie" required>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -318,7 +340,7 @@ Facturation livraisons
         ) ?>
         <div>
           <p>Nouvelle adresse pour la <span id="madr"></span></p>
-          <input type="text" class="form-control text-uppercase" value="<?= set_value('adresse') ?>" name="adresse" id="adresse" aria-describedby="helpId" placeholder="Saisir la nouvelle adresse" required>
+          <input type="text" class="form-control text-uppercase" value="<?= set_value('adresse') ?>" name="adresse" id="adresse" placeholder="Saisir la nouvelle adresse" required>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -351,12 +373,12 @@ Facturation livraisons
         ) ?>
         <div class="mb-3">
           <p class="mb-0">Prix de livraisons 20'</p>
-          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_20" id="prix_20" aria-describedby="helpId" placeholder="Nouveaux prix de livraison" required>
+          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_20" id="prix_20" placeholder="Nouveaux prix de livraison" required>
         </div>
         <div>
 
           <p class="mb-0">Prix de livraisons 40'</p>
-          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_40" id="prix_40" aria-describedby="helpId" placeholder="Nouveaux prix de livraison" required>
+          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_40" id="prix_40" placeholder="Nouveaux prix de livraison" required>
         </div>
 
         <?= csrf_field() ?>
@@ -371,5 +393,70 @@ Facturation livraisons
 </div>
 <script>
   const myModalprice = new bootstrap.Modal(document.getElementById('modprice'), options)
+</script>
+
+<!-- delete container -->
+<div class="modal fade" id="delcontainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="delcon" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delcon">Supprimer un conteneur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Êtes vous sur de vouloir supprimer le conteneur <span id="dcon" class="text-primary"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <a role="button" id="dcl" class="btn btn-primary">Supprimer</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModaldelcon = new bootstrap.Modal(document.getElementById('delcontainer'), options)
+</script>
+
+<!-- edit container -->
+<div class="modal fade" id="editcontainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="editcontitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editcontitle">Modifier le conteneur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          '',
+          [
+            'id' => 'modtcformu'
+          ]
+        ) ?>
+        <div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Type de conteneur</label>
+            <select class="form-select" name="type" id="type" required>
+              <option selected hidden value="">Sélectionnner un type de conteneur</option>
+              <option <?= set_select('type', '20') ?> id="t20" value="20">20'</option>
+              <option <?= set_select('type', '40') ?> id="t40" value="40">40'</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="conteneur" class="form-label">Numéro du conteneur</label>
+            <input type="text" class="form-control" name="conteneur" id="conteneur" placeholder="Numéro du conteneur" required>
+          </div>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modtcformu" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModaltc = new bootstrap.Modal(document.getElementById('editcontainer'), options)
 </script>
 <?= $this->endSection(); ?>

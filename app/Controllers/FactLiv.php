@@ -452,4 +452,44 @@ class FactLiv extends BaseController
             ->with('n', true)
             ->with('m', 'Modification réussie.');
     }
+
+    public function deleteContainer($id){
+
+        try {
+            (new FactLivLignes())->delete($id);
+        } catch (Exception $e) {
+            return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', false)
+            ->with('m', '<br />' . $e->getMessage());
+        }
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Suppression réussie.');
+    }
+
+    public function editContainer($id){
+        $data = $this->request->getPost();
+        $data['id'] = $id;
+
+        try {
+            (new FactLivLignes())->save($data);
+        } catch (Exception $e) {
+            return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', false)
+            ->with('m', '<br />' . $e->getMessage());
+        }
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Modification réussie.');
+    }
 }
