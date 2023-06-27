@@ -162,6 +162,13 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('search', 'zones::search');
         });
     });
+
+    $routes->group('finance', ['filter' => 'finance'], function ($routes) {
+        $routes->get('/', 'finance::index');
+        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+
+        
+    });
 });
 
 //-------------------Routes API

@@ -24,6 +24,13 @@ class Yankee extends Seeder
                 'email' => 'facturation@poly-trans.sn',
                 'mdp' => sha1('yankee')
             ],
+            [
+                'nom' => 'Yankee',
+                'profil' => 'FINANCE',
+                'tel' => '776998884',
+                'email' => 'finance@poly-trans.sn',
+                'mdp' => sha1('yankee')
+            ],
         ];
 
         
