@@ -179,7 +179,7 @@ Facturation livraisons
           </form>
         </div>
         <div class="card-footer text-muted d-flex align-items-center justify-content-center gap-1">
-          <a class="btn btn-primary" href="<?= base_url(session()->r . '/list') ?>">Retour</a>
+          <a class="btn btn-primary" href="<?= base_url(session()->r . '/livraisons') ?>">Retour</a>
           <a class="btn btn-info d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $facture['id']) ?>" target="_blank" role="button">Aperçu de la facture</a>
         </div>
       </div>
@@ -531,9 +531,6 @@ Facturation livraisons
 </script>
 
 <!-- changer destinations -->
-<button type="button" class="btn btn-primary btn-lg">
-  Launch
-</button>
 <div class="modal fade" id="modzname" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modzti" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">

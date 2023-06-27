@@ -31,7 +31,7 @@ Facturation livraisons
           <?php foreach ($r as $res) : ?>
             <article>
               <h3 class="d-flex align-items-center justify-content-between">
-                <a target="_blank" href="<?= base_url(session()->r . '/livraisons/details/' . $res['id']) ?>" class="fs-3">
+                <a href="<?= base_url(session()->r . '/livraisons/edit/' . $res['id']) ?>" class="fs-3">
                   Facture Nº <?= $res['id'] ?>
                 </a>
               </h3>

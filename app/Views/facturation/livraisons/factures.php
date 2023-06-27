@@ -76,8 +76,8 @@
 
     tr,
     td {
-      border: solid 1px #34495e;
-      border-color: #34495e;
+      border: solid 2px black;
+      border-color: black;
     }
 
     @media print {
