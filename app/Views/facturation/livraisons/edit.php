@@ -85,6 +85,9 @@ Facturation livraisons
         </div>
         <div class="card-body">
 
+          <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
+          <p class="fs-3 " ><span class="text-primary" id="lettre"></span> FCFA TTC</p> 
+          <hr>
           <div class="row row-cols-md-2 mb-3">
             <div class="mb-3">
               <h5 class="card-title text-dark">Informations sur le client</h5>
@@ -171,12 +174,12 @@ Facturation livraisons
               </div>
             </div>
           </div>
-          <form action="<?= base_url(session()->r.'/livraisons/edit/addzone') ?>" method="post" class="row">
+          <form action="<?= base_url(session()->r . '/livraisons/edit/addzone') ?>" method="post" class="row">
             <div id="yankee"></div>
           </form>
         </div>
         <div class="card-footer text-muted d-flex align-items-center justify-content-center gap-1">
-          <a class="btn btn-primary" href="<?= base_url(session()->r) ?>">Retour au Dashboard</a>
+          <a class="btn btn-primary" href="<?= base_url(session()->r . '/list') ?>">Retour</a>
           <a class="btn btn-info d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $facture['id']) ?>" target="_blank" role="button">Aperçu de la facture</a>
         </div>
       </div>
@@ -574,7 +577,12 @@ Facturation livraisons
   const token = '<?= csrf_hash() ?>';
   const addZone = '<?= $facture['id'] ?>';
 </script>
-
+<script src="<?= base_url('assets/js/compter.js') ?>"></script>
+<script>
+  const nombre = <?= $ttc ?>;
+  const resultat = NumberToLetter(nombre);
+  document.getElementById('lettre').innerHTML = resultat
+</script>
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>

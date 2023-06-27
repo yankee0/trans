@@ -116,7 +116,7 @@ class FactLiv extends BaseController
             try {
                 //traitement
                 for ($i = 0; $i < sizeof($data['zone']); $i++) {
-                    
+
                     // recuperation des infos de la zones
                     $zone = (new Zones())->find($data['zone'][$i]);
                     if (empty($zone)) {
@@ -128,24 +128,24 @@ class FactLiv extends BaseController
                         $check = (new FactLivLieux())->where([
                             'id_fact' => intval($facture),
                             'id_zone' => intval($zone['id']),
-                            ])->find();
-                            
-                            if (sizeof($check) != 0) {
-                                if ($defined_invoice == null) {
-                                    (new FactLiv)->delete($facture);
-                                }
-                                throw new Exception('Un doublon de zone détecté.');
-                            }
+                        ])->find();
 
-                            // dd($check);
-                            // dd($lieux);
-                            $lieux = (new FactLivLieux())->insert([
-                                'id_fact' => intval($facture),
-                                'id_zone' => intval($zone['id']),
-                                'designation' => 'Livraison ' . $zone['nom'],
-                                'carburant' => $zone['carburant'],
-                                'adresse' => $data['address'][$i],
-                            ], true);
+                        if (sizeof($check) != 0) {
+                            if ($defined_invoice == null) {
+                                (new FactLiv)->delete($facture);
+                            }
+                            throw new Exception('Un doublon de zone détecté.');
+                        }
+
+                        // dd($check);
+                        // dd($lieux);
+                        $lieux = (new FactLivLieux())->insert([
+                            'id_fact' => intval($facture),
+                            'id_zone' => intval($zone['id']),
+                            'designation' => 'Livraison ' . $zone['nom'],
+                            'carburant' => $zone['carburant'],
+                            'adresse' => $data['address'][$i],
+                        ], true);
                     } catch (Exception $e) {
                         if ($defined_invoice == null) {
                             (new FactLiv)->delete($facture);
@@ -172,7 +172,7 @@ class FactLiv extends BaseController
                                     if ($defined_invoice == null) {
                                         (new FactLiv)->delete($facture);
                                     }
-                                    throw new Exception('Un doublon de conteneur détecté, supprimez la facture et rééssayez');
+                                    throw new Exception('Un doublon de conteneur détecté.');
                                 }
 
                                 //création de la ligne de facture
@@ -607,6 +607,14 @@ class FactLiv extends BaseController
         $data['conteneur'] = strtoupper($data['conteneur']);
         // dd($data);
         try {
+            $check = (new FactLivLignes())->where([
+                'id_lieu' => intval($data['id_lieu']),
+                'conteneur' => $data['conteneur'],
+            ])->find();
+
+            if (sizeof($check) != 0) {
+                throw new Exception('Un doublon de conteneur détecté.');
+            }
             (new FactLivLignes())->save($data);
         } catch (Exception $e) {
             return redirect()

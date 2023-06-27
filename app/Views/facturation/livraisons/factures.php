@@ -28,6 +28,15 @@
       margin-bottom: 20px;
     }
 
+    #lo {
+      height: 100px;
+      width: 100px;
+      background: url(<?= base_url('assets/img/logo.png') ?>);
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
     .invoice-title {
       font-size: 24px;
       font-weight: bold;
@@ -101,10 +110,9 @@
         flex-grow: 1;
       }
 
-      tr:nth-of-type(even) {
-        background: red;
+      body{
+        background-color: #fff;
       }
-
 
 
     }
@@ -116,7 +124,8 @@
     <div class="invoice-header">
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-2">
-          <img id="logo" src="<?= base_url('assets/img/logo.png') ?>" height="100px" alt="">
+          <div id="lo"></div>
+          <!-- <img id="logo" src="<?= base_url('assets/img/logo.png') ?>" height="100px" alt=""> -->
           <div class=" d-flex flex-column align-items-start">
             <h3 class="fs-3 text-primary">POLY-TRANS SUARL</h3>
             <span>Transit - Transport - Manutention - Consignation - Entreposage - Groupage - Conseils</span>
