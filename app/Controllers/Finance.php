@@ -31,6 +31,6 @@ class Finance extends BaseController
                 ->findAll(),
             'fact_liv_last' => $factLiv,
         ];
-        return view('facturation/dashboard', $data);
+        return view('finance/dashboard', $data);
     }
 }

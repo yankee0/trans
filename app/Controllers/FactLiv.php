@@ -9,8 +9,11 @@ use App\Models\FactLivLieux;
 use App\Models\FactLivLignes;
 use App\Models\Livraisons;
 use App\Models\Zones;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use Exception;
 use PhpParser\Node\Stmt\TryCatch;
+
+use function PHPUnit\Framework\throwException;
 
 class FactLiv extends BaseController
 {
@@ -308,10 +311,7 @@ class FactLiv extends BaseController
     {
         $invoice = (new ModelsFactLiv())->find($id);
         if (empty($invoice)) {
-            return view('errors/cli/error_404', [
-                'm' => 'La facture que vous cherchez n\'existe pas ou a été supprimée.',
-                'code' => 404
-            ]);
+            throw new PageNotFoundException('Facture introuvable ou supprimée.',404);
         } else {
             $zones = (new FactLivLieux())
                 ->where('id_fact', $invoice['id'])
@@ -629,5 +629,46 @@ class FactLiv extends BaseController
             ->withInput()
             ->with('n', true)
             ->with('m', 'Ajout réussie.');
+    }
+
+    public function abord($id)
+    {
+        $data = [
+            'id' => $id,
+            'annulation' => 'OUI'
+        ];
+
+        try {
+            (new ModelsFactLiv())->save($data);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('n', false)
+                ->with('m', '<br />' . $e->getMessage());
+        }
+
+        $lieux = (new FactLivLieux())
+            ->where('id_fact', $id)
+            ->findAll();
+        foreach ($lieux as $l) {
+            $livs = (new FactLivLignes())
+                ->where('id_lieu', $l['id'])
+                ->findAll();
+
+            foreach ($livs as $liv) {
+                $data = [
+                    'id' => $liv['id'],
+                    'annulation' => 'OUI'
+                ];
+                (new Livraisons())->save($data);
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('n', true)
+            ->with('m', 'Facture annulée.');
     }
 }

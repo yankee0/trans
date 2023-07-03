@@ -80,15 +80,30 @@ Facturation livraisons
   <div class="row">
     <div class="col-12 d-flex">
       <div class="card flex-fill">
-        <div class="card-header">
+        <div class="card-header d-flex align-items-center justify-content-between">
           <h4 class="card-title">Informations sur la facture</h4>
         </div>
-        <div class="card-body">
+        <?php if (
+          $facture['annulation'] == 'NON'
+          and $facture['paiement'] == 'OUI'
+        ) : ?>
+          <p class="text-center display-2 text-bg-success text-white">PAYÉE</p>
+        <?php endif ?>
+        <?php if ($facture['annulation'] == 'OUI') : ?>
+          <p class="text-center display-2 text-bg-danger">ANNULÉE</p>
 
+        <?php endif ?>
+        <div class="card-body">
           <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
-          <p class="fs-3 " ><span class="text-primary" id="lettre"></span> FCFA TTC</p> 
+          <p class="fs-3 "><span class="text-primary" id="lettre"></span> FCFA TTC</p>
+          <p class="d-grid d-sm-flex gap-2">
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delFactLiv">Supprimer la facture</button>
+            <?php if ($facture['annulation'] == 'NON') : ?>
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalIdannF">Annuler la facture</button>
+            <?php endif ?>
+          </p>
           <hr>
-          <div class="row row-cols-md-2 mb-3">
+          <div class="row row-cols-md-2 row-cols-lg-3 mb-3">
             <div class="mb-3">
               <h5 class="card-title text-dark">Informations sur le client</h5>
               <hr class="mb-1">
@@ -579,6 +594,63 @@ Facturation livraisons
   const nombre = <?= $ttc ?>;
   const resultat = NumberToLetter(nombre);
   document.getElementById('lettre').innerHTML = resultat
+</script>
+
+<!-- annuler une facture -->
+<div class="modal fade" id="modalIdannF" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdAnnFact" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdAnnFact">Annulation de facture</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Annuler la facture ?</p>
+        <div class="alert alert-warning" role="alert">
+          <p>CETTE ACTION EST IRREVERSIBLE!</p>
+          <strong>Attention</strong> Si vous annulez la facture, toutes les livraisons lui étant liées seront aussi annulées.
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <a role="button" id="AFLL" href="<?= base_url(session()->r . '/livraisons/annuler/' . $facture['id']) ?>" class="btn btn-primary">Annuler la facture</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalAnf = new bootstrap.Modal(document.getElementById('modalIdannF'), options)
+</script>
+
+<!-- supprimer la facture -->
+<div class="modal fade" id="delFactLiv" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdfactlivdel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdfactlivdel">Suppression</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Souhaitez vous supprimer la facture?</p>
+        <div class="alert alert-warning" role="alert">
+          <strong>URGENT</strong> En supprimant une facturation de livraison:
+          <ul>
+            <li>vous supprimer l'ensemble des livraisons liées à elle</li>
+            <li>le total de la facture sera débité du chiffre d'affaire de l'entreprise, ce qui rendra les anciens rapports obsolétes.</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non annuler</button>
+        <a id="delfLivB" href="<?= base_url(session()->r . '/livraisons/del/N ' . $facture['id']) ?>" role="button" class="btn btn-primary">Oui supprimer</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModaldelfliv = new bootstrap.Modal(document.getElementById('delFactLiv'), options)
 </script>
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>

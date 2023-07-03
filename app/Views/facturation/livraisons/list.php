@@ -95,7 +95,10 @@ Facturation livraisons
           </thead>
           <tbody>
             <?php foreach ($fact_liv_last as $line) : ?>
-              <tr>
+              <tr class="
+                <?= ($line['preget'] == 'OUI' and $line['paiement'] == 'OUI') ? 'bg-success text-white' : '' ?>
+                <?= ($line['annulation'] == 'OUI') ? 'bg-dark text-muted' : '' ?>
+                ">
                 <td><?= $line['id'] ?></td>
                 <td class="table-cell"><?= $line['bl'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
@@ -107,6 +110,7 @@ Facturation livraisons
                 <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                 <td class="d-flex gap-1">
                   <a class="btn text-warning btn-sm d-flex align-items-center justify-content-center gap-2" title="Modifier les informations" href="<?= base_url(session()->r . '/livraisons/edit/' . $line['id']) ?>" role="button"><i class="align-middle" data-feather="edit"></i></a>
+                  <button value="Nº <?= $line['id'] ?>" data-id="<?= $line['id'] ?>" class="annfLiv btn text-dark btn-sm d-flex align-items-center justify-content-center gap-2 <?= ($line['annulation'] == 'OUI') ? 'disabled text-white border-0' : '' ?> " type="button" title="Annuler la facture" data-bs-toggle="modal" data-bs-target="#modalIdannF"><i class="align-middle" data-feather="x"></i></button>
                   <button value="Nº <?= $line['id'] ?>" class="delfLiv btn text-danger btn-sm d-flex align-items-center justify-content-center gap-2" type="button" title="Supprimer la facture" data-bs-toggle="modal" data-bs-target="#delFactLiv"><i class="align-middle" data-feather="trash"></i></button>
                   <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
                 </td>
@@ -131,6 +135,42 @@ Facturation livraisons
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modalIdannF" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdAnnFact" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdAnnFact">Annulation de facture</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Annuler la facture: <span class="text-primary" id="AF"></span></p>
+        <div class="alert alert-warning" role="alert">
+          <p>CETTE ACTION EST IRREVERSIBLE!</p>
+          <strong>Attention</strong> Si vous annulez la facture, toutes les livraisons lui étant liées seront aussi annulées.
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <a role="button" id="AFLL" class="btn btn-primary">Annuler la facture</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const myModal = new bootstrap.Modal(document.getElementById('modalIdannF'), options)
+</script>
+<script>
+  $('.annfLiv').click(function(e) {
+    e.preventDefault();
+    $('#AF').html($(this).val());
+    const id = '<?= base_url(session()->r . '/livraisons/annuler/') ?>' + $(this).attr('data-id');
+    $('#AFLL').attr('href', id);
+  });
+</script>
 
 <div class="modal fade" id="delFactLiv" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdfactlivdel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">

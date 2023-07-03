@@ -132,8 +132,11 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des facturations de livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'factLiv::list');
+            $routes->post('/', 'factLiv::add');
+            $routes->add('del/(:segment)', 'factLiv::delete/$1');
+            $routes->post('edit', 'factLiv::edit');
+            $routes->get('search', 'factLiv::search');
             $routes->get('details/(:segment)', 'factLiv::showInvoice/$1');
-            $routes->get('edit/', '');
             $routes->group('edit', function($routes)
             {
                 $routes->post('addzone','factLiv::addZone');
@@ -147,10 +150,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->post('container/(:num)','factLiv::editContainer/$1');
                 $routes->post('container/add','factLiv::addContainer');
             });
-            $routes->post('/', 'factLiv::add');
-            $routes->add('del/(:segment)', 'factLiv::delete/$1');
-            $routes->post('edit', 'factLiv::edit');
-            $routes->get('search', 'factLiv::search');
+            $routes->get('annuler/(:segment)','factLiv::abord/$1');
         });
 
         //gestion des zones
@@ -167,7 +167,14 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', 'finance::index');
         $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
 
-        
+        //gestion des clients
+        $routes->group('clients', function ($routes) {
+            $routes->get('/', 'clients::list');
+            $routes->post('/', 'clients::add');
+            $routes->add('del', 'clients::delete');
+            $routes->post('edit', 'clients::edit');
+            $routes->get('search', 'clients::search');
+        });
     });
 });
 

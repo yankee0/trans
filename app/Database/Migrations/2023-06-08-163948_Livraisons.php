@@ -81,10 +81,10 @@ class Livraisons extends Migration
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('id_fact_ligne','fact_liv_lignes','id','CASCADE','CASCADE');
-        $this->forge->addForeignKey('ch_aller','chauffeurs','id','CASCADE','RESTRICT');
-        $this->forge->addForeignKey('cam_aller','camions','id','CASCADE','RESTRICT');
-        $this->forge->addForeignKey('ch_retour','chauffeurs','id','CASCADE','RESTRICT');
-        $this->forge->addForeignKey('cam_retour','camions','id','CASCADE','RESTRICT');
+        $this->forge->addForeignKey('ch_aller','chauffeurs','id','CASCADE','SET NULL');
+        $this->forge->addForeignKey('cam_aller','camions','id','CASCADE','SET NULL');
+        $this->forge->addForeignKey('ch_retour','chauffeurs','id','CASCADE','SET NULL');
+        $this->forge->addForeignKey('cam_retour','camions','id','CASCADE','SET NULL');
         $this->forge->createTable('livraisons',true);
     }
 
