@@ -15,7 +15,8 @@
   <style>
     .invoice-container {
       padding: 0px;
-      background-color: #fff;
+      background-color: white;
+      background: white;
       /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     }
 
@@ -86,8 +87,10 @@
         padding: 0;
       }
 
-      #invoice{
+      #invoice {
         padding: 0;
+        background-color: white;
+        background: white;
       }
 
       .btn {
@@ -114,7 +117,7 @@
       }
 
       body {
-        /* background-color: #fff; */
+        background-color: #fff;
         padding-top: 20px;
       }
 
@@ -124,13 +127,13 @@
 </head>
 
 <body class="text-dark py-3">
-  <div id="invoice" class="container invoice-container" style="min-width: 794px;">
-  <?php if (
-          $facture['annulation'] == 'NON'
-          and $facture['paiement'] == 'OUI'
-        ) : ?>
-          <p class="text-center display-2 text-bg-success text-white">PAYÉE</p>
-        <?php endif ?>
+  <div id="invoice" class="container invoice-container bg-white" style="min-width: 794px;">
+    <?php if (
+      $facture['annulation'] == 'NON'
+      and $facture['paiement'] == 'OUI'
+    ) : ?>
+      <p class="text-center display-2 text-bg-success text-white">PAYÉE</p>
+    <?php endif ?>
     <?php if ($facture['annulation'] == 'OUI') : ?>
       <p class="text-center display-2 text-bg-danger">ANNULÉE</p>
     <?php endif ?>

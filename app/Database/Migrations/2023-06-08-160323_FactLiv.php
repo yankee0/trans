@@ -31,6 +31,11 @@ class FactLiv extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'amendement' => [
+                'type' => 'ENUM("OUI","NON")',
+                'default' => 'NON',
+                'null' => true,
+            ],
             'compagnie' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
@@ -89,12 +94,12 @@ class FactLiv extends Migration
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->addUniqueKey('bl');
-        $this->forge->addForeignKey('id_client','clients','id','CASCADE','SET NULL');
-        $this->forge->createTable('fact_liv',true);
+        $this->forge->addForeignKey('id_client', 'clients', 'id', 'CASCADE', 'SET NULL');
+        $this->forge->createTable('fact_liv', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('fact_liv',true);
+        $this->forge->dropTable('fact_liv', true);
     }
 }

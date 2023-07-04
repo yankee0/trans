@@ -12,6 +12,7 @@ class Finance extends BaseController
     {
         session()->p = 'dashboard';
         $model_fact_liv = new FactLiv();
+
         $factLiv = $model_fact_liv
             ->limit(5)
             ->orderBy('created_at', 'DESC')
@@ -19,17 +20,35 @@ class Finance extends BaseController
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations)->FactLivInfos($factLiv[$i]);
         }
-        // dd($factLiv);
+
+        $monthlyFactLivPaid = $model_fact_liv
+            ->where('MONTH(created_at)', date('m'))
+            ->where('paiement', 'OUI')
+            ->find();
+
+        for ($i = 0; $i < sizeof($monthlyFactLivPaid); $i++) {
+            $monthlyFactLivPaid[$i] = (new Facturations)
+                ->FactLivInfos($monthlyFactLivPaid[$i]);
+        }
+
+        $sumFactLiv = 0;
+        foreach ($monthlyFactLivPaid as $i) {
+            $sumFactLiv += $i['total'];
+        }
+
         $data = [
-            'fact_liv_count' => $model_fact_liv->countAll(),
             'fact_liv_last' => $factLiv,
-            'cli' => (new Clients())->countAll(),
-            'liv' => (new FactLiv())
+            'cli' => (new Clients())
                 ->countAll(),
-            'liv_preget' => (new FactLiv())
-                ->where('preget', 'NON')
-                ->findAll(),
-            'fact_liv_last' => $factLiv,
+            'sumFactLiv' => $sumFactLiv,
+            'factLivNotPaid' => sizeof(
+                $model_fact_liv
+                    ->where('annulation', 'NON')
+                    ->where('paiement', 'NON')
+                    ->find()
+            )
+
+
         ];
         return view('finance/dashboard', $data);
     }
