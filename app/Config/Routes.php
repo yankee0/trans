@@ -178,6 +178,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //livraisons
         $routes->group('livraisons', function($routes)
         {
+            $routes->get('/','finance::showLivs');
             $routes->post('reglement/(:num)','finance::managePay/$1');
         });
     });

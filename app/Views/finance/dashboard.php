@@ -145,7 +145,6 @@ Dashboard
 
   </div>
   <div class="row">
-
     <!-- Etat des factures de livraisons -->
     <div class="col-md-6 col-lg-5 d-flex">
       <div class="card flex-fill w-100">
@@ -302,122 +301,123 @@ Dashboard
       });
     </script>
   </div>
+</div>
 
 
 
-  <script>
-    $('.annfLiv').click(function(e) {
-      e.preventDefault();
-      $('#AF').html($(this).val());
-      const id = '<?= base_url(session()->r . '/livraisons/annuler/') ?>' + $(this).attr('data-id');
-      $('#AFLL').attr('href', id);
+<script>
+  $('.annfLiv').click(function(e) {
+    e.preventDefault();
+    $('#AF').html($(this).val());
+    const id = '<?= base_url(session()->r . '/livraisons/annuler/') ?>' + $(this).attr('data-id');
+    $('#AFLL').attr('href', id);
+  });
+</script>
+<script>
+  $('.delfLiv').click(function(e) {
+    e.preventDefault();
+    $('#nFactLiv').html($(this).val());
+    $('#delfLivB').attr('href', '<?= base_url(session()->r . '/livraisons/del/') ?>' + $(this).val());
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const pie_data = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/pie_fact_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
     });
-  </script>
-  <script>
-    $('.delfLiv').click(function(e) {
-      e.preventDefault();
-      $('#nFactLiv').html($(this).val());
-      $('#delfLivB').attr('href', '<?= base_url(session()->r . '/livraisons/del/') ?>' + $(this).val());
-    });
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const pie_data = $.ajax({
-        type: "get",
-        url: "<?= base_url('api/graph/pie_fact_liv') ?>",
+
+    pie_data.done(res => {
+      // Pie chart
+      new Chart(document.getElementById("chartjs-dashboard-pie"), {
+        type: "pie",
         data: {
-          token: '<?= csrf_hash() ?>'
-        },
-        dataType: "JSON",
-      });
-
-      pie_data.done(res => {
-        // Pie chart
-        new Chart(document.getElementById("chartjs-dashboard-pie"), {
-          type: "pie",
-          data: {
-            labels: [
-              'Factures non payées et sans preget',
-              'Factures payées et sans preget',
-              'Factures non payées et preget reçu',
-              'Factures annulées'
+          labels: [
+            'Factures non payées et sans preget',
+            'Factures payées et sans preget',
+            'Factures non payées et preget reçu',
+            'Factures annulées'
+          ],
+          datasets: [{
+            data: res,
+            backgroundColor: [
+              '#0097e6',
+              '#fbc531',
+              '#9c88ff',
+              '#e74c3c'
             ],
-            datasets: [{
-              data: res,
-              backgroundColor: [
-                '#0097e6',
-                '#fbc531',
-                '#9c88ff',
-                '#e74c3c'
-              ],
-              borderWidth: 2
-            }]
-          },
-          options: {
-            responsive: !window.MSInputMethodContext,
-            maintainAspectRatio: false,
-            legend: {
-              display: true
-            },
-            cutoutPercentage: 70
-          }
-        });
-      })
-    });
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const bar_data = $.ajax({
-        type: "get",
-        url: "<?= base_url('api/graph/bar_fact_liv') ?>",
-        data: {
-          token: '<?= csrf_hash() ?>'
+            borderWidth: 2
+          }]
         },
-        dataType: "JSON",
-      });
-      // Bar chart
-      bar_data.done(res => {
-        new Chart(document.getElementById("chartjs-dashboard-bar"), {
-          type: "bar",
-          data: {
-            labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jlt", "Aoû", "Sep", "Oct", "Nov", "Déc"],
-            datasets: [{
-              label: "Livraisons",
-              backgroundColor: '#0097e6',
-              borderColor: '#0097e6',
-              hoverBackgroundColor: '#0097e6',
-              hoverBorderColor: '#0097e6',
-              data: res.liv,
-              barPercentage: .60,
-              categoryPercentage: .5
-            }]
+        options: {
+          responsive: !window.MSInputMethodContext,
+          maintainAspectRatio: false,
+          legend: {
+            display: true
           },
-          options: {
-            maintainAspectRatio: false,
-            legend: {
-              display: true
-            },
-            scales: {
-              yAxes: [{
-                gridLines: {
-                  display: false
-                },
-                stacked: false,
-                ticks: {
-                  stepSize: 10000000
-                }
-              }],
-              xAxes: [{
-                stacked: false,
-                gridLines: {
-                  color: "transparent"
-                }
-              }]
-            }
-          }
-        });
-      })
+          cutoutPercentage: 70
+        }
+      });
+    })
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const bar_data = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/bar_fact_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
     });
-  </script>
+    // Bar chart
+    bar_data.done(res => {
+      new Chart(document.getElementById("chartjs-dashboard-bar"), {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jlt", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+          datasets: [{
+            label: "Livraisons",
+            backgroundColor: '#0097e6',
+            borderColor: '#0097e6',
+            hoverBackgroundColor: '#0097e6',
+            hoverBorderColor: '#0097e6',
+            data: res.liv,
+            barPercentage: .60,
+            categoryPercentage: .5
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                display: false
+              },
+              stacked: false,
+              ticks: {
+                stepSize: 10000000
+              }
+            }],
+            xAxes: [{
+              stacked: false,
+              gridLines: {
+                color: "transparent"
+              }
+            }]
+          }
+        }
+      });
+    })
+  });
+</script>
 
-  <?= $this->endSection(); ?>
+<?= $this->endSection(); ?>

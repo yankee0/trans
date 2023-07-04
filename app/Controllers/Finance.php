@@ -142,4 +142,33 @@ class Finance extends BaseController
             ->with('n', true)
             ->with('m', 'Modification réussie');
     }
+
+    public function showLivs()
+    {
+        session()->p = 'f-liv';
+        $get = $this->request->getGet();
+        $modelLiv = new FactLiv();
+        if (isset($get['search'])) {
+            $facts = $modelLiv
+                ->like('bl', $get['search'])
+                ->orLike('id_client', $get['search'])
+                ->orLike('compagnie', $get['search'])
+                ->orLike('created_at', $get['search'])
+                ->orderBy('created_at', 'DESC')
+                ->paginate(25);
+            $data['search'] = $get['search'];
+        } else {
+            $facts = $modelLiv->paginate(25);
+        }
+        // dd($facts);
+        for ($i = 0; $i < sizeof($facts); $i++) {
+            $facts[$i] = (new Facturations)->FactLivInfos($facts[$i]);
+        }
+        $data =  [
+            'facts' => $facts,
+            'pager' => $modelLiv->pager
+        ];
+
+        return view('finance/livraisons', $data);
+    }
 }

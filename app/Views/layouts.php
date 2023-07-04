@@ -144,13 +144,13 @@
               </a>
             </li>
             <li class="sidebar-item <?= (session()->p == 'f-liv') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/finances/livraisons') ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
                 <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
               </a>
             </li>
 
             <!-- <li class="sidebar-item <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/finances/transferts') ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
                 <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
               </a>
             </li> -->
