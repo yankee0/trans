@@ -635,8 +635,10 @@ class FactLiv extends BaseController
     {
         $data = [
             'id' => $id,
-            'annulation' => 'OUI'
+            'annulation' => 'OUI',
+            'motif' => $this->request->getVar('motif'),
         ];
+        // dd($data);
 
         try {
             (new ModelsFactLiv())->save($data);

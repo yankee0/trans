@@ -147,11 +147,19 @@
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitleIdAnnFact">Annulation de facture</h5>
+        <h5 class="modal-title" id="modalTitleIdAnnFact">Annulation de la facture <span class="text-primary" id="AF"></span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Annuler la facture: <span class="text-primary" id="AF"></span></p>
+        <?= form_open('', [
+          'id' => 'AFLL',
+        ]) ?>
+        <div class="mb-3">
+          <label for="motif" class="form-label">Motif d'annulation de la facture:</label>
+          <textarea required class="form-control" name="motif" id="motif" rows="3"></textarea>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
         <div class="alert alert-warning" role="alert">
           <p>CETTE ACTION EST IRREVERSIBLE!</p>
           <strong>Attention</strong> Si vous annulez la facture, toutes les livraisons lui étant liées seront aussi annulées.
@@ -160,22 +168,21 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <a role="button" id="AFLL" class="btn btn-primary">Annuler la facture</a>
+        <button type="submit" form="AFLL" class="btn btn-primary">Annuler la facture</button>
       </div>
     </div>
   </div>
 </div>
-
-
 <script>
   const myModal = new bootstrap.Modal(document.getElementById('modalIdannF'), options)
 </script>
+
 <script>
   $('.annfLiv').click(function(e) {
     e.preventDefault();
     $('#AF').html($(this).val());
     const id = '<?= base_url(session()->r . '/livraisons/annuler/') ?>' + $(this).attr('data-id');
-    $('#AFLL').attr('href', id);
+    $('#AFLL').attr('action', id);
   });
 </script>
 <div class="modal fade" id="delFactLiv" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdfactlivdel" aria-hidden="true">

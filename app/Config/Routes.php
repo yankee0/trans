@@ -137,20 +137,19 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'factLiv::edit');
             $routes->get('search', 'factLiv::search');
             $routes->get('details/(:segment)', 'factLiv::showInvoice/$1');
-            $routes->group('edit', function($routes)
-            {
-                $routes->post('addzone','factLiv::addZone');
-                $routes->get('(:segment)','factLiv::showEdit/$1');
-                $routes->post('entete/(:segment)','factLiv::editFactLiveHeader/$1');
-                $routes->get('zones/(:num)/(:num)','factLiv::deleteZone/$1/$2');
-                $routes->post('zones/new','factLiv::changeZone');
-                $routes->post('adresse/(:num)','factLiv::editAddress/$1');
-                $routes->post('price/(:num)','factLiv::editPrice/$1');
-                $routes->get('delete/container/(:num)','factLiv::deleteContainer/$1');
-                $routes->post('container/(:num)','factLiv::editContainer/$1');
-                $routes->post('container/add','factLiv::addContainer');
+            $routes->group('edit', function ($routes) {
+                $routes->post('addzone', 'factLiv::addZone');
+                $routes->get('(:segment)', 'factLiv::showEdit/$1');
+                $routes->post('entete/(:segment)', 'factLiv::editFactLiveHeader/$1');
+                $routes->get('zones/(:num)/(:num)', 'factLiv::deleteZone/$1/$2');
+                $routes->post('zones/new', 'factLiv::changeZone');
+                $routes->post('adresse/(:num)', 'factLiv::editAddress/$1');
+                $routes->post('price/(:num)', 'factLiv::editPrice/$1');
+                $routes->get('delete/container/(:num)', 'factLiv::deleteContainer/$1');
+                $routes->post('container/(:num)', 'factLiv::editContainer/$1');
+                $routes->post('container/add', 'factLiv::addContainer');
             });
-            $routes->get('annuler/(:segment)','factLiv::abord/$1');
+            $routes->post('annuler/(:segment)', 'factLiv::abord/$1');
         });
 
         //gestion des zones
@@ -181,7 +180,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 //-------------------Routes API
 $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
     // $routes->group('api', function ($routes) {
-        
+
     $routes->group('graph', function ($routes) {
         $routes->add('bar_fact_liv', 'api\graph::bar_fact_liv');
         $routes->add('pie_fact_liv', 'api\graph::pie_fact_liv');

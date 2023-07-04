@@ -132,10 +132,13 @@
       $facture['annulation'] == 'NON'
       and $facture['paiement'] == 'OUI'
     ) : ?>
-      <p class="text-center display-2 text-bg-success text-white">PAYÉE</p>
+      <p class="text-center display-4 text-bg-success text-white">PAYÉE</p>
     <?php endif ?>
     <?php if ($facture['annulation'] == 'OUI') : ?>
-      <p class="text-center display-2 text-bg-danger">ANNULÉE</p>
+      <div class="bg-danger">
+        <p class="text-center display-2 text-bg-danger">ANNULÉE</p>
+        <p class="text-center text-bg-danger"><?= $facture['motif'] ?></p>
+      </div>
     <?php endif ?>
     <div class="p-2">
       <div class="invoice-header">
