@@ -52,6 +52,12 @@ class FactLiv extends Migration
                 'null' => true,
                 'default' => 'NON'
             ],
+            'montant_encaissent' => [
+                'type' => 'BIGINT',
+                'constraint' => 20,
+                'default' => 0,
+                'null' => true,
+            ],
             'date_paiement' => [
                 'type' => 'DATE',
                 'null' => true,

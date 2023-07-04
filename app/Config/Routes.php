@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Auth::index');
 $routes->post('/', 'Auth::login');
 $routes->get('/deconnexion', 'Auth::logout');
+$routes->get('/(:segment)/livraisons/details/(:segment)', 'factLiv::showInvoice/$2');
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('admin', ['filter' => 'admin'], function ($routes) {
@@ -136,7 +137,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->add('del/(:segment)', 'factLiv::delete/$1');
             $routes->post('edit', 'factLiv::edit');
             $routes->get('search', 'factLiv::search');
-            $routes->get('details/(:segment)', 'factLiv::showInvoice/$1');
             $routes->group('edit', function ($routes) {
                 $routes->post('addzone', 'factLiv::addZone');
                 $routes->get('(:segment)', 'factLiv::showEdit/$1');
@@ -173,6 +173,12 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->add('del', 'clients::delete');
             $routes->post('edit', 'clients::edit');
             $routes->get('search', 'clients::search');
+        });
+
+        //livraisons
+        $routes->group('livraisons', function($routes)
+        {
+            $routes->post('reglement/(:num)','finance::managePay/$1');
         });
     });
 });

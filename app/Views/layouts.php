@@ -143,7 +143,7 @@
                 <i class="align-middle" data-feather="users"></i> <span class="align-middle">Clients</span>
               </a>
             </li>
-            <li class="sidebar-item <?= (session()->p == 'r-livraions') ? 'active' : '' ?>">
+            <li class="sidebar-item <?= (session()->p == 'f-liv') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/finances/livraisons') ?>">
                 <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
               </a>
