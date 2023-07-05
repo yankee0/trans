@@ -191,6 +191,7 @@ Dashboard
                 <th class="d-none d-xl-table-cell">Date</th>
                 <th>Paiement</th>
                 <th>Règlement</th>
+                <th>Date de paiement</th>
                 <th></th>
               </tr>
             </thead>
@@ -203,6 +204,7 @@ Dashboard
                   <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td><span class="badge bg-<?= ($line['reglement'] == 'NON PAYÉ' or $line['reglement'] == 'À CRÉDIT') ? 'danger' : 'success' ?>"><?= $line['reglement'] ?></span></td>
+                  <td><?= $line['date_paiement'] != null ? $line['date_paiement'] : '<span class="badge bg-dark">INDÉFINIE</span>'  ?></td>
                   <td class="d-flex gap-1">
                     <button data-bs-toggle="modal" data-bs-target="#modalId" value="<?= $line['id'] ?>" data-paiement="<?= $line['paiement'] ?>" data-reglement="<?= $line['reglement'] ?>" class="btn rfl text-success btn-sm d-flex align-items-center justify-content-center gap-2" title="Règler la facture" role="button"><i class="align-middle" data-feather="check"></i></button>
                     <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
@@ -217,7 +219,7 @@ Dashboard
         <div class=" card-footer">
           <div class="text-center">
             <?php if (sizeof($fact_liv_last) > 0) : ?>
-              <a href="<?= base_url(session()->r . '/livraisons/search?search=') ?>">Tout voir</a>
+              <a href="<?= base_url(session()->r . '/livraisons') ?>">Tout voir</a>
             <?php else : ?>
               <div class="alert alert-warning" role="alert">
                 Vide.

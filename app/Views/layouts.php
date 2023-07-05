@@ -149,12 +149,13 @@
               </a>
             </li>
 
-            <!-- <li class="sidebar-item <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
-                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
-              </a>
-            </li> -->
 
+
+          <?php endif; ?>
+
+          <?php if (
+            session()->r == 'admin'
+          ) : ?>
             <li class="sidebar-header">
               Rapports
             </li>
@@ -164,13 +165,7 @@
                 <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
               </a>
             </li>
-
-            <!-- <li class="sidebar-item  mb-5 <?= (session()->p == 'r-transferts') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/transferts') ?>">
-                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
-              </a>
-            </li> -->
-          <?php endif; ?>
+          <?php endif ?>
 
 
         </ul>
