@@ -69,9 +69,7 @@ Liste des zones
                       <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
-                        <i cla data-feather="edit"></i>
-                      </button>
+                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="edit"></i></button>
                     </div>
                   </td>
                 </tr>

@@ -14,6 +14,7 @@ class FactLivLieux extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'id',
         'id_fact',
         'id_zone',
         'designation',

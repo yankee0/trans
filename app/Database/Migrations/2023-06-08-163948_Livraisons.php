@@ -57,6 +57,10 @@ class Livraisons extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'etat' => [
+                'type' => 'ENUM("PREGET NON REÇU","EN ATTENTE LIVRAISON","LIVRAISON EN COURS","LIVRÉ")',
+                'default' => "PREGET NON REÇU",
+            ],
             'annulation' => [
                 'type' => 'ENUM("OUI","NON")',
                 'default' => "NON",

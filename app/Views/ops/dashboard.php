@@ -7,53 +7,12 @@
 
   <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 
-  <!-- cards top stat -->
+  <h2 class="h4 mb-3">Flotte</h2>
+
   <div class="row">
-    <div class="col-md">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Livraisons</h5>
-            </div>
 
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="box"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3">2.382</h1>
-          <div class="mb-0">
-            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-            <span class="text-muted">/ mois dernier</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Carburant</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="filter"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3">2.382</h1>
-          <div class="mb-0">
-            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-            <span class="text-muted">/ mois dernier</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md">
+    <!-- nombre de chauffeurs -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
       <div class="card">
         <div class="card-body">
           <div class="row">
@@ -67,14 +26,16 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">h</h1>
+          <h1 class="mt-1 mb-3">N</h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md">
+
+    <!-- nombre de camion -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
       <div class="card">
         <div class="card-body">
           <div class="row">
@@ -88,7 +49,124 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"></h1>
+          <h1 class="mt-1 mb-3">N</h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de remorques -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Remorques</h5>
+            </div>
+
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="truck"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3">N</h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <h2 class="h4 mb-3">Livraisons</h2>
+
+  <div class="row">
+    <!-- nombre de livraisons journalières -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Journalières</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3">N</h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de livraisons Hebdomadaires -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Hebdomadaires</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3">N</h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de livraisons Mensuelles -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Mensuelles</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3">N</h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de livraisons Annuelles -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Annuelles</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3">N</h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -97,6 +175,60 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-12 d-flex">
+      <div class="card flex-fill">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Derniers engregistrements</h5>
+        </div>
+        <div class=" table-responsive">
+          <table class="table table-hover my-0">
+            <thead>
+              <tr>
+                <th>Conteneur</th>
+                <th>Type</th>
+                <th>État</th>
+                <th>Date PREGET</th>
+                <th>Zone de destination</th>
+                <th>Adresse exacte</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CMAU032764</td>
+                <td>40</td>
+                <td><span class="badge bg-success">LIVRÉ</span></td>
+                <td>jj-mm-aaaa</td>
+                <td>ZONE 1</td>
+                <td>Lorem Ipstreet st.123</td>
+                <td>
+                  <button type="button" value="" class="update btn text-success" title="Livrer" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="truck"></i></button>
+                  <button type="button" value="" class="update btn text-danger" title="Annuler la livraison" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="x"></i></button>
+                  <button type="button" value="" class="update btn text-info" title="Annuler la livraison" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card flex-fill w-100">
+        <div class="card-header">
+
+          <h5 class="card-title mb-0">Real-Time</h5>
+        </div>
+        <div class="card-body px-4">
+          <div id="world_map" style="height:350px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- graphs -->
   <div class="row">
     <div class="col-md-6 col-lg-7 col-xl-8 d-flex">
       <div class="card flex-fill w-100">
@@ -160,97 +292,7 @@
 
   </div>
 
-  <div class="row">
-    <div class="col-12 d-flex">
-      <div class="card flex-fill">
-        <div class="card-header">
 
-          <h5 class="card-title mb-0">Latest Projects</h5>
-        </div>
-        <table class="table table-hover my-0">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th class="d-none d-xl-table-cell">Start Date</th>
-              <th class="d-none d-xl-table-cell">End Date</th>
-              <th>Status</th>
-              <th class="d-none d-md-table-cell">Assignee</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Project Apollo</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-            </tr>
-            <tr>
-              <td>Project Fireball</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-danger">Cancelled</span></td>
-              <td class="d-none d-md-table-cell">William Harris</td>
-            </tr>
-            <tr>
-              <td>Project Hades</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Sharon Lessman</td>
-            </tr>
-            <tr>
-              <td>Project Nitro</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-warning">In progress</span></td>
-              <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-            </tr>
-            <tr>
-              <td>Project Phoenix</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">William Harris</td>
-            </tr>
-            <tr>
-              <td>Project X</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Sharon Lessman</td>
-            </tr>
-            <tr>
-              <td>Project Romeo</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Christina Mason</td>
-            </tr>
-            <tr>
-              <td>Project Wombat</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-warning">In progress</span></td>
-              <td class="d-none d-md-table-cell">William Harris</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-
-          <h5 class="card-title mb-0">Real-Time</h5>
-        </div>
-        <div class="card-body px-4">
-          <div id="world_map" style="height:350px;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
