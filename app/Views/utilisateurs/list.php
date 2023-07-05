@@ -152,8 +152,7 @@ Liste des utilisateurs
             <option <?= set_select('profil', '', true) ?> hidden value="">Sélectionner un profil</option>
             <option <?= set_select('profil', 'AMDIN') ?> value="ADMIN">ADMIN</option>
             <option <?= set_select('profil', 'FACTURATION') ?> value="FACTURATION">FACTURATION</option>
-            <option <?= set_select('profil', 'CONTROLE') ?> value="CONTROLE">CONTROLE</option>
-            <option <?= set_select('profil', 'TRANSPORT') ?> value="TRANSPORT">TRANSPORT</option>
+            <option <?= set_select('profil', 'OPS') ?> value="OPS">OPS</option>
             <option <?= set_select('profil', 'FINANCE') ?> value="FINANCE">FINANCE</option>
             <option <?= set_select('profil', 'FLOTTE') ?> value="FLOTTE">FLOTTE</option>
           </select>
@@ -198,8 +197,7 @@ Liste des utilisateurs
             <option class="op" <?= set_select('profil', '', true) ?> hidden value="">Sélectionner un profil</option>
             <option class="op" <?= set_select('profil', 'AMDIN') ?> value="ADMIN">ADMIN</option>
             <option class="op" <?= set_select('profil', 'FACTURATION') ?> value="FACTURATION">FACTURATION</option>
-            <option class="op" <?= set_select('profil', 'CONTROLE') ?> value="CONTROLE">CONTROLE</option>
-            <option class="op" <?= set_select('profil', 'TRANSPORT') ?> value="TRANSPORT">TRANSPORT</option>
+            <option class="op" <?= set_select('profil', 'OPS') ?> value="OPS">OPS</option>
             <option class="op" <?= set_select('profil', 'FINANCE') ?> value="FINANCE">FINANCE</option>
             <option class="op" <?= set_select('profil', 'FLOTTE') ?> value="FLOTTE">FLOTTE</option>
           </select>

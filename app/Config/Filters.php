@@ -8,6 +8,7 @@ use App\Filters\Auth;
 use App\Filters\Facturation;
 use App\Filters\Finance;
 use App\Filters\Flotte;
+use App\Filters\Ops;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -32,7 +33,8 @@ class Filters extends BaseConfig
         'flotte'        => Flotte::class,
         'facturation'   => Facturation::class,
         'api-auth'      => Api::class,
-        'finance'       => Finance::class
+        'finance'       => Finance::class,
+        'ops'           => Ops::class
     ];
 
     /**

@@ -47,7 +47,10 @@ class Auth extends BaseController
                     session()->set('r', 'finance');
                     return redirect()->to(session()->r);
                     break;
-
+                case 'OPS':
+                    session()->set('r', 'ops');
+                    return redirect()->to(session()->r);
+                    break;
                 default:
                     return redirect()
                         ->back()

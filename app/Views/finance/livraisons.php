@@ -1,6 +1,6 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Facturation livraisons
+Livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <h1 class="h3 mb-3"><strong>Livraisons</strong></h1>

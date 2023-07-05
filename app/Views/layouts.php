@@ -26,6 +26,7 @@
           session()->r == 'admin'
           or (session()->r == 'facturation')
           or (session()->r == 'finance')
+          or (session()->r == 'ops')
         ) : ?>
           <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
@@ -48,6 +49,7 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'flotte'
+            or session()->r == 'ops'
           ) : ?>
 
             <li class="sidebar-header">
@@ -75,8 +77,7 @@
 
           <?php if (
             session()->r == 'admin'
-            or session()->r == 'controle'
-            or session()->r == 'transport'
+            or session()->r == 'ops'
           ) : ?>
             <li class="sidebar-header">
               Opérations

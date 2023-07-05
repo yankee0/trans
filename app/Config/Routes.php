@@ -182,6 +182,38 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('reglement/(:num)','finance::managePay/$1');
         });
     });
+
+    $routes->group('ops', ['filter' => 'ops'], function ($routes) {
+        $routes->get('/', 'Ops::index');
+        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+
+        //gestion des chauffeurs
+        $routes->group('chauffeurs', function ($routes) {
+            $routes->get('/', 'chauffeurs::list');
+            $routes->post('/', 'chauffeurs::add');
+            $routes->add('del', 'chauffeurs::delete');
+            $routes->post('edit', 'chauffeurs::edit');
+            $routes->get('search', 'chauffeurs::search');
+        });
+
+        //gestion des camions
+        $routes->group('camions', function ($routes) {
+            $routes->get('/', 'camions::list');
+            $routes->post('/', 'camions::add');
+            $routes->add('del', 'camions::delete');
+            $routes->post('edit', 'camions::edit');
+            $routes->get('search', 'camions::search');
+        });
+
+        //gestion des remorques
+        $routes->group('remorques', function ($routes) {
+            $routes->get('/', 'remorques::list');
+            $routes->post('/', 'remorques::add');
+            $routes->add('del', 'remorques::delete');
+            $routes->post('edit', 'remorques::edit');
+            $routes->get('search', 'remorques::search');
+        });
+    });
 });
 
 //-------------------Routes API
