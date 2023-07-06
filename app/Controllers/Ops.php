@@ -19,7 +19,7 @@ class Ops extends BaseController
             'trailersCount' => (new Remorques())->countAll(),
 
             //livraisons
-            'livD' => (new Livraisons())->getLivs()
+            'livs' => (new Livraisons())->getLivs()
         ];
         return view('ops/dashboard', $data);
     }

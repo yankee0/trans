@@ -52,7 +52,7 @@ class FactLiv extends Migration
                 'null' => true,
                 'default' => 'NON'
             ],
-            'montant_encaissent' => [
+            'montant_encaissement' => [
                 'type' => 'BIGINT',
                 'constraint' => 20,
                 'default' => 0,
