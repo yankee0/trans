@@ -213,12 +213,20 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'remorques::edit');
             $routes->get('search', 'remorques::search');
         });
+
+        //gestion des zones
+        $routes->group('zones', function ($routes) {
+            $routes->get('/', 'zones::list');
+            $routes->post('/', 'zones::add');
+            $routes->add('del', 'zones::delete');
+            $routes->post('edit', 'zones::edit');
+            $routes->get('search', 'zones::search');
+        });
     });
 });
 
 //-------------------Routes API
 $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
-    // $routes->group('api', function ($routes) {
 
     $routes->group('graph', function ($routes) {
         $routes->add('bar_fact_liv', 'api\graph::bar_fact_liv');
