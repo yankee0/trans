@@ -58,12 +58,9 @@ class Livraisons extends Migration
                 'null' => true,
             ],
             'etat' => [
-                'type' => 'ENUM("PREGET NON REÇU","EN ATTENTE LIVRAISON","LIVRAISON EN COURS","LIVRÉ")',
-                'default' => "PREGET NON REÇU",
-            ],
-            'annulation' => [
-                'type' => 'ENUM("OUI","NON")',
-                'default' => "NON",
+                'type' => 'ENUM("MISE À TERRE","SUR PLATEAU","EN COURS","LIVRÉ","ANNULÉE")',
+                'default' => 'SUR PLATEAU',
+                'null' => false,
             ],
             'motif' => [
                 'type' => 'VARCHAR',
@@ -84,16 +81,16 @@ class Livraisons extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('id_fact_ligne','fact_liv_lignes','id','CASCADE','CASCADE');
-        $this->forge->addForeignKey('ch_aller','chauffeurs','id','CASCADE','SET NULL');
-        $this->forge->addForeignKey('cam_aller','camions','id','CASCADE','SET NULL');
-        $this->forge->addForeignKey('ch_retour','chauffeurs','id','CASCADE','SET NULL');
-        $this->forge->addForeignKey('cam_retour','camions','id','CASCADE','SET NULL');
-        $this->forge->createTable('livraisons',true);
+        $this->forge->addForeignKey('id_fact_ligne', 'fact_liv_lignes', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('ch_aller', 'chauffeurs', 'id', 'CASCADE', 'SET NULL');
+        $this->forge->addForeignKey('cam_aller', 'camions', 'id', 'CASCADE', 'SET NULL');
+        $this->forge->addForeignKey('ch_retour', 'chauffeurs', 'id', 'CASCADE', 'SET NULL');
+        $this->forge->addForeignKey('cam_retour', 'camions', 'id', 'CASCADE', 'SET NULL');
+        $this->forge->createTable('livraisons', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('livraisons',true);
+        $this->forge->dropTable('livraisons', true);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
 use App\Controllers\Facturations;
+use App\Models\Livraisons;
 use App\Models\FactLiv;
 
 class Graph extends BaseController
@@ -67,5 +68,78 @@ class Graph extends BaseController
         ];
 
         $this->response->setJSON($data)->send();
+    }
+
+    public function pie_stat_liv()
+    {
+        $data = [
+            sizeof((new Livraisons)
+                ->select('')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                ->where('fact_liv.preget', 'OUI')
+                ->where('YEAR(livraisons.created_at)', date('Y', time()))
+                ->where('livraisons.etat', 'SUR PLATEAU')
+                ->find()),
+            sizeof((new Livraisons)
+                ->select('')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                ->where('fact_liv.preget', 'OUI')
+                ->where('YEAR(livraisons.created_at)', date('Y', time()))
+                ->where('etat', 'MISE À TERRE')
+                ->find()),
+            sizeof((new Livraisons)
+                ->select('')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                ->where('fact_liv.preget', 'OUI')
+                ->where('YEAR(livraisons.created_at)', date('Y', time()))
+                ->where('etat', 'EN COURS')
+                ->find()),
+            sizeof((new Livraisons)
+                ->select('')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                ->where('fact_liv.preget', 'OUI')
+                ->where('YEAR(livraisons.created_at)', date('Y', time()))
+                ->where('etat', 'LIVRÉ')
+                ->find()),
+            sizeof((new Livraisons)
+                ->select('')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                ->where('fact_liv.preget', 'OUI')
+                ->where('YEAR(livraisons.created_at)', date('Y', time()))
+                ->where('etat', 'ANNULÉ')
+                ->find()),
+        ];
+
+        $this
+            ->response
+            ->setJSON($data)
+            ->send();
+    }
+
+    public function bar_stat_liv()
+    {
+        $data = [];
+        $modele = new Livraisons();
+        for ($i = 1; $i <= 12; $i++) {
+            $item = sizeof($modele
+                ->where('MONTH(created_at)', $i)
+                ->where('YEAR(created_at)', date('Y', time()))
+                ->find());
+            array_push($data, $item);
+        }
+        $this
+            ->response
+            ->setJSON($data)
+            ->send();
     }
 }

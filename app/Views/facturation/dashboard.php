@@ -100,10 +100,7 @@
             </thead>
             <tbody>
               <?php foreach ($fact_liv_last as $line) : ?>
-                <tr class="
-                <?= ($line['preget'] == 'OUI' and $line['paiement'] == 'OUI') ? 'bg-success text-white' : '' ?>
-                <?= ($line['annulation'] == 'OUI') ? 'bg-dark text-muted' : '' ?>
-                ">
+                <tr>
                   <td><?= $line['id'] ?></td>
                   <td class="table-cell"><?= $line['bl'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>

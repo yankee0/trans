@@ -9,7 +9,8 @@ class Auth extends BaseController
 {
     public function index()
     {
-        return view('login');
+        
+        return session()->has('u') ? redirect()->to(session()->r) : view('login');
     }
 
     public function login()

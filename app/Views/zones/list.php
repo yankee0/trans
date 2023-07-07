@@ -32,7 +32,11 @@ Liste des zones
             Suppression groupée
           </button>
         </div>
-        <?php if (sizeof($list) == 0) : ?>
+        <?php
+
+                                                                                    use App\Filters\Facturation;
+
+ if (sizeof($list) == 0) : ?>
           <div class="card-body">
             <div class="alert alert-warning" role="alert">
               Aucune zone trouvée.
@@ -104,14 +108,16 @@ Liste des zones
           <label for="nom" class="form-label">Nom de la zone<span class="text-danger">*</span></label>
           <input type="text" class="form-control" name="nom" id="nom" value="<?= set_value('nom') ?>" placeholder="Entrez le nom de la zone" required>
         </div>
-        <div class="mb-3">
-          <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
-          <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
-        </div>
-        <div class="mb-3">
-          <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
-          <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
-        </div>
+        <?php if (session()->r == 'facturation' or session()->r == 'admin') : ?>
+          <div class="mb-3">
+            <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
+            <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+          <div class="mb-3">
+            <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
+            <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+        <?php endif ?>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
           <input type="number" step="10" class="form-control" name="carburant" id="carburant" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
@@ -147,14 +153,16 @@ Liste des zones
           <label for="nom" class="form-label">Nom de la zone<span class="text-danger">*</span></label>
           <input type="text" class="form-control" name="nom" id="nommod" value="<?= set_value('nom') ?>" placeholder="Entrez le nom de la zone" required>
         </div>
-        <div class="mb-3">
-          <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
-          <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
-        </div>
-        <div class="mb-3">
-          <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
-          <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
-        </div>
+        <?php if (session()->r == 'facturation' or session()->r == 'admin') : ?>
+          <div class="mb-3">
+            <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
+            <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+          <div class="mb-3">
+            <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
+            <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+        <?php endif ?>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
           <input type="number" step="10" class="form-control" name="carburant" id="carburantmod" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">

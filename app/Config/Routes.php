@@ -231,6 +231,8 @@ $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
     $routes->group('graph', function ($routes) {
         $routes->add('bar_fact_liv', 'api\graph::bar_fact_liv');
         $routes->add('pie_fact_liv', 'api\graph::pie_fact_liv');
+        $routes->add('pie_stat_liv', 'api\graph::pie_stat_liv');
+        $routes->add('bar_stat_liv', 'api\graph::bar_stat_liv');
     });
 
     $routes->group('utilisateurs', function ($routes) {

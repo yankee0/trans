@@ -13,6 +13,7 @@ class Livraisons extends BaseController
         $model = new ModelsLivraisons();
         $data = $model
             ->select('
+                livraisons.etat,
                 fact_liv_lignes.conteneur,
                 fact_liv_lignes.type,
                 zones.nom AS zone,
@@ -21,6 +22,8 @@ class Livraisons extends BaseController
                 clients.nom AS nom_client,
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
+                fact_liv.date_pg,
+                fact_liv.preget,
                 fact_liv.bl
             ')
             ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne','left')
@@ -28,9 +31,11 @@ class Livraisons extends BaseController
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone','left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact','left')
             ->join('clients', 'clients.id = fact_liv.id_client','left')
+            ->where('fact_liv.date_pg !=', null)
+            ->orderBy('fact_liv.paiement', 'DESC')
             ->paginate(10);
         $pager = $model->pager;
-        return $result = [
+        return [
             'data' => $data,
             'pager' => $pager    
         ];

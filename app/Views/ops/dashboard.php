@@ -26,7 +26,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $driversCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $trucksCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -72,14 +72,13 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $trailersCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
         </div>
       </div>
     </div>
-
 
   </div>
 
@@ -100,7 +99,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -122,7 +121,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -144,7 +143,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -166,7 +165,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3">N</h1>
+          <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span>
           </div>
@@ -179,43 +178,91 @@
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
-          <h5 class="card-title mb-0">Derniers engregistrements</h5>
+          <h5 class="card-title mb-0">En attente de livraison</h5>
         </div>
-        <div class=" table-responsive">
-          <table class="table table-hover my-0">
-            <thead>
-              <tr>
-                <th>Conteneur</th>
-                <th>Type</th>
-                <th>État</th>
-                <th>Date PREGET</th>
-                <th>Zone de destination</th>
-                <th>Adresse exacte</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>CMAU032764</td>
-                <td>40</td>
-                <td><span class="badge bg-success">LIVRÉ</span></td>
-                <td>jj-mm-aaaa</td>
-                <td>ZONE 1</td>
-                <td>Lorem Ipstreet st.123</td>
-                <td>
-                  <button type="button" value="" class="update btn text-success" title="Livrer" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="truck"></i></button>
-                  <button type="button" value="" class="update btn text-danger" title="Annuler la livraison" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="x"></i></button>
-                  <button type="button" value="" class="update btn text-info" title="Annuler la livraison" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-footer"></div>
+        <?php if (sizeof($livs['data']) == 0) : ?>
+          <div class="card-body">
+            <div class="alert alert-warning" role="alert">
+              Vide.
+            </div>
+          </div>
+        <?php else : ?>
+          <div class=" table-responsive">
+            <table class="table table-hover my-0">
+              <thead>
+                <tr>
+                  <th>Conteneur</th>
+                  <th>Type</th>
+                  <th>Paiement</th>
+                  <th>État</th>
+                  <th>Date PREGET</th>
+                  <th>Zone de destination</th>
+                  <th>Adresse exacte</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <?php foreach ($livs['data'] as $liv) : ?>
+                  <tr>
+                    <td><?= $liv['conteneur'] ?></td>
+                    <td><?= $liv['type'] ?></td>
+                    <td>
+                      <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
+                    </td>
+                    <td>
+                      <?php
+                      switch ($liv['etat']) {
+                        case 'MISE À TERRE':
+                      ?>
+                          <span class="badge bg-dark"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'SUR PLATEAU':
+                        ?>
+                          <span class="badge bg-info"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'LIVRÉ':
+                        ?>
+                          <span class="badge bg-success"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'ANNULÉ':
+                        ?>
+                          <span class="badge bg-danger"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'EN COURS':
+                        ?>
+                          <span class="badge bg-warning"><?= $liv['etat'] ?></span>
+                      <?php
+                          break;
+
+                        default:
+                          echo 'Error 404';
+                          break;
+                      }
+                      ?>
+                    </td>
+                    <td><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
+                    <td><?= $liv['zone'] ?></td>
+                    <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
+                    <td>
+                      <button type="button" value="" class="update btn text-success" title="Livrer" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="truck"></i></button>
+                      <button type="button" value="" class="update btn text-danger" title="Annuler la livraison" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="x"></i></button>
+                      <button type="button" value="" class="update btn text-info" title="Annuler la livraison" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        <?php endif ?>
       </div>
     </div>
 
-    <div class="col-12">
+    <!-- <div class="col-12">
       <div class="card flex-fill w-100">
         <div class="card-header">
 
@@ -225,7 +272,7 @@
           <div id="world_map" style="height:350px;"></div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- graphs -->
@@ -234,7 +281,7 @@
       <div class="card flex-fill w-100">
         <div class="card-header">
 
-          <h5 class="card-title mb-0">Monthly Sales</h5>
+          <h5 class="card-title mb-0">Statistiques annuelles des livraisons enregistrées</h5>
         </div>
         <div class="card-body d-flex w-100">
           <div class="align-self-center chart chart-lg">
@@ -246,7 +293,7 @@
     <div class="col-md-6 col-lg-5 col-xl-4 d-flex">
       <div class="card flex-fill w-100">
         <div class="card-header">
-          <h5 class="card-title mb-0">Browser Usage</h5>
+          <h5 class="card-title mb-0">Statistiques annuelles des états</h5>
         </div>
         <div class="card-body d-flex">
           <div class="align-self-center w-100">
@@ -255,23 +302,6 @@
                 <canvas id="chartjs-dashboard-pie"></canvas>
               </div>
             </div>
-
-            <table class="table mb-0">
-              <tbody>
-                <tr>
-                  <td>Chrome</td>
-                  <td class="text-end">4306</td>
-                </tr>
-                <tr>
-                  <td>Firefox</td>
-                  <td class="text-end">3801</td>
-                </tr>
-                <tr>
-                  <td>IE</td>
-                  <td class="text-end">1689</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -295,6 +325,177 @@
 
 </div>
 <script>
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const pie_stat_liv = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/pie_stat_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
+    });
+
+    pie_stat_liv.done(res => {
+      // console.log(res);
+      new Chart(document.getElementById("chartjs-dashboard-pie"), {
+        type: "pie",
+        data: {
+          labels: [
+            "Sur plateau",
+            "Mise à terre",
+            "En cours",
+            "Livrés",
+            "Annulés",
+          ],
+          datasets: [{
+            data: res,
+            backgroundColor: [
+              window.theme.info,
+              '#2d3436',
+              window.theme.warning,
+              window.theme.success,
+              window.theme.danger
+            ],
+            borderWidth: 5
+          }]
+        },
+        options: {
+          responsive: !window.MSInputMethodContext,
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
+          cutoutPercentage: 75
+        }
+      });
+    })
+
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const bar_stat_liv = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/bar_stat_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
+    });
+    
+    bar_stat_liv.done(res => {
+      console.log(res);
+      new Chart(document.getElementById("chartjs-dashboard-bar"), {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jlt", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+          datasets: [{
+            label: "This year",
+            backgroundColor: window.theme.primary,
+            borderColor: window.theme.primary,
+            hoverBackgroundColor: window.theme.primary,
+            hoverBorderColor: window.theme.primary,
+            data: res,
+            barPercentage: .75,
+            categoryPercentage: .5
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                // display: false
+              },
+              stacked: false,
+              ticks: {
+                stepSize: 300
+              }
+            }],
+            xAxes: [{
+              stacked: false,
+              gridLines: {
+                color: "transparent"
+              }
+            }]
+          }
+        }
+      });
+    })
+  });
+</script>
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var markers = [{
+        coords: [31.230391, 121.473701],
+        name: "Shanghai"
+      },
+      {
+        coords: [28.704060, 77.102493],
+        name: "Delhi"
+      },
+      {
+        coords: [6.524379, 3.379206],
+        name: "Lagos"
+      },
+      {
+        coords: [35.689487, 139.691711],
+        name: "Tokyo"
+      },
+      {
+        coords: [23.129110, 113.264381],
+        name: "Guangzhou"
+      },
+      {
+        coords: [40.7127837, -74.0059413],
+        name: "New York"
+      },
+      {
+        coords: [34.052235, -118.243683],
+        name: "Los Angeles"
+      },
+      {
+        coords: [41.878113, -87.629799],
+        name: "Chicago"
+      },
+      {
+        coords: [51.507351, -0.127758],
+        name: "London"
+      },
+      {
+        coords: [40.416775, -3.703790],
+        name: "Madrid "
+      }
+    ];
+    var map = new jsVectorMap({
+      map: "world",
+      selector: "#world_map",
+      zoomButtons: true,
+      markers: markers,
+      markerStyle: {
+        initial: {
+          r: 9,
+          strokeWidth: 7,
+          stokeOpacity: .4,
+          fill: window.theme.primary
+        },
+        hover: {
+          fill: window.theme.primary,
+          stroke: window.theme.primary
+        }
+      },
+      zoomOnScroll: false
+    });
+    window.addEventListener("resize", () => {
+      map.updateSize();
+    });
+  });
+</script> -->
+<!-- <script>
   document.addEventListener("DOMContentLoaded", function() {
     var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
     var gradient = ctx.createLinearGradient(0, 0, 0, 225);
@@ -363,175 +564,6 @@
       }
     });
   });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Pie chart
-    new Chart(document.getElementById("chartjs-dashboard-pie"), {
-      type: "pie",
-      data: {
-        labels: ["Chrome", "Firefox", "IE"],
-        datasets: [{
-          data: [4306, 3801, 1689],
-          backgroundColor: [
-            window.theme.primary,
-            window.theme.warning,
-            window.theme.danger
-          ],
-          borderWidth: 5
-        }]
-      },
-      options: {
-        responsive: !window.MSInputMethodContext,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        cutoutPercentage: 75
-      }
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Bar chart
-    new Chart(document.getElementById("chartjs-dashboard-bar"), {
-      type: "bar",
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "This year",
-          backgroundColor: window.theme.primary,
-          borderColor: window.theme.primary,
-          hoverBackgroundColor: window.theme.primary,
-          hoverBorderColor: window.theme.primary,
-          data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-          barPercentage: .75,
-          categoryPercentage: .5
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        scales: {
-          yAxes: [{
-            gridLines: {
-              display: false
-            },
-            stacked: false,
-            ticks: {
-              stepSize: 20
-            }
-          }],
-          xAxes: [{
-            stacked: false,
-            gridLines: {
-              color: "transparent"
-            }
-          }]
-        }
-      }
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var markers = [{
-        coords: [31.230391, 121.473701],
-        name: "Shanghai"
-      },
-      {
-        coords: [28.704060, 77.102493],
-        name: "Delhi"
-      },
-      {
-        coords: [6.524379, 3.379206],
-        name: "Lagos"
-      },
-      {
-        coords: [35.689487, 139.691711],
-        name: "Tokyo"
-      },
-      {
-        coords: [23.129110, 113.264381],
-        name: "Guangzhou"
-      },
-      {
-        coords: [40.7127837, -74.0059413],
-        name: "New York"
-      },
-      {
-        coords: [34.052235, -118.243683],
-        name: "Los Angeles"
-      },
-      {
-        coords: [41.878113, -87.629799],
-        name: "Chicago"
-      },
-      {
-        coords: [51.507351, -0.127758],
-        name: "London"
-      },
-      {
-        coords: [40.416775, -3.703790],
-        name: "Madrid "
-      }
-    ];
-    var map = new jsVectorMap({
-      map: "world",
-      selector: "#world_map",
-      zoomButtons: true,
-      markers: markers,
-      markerStyle: {
-        initial: {
-          r: 9,
-          strokeWidth: 7,
-          stokeOpacity: .4,
-          fill: window.theme.primary
-        },
-        hover: {
-          fill: window.theme.primary,
-          stroke: window.theme.primary
-        }
-      },
-      zoomOnScroll: false
-    });
-    window.addEventListener("resize", () => {
-      map.updateSize();
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-    var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-    document.getElementById("datetimepicker-dashboard").flatpickr({
-      inline: true,
-      prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-      nextArrow: "<span title=\"Next month\">&raquo;</span>",
-      defaultDate: defaultDate
-    });
-  });
-</script>
-<script>
-  new Chart(document.getElementById("chartjs-polar-area"), {
-    type: "polarArea",
-    data: {
-      labels: ["Speed", "Reliability", "Comfort", "Safety", "Efficiency"],
-      datasets: [{
-        label: "Model S",
-        data: [35, 38, 65, 70, 24],
-        backgroundColor: [
-          window.theme.primary,
-          window.theme.success,
-          window.theme.danger,
-          window.theme.warning,
-          window.theme.info
-        ]
-      }]
-    }
-  });
-</script>
+</script> -->
+
 <?= $this->endSection(); ?>
