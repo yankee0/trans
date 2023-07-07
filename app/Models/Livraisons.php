@@ -22,7 +22,7 @@ class Livraisons extends Model
         'cam_retour',
         'date_retour',
         'commentaire',
-        'annulation',
+        'etat',
         'motif',
     ];
 

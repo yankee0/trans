@@ -11,9 +11,8 @@ use App\Models\Livraisons;
 use App\Models\Zones;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use Exception;
-use PhpParser\Node\Stmt\TryCatch;
 
-use function PHPUnit\Framework\throwException;
+
 
 class FactLiv extends BaseController
 {
@@ -659,12 +658,12 @@ class FactLiv extends BaseController
                 ->findAll();
 
             foreach ($livs as $liv) {
-                $data = [
+                $datalivs = [
                     'id' => $liv['id'],
-                    'annulation' => 'OUI',
-                    'etat' => 'ANNULÉE'
+                    'etat' => 'ANNULÉ',
+            'motif' => $this->request->getVar('motif'),
                 ];
-                (new Livraisons())->save($data);
+                (new Livraisons())->save($datalivs);
             }
         }
 

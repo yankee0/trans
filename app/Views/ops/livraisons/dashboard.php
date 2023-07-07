@@ -1,11 +1,11 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Dashboard
+Dashboard livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <div class="container-fluid p-0">
 
-  <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+  <h1 class="h3 mb-3"><strong>Livraisons</strong> Dashboard</h1>
   <div class="col-12 d-flex">
     <div class="card flex-fill">
       <div class="card-body ">
@@ -17,82 +17,109 @@ Dashboard
     </div>
   </div>
 
-  <h2 class="h4 mb-3">Flotte</h2>
-
+  <!-- liv table -->
   <div class="row">
-
-    <!-- nombre de chauffeurs -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Chauffeurs</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="users"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $driversCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
+    <div class="col-12 d-flex">
+      <div class="card flex-fill">
+        <div class="card-header">
+          <h5 class="card-title mb-0">En attente de livraison</h5>
         </div>
+        <?php if (sizeof($livs['data']) == 0) : ?>
+          <div class="card-body">
+            <div class="alert alert-warning" role="alert">
+              Vide.
+            </div>
+          </div>
+        <?php else : ?>
+          <div class=" table-responsive">
+            <table class="table table-hover my-0">
+              <thead>
+                <tr>
+                  <th>Conteneur</th>
+                  <th>Type</th>
+                  <th>Paiement</th>
+                  <th>État</th>
+                  <th>Date PREGET</th>
+                  <th>Zone de destination</th>
+                  <th>Adresse exacte</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <?php foreach ($livs['data'] as $liv) : ?>
+                  <tr>
+                    <td><?= $liv['conteneur'] ?></td>
+                    <td><?= $liv['type'] ?></td>
+                    <td>
+                      <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
+                    </td>
+                    <td>
+                      <?php
+                      switch ($liv['etat']) {
+                        case 'MISE À TERRE':
+                      ?>
+                          <span class="badge bg-dark"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'SUR PLATEAU':
+                        ?>
+                          <span class="badge bg-info"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'LIVRÉ':
+                        ?>
+                          <span class="badge bg-success"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'ANNULÉ':
+                        ?>
+                          <span class="badge bg-danger"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'EN COURS':
+                        ?>
+                          <span class="badge bg-warning"><?= $liv['etat'] ?></span>
+                      <?php
+                          break;
+
+                        default:
+                          echo 'Error 404';
+                          break;
+                      }
+                      ?>
+                    </td>
+                    <td><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
+                    <td><?= $liv['zone'] ?></td>
+                    <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
+                    <td>
+                      <div class="d-flex justify-content-around">
+                        <button type="button" value="" class="update btn text-success" title="Livrer" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="truck"></i></button>
+                        <button type="button" value="" class="update btn text-danger" title="Annuler" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="x"></i></button>
+                        <button type="button" value="" class="update btn text-info" title="Information" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        <?php endif ?>
       </div>
     </div>
 
-    <!-- nombre de camion -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Camions</h5>
-            </div>
+    <!-- <div class="col-12">
+      <div class="card flex-fill w-100">
+        <div class="card-header">
 
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="truck"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $trucksCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
+          <h5 class="card-title mb-0">Real-Time</h5>
+        </div>
+        <div class="card-body px-4">
+          <div id="world_map" style="height:350px;"></div>
         </div>
       </div>
-    </div>
-
-    <!-- nombre de remorques -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Remorques</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="truck"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $trailersCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    </div> -->
   </div>
-
-  <h2 class="h4 mb-3">Livraisons</h2>
 
   <div class="row">
     <!-- nombre de livraisons journalières -->
@@ -230,184 +257,6 @@ Dashboard
     </div> -->
 
   </div>
-
-  <!-- liv table -->
-  <div class="row">
-    <div class="col-12 d-flex">
-      <div class="card flex-fill">
-        <div class="card-header">
-          <h5 class="card-title mb-0">En attente de livraison</h5>
-        </div>
-        <?php if (sizeof($livs['data']) == 0) : ?>
-          <div class="card-body">
-            <div class="alert alert-warning" role="alert">
-              Vide.
-            </div>
-          </div>
-        <?php else : ?>
-          <div class=" table-responsive">
-            <table class="table table-hover my-0">
-              <thead>
-                <tr>
-                  <th>Conteneur</th>
-                  <th>Type</th>
-                  <th>Paiement</th>
-                  <th>État</th>
-                  <th>Date PREGET</th>
-                  <th>Zone de destination</th>
-                  <th>Adresse exacte</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-
-                <?php foreach ($livs['data'] as $liv) : ?>
-                  <tr>
-                    <td><?= $liv['conteneur'] ?></td>
-                    <td><?= $liv['type'] ?></td>
-                    <td>
-                      <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
-                    </td>
-                    <td>
-                      <?php
-                      switch ($liv['etat']) {
-                        case 'MISE À TERRE':
-                      ?>
-                          <span class="badge bg-dark"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'SUR PLATEAU':
-                        ?>
-                          <span class="badge bg-info"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'LIVRÉ':
-                        ?>
-                          <span class="badge bg-success"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'ANNULÉ':
-                        ?>
-                          <span class="badge bg-danger"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'EN COURS':
-                        ?>
-                          <span class="badge bg-warning"><?= $liv['etat'] ?></span>
-                      <?php
-                          break;
-
-                        default:
-                          echo 'Error 404';
-                          break;
-                      }
-                      ?>
-                    </td>
-                    <td><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
-                    <td><?= $liv['zone'] ?></td>
-                    <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
-                    <td>
-                      <div class="d-flex justify-content-around">
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-dark dropDelv <?= ($liv['etat'] == 'MISE À TERRE' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise à terre" data-bs-toggle="modal" data-bs-target="#delivDrop"><i cla data-feather="arrow-down"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-success " title="Livrer" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="truck"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info" title="Information" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
-          </div>
-        <?php endif ?>
-      </div>
-    </div>
-
-    <!-- annuler livraisons -->
-    <div class="modal fade" id="abordDelv" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="abdelvti" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="abdelvti">Annulation de livraison</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <?= form_open(
-              base_url(session()->r . '/livraisons/abord'),
-              [
-                'id' => 'abDeliveryForm'
-              ]
-            ) ?>
-            Annuler la livraison <span class="text-primary" id="abDelivery"></span> ?<br>
-            Quel est le motif de l'annulation:
-            <div>
-              <textarea class="form-control" name="motif" rows="3"></textarea>
-            </div>
-            <?= csrf_field() ?>
-            <?= form_close() ?>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="submit" form="abDeliveryForm" id="abDeliveryBtn" name="id" class="btn btn-primary">Annuler la livraison</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      $('.abordDelv').click(function(e) {
-        e.preventDefault();
-        $('#abDelivery').html($(this).attr('data-container'));
-        $('#abDeliveryBtn').val($(this).val());
-      });
-    </script>
-    <script>
-      const myModalAbordDeliv = new bootstrap.Modal(document.getElementById('abordDelv'), options)
-    </script>
-
-    <!-- mise à terre livraisons -->
-    <div class="modal fade" id="delivDrop" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalTitleId">Mise à terre conteneur</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Mettre à terre le conteneur <span class="text-primary" id="dropTC"></span> ?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <a id="dropTCLink" type="button" class="btn btn-primary">Mettre à terre</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      $('.dropDelv').click(function(e) {
-        e.preventDefault();
-        $('#dropTC').html($(this).attr('data-container'));
-        $('#dropTCLink').attr('href', '<?= base_url(session()->r.'/livraisons/drop/') ?>' + $(this).val());
-      });
-    </script>
-    <script>
-      const myModalDropDelv = new bootstrap.Modal(document.getElementById('delivDrop'), options)
-    </script>
-
-
-    <!-- <div class="col-12">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-
-          <h5 class="card-title mb-0">Real-Time</h5>
-        </div>
-        <div class="card-body px-4">
-          <div id="world_map" style="height:350px;"></div>
-        </div>
-      </div>
-    </div> -->
-  </div>
-
-
 
 
 </div>

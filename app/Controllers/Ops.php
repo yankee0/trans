@@ -25,22 +25,42 @@ class Ops extends BaseController
             'livs' => (new Livraisons())->getLivs(),
             'livsDailyCount' => sizeof(
                 (new modeleLiv())
-                    ->where('DAY(date_retour)', date('d', time()))
+                    ->select('fact_liv.date_pg')
+                    ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                    ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                    ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                    ->where('fact_liv.date_pg !=', null)
+                    ->where('DAY(date_pg)', date('d', time()))
                     ->find()
             ),
             'livsWeekyCount' => sizeof(
                 (new modeleLiv())
-                    ->where('WEEK(date_retour)', date('W', time()))
+                    ->select('fact_liv.date_pg')
+                    ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                    ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                    ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                    ->where('fact_liv.date_pg !=', null)
+                    ->where('WEEK(date_pg)', date('W', time()))
                     ->find()
             ),
             'livsMonthlyCount' => sizeof(
                 (new modeleLiv())
-                    ->where('MONTH(date_retour)', date('m', time()))
+                    ->select('fact_liv.date_pg')
+                    ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                    ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                    ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                    ->where('fact_liv.date_pg !=', null)
+                    ->where('MONTH(date_pg)', date('m', time()))
                     ->find()
             ),
             'livsYearlyCount' => sizeof(
                 (new modeleLiv())
-                    ->where('YEAR(date_retour)', date('Y', time()))
+                    ->select('fact_liv.date_pg')
+                    ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                    ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                    ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                    ->where('fact_liv.date_pg !=', null)
+                    ->where('YEAR(date_pg)', date('Y', time()))
                     ->find()
             ),
         ];

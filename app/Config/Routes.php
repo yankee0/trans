@@ -222,6 +222,13 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'zones::edit');
             $routes->get('search', 'zones::search');
         });
+
+        //gestion des livraisons
+        $routes->group('livraisons', function ($routes) {
+            $routes->get('/', 'livraisons::index');
+            $routes->post('abord', 'livraisons::abord');
+            $routes->get('drop/(:segment)', 'livraisons::drop/$1');
+        });
     });
 });
 

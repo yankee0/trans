@@ -90,7 +90,6 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'MISE À TERRE')
-                ->where('annulation','NON')
                 ->find()),
             sizeof((new Livraisons)
                 ->select('')
@@ -100,7 +99,6 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'EN COURS')
-                ->where('annulation','NON')
                 ->find()),
             sizeof((new Livraisons)
                 ->select('')
@@ -110,7 +108,6 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'LIVRÉ')
-                ->where('annulation','NON')
                 ->find()),
             sizeof((new Livraisons)
                 ->select('')
@@ -120,7 +117,6 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'ANNULÉ')
-                ->where('annulation','NON')
                 ->find()),
         ];
 
@@ -136,8 +132,13 @@ class Graph extends BaseController
         $modele = new Livraisons();
         for ($i = 1; $i <= 12; $i++) {
             $item = sizeof($modele
-                ->where('MONTH(created_at)', $i)
-                ->where('YEAR(created_at)', date('Y', time()))
+                ->select('')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
+                ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+                ->where('fact_liv.preget', 'OUI')
+                ->where('MONTH(livraisons.created_at)', $i)
+                ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->find());
             array_push($data, $item);
         }
