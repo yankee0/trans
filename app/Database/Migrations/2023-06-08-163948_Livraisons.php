@@ -58,7 +58,7 @@ class Livraisons extends Migration
                 'null' => true,
             ],
             'etat' => [
-                'type' => 'ENUM("MISE À TERRE","SUR PLATEAU","EN COURS","LIVRÉ","ANNULÉE")',
+                'type' => 'ENUM("MISE À TERRE","SUR PLATEAU","EN COURS","LIVRÉ","ANNULÉ")',
                 'default' => 'SUR PLATEAU',
                 'null' => false,
             ],

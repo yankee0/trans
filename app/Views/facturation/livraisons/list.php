@@ -67,6 +67,8 @@ Facturation livraisons
         </div>
         <h5 class="card-title mb-0 text-dark mb-2">Informations sur le transport</h5>
         <div id="yankee"></div>
+        <script>
+        </script>
 
         <?= form_close() ?>
       </div>

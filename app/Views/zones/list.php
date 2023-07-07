@@ -34,9 +34,9 @@ Liste des zones
         </div>
         <?php
 
-                                                                                    use App\Filters\Facturation;
+        use App\Filters\Facturation;
 
- if (sizeof($list) == 0) : ?>
+        if (sizeof($list) == 0) : ?>
           <div class="card-body">
             <div class="alert alert-warning" role="alert">
               Aucune zone trouvée.

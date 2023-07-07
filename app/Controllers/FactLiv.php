@@ -661,7 +661,8 @@ class FactLiv extends BaseController
             foreach ($livs as $liv) {
                 $data = [
                     'id' => $liv['id'],
-                    'annulation' => 'OUI'
+                    'annulation' => 'OUI',
+                    'etat' => 'ANNULÉE'
                 ];
                 (new Livraisons())->save($data);
             }

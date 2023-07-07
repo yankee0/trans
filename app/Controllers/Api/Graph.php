@@ -90,6 +90,7 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'MISE À TERRE')
+                ->where('annulation','NON')
                 ->find()),
             sizeof((new Livraisons)
                 ->select('')
@@ -99,6 +100,7 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'EN COURS')
+                ->where('annulation','NON')
                 ->find()),
             sizeof((new Livraisons)
                 ->select('')
@@ -108,6 +110,7 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'LIVRÉ')
+                ->where('annulation','NON')
                 ->find()),
             sizeof((new Livraisons)
                 ->select('')
@@ -117,6 +120,7 @@ class Graph extends BaseController
                 ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'ANNULÉ')
+                ->where('annulation','NON')
                 ->find()),
         ];
 

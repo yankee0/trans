@@ -43,9 +43,11 @@ Livraisons
                   <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td><span class="badge bg-<?= ($line['reglement'] == 'NON PAYÉ' or $line['reglement'] == 'À CRÉDIT') ? 'danger' : 'success' ?>"><?= $line['reglement'] ?></span></td>
-                  <td class="d-flex gap-1">
-                    <button data-bs-toggle="modal" data-bs-target="#modalId" value="<?= $line['id'] ?>" data-paiement="<?= $line['paiement'] ?>" data-reglement="<?= $line['reglement'] ?>" class="btn rfl text-success btn-sm d-flex align-items-center justify-content-center gap-2" title="Règler la facture" role="button"><i class="align-middle" data-feather="check"></i></button>
-                    <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <button data-bs-toggle="modal" data-bs-target="#modalId" value="<?= $line['id'] ?>" data-paiement="<?= $line['paiement'] ?>" data-reglement="<?= $line['reglement'] ?>" class="btn rfl text-success btn-sm d-flex align-items-center justify-content-center gap-2" title="Règler la facture" role="button"><i class="align-middle" data-feather="check"></i></button>
+                      <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
+                    </div>
                   </td>
                 </tr>
               <?php endforeach ?>
