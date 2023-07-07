@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Camions;
+use App\Models\Chauffeurs;
 use App\Models\Livraisons as ModelsLivraisons;
 use Exception;
 
@@ -54,6 +56,14 @@ class Livraisons extends BaseController
                     ->where('YEAR(date_pg)', date('Y', time()))
                     ->find()
             ),
+
+            'drivers' => (new Chauffeurs())
+                ->orderBy('nom')
+                ->findAll(),
+                
+            'trucks' => (new Camions())
+                ->orderBy('im')
+                ->findAll()
         ];
         return view('ops/livraisons/dashboard.php', $data);
     }
@@ -83,7 +93,7 @@ class Livraisons extends BaseController
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->where('fact_liv.date_pg !=', null)
-            ->where('fact_liv.annulation','NON')
+            ->where('fact_liv.annulation', 'NON')
             // ->where('livraisons.annulation','NON')
             ->orderBy('fact_liv.paiement', 'DESC')
             ->paginate(10);
@@ -94,7 +104,8 @@ class Livraisons extends BaseController
         ];
     }
 
-    public function abord(){
+    public function abord()
+    {
         $data = $this->request->getPost();
         $data['etat'] = 'ANNULÉ';
         // dd($data);
@@ -113,7 +124,8 @@ class Livraisons extends BaseController
             ->with('m', 'Livraison annulée.');
     }
 
-    public function drop($id){
+    public function drop($id)
+    {
 
         $data = [
             'id' => $id,
@@ -135,4 +147,26 @@ class Livraisons extends BaseController
             ->with('m', 'Mise à terre enregistrée.');
     }
 
+    public function up($id)
+    {
+
+        $data = [
+            'id' => $id,
+            'etat' => 'SUR PLATEAU'
+        ];
+        // dd($data);
+        try {
+            (new ModelsLivraisons())->save($data);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->with('n', false)
+                ->with('m', 'Une erreur est survenue lors de la modification.');
+            // return $e->getMessage();
+        }
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Mise sur plateau enregistrée.');
+    }
 }

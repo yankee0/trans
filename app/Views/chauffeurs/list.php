@@ -120,7 +120,7 @@ Liste des chauffeurs
         </div>
         <div class="mb-3">
           <label for="camion" class="form-label">Camions</label>
-          <select class="form-select" name="camion" id="camion" required>
+          <select class="form-select" name="camion" id="camion" >
             <option value="" hidden selected>Sélectionner un camion</option>
             <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
             <?php foreach ($cam as $c) : ?>
@@ -172,7 +172,7 @@ Liste des chauffeurs
         </div>
         <div class="mb-3">
           <label for="camion" class="form-label">Camions</label>
-          <select class="form-select" name="camion" id="camionmod" required>
+          <select class="form-select" name="camion" id="camionmod" >
             <option value="" hidden selected>Sélectionner un camion</option>
             <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
             <?php foreach ($cam as $c) : ?>

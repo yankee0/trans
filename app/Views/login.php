@@ -11,7 +11,6 @@
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" />
   <title><?= APP_NAME ?> - Se connecter</title>
   <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -40,11 +39,11 @@
                   <form method="post" action="<?= base_url() ?>">
                     <div class="mb-3">
                       <label class="form-label">Email<span class="text-danger">*</span></label>
-                      <input class="form-control form-control-lg" value="<?= set_value('email','') ?>" type="email" name="email" placeholder="Votre email" required />
+                      <input class="form-control form-control-lg" value="<?= set_value('email', '') ?>" type="email" name="email" placeholder="Votre email" required />
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Mot de passe<span class="text-danger">*</span></label>
-                      <input class="form-control form-control-lg" value="<?= set_value('mdp','') ?>" type="password" name="mdp" placeholder="Votre mot de passe" required />
+                      <input class="form-control form-control-lg" value="<?= set_value('mdp', '') ?>" type="password" name="mdp" placeholder="Votre mot de passe" required />
 
                     </div>
                     <div class="text-center mt-3">
@@ -62,7 +61,7 @@
     </div>
   </main>
 
-  <script src="js/app.js"></script>
+  <script src="<?= base_url('assets/js/app.js') ?>"></script>
 
 </body>
 

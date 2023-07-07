@@ -63,6 +63,14 @@ class Ops extends BaseController
                     ->where('YEAR(date_pg)', date('Y', time()))
                     ->find()
             ),
+
+            'drivers' => (new Chauffeurs())
+                ->orderBy('nom')
+                ->findAll(),
+                
+            'trucks' => (new Camions())
+                ->orderBy('im')
+                ->findAll()
         ];
         return view('ops/dashboard', $data);
     }

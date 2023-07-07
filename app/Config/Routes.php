@@ -228,6 +228,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('/', 'livraisons::index');
             $routes->post('abord', 'livraisons::abord');
             $routes->get('drop/(:segment)', 'livraisons::drop/$1');
+            $routes->get('up/(:segment)', 'livraisons::up/$1');
         });
     });
 });
