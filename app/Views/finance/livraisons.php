@@ -4,15 +4,22 @@ Livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <h1 class="h3 mb-3"><strong>Livraisons</strong></h1>
+
 <div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form action="<?= base_url(session()->r . '/livraisons') ?>" class="d-flex gap-2">
+          <input type="search" value="<?= (isset($_GET['search'])) ? $_GET['search'] : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Nº Facture, Nº BL ou date d'enregistrement">
+          <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="col-12">
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Liste des facturations de livraisons</h4>
-        <form action="<?= base_url(session()->r . '/livraisons') ?>" class="d-flex gap-2">
-          <input type="search" value="<?= (isset($_GET['search'])) ? $_GET['search'] : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher par Nº Facture, BL, Compagnie ou date d'enregistrement">
-          <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
-        </form>
       </div>
       <div class="table-responsive">
         <?php if (sizeof($facts) == 0) : ?>
@@ -31,6 +38,7 @@ Livraisons
                 <th class="d-none d-xl-table-cell">Date</th>
                 <th>Paiement</th>
                 <th>Règlement</th>
+                <th>Date de paiement</th>
                 <th></th>
               </tr>
             </thead>
@@ -43,9 +51,10 @@ Livraisons
                   <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td><span class="badge bg-<?= ($line['reglement'] == 'NON PAYÉ' or $line['reglement'] == 'À CRÉDIT') ? 'danger' : 'success' ?>"><?= $line['reglement'] ?></span></td>
+                  <td><?= $line['date_paiement'] != null ? $line['date_paiement'] : '<span class="badge bg-dark">INDÉFINIE</span>'  ?></td>
                   <td>
                     <div class="d-flex gap-1">
-                      <button data-bs-toggle="modal" data-bs-target="#modalId" value="<?= $line['id'] ?>" data-paiement="<?= $line['paiement'] ?>" data-reglement="<?= $line['reglement'] ?>" class="btn rfl text-success btn-sm d-flex align-items-center justify-content-center gap-2" title="Règler la facture" role="button"><i class="align-middle" data-feather="check"></i></button>
+                      <button data-bs-toggle="modal" data-bs-target="#modalId" value="<?= $line['id'] ?>" data-date-paiement="<?= $line['date_paiement'] ?>" data-paiement="<?= $line['paiement'] ?>" data-reglement="<?= $line['reglement'] ?>" class="btn rfl text-success btn-sm d-flex align-items-center justify-content-center gap-2" title="Règler la facture" role="button"><i class="align-middle" data-feather="check"></i></button>
                       <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
                     </div>
                   </td>
@@ -83,35 +92,50 @@ Livraisons
             ]
           ) ?>
           <div class="form-check form-switch">
-            <input name="paiement" class="form-check-input" type="checkbox" id="payCheck">
-            <label class="form-check-label" for="payCheck">Paiement reçu</label>
+            <input name="paiement" class="form-check-input payState" type="checkbox" id="payCheck">
+            <label class="form-check-label" for="payCheck">
+              Paiement reçu
+            </label>
           </div>
           <div class="form-check form-switch">
-            <input class="form-check-input " type="radio" value="COMPTANT" name="reglement" id="comptant">
-            <label class="form-check-label" for="comptant">
-              Paiement comptant
+            <input class="form-check-input payState" type="radio" value="EN ESPÈCES" name="reglement" id="enEspeces">
+            <label class="form-check-label" for="enEspeces">
+              Règlement en espèces
+            </label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input payState" type="radio" value="PAR CHÈQUE" name="reglement" id="parCheque">
+            <label class="form-check-label" for="parCheque">
+              Règlement par chèque
             </label>
           </div>
           <div class="form-check form-switch mb-3">
-            <input class="form-check-input payType" type="radio" value="À CRÉDIT" name="reglement" id="credit">
+            <input class="form-check-input payState" type="radio" value="À CRÉDIT" name="reglement" id="credit">
             <label class="form-check-label" for="credit">
-              Paiement à crédit
+              Règlement à crédit
             </label>
+          </div>
+          <div class="mb-3">
+            <label for="date_paiement" class="form-label">Date de paiement</label>
+            <input type="date" class="form-control" name="date_paiement" id="date_paiement">
           </div>
           <script>
             document.getElementById('payCheck').addEventListener('change', (e) => {
               if (!e.target.checked) {
-                document.getElementById('comptant').checked = false;
-                document.getElementById('credit').checked = false;
+                document.querySelectorAll('.payState').forEach(e => {
+                  e.checked = false;
+                })
+                document.getElementById('date_paiement').value = null;
               }
             })
-            document.getElementById('comptant').addEventListener('change', (e) => {
-              if (e.target.checked) {
-                document.getElementById('payCheck').checked = true;
-              }
+            document.querySelectorAll('.payState').forEach(e => {
+              e.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                  document.getElementById('payCheck').checked = true;
+                }
+              })
             })
           </script>
-
           <?= csrf_field() ?>
           <?= form_close() ?>
         </div>
@@ -128,12 +152,15 @@ Livraisons
       $('.rfl').click(function(e) {
         e.preventDefault();
         $('#rfl').html(`Nº ${$(this).val()}`);
-        const pay = $(this).attr('data-paiement');
-        const payType = $(this).attr('data-reglement');
-        document.getElementById('comptant').checked = (payType == 'COMPTANT') ? true : false;
-        document.getElementById('credit').checked = (payType == 'À CRÉDIT') ? true : false;
-        document.getElementById('payCheck').checked = (pay == 'OUI') ? true : false;
         $('#rflF').attr('action', '<?= base_url(session()->r . '/livraisons/reglement/') ?>' + $(this).val());
+        document.querySelectorAll('.payState').forEach(e => {
+          if (e.value == $(this).attr('data-reglement')) {
+            e.checked = true;
+            document.getElementById('payCheck').checked = true;
+            document.getElementById('date_paiement').value = null;
+          }
+        })
+
       });
     </script>
   </div>

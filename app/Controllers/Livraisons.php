@@ -60,7 +60,7 @@ class Livraisons extends BaseController
             'drivers' => (new Chauffeurs())
                 ->orderBy('nom')
                 ->findAll(),
-                
+
             'trucks' => (new Camions())
                 ->orderBy('im')
                 ->findAll()
@@ -168,5 +168,30 @@ class Livraisons extends BaseController
             ->back()
             ->with('n', true)
             ->with('m', 'Mise sur plateau enregistrée.');
+    }
+
+    public function save(){
+        $data = $this->request->getPost();
+        // dd($data);
+        $data['etat'] = isset($data['eirs']) ? 'LIVRÉ' : 'EN COURS';
+        $data['ch_aller'] = empty($data['ch_aller']) ? null : $data['ch_aller'];
+        $data['ch_retour'] = empty($data['ch_retour']) ? null : $data['ch_retour'];
+        $data['ch_retour'] = empty($data['ch_retour']) ? null : $data['ch_retour'];
+        $data['date_retour'] = empty($data['date_retour']) ? null : $data['date_retour'];
+        $data['date_aller'] = empty($data['date_aller']) ? null : $data['date_aller'];
+        $data['cam_retour'] = empty($data['cam_retour']) ? null : $data['cam_retour'];
+        try {
+            (new ModelsLivraisons())->save($data);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->with('n', false)
+                ->with('m', 'Une erreur est survenue lors de la modification.');
+            // return $e->getMessage();
+        }
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Informations de livraisons enregistrées.');
     }
 }

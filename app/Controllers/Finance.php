@@ -29,7 +29,7 @@ class Finance extends BaseController
             ->where('YEAR(created_at)', date('Y', time()))
             ->where('paiement', 'OUI')
             ->find();
-            // dd(date('Y', time()));
+        // dd(date('Y', time()));
         for ($i = 0; $i < sizeof($yearlyFactLivPaid); $i++) {
             $yearlyFactLivPaid[$i] = (new Facturations)
                 ->FactLivInfos($yearlyFactLivPaid[$i]);
@@ -126,10 +126,13 @@ class Finance extends BaseController
     {
         $data = $this->request->getPost();
         $data['id'] = $id;
-        $data['paiement'] = (isset($data['paiement']) and $data['paiement'] == 'on') ? 'OUI' : 'NON';
-        $data['reglement'] = !isset($data['reglement']) ? 'NON PAYÉ' : $data['reglement'];
-        $data['date_paiement'] = ($data['paiement'] == 'OUI') ? date('Y-m-d') : null;
-        // dd($data);
+        if(isset($data['paiement'])){
+            $data['paiement'] = 'OUI';
+        }else{
+            $data['paiement'] = 'NON';
+            $data['reglement'] = 'NON PAYÉ';
+            $data['date_paiement'] = null;
+        }
 
         try {
             (new FactLiv())->save($data);

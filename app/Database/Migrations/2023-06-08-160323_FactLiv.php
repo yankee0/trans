@@ -42,7 +42,7 @@ class FactLiv extends Migration
                 'null' => true,
             ],
             'reglement' => [
-                'type' => 'ENUM("NON PAYÉ","COMPTANT","À CRÉDIT")',
+                'type' => 'ENUM("NON PAYÉ","PAR CHÈQUE","EN ESPÈCES","À CRÉDIT")',
                 'null' => true,
                 'default' => 'NON PAYÉ'
             ],

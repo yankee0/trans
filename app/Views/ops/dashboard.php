@@ -310,7 +310,7 @@ Dashboard
                       <div class="d-flex justify-content-around">
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-dark dropDelv <?= ($liv['etat'] == 'MISE À TERRE' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise à terre" data-bs-toggle="modal" data-bs-target="#delivDrop"><i cla data-feather="arrow-down"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-warning " title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
+                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info" title="Information" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
                       </div>
@@ -428,31 +428,34 @@ Dashboard
       <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalTitleId">Livraison du conteneur <span class="text-primary"></span></h5>
+            <h5 class="modal-title" id="modalTitleId">Livraison</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <?= form_open() ?>
+            <?= form_open(base_url(session()->r . '/livraisons'), [
+              'id' => 'livsForm'
+            ]) ?>
+            <h2 >Nº TC <span class="text-primary" id="TCnum"></span></h2>
             <div class="row">
               <div class="col-md">
-                <h2 class="text-primary">Informations ALLER</h2>
+                <h4 class="text-primary">ALLER</h4>
                 <div class="form-floating mb-3">
-                  <select name="ch_aller" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <select name="ch_aller" class="form-select" id="ch_aller" aria-label="Floating label select example">
                     <option selected value="" hidden>Sélectionner</option>
                     <?php foreach ($drivers as $d) : ?>
-                      <option value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
+                      <option class="chAllerOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                     <?php endforeach ?>
                   </select>
                   <label for="floatingSelect">Chauffeur</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <select name="cam_aller" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <select name="cam_aller" class="form-select" id="cam_aller" aria-label="Floating label select example">
                     <option selected value="" hidden>Sélectionner</option>
                     <?php foreach ($trucks as $t) : ?>
-                      <option value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
+                      <option class="camAllerOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                     <?php endforeach ?>
                   </select>
-                  <label for="floatingSelect">Camions</label>
+                  <label for="floatingSelect">Camion</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input type="date" class="form-control" name="date_aller" id="date_aller" placeholder="">
@@ -460,21 +463,21 @@ Dashboard
                 </div>
               </div>
               <div class="col-md">
-                <h2 class="text-primary">Informations RETOUR</h2>
+                <h4 class="text-primary">RETOUR</h4>
                 <div class="form-floating mb-3">
-                  <select name="ch_retour" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <select name="ch_retour" class="form-select" id="ch_retour" aria-label="Floating label select example">
                     <option selected value="" hidden>Sélectionner</option>
                     <?php foreach ($drivers as $d) : ?>
-                      <option value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
+                      <option class="chRetourOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                     <?php endforeach ?>
                   </select>
                   <label for="floatingSelect">Chauffeur</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <select name="cam_retour" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <select name="cam_retour" class="form-select" id="cam_retour" aria-label="Floating label select example">
                     <option selected value="" hidden>Sélectionner</option>
                     <?php foreach ($trucks as $t) : ?>
-                      <option value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
+                      <option class="camRetourOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                     <?php endforeach ?>
                   </select>
                   <label for="floatingSelect">Camion</label>
@@ -487,8 +490,8 @@ Dashboard
               <div class="row">
                 <div class="col">
                   <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="outTC">
-                    <label class="form-check-label" for="outTC">Retour EIRs</label>
+                    <input class="form-check-input" name="eirs" type="checkbox" id="eirs">
+                    <label class="form-check-label" for="eirs">Retour EIRs</label>
                   </div>
                 </div>
               </div>
@@ -498,14 +501,58 @@ Dashboard
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" form="livsForm" id="livSub" name="id" value="" class="btn btn-primary">Enregistrer</button>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      $('.infDelv').click(function(e) {
+        e.preventDefault();
+        $('#livSub').val($(this).val());
+        $('#TCnum').val($(this).attr('data-container'));
+        $.ajax({
+          type: "get",
+          url: "<?= base_url('api/livraisons') ?>",
+          data: {
+            token: '<?= csrf_hash() ?>',
+            id: $(this).val()
+          },
+          dataType: "JSON",
+          success: function(res) {
+            // console.log(res);
+            $('#date_aller').val(res.date_aller);
+            $('#date_retour').val(res.date_retour);
+            document.querySelectorAll('.chAllerOp').forEach(e => {
+              if (e.value == res.ch_aller) {
+                console.log(e.selected);
+                e.selected = true
+              }
+            })
+            document.querySelectorAll('.chRetourOp').forEach(e => {
+              if (e.value == res.ch_retour) {
+                console.log(e.selected);
+                e.selected = true
+              }
+            })
+            document.querySelectorAll('.camAllerOp').forEach(e => {
+              if (e.value == res.cam_aller) {
+                console.log(e.selected);
+                e.selected = true
+              }
+            })
+            document.querySelectorAll('.camRetourOp').forEach(e => {
+              if (e.value == res.cam_retour) {
+                console.log(e.selected);
+                e.selected = true
+              }
+            })
+            document.getElementById('eirs').checked = res.etat == 'LIVRÉ' ? true : false;
+          }
+        });
 
-
-    <!-- Optional: Place to the bottom of scripts -->
+      });
+    </script>
     <script>
       const myModal = new bootstrap.Modal(document.getElementById('livInf'), options)
     </script>

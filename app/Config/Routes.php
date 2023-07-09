@@ -226,6 +226,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'livraisons::index');
+            $routes->post('/', 'livraisons::save');
             $routes->post('abord', 'livraisons::abord');
             $routes->get('drop/(:segment)', 'livraisons::drop/$1');
             $routes->get('up/(:segment)', 'livraisons::up/$1');
@@ -265,6 +266,10 @@ $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
 
     $routes->group('clients', function ($routes) {
         $routes->get('/', 'api\clients::get');
+    });
+
+    $routes->group('livraisons', function ($routes) {
+        $routes->get('/', 'api\livraisons::get');
     });
 
     $routes->group('utils', function ($routes) {
