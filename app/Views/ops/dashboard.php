@@ -92,7 +92,12 @@ Dashboard
 
   </div>
 
-  <h2 class="h4 mb-3">Livraisons</h2>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="h4 mb-0">Livraisons</h2>
+    <a class="btn btn-primary d-flex gap-1 align-items-center" href="<?= base_url(session()->r . '/livraisons/preget') ?>" role="button">
+      <i data-feather="plus"></i><span>Preget</span>
+    </a>
+  </div>
 
   <div class="row">
     <!-- nombre de livraisons journalières -->
@@ -435,7 +440,7 @@ Dashboard
             <?= form_open(base_url(session()->r . '/livraisons'), [
               'id' => 'livsForm'
             ]) ?>
-            <h2 >Nº TC <span class="text-primary" id="TCnum"></span></h2>
+            <h2>Nº TC <span class="text-primary" id="TCnum"></span></h2>
             <div class="row">
               <div class="col-md">
                 <h4 class="text-primary">ALLER</h4>
@@ -574,6 +579,7 @@ Dashboard
 
 
 </div>
+<!-- pie -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
 
@@ -623,6 +629,7 @@ Dashboard
 
   });
 </script>
+<!-- bar -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const bar_stat_liv = $.ajax({
@@ -640,7 +647,7 @@ Dashboard
         data: {
           labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jlt", "Aoû", "Sep", "Oct", "Nov", "Déc"],
           datasets: [{
-            label: "This year",
+            label: "Livraisons",
             backgroundColor: window.theme.primary,
             borderColor: window.theme.primary,
             hoverBackgroundColor: window.theme.primary,
@@ -658,7 +665,7 @@ Dashboard
           scales: {
             yAxes: [{
               gridLines: {
-                // display: false
+                display: false
               },
               stacked: false,
               ticks: {

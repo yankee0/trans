@@ -26,7 +26,7 @@ class Finance extends BaseController
 
         //get the yearly total amount liv
         $yearlyFactLivPaid = $model_fact_liv
-            ->where('YEAR(created_at)', date('Y', time()))
+            ->where('YEAR(date_paiement)', date('Y', time()))
             ->where('paiement', 'OUI')
             ->find();
         // dd(date('Y', time()));
@@ -41,7 +41,7 @@ class Finance extends BaseController
 
         //get the monthly total amount liv
         $monthlyFactLivPaid = $model_fact_liv
-            ->where('MONTH(created_at)', date('m', time()))
+            ->where('MONTH(date_paiement)', date('m', time()))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($monthlyFactLivPaid); $i++) {
@@ -55,7 +55,7 @@ class Finance extends BaseController
 
         //get weeky total amount liv
         $weekyFactLivPaid = $model_fact_liv
-            ->where('WEEK(created_at)', date('W', time()))
+            ->where('WEEK(date_paiement)', date('W', time()))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($weekyFactLivPaid); $i++) {
@@ -69,7 +69,7 @@ class Finance extends BaseController
 
         //get daily total amount liv
         $dailyFactLivPaid = $model_fact_liv
-            ->where('DAY(created_at)', date('d', time()))
+            ->where('DAY(date_paiement)', date('d', time()))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($dailyFactLivPaid); $i++) {

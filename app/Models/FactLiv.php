@@ -16,6 +16,7 @@ class FactLiv extends Model
     protected $allowedFields    = [
         'id_client',
         'consignataire',
+        'amendement',
         'bl',
         'compagnie',
         'reglement',

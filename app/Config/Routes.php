@@ -230,6 +230,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'livraisons::abord');
             $routes->get('drop/(:segment)', 'livraisons::drop/$1');
             $routes->get('up/(:segment)', 'livraisons::up/$1');
+            $routes->get('preget','livraisons::preget');
+            $routes->post('preget','livraisons::checkPreget');
+            $routes->post('preget/(:segment)','livraisons::handlePG/$1');
         });
     });
 });

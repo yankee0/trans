@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Controllers\FactLiv as ControllersFactLiv;
 use App\Models\Camions;
 use App\Models\Chauffeurs;
+use App\Models\FactLiv;
 use App\Models\Livraisons as ModelsLivraisons;
 use Exception;
 
@@ -170,16 +172,17 @@ class Livraisons extends BaseController
             ->with('m', 'Mise sur plateau enregistrée.');
     }
 
-    public function save(){
+    public function save()
+    {
         $data = $this->request->getPost();
         // dd($data);
         $data['etat'] = isset($data['eirs']) ? 'LIVRÉ' : 'EN COURS';
         $data['ch_aller'] = empty($data['ch_aller']) ? null : $data['ch_aller'];
         $data['ch_retour'] = empty($data['ch_retour']) ? null : $data['ch_retour'];
-        $data['ch_retour'] = empty($data['ch_retour']) ? null : $data['ch_retour'];
+        $data['cam_aller'] = empty($data['cam_aller']) ? null : $data['cam_aller'];
+        $data['cam_retour'] = empty($data['cam_retour']) ? null : $data['cam_retour'];
         $data['date_retour'] = empty($data['date_retour']) ? null : $data['date_retour'];
         $data['date_aller'] = empty($data['date_aller']) ? null : $data['date_aller'];
-        $data['cam_retour'] = empty($data['cam_retour']) ? null : $data['cam_retour'];
         try {
             (new ModelsLivraisons())->save($data);
         } catch (Exception $e) {
@@ -193,5 +196,59 @@ class Livraisons extends BaseController
             ->back()
             ->with('n', true)
             ->with('m', 'Informations de livraisons enregistrées.');
+    }
+
+    public function preget()
+    {
+        return view('ops/livraisons/preget');
+    }
+
+    public function checkPreget($p = null)
+    {
+        $preget = $p == null ? $this->request->getVar('preget') : $p;
+        $res = (new FactLiv())
+            ->select('id')
+            ->where('fact_liv.bl', $preget)
+            ->first();
+
+        if (!empty($res)) {
+            $res = (new ControllersFactLiv)->getInvoice($res['id']);
+            return view('ops/livraisons/preget', [
+                'facture' => $res,
+                'preget' => $preget
+            ]);
+        } else {
+            return view('ops/livraisons/preget', [
+                'facture' => false,
+                'preget' => $preget
+            ]);
+        }
+    }
+
+    public function handlePG($id)
+    {
+        $data = $this->request->getPost();
+        if (!isset($data['preget'])) {
+            $data['id'] = $id;
+            $data['preget'] = 'NON';
+            $data['date_pg'] = null;
+            $data['amendement'] = 'NON';
+        } else {
+            $data['id'] = $id;
+            $data['preget'] = 'OUI';
+            $data['date_pg'] = $data['date_pg'];
+            $data['amendement'] = isset($data['amendement']) ? 'OUI' : 'NON';
+        }
+        // dd($data);
+
+        try {
+            (new FactLiv())->save($data);
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->with('n', false)
+                ->with('m', 'Une erreur est survenue lors de la modification.');
+        }
+        return $this->checkPreget($data['bl']);
     }
 }
