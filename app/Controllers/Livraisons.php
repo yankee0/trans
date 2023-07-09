@@ -8,6 +8,7 @@ use App\Models\Camions;
 use App\Models\Chauffeurs;
 use App\Models\FactLiv;
 use App\Models\Livraisons as ModelsLivraisons;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use Exception;
 
 class Livraisons extends BaseController
@@ -70,7 +71,7 @@ class Livraisons extends BaseController
         return view('ops/livraisons/dashboard.php', $data);
     }
 
-    public function getLivs()
+    public function getLivs($tc = '%')
     {
         $model = new ModelsLivraisons();
         $data = $model
@@ -83,11 +84,14 @@ class Livraisons extends BaseController
                 fact_liv_lieux.adresse,
                 fact_liv_lieux.carburant,
                 clients.nom AS nom_client,
+                clients.tel AS tel_client,
+                clients.email AS email_client,
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
                 fact_liv.preget,
-                fact_liv.bl
+                fact_liv.bl,
+                fact_liv.compagnie,
             ')
             ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
             ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
@@ -96,7 +100,11 @@ class Livraisons extends BaseController
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->where('fact_liv.date_pg !=', null)
             ->where('fact_liv.annulation', 'NON')
-            // ->where('livraisons.annulation','NON')
+            ->like('fact_liv_lignes.conteneur', $tc)
+            ->orLike('clients.nom', $tc)
+            ->orLike('fact_liv.compagnie', $tc)
+            ->orLike('fact_liv.bl', $tc)
+            ->orLike('zones.nom', $tc)
             ->orderBy('fact_liv.paiement', 'DESC')
             ->paginate(10);
         $pager = $model->pager;
@@ -250,5 +258,23 @@ class Livraisons extends BaseController
                 ->with('m', 'Une erreur est survenue lors de la modification.');
         }
         return $this->checkPreget($data['bl']);
+    }
+
+    public function info($id)
+    {
+        $res = $this->getLivs($id);
+        $res = $res['data']['0'];
+        if (empty($res)) {
+            throw new PageNotFoundException('Informations de livraison introuvable.', 404);
+        } else {
+            $res['drivers'] = (new Chauffeurs())
+                ->orderBy('nom')
+                ->findAll();
+
+            $res['trucks'] = (new Camions())
+                ->orderBy('im')
+                ->findAll();
+            return view('ops/search', $res);
+        }
     }
 }

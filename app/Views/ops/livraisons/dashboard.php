@@ -301,7 +301,7 @@ Dashboard livraisons
       $('.infDelv').click(function(e) {
         e.preventDefault();
         $('#livSub').val($(this).val());
-        $('#TCnum').val($(this).attr('data-container'));
+        $('#TCnum').html($(this).attr('data-container'));
         $.ajax({
           type: "get",
           url: "<?= base_url('api/livraisons') ?>",

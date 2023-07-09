@@ -226,6 +226,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'livraisons::index');
+            $routes->get('infos/(:segment)', 'livraisons::info/$1');
             $routes->post('/', 'livraisons::save');
             $routes->post('abord', 'livraisons::abord');
             $routes->get('drop/(:segment)', 'livraisons::drop/$1');

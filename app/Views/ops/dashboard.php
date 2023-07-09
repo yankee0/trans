@@ -317,7 +317,7 @@ Dashboard
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info" title="Information" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
+                        <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' . $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -515,7 +515,7 @@ Dashboard
       $('.infDelv').click(function(e) {
         e.preventDefault();
         $('#livSub').val($(this).val());
-        $('#TCnum').val($(this).attr('data-container'));
+        $('#TCnum').html($(this).attr('data-container'));
         $.ajax({
           type: "get",
           url: "<?= base_url('api/livraisons') ?>",
