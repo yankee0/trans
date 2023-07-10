@@ -78,7 +78,8 @@ class Ops extends BaseController
     public function search()
     {
         session()->p = 'search';
-        $search = empty($this->request->getVar('search')) ? '%' : $this->request->getVar('search');
+        $data = $this->request->getGet();
+        $search = isset($data['search']) ? $data['search'] : '%';
         $data = [
             'livs' => (new Livraisons())->getLivs($search,20),
             'search' => $search,

@@ -124,7 +124,8 @@ class Clients extends BaseController
 
     public function search()
     {
-        $s = $this->request->getVar('search');
+        $data = $this->request->getGet();
+        $s = isset($data['search']) ? $data['search'] : '%';
         if (empty($s)) {
             return redirect()->to(session()->r . '/clients');
         }
