@@ -71,7 +71,7 @@ class Livraisons extends BaseController
         return view('ops/livraisons/dashboard.php', $data);
     }
 
-    public function getLivs($tc = '%')
+    public function getLivs($tc = '%',$limit = 10)
     {
         $model = new ModelsLivraisons();
         $data = $model
@@ -118,7 +118,7 @@ class Livraisons extends BaseController
             ->orLike('fact_liv.bl', $tc)
             ->orLike('zones.nom', $tc)
             ->orderBy('fact_liv.paiement', 'DESC')
-            ->paginate(10);
+            ->paginate($limit);
         $pager = $model->pager;
         return [
             'data' => $data,

@@ -10,7 +10,7 @@ Dashboard
     <div class="card flex-fill">
       <div class="card-body ">
         <form action="<?= base_url(session()->r . '/search') ?>" class="d-flex gap-2">
-          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un conteneur">
+          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un conteneur (par nom du client, zone ou BL)">
           <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
         </form>
       </div>

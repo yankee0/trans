@@ -98,6 +98,12 @@
                 <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
               </a>
             </li>
+
+            <li class="sidebar-item <?= (session()->p == 'search') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/search') ?>">
+                <i class="align-middle" data-feather="search"></i> <span class="align-middle">Recherches</span>
+              </a>
+            </li>
           <?php endif; ?>
           <?php if (
             session()->r == 'facturation'
