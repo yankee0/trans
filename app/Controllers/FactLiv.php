@@ -310,7 +310,7 @@ class FactLiv extends BaseController
     {
         $invoice = (new ModelsFactLiv())->find($id);
         if (empty($invoice)) {
-            throw new PageNotFoundException('Facture introuvable ou supprimée.',404);
+            throw new PageNotFoundException('Facture introuvable ou supprimée.', 404);
         } else {
             $zones = (new FactLivLieux())
                 ->where('id_fact', $invoice['id'])
@@ -604,7 +604,6 @@ class FactLiv extends BaseController
     {
         $data = $this->request->getPost();
         $data['conteneur'] = strtoupper($data['conteneur']);
-        // dd($data);
         try {
             $check = (new FactLivLignes())->where([
                 'id_lieu' => intval($data['id_lieu']),
@@ -614,6 +613,18 @@ class FactLiv extends BaseController
             if (sizeof($check) != 0) {
                 throw new Exception('Un doublon de conteneur détecté.');
             }
+
+            $prix = (new FactLivLieux())
+                ->where('fact_liv_lieux.id', $data['id_lieu'])
+                ->select('
+                    zones.ht_liv_20,
+                    zones.ht_liv_40,
+                ')
+                ->join('zones', 'zones.id = fact_liv_lieux.id_zone')
+                ->first();
+            
+            $data['prix'] = $data['type'] == '20' ? $prix['ht_liv_20'] : $prix['ht_liv_40'];
+            // dd($data);
             (new FactLivLignes())->save($data);
         } catch (Exception $e) {
             return redirect()
@@ -661,7 +672,7 @@ class FactLiv extends BaseController
                 $datalivs = [
                     'id' => $liv['id'],
                     'etat' => 'ANNULÉ',
-            'motif' => $this->request->getVar('motif'),
+                    'motif' => $this->request->getVar('motif'),
                 ];
                 (new Livraisons())->save($datalivs);
             }
