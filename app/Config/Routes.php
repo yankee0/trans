@@ -83,6 +83,22 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'Remorques::edit');
             $routes->get('search', 'Remorques::search');
         });
+
+        //gestion des livraisons
+        $routes->group('livraisons', function ($routes) {
+            $routes->get('/', 'Livraisons::index');
+            $routes->get('infos/(:segment)', 'Livraisons::info/$1');
+            $routes->post('/', 'Livraisons::save');
+            $routes->post('abord', 'Livraisons::abord');
+            $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
+            $routes->get('up/(:segment)', 'Livraisons::up/$1');
+            $routes->get('preget','Livraisons::preget');
+            $routes->post('preget','Livraisons::checkPreget');
+            $routes->post('preget/(:segment)','Livraisons::handlePG/$1');
+        });
+
+        //recherche operation
+        $routes->get('search', 'Ops::search');
     });
 
     $routes->group('flotte', ['filter' => 'flotte'], function ($routes) {
