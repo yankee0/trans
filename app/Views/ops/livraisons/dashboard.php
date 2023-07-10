@@ -6,10 +6,10 @@ Dashboard livraisons
 <div class="container-fluid p-0">
 
   <div class="d-flex align-items-center justify-content-between mb-3">
-  <h1 class="h3 mb-0"><strong>Livraisons</strong> Dashboard</h1>
-  <a class="btn btn-primary d-flex gap-1 align-items-center" href="<?= base_url(session()->r.'/livraisons/preget') ?>" role="button">
-    <i data-feather="plus"></i><span>Preget</span>
-  </a>
+    <h1 class="h3 mb-0"><strong>Livraisons</strong> Dashboard</h1>
+    <a class="btn btn-primary d-flex gap-1 align-items-center" href="<?= base_url(session()->r . '/livraisons/preget') ?>" role="button">
+      <i data-feather="plus"></i><span>Preget</span>
+    </a>
   </div>
   <div class="col-12 d-flex">
     <div class="card flex-fill">
@@ -103,7 +103,8 @@ Dashboard livraisons
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info" title="Information" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="info"></i></button>
+                        <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' . $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
+
                       </div>
                     </td>
                   </tr>
@@ -232,7 +233,7 @@ Dashboard livraisons
                 <h4 class="text-primary">ALLER</h4>
                 <div class="form-floating mb-3">
                   <select name="ch_aller" class="form-select" id="ch_aller" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($drivers as $d) : ?>
                       <option class="chAllerOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                     <?php endforeach ?>
@@ -241,7 +242,7 @@ Dashboard livraisons
                 </div>
                 <div class="form-floating mb-3">
                   <select name="cam_aller" class="form-select" id="cam_aller" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($trucks as $t) : ?>
                       <option class="camAllerOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                     <?php endforeach ?>
@@ -257,7 +258,7 @@ Dashboard livraisons
                 <h4 class="text-primary">RETOUR</h4>
                 <div class="form-floating mb-3">
                   <select name="ch_retour" class="form-select" id="ch_retour" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($drivers as $d) : ?>
                       <option class="chRetourOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                     <?php endforeach ?>
@@ -266,7 +267,7 @@ Dashboard livraisons
                 </div>
                 <div class="form-floating mb-3">
                   <select name="cam_retour" class="form-select" id="cam_retour" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($trucks as $t) : ?>
                       <option class="camRetourOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                     <?php endforeach ?>
@@ -276,6 +277,12 @@ Dashboard livraisons
                 <div class="form-floating mb-3">
                   <input type="date" class="form-control" name="date_retour" id="date_retour" placeholder="">
                   <label for="date_retour">Date</label>
+                </div>
+              </div>
+              <div class="col-12 mb-3">
+                <div class="form-floating">
+                  <textarea id="commentaire" name="commentaire" class="form-control" placeholder="Des remarques concernants la livraisons"></textarea>
+                  <label for="commentaire">Commentaire</label>
                 </div>
               </div>
               <div class="row">
@@ -314,6 +321,7 @@ Dashboard livraisons
             // console.log(res);
             $('#date_aller').val(res.date_aller);
             $('#date_retour').val(res.date_retour);
+            $('#commentaire').val(res.commentaire);
             document.querySelectorAll('.chAllerOp').forEach(e => {
               if (e.value == res.ch_aller) {
                 console.log(e.selected);
@@ -341,7 +349,6 @@ Dashboard livraisons
             document.getElementById('eirs').checked = res.etat == 'LIVRÉ' ? true : false;
           }
         });
-
       });
     </script>
     <script>

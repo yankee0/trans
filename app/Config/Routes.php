@@ -186,6 +186,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('ops', ['filter' => 'ops'], function ($routes) {
         $routes->get('/', 'Ops::index');
         $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+        $routes->get('search', 'ops::search');
 
         //gestion des chauffeurs
         $routes->group('chauffeurs', function ($routes) {
@@ -235,6 +236,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('preget','livraisons::checkPreget');
             $routes->post('preget/(:segment)','livraisons::handlePG/$1');
         });
+
     });
 });
 

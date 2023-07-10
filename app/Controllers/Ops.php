@@ -7,6 +7,7 @@ use App\Models\Camions;
 use App\Models\Chauffeurs;
 use App\Models\Livraisons as modeleLiv;
 use App\Controllers\Livraisons;
+use App\Models\Livraisons as ModelsLivraisons;
 use App\Models\Remorques;
 
 class Ops extends BaseController
@@ -73,5 +74,12 @@ class Ops extends BaseController
                 ->findAll()
         ];
         return view('ops/dashboard', $data);
+    }
+
+    public function search(){
+        $data = [
+            'livs' => (new Livraisons())->getLivs($this->request->getVar('search')),
+        ];
+        return view('ops/search',$data);
     }
 }

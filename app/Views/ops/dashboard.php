@@ -446,7 +446,7 @@ Dashboard
                 <h4 class="text-primary">ALLER</h4>
                 <div class="form-floating mb-3">
                   <select name="ch_aller" class="form-select" id="ch_aller" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($drivers as $d) : ?>
                       <option class="chAllerOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                     <?php endforeach ?>
@@ -455,7 +455,7 @@ Dashboard
                 </div>
                 <div class="form-floating mb-3">
                   <select name="cam_aller" class="form-select" id="cam_aller" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($trucks as $t) : ?>
                       <option class="camAllerOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                     <?php endforeach ?>
@@ -471,7 +471,7 @@ Dashboard
                 <h4 class="text-primary">RETOUR</h4>
                 <div class="form-floating mb-3">
                   <select name="ch_retour" class="form-select" id="ch_retour" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($drivers as $d) : ?>
                       <option class="chRetourOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                     <?php endforeach ?>
@@ -480,7 +480,7 @@ Dashboard
                 </div>
                 <div class="form-floating mb-3">
                   <select name="cam_retour" class="form-select" id="cam_retour" aria-label="Floating label select example">
-                    <option selected value="" hidden>Sélectionner</option>
+                    <option selected value="">Sélectionner</option>
                     <?php foreach ($trucks as $t) : ?>
                       <option class="camRetourOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                     <?php endforeach ?>
@@ -490,6 +490,12 @@ Dashboard
                 <div class="form-floating mb-3">
                   <input type="date" class="form-control" name="date_retour" id="date_retour" placeholder="">
                   <label for="date_retour">Date</label>
+                </div>
+              </div>
+              <div class="col-12 mb-3">
+                <div class="form-floating">
+                  <textarea id="commentaire" name="commentaire" class="form-control" placeholder="Des remarques concernants la livraisons"></textarea>
+                  <label for="commentaire">Commentaire</label>
                 </div>
               </div>
               <div class="row">
@@ -528,6 +534,7 @@ Dashboard
             // console.log(res);
             $('#date_aller').val(res.date_aller);
             $('#date_retour').val(res.date_retour);
+            $('#commentaire').val(res.commentaire);
             document.querySelectorAll('.chAllerOp').forEach(e => {
               if (e.value == res.ch_aller) {
                 console.log(e.selected);
@@ -665,7 +672,8 @@ Dashboard
           scales: {
             yAxes: [{
               gridLines: {
-                display: false
+                display: false,
+                color: "transparent"
               },
               stacked: false,
               ticks: {
@@ -675,6 +683,7 @@ Dashboard
             xAxes: [{
               stacked: false,
               gridLines: {
+                display: false,
                 color: "transparent"
               }
             }]

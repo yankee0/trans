@@ -92,7 +92,19 @@ class Livraisons extends BaseController
                 fact_liv.preget,
                 fact_liv.bl,
                 fact_liv.compagnie,
+                chauffeurs.nom AS ch_aller,
+                chauffeur2.nom AS ch_retour,
+                camions.im AS cam_aller,
+                camion2.im AS cam_retour,
+                livraisons.commentaire,
+                livraisons.date_aller,
+                livraisons.date_retour,
+                livraisons.motif,
             ')
+            ->join('chauffeurs', 'chauffeurs.id = livraisons.ch_aller', 'left')
+            ->join('chauffeurs AS chauffeur2', 'chauffeur2.id = livraisons.ch_retour', 'left')
+            ->join('camions', 'camions.id = livraisons.cam_aller', 'left')
+            ->join('camions AS camion2', 'camion2.id = livraisons.cam_retour', 'left')
             ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
             ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
@@ -191,6 +203,7 @@ class Livraisons extends BaseController
         $data['cam_retour'] = empty($data['cam_retour']) ? null : $data['cam_retour'];
         $data['date_retour'] = empty($data['date_retour']) ? null : $data['date_retour'];
         $data['date_aller'] = empty($data['date_aller']) ? null : $data['date_aller'];
+        $data['commentaire'] = empty($data['commentaire']) ? null : $data['commentaire'];
         try {
             (new ModelsLivraisons())->save($data);
         } catch (Exception $e) {
@@ -274,7 +287,9 @@ class Livraisons extends BaseController
             $res['trucks'] = (new Camions())
                 ->orderBy('im')
                 ->findAll();
-            return view('ops/search', $res);
+
+
+            return view('ops/livraisons/info', $res);
         }
     }
 }

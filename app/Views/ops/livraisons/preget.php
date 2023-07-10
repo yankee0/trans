@@ -32,29 +32,37 @@ Preget livraisons
               <?= $facture['facture']['amendement'] == 'OUI' ? '<span class="fs-3">AMENDEMENT</span> <br />' : '' ?>
               Preget enregistré le <?= $facture['facture']['date_pg'] ?>
             </div>
-            <?php else: ?>
-              <div class="alert alert-warning text-center" role="alert">
+          <?php else : ?>
+            <div class="alert alert-warning text-center" role="alert">
               Preget non enregistré
             </div>
           <?php endif ?>
           <div class="fs-3">Compagnie <span class="text-primary"><?= $facture['facture']['compagnie'] ?></span></div>
           <div class="display-6">BL <span class="text-primary"><?= $facture['facture']['bl'] ?></span></div>
           <hr>
-          <div class="col-md-6 col-xxl-4">
+          <div class="row">
             <?php foreach ($facture['zones'] as $zone) : ?>
-              <div class="fs-3"><?= $zone['designation'] ?></div>
-              <div class="mb-3">Adresse exacte: <span class="text-primary"><?= empty($zone['adresse']) ? '<span class="badge bg-dark">INDÉFINIE</span>' : $zone['adresse'] ?></span></div>
-              <div class="row mb-3">
-                <div class="col-12">Conteneur 20':</div>
-                <?php foreach ($zone['c_20'] as $c) : ?>
-                  <div class="col-6 col-sm-4 col-md-3 text-sm"><?= $c['conteneur'] ?></div>
-                <?php endforeach ?>
-              </div>
-              <div class="row">
-                <div class="col-12">Conteneur 40':</div>
-                <?php foreach ($zone['c_40'] as $c) : ?>
-                  <div class="col-6 col-sm-4 col-md-3 text-sm"><?= $c['conteneur'] ?></div>
-                <?php endforeach ?>
+              <div class="col-md-6 col-xxl-4">
+                <div class="fs-3"><?= $zone['designation'] ?></div>
+                <div class="mb-3 text-muted">Adresse exacte: <span class="text-primary"><?= empty($zone['adresse']) ? '<span class="badge bg-dark">INDÉFINIE</span>' : $zone['adresse'] ?></span></div>
+                <div class="row mb-3">
+                  <div class="col-12 text-muted">Conteneur 20':</div>
+                  <?php if (empty($zone['c_20'])) : ?>
+                    <span><i>Aucun</i></span>
+                  <?php endif ?>
+                  <?php foreach ($zone['c_20'] as $c) : ?>
+                    <div class="col-6 col-sm-4 col-md-3 text-sm"><?= $c['conteneur'] ?></div>
+                  <?php endforeach ?>
+                </div>
+                <div class="row">
+                  <div class="col-12 text-muted">Conteneur 40':</div>
+                  <?php if (empty($zone['c_40'])) : ?>
+                    <span><i>Aucun</i></span>
+                  <?php endif ?>
+                  <?php foreach ($zone['c_40'] as $c) : ?>
+                    <div class="col-6 col-sm-4 col-md-3 text-sm"><?= $c['conteneur'] ?></div>
+                  <?php endforeach ?>
+                </div>
               </div>
             <?php endforeach ?>
           </div>
