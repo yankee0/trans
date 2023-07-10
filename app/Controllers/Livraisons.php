@@ -110,13 +110,9 @@ class Livraisons extends BaseController
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->where('fact_liv.date_pg !=', null)
+            ->where('fact_liv.preget', 'OUI')
             ->where('fact_liv.annulation', 'NON')
             ->like('fact_liv_lignes.conteneur', $tc)
-            ->orLike('clients.nom', $tc)
-            ->orLike('fact_liv.compagnie', $tc)
-            ->orLike('fact_liv.bl', $tc)
-            ->orLike('zones.nom', $tc)
             ->orderBy('fact_liv.paiement', 'DESC')
             ->paginate($limit);
         $pager = $model->pager;
@@ -287,7 +283,6 @@ class Livraisons extends BaseController
             $res['trucks'] = (new Camions())
                 ->orderBy('im')
                 ->findAll();
-
 
             return view('ops/livraisons/info', $res);
         }

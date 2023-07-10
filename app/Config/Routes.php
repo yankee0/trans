@@ -267,35 +267,35 @@ $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
     });
 
     $routes->group('utilisateurs', function ($routes) {
-        $routes->get('/', 'Api\Utilisateurs::get');
+        $routes->add('/', 'Api\Utilisateurs::get');
     });
 
     $routes->group('zones', function ($routes) {
-        $routes->get('/', 'Api\Zones::get');
+        $routes->add('/', 'Api\Zones::get');
     });
 
     $routes->group('chauffeurs', function ($routes) {
-        $routes->get('/', 'Api\Chauffeurs::get');
+        $routes->add('/', 'Api\Chauffeurs::get');
     });
 
     $routes->group('camions', function ($routes) {
-        $routes->get('/', 'Api\Camions::get');
+        $routes->add('/', 'Api\Camions::get');
     });
 
     $routes->group('remorques', function ($routes) {
-        $routes->get('/', 'Api\Remorques::get');
+        $routes->add('/', 'Api\Remorques::get');
     });
 
     $routes->group('clients', function ($routes) {
-        $routes->get('/', 'Api\Clients::get');
+        $routes->add('/', 'Api\Clients::get');
     });
 
     $routes->group('livraisons', function ($routes) {
-        $routes->get('/', 'Api\Livraisons::get');
+        $routes->add('/', 'Api\Livraisons::get');
     });
 
     $routes->group('utils', function ($routes) {
-        $routes->post('checkData', 'Api\Utils::checkDoubleContainer');
+        $routes->add('checkData', 'Api\Utils::checkDoubleContainer');
     });
 });
 
