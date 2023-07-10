@@ -134,7 +134,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     });
 
     $routes->group('facturation', ['filter' => 'facturation'], function ($routes) {
-        $routes->get('/', 'facturations::index');
+        $routes->get('/', 'Facturations::index');
         $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
 
         //gestion des clients
