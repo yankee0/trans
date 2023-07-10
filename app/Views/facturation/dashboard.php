@@ -128,7 +128,7 @@
         <div class=" card-footer">
           <div class="text-center">
             <?php if (sizeof($fact_liv_last) > 0) : ?>
-              <a href="<?= base_url(session()->r . '/livraisons/search?search=') ?>">Tout voir</a>
+              <a href="<?= base_url(session()->r . '/livraisons/search?search=%') ?>">Tout voir</a>
             <?php else : ?>
               <div class="alert alert-warning" role="alert">
                 Vide.
