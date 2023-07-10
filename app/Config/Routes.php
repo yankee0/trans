@@ -32,209 +32,209 @@ $routes->set404Override();
 $routes->get('/', 'Auth::index');
 $routes->post('/', 'Auth::login');
 $routes->get('/deconnexion', 'Auth::logout');
-$routes->get('/(:segment)/livraisons/details/(:segment)', 'factLiv::showInvoice/$2');
+$routes->get('/(:segment)/livraisons/details/(:segment)', 'FactLiv::showInvoice/$2');
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('admin', ['filter' => 'admin'], function ($routes) {
-        $routes->get('/', 'admin::index');
-        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+        $routes->get('/', 'Admin::index');
+        $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
 
         //gestion des utilisateurs
         $routes->group('utilisateurs', function ($routes) {
-            $routes->get('/', 'utilisateurs::list');
-            $routes->post('/', 'utilisateurs::add');
-            $routes->add('del', 'utilisateurs::delete');
-            $routes->post('edit', 'utilisateurs::edit');
-            $routes->get('search', 'utilisateurs::search');
+            $routes->get('/', 'Utilisateurs::list');
+            $routes->post('/', 'Utilisateurs::add');
+            $routes->add('del', 'Utilisateurs::delete');
+            $routes->post('edit', 'Utilisateurs::edit');
+            $routes->get('search', 'Utilisateurs::search');
         });
 
         //gestion des zones
         $routes->group('zones', function ($routes) {
-            $routes->get('/', 'zones::list');
-            $routes->post('/', 'zones::add');
-            $routes->add('del', 'zones::delete');
-            $routes->post('edit', 'zones::edit');
-            $routes->get('search', 'zones::search');
+            $routes->get('/', 'Zones::list');
+            $routes->post('/', 'Zones::add');
+            $routes->add('del', 'Zones::delete');
+            $routes->post('edit', 'Zones::edit');
+            $routes->get('search', 'Zones::search');
         });
 
         //gestion des chauffeurs
         $routes->group('chauffeurs', function ($routes) {
-            $routes->get('/', 'chauffeurs::list');
-            $routes->post('/', 'chauffeurs::add');
-            $routes->add('del', 'chauffeurs::delete');
-            $routes->post('edit', 'chauffeurs::edit');
-            $routes->get('search', 'chauffeurs::search');
+            $routes->get('/', 'Chauffeurs::list');
+            $routes->post('/', 'Chauffeurs::add');
+            $routes->add('del', 'Chauffeurs::delete');
+            $routes->post('edit', 'Chauffeurs::edit');
+            $routes->get('search', 'Chauffeurs::search');
         });
 
         //gestion des camions
         $routes->group('camions', function ($routes) {
-            $routes->get('/', 'camions::list');
-            $routes->post('/', 'camions::add');
-            $routes->add('del', 'camions::delete');
-            $routes->post('edit', 'camions::edit');
-            $routes->get('search', 'camions::search');
+            $routes->get('/', 'Camions::list');
+            $routes->post('/', 'Camions::add');
+            $routes->add('del', 'Camions::delete');
+            $routes->post('edit', 'Camions::edit');
+            $routes->get('search', 'Camions::search');
         });
 
         //gestion des remorques
         $routes->group('remorques', function ($routes) {
-            $routes->get('/', 'remorques::list');
-            $routes->post('/', 'remorques::add');
-            $routes->add('del', 'remorques::delete');
-            $routes->post('edit', 'remorques::edit');
-            $routes->get('search', 'remorques::search');
+            $routes->get('/', 'Remorques::list');
+            $routes->post('/', 'Remorques::add');
+            $routes->add('del', 'Remorques::delete');
+            $routes->post('edit', 'Remorques::edit');
+            $routes->get('search', 'Remorques::search');
         });
     });
 
     $routes->group('flotte', ['filter' => 'flotte'], function ($routes) {
-        $routes->get('/', 'chauffeurs::list');
-        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+        $routes->get('/', 'Chauffeurs::list');
+        $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
 
         //gestion des chauffeurs
         $routes->group('chauffeurs', function ($routes) {
-            $routes->get('/', 'chauffeurs::list');
-            $routes->post('/', 'chauffeurs::add');
-            $routes->add('del', 'chauffeurs::delete');
-            $routes->post('edit', 'chauffeurs::edit');
-            $routes->get('search', 'chauffeurs::search');
+            $routes->get('/', 'Chauffeurs::list');
+            $routes->post('/', 'Chauffeurs::add');
+            $routes->add('del', 'Chauffeurs::delete');
+            $routes->post('edit', 'Chauffeurs::edit');
+            $routes->get('search', 'Chauffeurs::search');
         });
 
         //gestion des camions
         $routes->group('camions', function ($routes) {
-            $routes->get('/', 'camions::list');
-            $routes->post('/', 'camions::add');
-            $routes->add('del', 'camions::delete');
-            $routes->post('edit', 'camions::edit');
-            $routes->get('search', 'camions::search');
+            $routes->get('/', 'Camions::list');
+            $routes->post('/', 'Camions::add');
+            $routes->add('del', 'Camions::delete');
+            $routes->post('edit', 'Camions::edit');
+            $routes->get('search', 'Camions::search');
         });
 
         //gestion des remorques
         $routes->group('remorques', function ($routes) {
-            $routes->get('/', 'remorques::list');
-            $routes->post('/', 'remorques::add');
-            $routes->add('del', 'remorques::delete');
-            $routes->post('edit', 'remorques::edit');
-            $routes->get('search', 'remorques::search');
+            $routes->get('/', 'Remorques::list');
+            $routes->post('/', 'Remorques::add');
+            $routes->add('del', 'Remorques::delete');
+            $routes->post('edit', 'Remorques::edit');
+            $routes->get('search', 'Remorques::search');
         });
     });
 
     $routes->group('facturation', ['filter' => 'facturation'], function ($routes) {
         $routes->get('/', 'facturations::index');
-        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+        $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
 
         //gestion des clients
         $routes->group('clients', function ($routes) {
-            $routes->get('/', 'clients::list');
-            $routes->post('/', 'clients::add');
-            $routes->add('del', 'clients::delete');
-            $routes->post('edit', 'clients::edit');
-            $routes->get('search', 'clients::search');
+            $routes->get('/', 'Clients::list');
+            $routes->post('/', 'Clients::add');
+            $routes->add('del', 'Clients::delete');
+            $routes->post('edit', 'Clients::edit');
+            $routes->get('search', 'Clients::search');
         });
 
         //gestion des facturations de livraisons
         $routes->group('livraisons', function ($routes) {
-            $routes->get('/', 'factLiv::list');
-            $routes->post('/', 'factLiv::add');
-            $routes->add('del/(:segment)', 'factLiv::delete/$1');
-            $routes->post('edit', 'factLiv::edit');
-            $routes->get('search', 'factLiv::search');
+            $routes->get('/', 'FactLiv::list');
+            $routes->post('/', 'FactLiv::add');
+            $routes->add('del/(:segment)', 'FactLiv::delete/$1');
+            $routes->post('edit', 'FactLiv::edit');
+            $routes->get('search', 'FactLiv::search');
             $routes->group('edit', function ($routes) {
-                $routes->post('addzone', 'factLiv::addZone');
-                $routes->get('(:segment)', 'factLiv::showEdit/$1');
-                $routes->post('entete/(:segment)', 'factLiv::editFactLiveHeader/$1');
-                $routes->get('zones/(:num)/(:num)', 'factLiv::deleteZone/$1/$2');
-                $routes->post('zones/new', 'factLiv::changeZone');
-                $routes->post('adresse/(:num)', 'factLiv::editAddress/$1');
-                $routes->post('price/(:num)', 'factLiv::editPrice/$1');
-                $routes->get('delete/container/(:num)', 'factLiv::deleteContainer/$1');
-                $routes->post('container/(:num)', 'factLiv::editContainer/$1');
-                $routes->post('container/add', 'factLiv::addContainer');
+                $routes->post('addzone', 'FactLiv::addZone');
+                $routes->get('(:segment)', 'FactLiv::showEdit/$1');
+                $routes->post('entete/(:segment)', 'FactLiv::editFactLiveHeader/$1');
+                $routes->get('zones/(:num)/(:num)', 'FactLiv::deleteZone/$1/$2');
+                $routes->post('zones/new', 'FactLiv::changeZone');
+                $routes->post('adresse/(:num)', 'FactLiv::editAddress/$1');
+                $routes->post('price/(:num)', 'FactLiv::editPrice/$1');
+                $routes->get('delete/container/(:num)', 'FactLiv::deleteContainer/$1');
+                $routes->post('container/(:num)', 'FactLiv::editContainer/$1');
+                $routes->post('container/add', 'FactLiv::addContainer');
             });
-            $routes->post('annuler/(:segment)', 'factLiv::abord/$1');
+            $routes->post('annuler/(:segment)', 'FactLiv::abord/$1');
         });
 
         //gestion des zones
         $routes->group('zones', function ($routes) {
-            $routes->get('/', 'zones::list');
-            $routes->post('/', 'zones::add');
-            $routes->add('del', 'zones::delete');
-            $routes->post('edit', 'zones::edit');
-            $routes->get('search', 'zones::search');
+            $routes->get('/', 'Zones::list');
+            $routes->post('/', 'Zones::add');
+            $routes->add('del', 'Zones::delete');
+            $routes->post('edit', 'Zones::edit');
+            $routes->get('search', 'Zones::search');
         });
     });
 
     $routes->group('finance', ['filter' => 'finance'], function ($routes) {
-        $routes->get('/', 'finance::index');
-        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
+        $routes->get('/', 'Finance::index');
+        $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
 
         //gestion des clients
         $routes->group('clients', function ($routes) {
-            $routes->get('/', 'clients::list');
-            $routes->post('/', 'clients::add');
-            $routes->add('del', 'clients::delete');
-            $routes->post('edit', 'clients::edit');
-            $routes->get('search', 'clients::search');
+            $routes->get('/', 'Clients::list');
+            $routes->post('/', 'Clients::add');
+            $routes->add('del', 'Clients::delete');
+            $routes->post('edit', 'Clients::edit');
+            $routes->get('search', 'Clients::search');
         });
 
         //livraisons
         $routes->group('livraisons', function($routes)
         {
-            $routes->get('/','finance::showLivs');
-            $routes->post('reglement/(:num)','finance::managePay/$1');
+            $routes->get('/','Finance::showLivs');
+            $routes->post('reglement/(:num)','Finance::managePay/$1');
         });
     });
 
     $routes->group('ops', ['filter' => 'ops'], function ($routes) {
         $routes->get('/', 'Ops::index');
-        $routes->post('modifier_mdp', 'utilisateurs::modifier_mdp');
-        $routes->get('search', 'ops::search');
+        $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
+        $routes->get('search', 'Ops::search');
 
         //gestion des chauffeurs
         $routes->group('chauffeurs', function ($routes) {
-            $routes->get('/', 'chauffeurs::list');
-            $routes->post('/', 'chauffeurs::add');
-            $routes->add('del', 'chauffeurs::delete');
-            $routes->post('edit', 'chauffeurs::edit');
-            $routes->get('search', 'chauffeurs::search');
+            $routes->get('/', 'Chauffeurs::list');
+            $routes->post('/', 'Chauffeurs::add');
+            $routes->add('del', 'Chauffeurs::delete');
+            $routes->post('edit', 'Chauffeurs::edit');
+            $routes->get('search', 'Chauffeurs::search');
         });
 
         //gestion des camions
         $routes->group('camions', function ($routes) {
-            $routes->get('/', 'camions::list');
-            $routes->post('/', 'camions::add');
-            $routes->add('del', 'camions::delete');
-            $routes->post('edit', 'camions::edit');
-            $routes->get('search', 'camions::search');
+            $routes->get('/', 'Camions::list');
+            $routes->post('/', 'Camions::add');
+            $routes->add('del', 'Camions::delete');
+            $routes->post('edit', 'Camions::edit');
+            $routes->get('search', 'Camions::search');
         });
 
         //gestion des remorques
         $routes->group('remorques', function ($routes) {
-            $routes->get('/', 'remorques::list');
-            $routes->post('/', 'remorques::add');
-            $routes->add('del', 'remorques::delete');
-            $routes->post('edit', 'remorques::edit');
-            $routes->get('search', 'remorques::search');
+            $routes->get('/', 'Remorques::list');
+            $routes->post('/', 'Remorques::add');
+            $routes->add('del', 'Remorques::delete');
+            $routes->post('edit', 'Remorques::edit');
+            $routes->get('search', 'Remorques::search');
         });
 
         //gestion des zones
         $routes->group('zones', function ($routes) {
-            $routes->get('/', 'zones::list');
-            $routes->post('/', 'zones::add');
-            $routes->add('del', 'zones::delete');
-            $routes->post('edit', 'zones::edit');
-            $routes->get('search', 'zones::search');
+            $routes->get('/', 'Zones::list');
+            $routes->post('/', 'Zones::add');
+            $routes->add('del', 'Zones::delete');
+            $routes->post('edit', 'Zones::edit');
+            $routes->get('search', 'Zones::search');
         });
 
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
-            $routes->get('/', 'livraisons::index');
-            $routes->get('infos/(:segment)', 'livraisons::info/$1');
-            $routes->post('/', 'livraisons::save');
-            $routes->post('abord', 'livraisons::abord');
-            $routes->get('drop/(:segment)', 'livraisons::drop/$1');
-            $routes->get('up/(:segment)', 'livraisons::up/$1');
-            $routes->get('preget','livraisons::preget');
-            $routes->post('preget','livraisons::checkPreget');
-            $routes->post('preget/(:segment)','livraisons::handlePG/$1');
+            $routes->get('/', 'Livraisons::index');
+            $routes->get('infos/(:segment)', 'Livraisons::info/$1');
+            $routes->post('/', 'Livraisons::save');
+            $routes->post('abord', 'Livraisons::abord');
+            $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
+            $routes->get('up/(:segment)', 'Livraisons::up/$1');
+            $routes->get('preget','Livraisons::preget');
+            $routes->post('preget','Livraisons::checkPreget');
+            $routes->post('preget/(:segment)','Livraisons::handlePG/$1');
         });
 
     });
@@ -244,42 +244,42 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 $routes->group('api', ['filter' => 'api-auth'], function ($routes) {
 
     $routes->group('graph', function ($routes) {
-        $routes->add('bar_fact_liv', 'api\graph::bar_fact_liv');
-        $routes->add('pie_fact_liv', 'api\graph::pie_fact_liv');
-        $routes->add('pie_stat_liv', 'api\graph::pie_stat_liv');
-        $routes->add('bar_stat_liv', 'api\graph::bar_stat_liv');
+        $routes->add('bar_fact_liv', 'Api\Graph::bar_fact_liv');
+        $routes->add('pie_fact_liv', 'Api\Graph::pie_fact_liv');
+        $routes->add('pie_stat_liv', 'Api\Graph::pie_stat_liv');
+        $routes->add('bar_stat_liv', 'Api\Graph::bar_stat_liv');
     });
 
     $routes->group('utilisateurs', function ($routes) {
-        $routes->get('/', 'api\utilisateurs::get');
+        $routes->get('/', 'Api\Utilisateurs::get');
     });
 
     $routes->group('zones', function ($routes) {
-        $routes->get('/', 'api\zones::get');
+        $routes->get('/', 'Api\Zones::get');
     });
 
     $routes->group('chauffeurs', function ($routes) {
-        $routes->get('/', 'api\chauffeurs::get');
+        $routes->get('/', 'Api\Chauffeurs::get');
     });
 
     $routes->group('camions', function ($routes) {
-        $routes->get('/', 'api\camions::get');
+        $routes->get('/', 'Api\Camions::get');
     });
 
     $routes->group('remorques', function ($routes) {
-        $routes->get('/', 'api\remorques::get');
+        $routes->get('/', 'Api\Remorques::get');
     });
 
     $routes->group('clients', function ($routes) {
-        $routes->get('/', 'api\clients::get');
+        $routes->get('/', 'Api\Clients::get');
     });
 
     $routes->group('livraisons', function ($routes) {
-        $routes->get('/', 'api\livraisons::get');
+        $routes->get('/', 'Api\Livraisons::get');
     });
 
     $routes->group('utils', function ($routes) {
-        $routes->post('checkData', 'api\utils::checkDoubleContainer');
+        $routes->post('checkData', 'Api\Utils::checkDoubleContainer');
     });
 });
 
