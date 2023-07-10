@@ -283,7 +283,8 @@ class FactLiv extends BaseController
 
     public function search()
     {
-        $s = $this->request->getVar('search');
+        $data = $this->request->getGet();
+        $s = isset($data['search']) ? $data['search'] : '%';
         $modele = new ModelsFactLiv();
         $r = $modele
             ->like('bl', $s)
