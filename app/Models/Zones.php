@@ -17,6 +17,8 @@ class Zones extends Model
         'nom',
         'ht_liv_20',
         'ht_liv_40',
+        'ham_20',
+        'ham_40',
         'carburant',
         'id'
     ];

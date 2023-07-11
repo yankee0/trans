@@ -54,6 +54,8 @@ Liste des zones
                 <th>Nom</th>
                 <th class="d-none d-sm-table-cell">HT Livraison 20'</th>
                 <th class="d-none d-xl-table-cell">HT Livraison 40'</th>
+                <th class="d-none d-sm-table-cell">HT Hammar 20'</th>
+                <th class="d-none d-xl-table-cell">HT Hammar 40'</th>
                 <th class="d-none d-sm-table-cell">Carburant (en L)</th>
                 <th></th>
               </tr>
@@ -66,14 +68,16 @@ Liste des zones
                   </td>
                   <td><?= $l['nom'] ?></td>
                   <td class="d-none d-sm-table-cell"><?= $l['ht_liv_20'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['ht_liv_40'] ?></td>
+                  <td class="d-none d-sm-table-cell"><?= $l['ht_liv_40'] ?></td>
+                  <td class="d-none d-sm-table-cell"><?= $l['ham_20'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $l['ham_40'] ?></td>
                   <td class="d-none d-sm-table-cell"><?= $l['carburant'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="edit"></i></button>
+                      <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="edit"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -111,16 +115,24 @@ Liste des zones
         <?php if (session()->r == 'facturation' or session()->r == 'admin') : ?>
           <div class="mb-3">
             <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
-            <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
+            <input type="number" min="0" class="form-control" name="ht_liv_20" id="ht_liv_20" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
           </div>
           <div class="mb-3">
             <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
-            <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+            <input type="number" min="0" class="form-control" name="ht_liv_40" id="ht_liv_40" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+          <div class="mb-3">
+            <label for="ham_20" class="form-label">Hors taxes hammar 20'</label>
+            <input type="number" min="0" class="form-control" name="ham_20" id="ham_20" value="<?= set_value('ham_20', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+          <div class="mb-3">
+            <label for="ham_40" class="form-label">Hors taxes hammar 40'</label>
+            <input type="number" min="0" class="form-control" name="ham_40" id="ham_40" value="<?= set_value('ham_40', 0) ?>" placeholder="Entrez la valeur">
           </div>
         <?php endif ?>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
-          <input type="number" step="10" class="form-control" name="carburant" id="carburant" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" min="0"  class="form-control" name="carburant" id="carburant" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -155,17 +167,25 @@ Liste des zones
         </div>
         <?php if (session()->r == 'facturation' or session()->r == 'admin') : ?>
           <div class="mb-3">
-            <label for="ht_liv_20" class="form-label">Hors taxes livraison 20'</label>
-            <input type="number" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
+            <label for="ht_liv_20mod" class="form-label">Hors taxes livraison 20'</label>
+            <input type="number" min="0" class="form-control" name="ht_liv_20" id="ht_liv_20mod" value="<?= set_value('ht_liv_20', 0) ?>" placeholder="Entrez la valeur">
           </div>
           <div class="mb-3">
-            <label for="ht_liv_40" class="form-label">Hors taxes livraison 40'</label>
-            <input type="number" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+            <label for="ht_liv_40mod" class="form-label">Hors taxes livraison 40'</label>
+            <input type="number" min="0" class="form-control" name="ht_liv_40" id="ht_liv_40mod" value="<?= set_value('ht_liv_40', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+          <div class="mb-3">
+            <label for="ham_20mod" class="form-label">Hors taxes livraison 20'</label>
+            <input type="number" min="0" class="form-control" name="ham_20" id="ham_20mod" value="<?= set_value('ham_20', 0) ?>" placeholder="Entrez la valeur">
+          </div>
+          <div class="mb-3">
+            <label for="ham_40mod" class="form-label">Hors taxes livraison 40'</label>
+            <input type="number" min="0" class="form-control" name="ham_40" id="ham_40mod" value="<?= set_value('ham_40', 0) ?>" placeholder="Entrez la valeur">
           </div>
         <?php endif ?>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
-          <input type="number" step="10" class="form-control" name="carburant" id="carburantmod" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" min="0"  class="form-control" name="carburant" id="carburantmod" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -230,41 +250,19 @@ Liste des zones
 <script>
   $('.delete').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/zones') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#zn').html(response.nom);
-        $('#znb').val(response.id);
-      }
-    });
+    $('#zn').html($(this).data('nom'));
+    $('#znb').val($(this).data('id'));
   });
 
   $('.update').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/zones') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#nommod').val(response.nom);
-        $('#ht_liv_20mod').val(response.ht_liv_20);
-        $('#ht_liv_40mod').val(response.ht_liv_40);
-        $('#carburantmod').val(response.carburant);
-        $('#eznb').val(response.id);
-      }
-    });
+    $('#nommod').val($(this).data('nom'));
+    $('#ht_liv_20mod').val($(this).data('htliv20'));
+    $('#ham_20mod').val($(this).data('ham20'));
+    $('#ht_liv_40mod').val($(this).data('htliv40'));
+    $('#ham_40mod').val($(this).data('ham40'));
+    $('#carburantmod').val($(this).data('carburant'));
+    $('#eznb').val($(this).data('id'));
   });
 </script>
 

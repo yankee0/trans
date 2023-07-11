@@ -67,10 +67,10 @@ Liste des clients
                   <td class="d-none d-sm-table-cell"><?= $l['created_at'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" title="Supprimer l'client" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button data-id="<?= $l['id'] ?>" data-email="<?= $l['email'] ?>" data-nom="<?= $l['nom'] ?>" data-tel="<?= $l['tel'] ?>" type="button" class="delete btn text-danger" title="Supprimer le client" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations du client">
+                      <button data-id="<?= $l['id'] ?>" data-email="<?= $l['email'] ?>" data-nom="<?= $l['nom'] ?>" data-tel="<?= $l['tel'] ?>" type="button" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations du client">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -119,7 +119,7 @@ Liste des clients
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Souhaitez vous supprimer l'client: <br>
+        Souhaitez vous supprimer le client: <br>
         <span id="delUser" class="text-primary"></span>
         <form action="<?= base_url(session()->r . '/clients/del') ?>" id="deluserform" method="get"></form>
       </div>
@@ -217,33 +217,19 @@ Liste des clients
   $('.delete').click(function(e) {
     e.preventDefault();
 
-    const data = $(this).parents('tr').children('td');
-    const id = data[0].id;
-    const name = data[1].innerText;
+    const id = $(this).data('id');
 
-    $('#delUser').html(name);
+    $('#delUser').html($(this).data('nom'));
     $('#delsubmit').attr('href', '<?= base_url(session()->r . '/clients/del?id=') ?>' + id);
   });
 </script>
 <script>
   $('.update').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/clients') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#nommod').val(response.nom);
-        $('#emailmod').val(response.email);
-        $('#telmod').val(response.tel);
-        $('#submod').val(response.id);
-      }
-    });
+    $('#nommod').val($(this).data('nom'));
+    $('#emailmod').val($(this).data('email'));
+    $('#telmod').val($(this).data('tel'));
+    $('#submod').val($(this).data('id'));
   });
 </script>
 <?= $this->endSection(); ?>

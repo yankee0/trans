@@ -26,7 +26,19 @@ class Zones extends Migration
                 'null' => true,
                 'default' => 0
             ],
+            'ham_20' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
+                'default' => 0
+            ],
             'ht_liv_40' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
+                'default' => 0
+            ],
+            'ham_40' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
