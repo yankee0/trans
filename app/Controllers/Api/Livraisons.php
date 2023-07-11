@@ -13,7 +13,7 @@ class Livraisons extends BaseController
         $id = $this->request->getVar('id');
         $res = $modele
             ->where('id', $id)
-            ->first();
+            ->find();
         $this->response->setJSON($res);
         $this->response->send();
     }

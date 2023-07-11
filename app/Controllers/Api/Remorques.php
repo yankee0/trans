@@ -12,7 +12,7 @@ class Remorques extends BaseController
         $id = $this->request->getVar('index');
         $occ = (new ModelsRemorques())
             ->where('id', $id)
-            ->first();
+            ->find();
         $this->response->setStatusCode(200);
         $this->response->setJSON($occ);
         $this->response->send();

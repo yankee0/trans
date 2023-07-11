@@ -11,8 +11,8 @@ class Chauffeurs extends BaseController
     {
         $id = $this->request->getVar('index');
         $occ = (new ModelsChauffeurs())
-        ->where('id',$id)
-        ->first();
+            ->where('id', $id)
+            ->find();
         $this->response->setStatusCode(200);
         $this->response->setJSON($occ);
         $this->response->send();

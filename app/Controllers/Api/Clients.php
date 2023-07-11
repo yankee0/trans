@@ -10,7 +10,9 @@ class Clients extends BaseController
     public function get()
     {
         $id = $this->request->getVar('index');
-        $occ = (new ModelsClients())->find($id);
+        $occ = (new ModelsClients())
+            ->where('id', $id)
+            ->find();
         $this->response->setStatusCode(200);
         $this->response->setJSON($occ);
         $this->response->send();
