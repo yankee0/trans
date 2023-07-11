@@ -66,10 +66,10 @@ Liste des camions
                   <td class="d-none d-xl-table-cell"><?= $l['as'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la camion" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la camion" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -240,45 +240,17 @@ Liste des camions
 <script>
   $('.delete').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/camions') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#zn').html(response.im);
-        $('#znb').val(response.id);
-      }
-    });
+    $('#zn').html($(this).data('im'));
+    $('#znb').val($(this).data('id'));
   });
 
   $('.update').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/camions') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#immod').val(response.im);
-        $('#vtmod').val(response.vt);
-        $('#asmod').val(response.as);
-        document.querySelectorAll('#societemod option').forEach(element => {
-          if (element.value == response.societe) {
-            $(element).attr('selected', 'selected')
-          }
-        })
-        $('#eznb').val(response.id);
-      }
-    });
+    $('#immod').val($(this).data('im'));
+    $('#vtmod').val($(this).data('vt'));
+    $('#asmod').val($(this).data('as'));
+    $('#societemod').val($(this).data('societe'));
+    $('#eznb').val($(this).data('id'));
   });
 </script>
 

@@ -19,7 +19,11 @@ class Chauffeurs extends BaseController
                 $l = (new Camions())->find($list[$i]['camion']);
                 if ($l) {
                     $list[$i]['camion'] = $l['im'];
+                    $list[$i]['camion_id'] = $l['id'];
                 }
+            }else{
+                $list[$i]['camion'] = null;
+                $list[$i]['camion_id'] = null;
             }
         }
         $data = [

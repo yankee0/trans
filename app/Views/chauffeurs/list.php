@@ -67,10 +67,10 @@ Liste des chauffeurs
                   <td class="d-none d-xl-table-cell"><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -254,11 +254,10 @@ Liste des chauffeurs
 
   $('.update').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
     $('#eznb').val($(this).data('id'));
     $('#nommod').val($(this).data('nom'));
     $('#telmod').val($(this).data('tel'));
-    $('#camionmod').val($(this).data('camion'));
+    $('#camionmod').val($(this).data('camionid'));
     $('#societemod').val($(this).data('societe'));
   });
 
