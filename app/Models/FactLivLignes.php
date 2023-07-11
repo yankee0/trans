@@ -18,6 +18,7 @@ class FactLivLignes extends Model
         'conteneur',
         'type',
         'prix',
+        'id'
     ];
 
     // Dates

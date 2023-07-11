@@ -18,6 +18,7 @@ class Zones extends Model
         'ht_liv_20',
         'ht_liv_40',
         'carburant',
+        'id'
     ];
 
     // Dates

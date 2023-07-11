@@ -24,6 +24,7 @@ class Livraisons extends Model
         'commentaire',
         'etat',
         'motif',
+        'id'
     ];
 
     // Dates

@@ -18,6 +18,7 @@ class Camions extends Model
         'societe',
         'vt',
         'as',
+        'id'
     ];
 
     // Dates

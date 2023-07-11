@@ -17,6 +17,7 @@ class Clients extends Model
         'nom',
         'tel',
         'email',
+        'id',
     ];
 
     // Dates

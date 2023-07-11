@@ -27,6 +27,7 @@ class FactLiv extends Model
         'date_pg',
         'annulation',
         'motif',
+        'id'
     ];
 
     // Dates

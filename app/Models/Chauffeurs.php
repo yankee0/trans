@@ -18,6 +18,7 @@ class Chauffeurs extends Model
         'tel',
         'societe',
         'camion',
+        'id'
     ];
 
     // Dates
