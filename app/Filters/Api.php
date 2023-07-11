@@ -28,16 +28,16 @@ class Api implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        // $req = service('request');
-        // $token = $req->getVar('token');
-        // if ($token != csrf_hash()) {
-        //     $res = service('response');
-        //     $res->setStatusCode('403');
-        //     $res->setJSON([
-        //         'error' => 'Accès refusé.'
-        //     ]);
-        //     return $res->send();
-        // }
+        $req = service('request');
+        $token = $req->getVar('token');
+        if ($token != csrf_hash()) {
+            $res = service('response');
+            $res->setStatusCode('403');
+            $res->setJSON([
+                'error' => 'Accès refusé.'
+            ]);
+            return $res->send();
+        }
     }
 
     /**
