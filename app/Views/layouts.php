@@ -18,21 +18,22 @@
     <nav id="sidebar" class="sidebar js-sidebar">
       <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="<?= base_url(session()->r) ?>" target="_blank">
-          <span class="align-middle"><?= APP_NAME ?></span>
+          <span class="align-middle"><?= APP_NAME ?></span><br>
+          <span class="text-primary font-weight-bold text-sm"><?= session()->u['profil'] ?></span>
         </a>
-        <?php if (
-          session()->r == 'admin'
-          or (session()->r == 'facturation')
-          or (session()->r == 'finance')
-          or (session()->r == 'ops')
-        ) : ?>
-          <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-            </a>
-          </li>
-        <?php endif ?>
         <ul class="sidebar-nav">
+          <?php if (
+            session()->r == 'admin'
+            or (session()->r == 'facturation')
+            or (session()->r == 'finance')
+            or (session()->r == 'ops')
+          ) : ?>
+            <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
+                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+              </a>
+            </li>
+          <?php endif ?>
           <?php if (session()->r == 'admin') : ?>
             <li class="sidebar-header">
               Administration

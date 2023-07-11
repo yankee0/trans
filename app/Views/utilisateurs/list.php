@@ -69,10 +69,10 @@ Liste des utilisateurs
                   <td class="d-none d-sm-table-cell"><?= $l['created_at'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -249,27 +249,12 @@ Liste des utilisateurs
 <script>
   $('.update').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/utilisateurs') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        document.querySelectorAll('.op').forEach(element => {
-          if (element.value == response.profil) {
-            $(element).attr('selected', 'selected')
-          }
-        });
-        $('#nommod').val(response.nom);
-        $('#emailmod').val(response.email);
-        $('#telmod').val(response.tel);
-        $('#submod').val(response.id);
-      }
-    });
+    $('#nommod').val($(this).data('nom'));
+    $('#emailmod').val($(this).data('email'));
+    $('#telmod').val($(this).data('tel'));
+    $('#submod').val($(this).data('id'));
+    $('#profilmod').val($(this).data('profil'));
+    
   });
 </script>
 <?= $this->endSection(); ?>
