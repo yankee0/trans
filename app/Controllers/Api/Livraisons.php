@@ -10,7 +10,10 @@ class Livraisons extends BaseController
     public function get()
     {
         $modele = new ModelsLivraisons();
-        $res = $modele->find($this->request->getVar('id'));
+        $id = $this->request->getVar('id');
+        $res = $modele
+            ->where('id', $id)
+            ->first();
         $this->response->setJSON($res);
         $this->response->send();
     }
