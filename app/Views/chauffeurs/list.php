@@ -67,10 +67,10 @@ Liste des chauffeurs
                   <td class="d-none d-xl-table-cell"><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -248,49 +248,18 @@ Liste des chauffeurs
 <script>
   $('.delete').click(function(e) {
     e.preventDefault();
-    const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/chauffeurs') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#zn').html(response.nom);
-        $('#znb').val(response.id);
-      }
-    });
+    $('#zn').html($(this).data('nom'));
+    $('#znb').val($(this).data('id'));
   });
 
   $('.update').click(function(e) {
     e.preventDefault();
     const i = $(this).val();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/chauffeurs') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        index: i
-      },
-      dataType: "JSON",
-      success: function(response) {
-        $('#eznb').val(response.id);
-        $('#nommod').val(response.nom);
-        $('#telmod').val(response.tel);
-        document.querySelectorAll('#camionmod option').forEach(element => {
-          if (element.value == response.camion) {
-            $(element).attr('selected', 'selected')
-          }
-        })
-        document.querySelectorAll('#societemod option').forEach(element => {
-          if (element.value == response.societe) {
-            $(element).attr('selected', 'selected')
-          }
-        })
-      }
-    });
+    $('#eznb').val($(this).data('id'));
+    $('#nommod').val($(this).data('nom'));
+    $('#telmod').val($(this).data('tel'));
+    $('#camionmod').val($(this).data('camion'));
+    $('#societemod').val($(this).data('societe'));
   });
 
   
