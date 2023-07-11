@@ -69,10 +69,10 @@ Liste des utilisateurs
                   <td class="d-none d-sm-table-cell"><?= $l['created_at'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button type="button" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
                         <i cla data-feather="trash"></i>
                       </button>
-                      <button type="button" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
+                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
                         <i cla data-feather="edit"></i>
                       </button>
                     </div>
@@ -93,7 +93,7 @@ Liste des utilisateurs
   </div>
 </div>
 
-
+<!-- group delete -->
 <div class="modal fade" id="modalIdGDel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="gdel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
@@ -237,18 +237,15 @@ Liste des utilisateurs
 <script>
   const deletemodal = new bootstrap.Modal(document.getElementById('delete'), options)
 </script>
+
 <script>
   $('.delete').click(function(e) {
     e.preventDefault();
-
-    const data = $(this).parents('tr').children('td');
-    const id = data[0].id;
-    const name = data[1].innerText;
-
-    $('#delUser').html(name);
-    $('#delsubmit').attr('href', '<?= base_url(session()->r . '/utilisateurs/del?id=') ?>' + id);
+    $('#delUser').html($(this).data('nom'));
+    $('#delsubmit').attr('href', '<?= base_url(session()->r . '/utilisateurs/del?id=') ?>' + $(this).data('id'));
   });
 </script>
+
 <script>
   $('.update').click(function(e) {
     e.preventDefault();
