@@ -77,7 +77,7 @@ class FactLiv extends BaseController
                     'csrf_test_name' => $data['csrf_test_name'],
                     'copie' => isset($data['copie']) ? 500 : 0,
                     'ages' => isset($data['ages']) ? 1500 : 0,
-                    'hammar' => isset($data['hamCheck']) ? $data['hammar'] : 0,
+                    'hammar' => isset($data['hamCheck']) and isset($data['hammar']) ? $data['hammar'] : 0,
                 ];
             }
             try {
