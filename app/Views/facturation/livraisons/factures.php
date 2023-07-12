@@ -220,6 +220,36 @@
               ?>
               <td class="tp"><?= $tc ?></td>
             </tr>
+            <?php if ($facture['hammar'] > 0) : ?>
+              <tr>
+                <td colspan="5">
+                  <b>Frais de manutension Hammar</b>
+                </td>
+                <td>
+                  <?= $facture['hammar'] ?>
+                </td>
+              </tr>
+            <?php endif ?>
+            <?php if ($facture['ages'] > 0) : ?>
+              <tr>
+                <td colspan="5">
+                  <b>Ticket A.G.S</b>
+                </td>
+                <td>
+                  <?= $facture['ages'] ?>
+                </td>
+              </tr>
+            <?php endif ?>
+            <?php if ($facture['copie'] > 0) : ?>
+              <tr>
+                <td colspan="5">
+                  <b>Imprimante</b>
+                </td>
+                <td>
+                  <?= $facture['copie'] ?>
+                </td>
+              </tr>
+            <?php endif ?>
           <?php endforeach ?>
         </tbody>
         <tfoot>

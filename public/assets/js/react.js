@@ -67,6 +67,7 @@ const Item = ({ onRemove }) => {
       <div className="d-flex gap-1">
         <div className="flex-grow-1">
           <div className="mb-3">
+            <div className="text-sm text-muted">Zone</div>
             <select
               className="form-select form-select-lg"
               name="zone[]"
@@ -88,6 +89,7 @@ const Item = ({ onRemove }) => {
             </select>
           </div>
           <div className="mb-3">
+            <div className="text-sm text-muted">Adresse</div>
             <input
               type="text"
               className="form-control"
@@ -100,6 +102,9 @@ const Item = ({ onRemove }) => {
             </div>
           </div>
           <div className="mb-3">
+            <div className="text-sm text-muted">
+              HT transport Conteneurs 20'
+            </div>
             <input
               type="number"
               className="form-control"
@@ -107,12 +112,12 @@ const Item = ({ onRemove }) => {
               aria-describedby="helpId"
               placeholder="Hors taxe 20'"
               value={ht[0]}
+              min={0}
+              readOnly
             />
-            <div className="text-sm text-muted">
-              Laisser vide si l'information est indisponible.
-            </div>
           </div>
           <div className="mb-3">
+            <div className="text-sm text-muted">Conteneurs 20'</div>
             <textarea
               className="form-control  text-uppercase"
               name="c_20[]"
@@ -133,6 +138,9 @@ const Item = ({ onRemove }) => {
             </div>
           </div>
           <div className="mb-3">
+            <div className="text-sm text-muted">
+              HT transport Conteneurs 40'
+            </div>
             <input
               type="number"
               className="form-control"
@@ -140,12 +148,12 @@ const Item = ({ onRemove }) => {
               aria-describedby="helpId"
               placeholder="Hors taxe 40'"
               value={ht[1]}
+              min={0}
+              readOnly
             />
-            <div className="text-sm text-muted">
-              Laisser vide si l'information est indisponible.
-            </div>
           </div>
           <div className="mb-3">
+            <div className="text-sm text-muted">Conteneurs 40'</div>
             <textarea
               className="form-control text-uppercase"
               name="c_40[]"

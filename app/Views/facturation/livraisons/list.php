@@ -40,9 +40,9 @@ Facturation livraisons
       <div class="card-body ">
         <?= form_open(base_url(session()->r . '/livraisons'), []) ?>
         <?= csrf_field() ?>
-        <div class="row row-cols-md-2 mb-3">
-          <div>
-            <h5 class="card-title mb-0 text-dark mb-2">Informations sur le client</h5>
+        <div class="row mb-3">
+          <div class="col-md-6 col-xl">
+            <h5 class="card-title mb-0 text-dark mb-2">Client</h5>
             <div class="mb-3">
               <select class="form-select" name="id_client" id="id_client" required>
                 <option selected value="" hidden>Sélectionner un compte</option>
@@ -55,8 +55,8 @@ Facturation livraisons
               <input type="text" value="<?= set_value('consignataire') ?>" class="form-control text-uppercase" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
             </div>
           </div>
-          <div>
-            <h5 class="card-title mb-0 text-dark mb-2">Informations sur les containers</h5>
+          <div class="col-md-6 col-xl">
+            <h5 class="card-title mb-0 text-dark mb-2">Compagnie</h5>
             <div class="mb-3">
               <input type="text" class="form-control text-uppercase" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
             </div>
@@ -64,11 +64,44 @@ Facturation livraisons
               <input type="text" class="form-control text-uppercase" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
             </div>
           </div>
+          <div class="col-md-6 col-xl">
+            <h5 class="card-title mb-0 text-dark mb-2">Manutension</h5>
+            <div>Inclure les frais pour Hammar?</div>
+            <div class="d-flex gap-3 mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="hamCheck" id="oui">
+                <label class="form-check-label" for="oui">
+                  oui
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="hamCheck" id="non" checked>
+                <label class="form-check-label" for="non">
+                  non
+                </label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <input disabled type="number" min="0" class="form-control text-uppercase" name="hammar" id="hammar" aria-describedby="helpId" placeholder="Prix Hammar" required>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl">
+            <h5 class="card-title mb-0 text-dark mb-2">Frais supplémentaires</h5>
+            <div class="form-check form-switch">
+              <input class="form-check-input" name="ages" type="checkbox" id="pass" checked>
+              <label class="form-check-label" for="pass">1500 FCFA Ticket A.G.S.</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" name="copie" type="checkbox" id="print" checked>
+              <label class="form-check-label" for="print">500 FCFA Photocopie</label>
+            </div>
+          </div>
         </div>
-        <h5 class="card-title mb-0 text-dark mb-2">Informations sur le transport</h5>
-        <div id="yankee"></div>
-        <script>
-        </script>
+
+
+        <h5 class="card-title mb-0 text-dark mb-2">Transport</h5>
+        <div class="mb-3" id="yankee"></div>
+
 
         <?= form_close() ?>
       </div>
@@ -224,6 +257,15 @@ Facturation livraisons
     e.preventDefault();
     $('#nFactLiv').html($(this).val());
     $('#delfLivB').attr('href', '<?= base_url(session()->r . '/livraisons/del/') ?>' + $(this).val());
+  });
+</script>
+
+<script>
+  $('#oui').click(function(e) {
+    $('#hammar').removeAttr('disabled');
+  });
+  $('#non').click(function(e) {
+    $('#hammar').attr('disabled', true);
   });
 </script>
 

@@ -105,8 +105,8 @@ Facturation livraisons
             <?php endif ?>
           </p>
           <hr>
-          <div class="row row-cols-md-2 row-cols-lg-3 mb-3">
-            <div class="mb-3">
+          <div class="row mb-3">
+            <div class="mb-3 col-md-6 col-lg">
               <h5 class="card-title text-dark">Informations sur le client</h5>
               <hr class="mb-1">
               <div class="d-flex align-items-center">
@@ -118,7 +118,7 @@ Facturation livraisons
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalIdmodconsi"><i data-feather="edit" class="text-warning"></i></button>
               </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-md-6 col-lg">
               <h5 class="card-title text-dark">Informations sur les containers</h5>
               <hr class="mb-1">
               <div class="d-flex align-items-center">
@@ -129,6 +129,22 @@ Facturation livraisons
                 <span><strong class="text-primary">Compagnie:</strong> <?= $facture['compagnie'] ?></span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modCie"><i data-feather="edit" class="text-warning"></i></button>
               </div>
+            </div>
+            <div class="mb-3 col-md-6 col-lg">
+              <h5 class="card-title text-dark">Informations sur la manutension</h5>
+              <hr class="mb-1">
+              <?php if ($facture['hammar'] == 0) : ?>
+                <button class="btn d-flex align-items-center justify-content-center gap-3" data-bs-toggle="modal" data-bs-target="#modHam">
+                  <i data-feather="plus"></i>
+                  <span>Ajouter des frais hammar</span>
+                </button>
+              <?php else : ?>
+
+                <div class="d-flex align-items-center">
+                  <span><strong class="text-primary">Hammar:</strong> <?= $facture['hammar'] ?> FCFA</span>
+                  <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modHam"><i data-feather="edit" class="text-warning"></i></button>
+                </div>
+              <?php endif ?>
             </div>
           </div>
           <div class="row">
@@ -307,7 +323,7 @@ Facturation livraisons
   const myModalmodbl = new bootstrap.Modal(document.getElementById('modBL'), options)
 </script>
 
-<!-- mod bl -->
+<!-- mod company -->
 <div class="modal fade" id="modCie" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodCie" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
@@ -337,6 +353,38 @@ Facturation livraisons
 </div>
 <script>
   const myModalmodCie = new bootstrap.Modal(document.getElementById('modCie'), options)
+</script>
+
+<!-- mod hammar -->
+<div class="modal fade" id="modHam" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodHam" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdmodHam">Modifier le tarif hammar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/entete/' . $facture['id']),
+          [
+            'id' => 'modHamform'
+          ]
+        ) ?>
+        <div>
+          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('hammar', $facture['hammar']) ?>" name="hammar" id="hammar" placeholder="Hammar" required>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modHamform" class="btn btn-primary">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalmodHam = new bootstrap.Modal(document.getElementById('modCie'), options)
 </script>
 
 <!-- del zone -->
@@ -416,12 +464,12 @@ Facturation livraisons
         ) ?>
         <div class="mb-3">
           <p class="mb-0">Prix de livraisons 20'</p>
-          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_20" id="prix_20" placeholder="Nouveaux prix de livraison" required>
+          <input type="number" min="0" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_20" id="prix_20" placeholder="Nouveaux prix de livraison" required>
         </div>
         <div>
 
           <p class="mb-0">Prix de livraisons 40'</p>
-          <input type="number" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_40" id="prix_40" placeholder="Nouveaux prix de livraison" required>
+          <input type="number" min="0" min="0" class="form-control text-uppercase" value="<?= set_value('prix') ?>" name="prix_40" id="prix_40" placeholder="Nouveaux prix de livraison" required>
         </div>
 
         <?= csrf_field() ?>

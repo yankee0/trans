@@ -58,6 +58,24 @@ class FactLiv extends Migration
                 'default' => 0,
                 'null' => true,
             ],
+            'ages' => [
+                'type' => 'BIGINT',
+                'constraint' => 20,
+                'default' => 0,
+                'null' => true,
+            ],
+            'hammar' => [
+                'type' => 'BIGINT',
+                'constraint' => 20,
+                'default' => 0,
+                'null' => true,
+            ],
+            'copie' => [
+                'type' => 'BIGINT',
+                'constraint' => 20,
+                'default' => 0,
+                'null' => true,
+            ],
             'date_paiement' => [
                 'type' => 'DATE',
                 'null' => true,

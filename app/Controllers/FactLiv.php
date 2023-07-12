@@ -74,7 +74,10 @@ class FactLiv extends BaseController
                     'id_client' => intval($data['id_client']),
                     'compagnie' => strtoupper($data['compagnie']),
                     'bl' => strtoupper($data['bl']),
-                    'csrf_test_name' => $data['csrf_test_name']
+                    'csrf_test_name' => $data['csrf_test_name'],
+                    'copie' => isset($data['copie']) ? 500 : 0,
+                    'ages' => isset($data['ages']) ? 1500 : 0,
+                    'hammar' => isset($data['hamCheck']) ? $data['hammar'] : 0,
                 ];
             }
             try {
@@ -328,7 +331,7 @@ class FactLiv extends BaseController
 
 
             //le total
-            $total = 0;
+            $total = $invoice['ages'] + $invoice['hammar'] + $invoice['copie'];
 
             for ($i = 0; $i < sizeof($zones); $i++) {
                 $c_20 = (new FactLivLignes())

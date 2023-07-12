@@ -82,6 +82,7 @@ class Facturations extends BaseController
         $factLiv['n40'] = $n40;
 
         //ainsi le total + tva
+        $total = $total + $factLiv['ages'] + $factLiv['copie'] + $factLiv['hammar'];
         $factLiv['total'] = $total + ($total * 18 / 100);
 
         return $factLiv;
