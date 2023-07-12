@@ -99,9 +99,9 @@ Information de livraison
             </p>
             <?php if ($etat == 'ANNULÉ') : ?>
               <p>
-            <div class="text-sm text-muted">Motif d'annulation</div>
-            <div><?= $motif ?></div>
-            </p>
+              <div class="text-sm text-muted">Motif d'annulation</div>
+              <div><?= $motif ?></div>
+              </p>
             <?php endif ?>
             <p>
             <div class="text-sm text-muted">Zone</div>
@@ -284,7 +284,7 @@ Information de livraison
               <select name="ch_aller" class="form-select" id="ch_aller" aria-label="Floating label select example">
                 <option selected value="" hidden>Sélectionner</option>
                 <?php foreach ($drivers as $d) : ?>
-                  <option class="chAllerOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
+                  <option class="chAllerOp" <?= $ch_aller_id == $d['id'] ? 'selected' : '' ?> value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                 <?php endforeach ?>
               </select>
               <label for="floatingSelect">Chauffeur</label>
@@ -293,13 +293,13 @@ Information de livraison
               <select name="cam_aller" class="form-select" id="cam_aller" aria-label="Floating label select example">
                 <option selected value="" hidden>Sélectionner</option>
                 <?php foreach ($trucks as $t) : ?>
-                  <option class="camAllerOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
+                  <option class="camAllerOp" <?= $cam_aller_id == $t['id'] ? 'selected' : '' ?> value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                 <?php endforeach ?>
               </select>
               <label for="floatingSelect">Camion</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="date" class="form-control" name="date_aller" id="date_aller" placeholder="">
+              <input type="date" value="<?= $date_aller ?>" class="form-control" name="date_aller" id="date_aller" placeholder="Entrez la date">
               <label for="date_aller">Date</label>
             </div>
           </div>
@@ -309,7 +309,7 @@ Information de livraison
               <select name="ch_retour" class="form-select" id="ch_retour" aria-label="Floating label select example">
                 <option selected value="" hidden>Sélectionner</option>
                 <?php foreach ($drivers as $d) : ?>
-                  <option class="chRetourOp" value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
+                  <option class="chRetourOp" <?= $ch_retour_id == $d['id'] ? 'selected' : '' ?> value="<?= $d['id'] ?>"><?= $d['nom'] ?></option>
                 <?php endforeach ?>
               </select>
               <label for="floatingSelect">Chauffeur</label>
@@ -318,20 +318,20 @@ Information de livraison
               <select name="cam_retour" class="form-select" id="cam_retour" aria-label="Floating label select example">
                 <option selected value="" hidden>Sélectionner</option>
                 <?php foreach ($trucks as $t) : ?>
-                  <option class="camRetourOp" value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
+                  <option class="camRetourOp" <?= $cam_retour_id == $t['id'] ? 'selected' : '' ?> value="<?= $t['id'] ?>"><?= $t['im'] ?></option>
                 <?php endforeach ?>
               </select>
               <label for="floatingSelect">Camion</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="date" class="form-control" name="date_retour" id="date_retour" placeholder="">
+              <input type="date" value="<?= $date_retour ?>" class="form-control" name="date_retour" id="date_retour" placeholder="Entrez la date">
               <label for="date_retour">Date</label>
             </div>
           </div>
 
           <div class="col-12 mb-3">
             <div class="form-floating">
-              <textarea id="commentaire" name="commentaire" class="form-control" placeholder="Des remarques concernants la livraisons"></textarea>
+              <textarea id="commentaire" name="commentaire" class="form-control" placeholder="Des remarques concernants la livraisons"><?= $commentaire ?></textarea>
               <label for="commentaire">Commentaire</label>
             </div>
           </div>
@@ -339,7 +339,7 @@ Information de livraison
           <div class="row">
             <div class="col">
               <div class="form-check form-switch">
-                <input class="form-check-input" name="eirs" type="checkbox" id="eirs">
+                <input class="form-check-input" <?= $etat == 'LIVRÉ' ? 'checked' : '' ?> name="eirs" type="checkbox" id="eirs">
                 <label class="form-check-label" for="eirs">Retour EIRs</label>
               </div>
             </div>
@@ -355,52 +355,7 @@ Information de livraison
     </div>
   </div>
 </div>
-<script>
-  $('.infDelv').click(function(e) {
-    e.preventDefault();
-    $.ajax({
-      type: "get",
-      url: "<?= base_url('api/livraisons') ?>",
-      data: {
-        token: '<?= csrf_hash() ?>',
-        id: '<?= $id ?>'
-      },
-      dataType: "JSON",
-      success: function(res) {
-        // console.log(res);
-        $('#date_aller').val(res.date_aller);
-        $('#date_retour').val(res.date_retour);
-        $('#commentaire').val(res.commentaire);
-        document.querySelectorAll('.chAllerOp').forEach(e => {
-          if (e.value == res.ch_aller) {
-            console.log(e.selected);
-            e.selected = true
-          }
-        })
-        document.querySelectorAll('.chRetourOp').forEach(e => {
-          if (e.value == res.ch_retour) {
-            console.log(e.selected);
-            e.selected = true
-          }
-        })
-        document.querySelectorAll('.camAllerOp').forEach(e => {
-          if (e.value == res.cam_aller) {
-            console.log(e.selected);
-            e.selected = true
-          }
-        })
-        document.querySelectorAll('.camRetourOp').forEach(e => {
-          if (e.value == res.cam_retour) {
-            console.log(e.selected);
-            e.selected = true
-          }
-        })
-        document.getElementById('eirs').checked = res.etat == 'LIVRÉ' ? true : false;
-      }
-    });
 
-  });
-</script>
 <script>
   const myModal = new bootstrap.Modal(document.getElementById('livInf'), options)
 </script>

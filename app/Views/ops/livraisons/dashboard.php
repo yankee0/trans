@@ -101,7 +101,7 @@ Dashboard livraisons
                       <div class="d-flex justify-content-around">
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-dark dropDelv <?= ($liv['etat'] == 'MISE À TERRE' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise à terre" data-bs-toggle="modal" data-bs-target="#delivDrop"><i cla data-feather="arrow-down"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
+                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" data-id="<?= $liv['id'] ?>" data-challer="<?= $liv['ch_aller_id'] ?>" data-chretour="<?= $liv['ch_retour_id'] ?>" data-camaller="<?= $liv['cam_aller_id'] ?>" data-camretour="<?= $liv['cam_retour_id'] ?>" data-datealler="<?= $liv['date_aller'] ?>" data-dateretour="<?= $liv['date_retour'] ?>" data-commentaire="<?= $liv['commentaire'] ?>" data-etat="<?= $liv['etat'] == 'LIVRÉ' ? 'true' : 'false' ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
                         <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' . $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
 
@@ -309,46 +309,14 @@ Dashboard livraisons
         e.preventDefault();
         $('#livSub').val($(this).val());
         $('#TCnum').html($(this).attr('data-container'));
-        $.ajax({
-          type: "get",
-          url: "<?= base_url('api/livraisons') ?>",
-          data: {
-            token: '<?= csrf_hash() ?>',
-            id: $(this).val()
-          },
-          dataType: "JSON",
-          success: function(res) {
-            // console.log(res);
-            $('#date_aller').val(res.date_aller);
-            $('#date_retour').val(res.date_retour);
-            $('#commentaire').val(res.commentaire);
-            document.querySelectorAll('.chAllerOp').forEach(e => {
-              if (e.value == res.ch_aller) {
-                console.log(e.selected);
-                e.selected = true
-              }
-            })
-            document.querySelectorAll('.chRetourOp').forEach(e => {
-              if (e.value == res.ch_retour) {
-                console.log(e.selected);
-                e.selected = true
-              }
-            })
-            document.querySelectorAll('.camAllerOp').forEach(e => {
-              if (e.value == res.cam_aller) {
-                console.log(e.selected);
-                e.selected = true
-              }
-            })
-            document.querySelectorAll('.camRetourOp').forEach(e => {
-              if (e.value == res.cam_retour) {
-                console.log(e.selected);
-                e.selected = true
-              }
-            })
-            document.getElementById('eirs').checked = res.etat == 'LIVRÉ' ? true : false;
-          }
-        });
+        $('#date_aller').val($(this).data('datealler'));
+        $('#date_retour').val($(this).data('dateretour'));
+        $('#cam_aller').val($(this).data('camaller'));
+        $('#cam_retour').val($(this).data('camretour'));
+        $('#ch_aller').val($(this).data('challer'));
+        $('#ch_retour').val($(this).data('chretour'));
+        $('#commentaire').val($(this).data('commentaire'));
+        document.getElementById('eirs').checked = $(this).data('etat');
       });
     </script>
     <script>
