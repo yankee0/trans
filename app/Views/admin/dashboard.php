@@ -3,493 +3,375 @@
 <?= APP_NAME ?> Dashboard
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<div class="container-fluid p-0">
-
-  <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
-
-  <!-- cards top stat -->
-  <div class="row">
-    <div class="col-md">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Livraisons</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="box"></i>
-              </div>
-            </div>
+<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+<div class="row">
+  <!-- nombre de clients -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Clients</h5>
           </div>
-          <h1 class="mt-1 mb-3">2.382</h1>
-          <div class="mb-0">
-            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-            <span class="text-muted">/ mois dernier</span>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="users"></i>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Carburant</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="filter"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3">2.382</h1>
-          <div class="mb-0">
-            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-            <span class="text-muted">/ mois dernier</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Chauffeurs</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="users"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $chauffeur ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Camions</h5>
-            </div>
-
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="truck"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $camion ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
+        <h1 class="mt-1 mb-3"><?= $cli ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total</span><br>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-6 col-lg-7 col-xl-8 d-flex">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-
-          <h5 class="card-title mb-0">Monthly Sales</h5>
-        </div>
-        <div class="card-body d-flex w-100">
-          <div class="align-self-center chart chart-lg">
-            <canvas id="chartjs-dashboard-bar"></canvas>
+  <!-- facturation de livraisons impayées -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Factures non payées</h5>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-5 col-xl-4 d-flex">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Browser Usage</h5>
-        </div>
-        <div class="card-body d-flex">
-          <div class="align-self-center w-100">
-            <div class="py-3">
-              <div class="chart chart-sm">
-                <canvas id="chartjs-dashboard-pie"></canvas>
-              </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="file"></i>
             </div>
-
-            <table class="table mb-0">
-              <tbody>
-                <tr>
-                  <td>Chrome</td>
-                  <td class="text-end">4306</td>
-                </tr>
-                <tr>
-                  <td>Firefox</td>
-                  <td class="text-end">3801</td>
-                </tr>
-                <tr>
-                  <td>IE</td>
-                  <td class="text-end">1689</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- <div class=" col-xl-6 col-xxl-7">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Mouvements recent</h5>
-        </div>
-        <div class="card-body py-3">
-          <div class="chart chart-sm">
-            <canvas id="chartjs-dashboard-line"></canvas>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-  </div>
-
-  <div class="row">
-    <div class="col-12 d-flex">
-      <div class="card flex-fill">
-        <div class="card-header">
-
-          <h5 class="card-title mb-0">Latest Projects</h5>
-        </div>
-        <table class="table table-hover my-0">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th class="d-none d-xl-table-cell">Start Date</th>
-              <th class="d-none d-xl-table-cell">End Date</th>
-              <th>Status</th>
-              <th class="d-none d-md-table-cell">Assignee</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Project Apollo</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-            </tr>
-            <tr>
-              <td>Project Fireball</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-danger">Cancelled</span></td>
-              <td class="d-none d-md-table-cell">William Harris</td>
-            </tr>
-            <tr>
-              <td>Project Hades</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Sharon Lessman</td>
-            </tr>
-            <tr>
-              <td>Project Nitro</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-warning">In progress</span></td>
-              <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-            </tr>
-            <tr>
-              <td>Project Phoenix</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">William Harris</td>
-            </tr>
-            <tr>
-              <td>Project X</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Sharon Lessman</td>
-            </tr>
-            <tr>
-              <td>Project Romeo</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-success">Done</span></td>
-              <td class="d-none d-md-table-cell">Christina Mason</td>
-            </tr>
-            <tr>
-              <td>Project Wombat</td>
-              <td class="d-none d-xl-table-cell">01/01/2021</td>
-              <td class="d-none d-xl-table-cell">31/06/2021</td>
-              <td><span class="badge bg-warning">In progress</span></td>
-              <td class="d-none d-md-table-cell">William Harris</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-
-          <h5 class="card-title mb-0">Real-Time</h5>
-        </div>
-        <div class="card-body px-4">
-          <div id="world_map" style="height:350px;"></div>
+        <h1 class="mt-1 mb-3"><?= $factLivNotPaid ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total pour livraisons</span>
         </div>
       </div>
     </div>
   </div>
 </div>
+<h2 class="h3 mb-3">Encaissements livraisons</h2>
+<div class="row">
+  <div class="col-xl">
+    <div class="row row-cols-2">
+      <!-- Encaissements journaliers livraisons -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Journaliers</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="dollar-sign"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $sumFactLivD ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total TTC en FCFA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encaissements hebdomadaires livraisons -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Hebdomadaires</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="dollar-sign"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $sumFactLivW ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total TTC en FCFA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encaissements mensuels livraisons -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Mensuels</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="dollar-sign"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $sumFactLivM ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total TTC en FCFA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encaissements annuels livraisons -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Annuels</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="dollar-sign"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $sumFactLivY ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total TTC en FCFA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl">
+    <div class="card flex-fill w-100">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Statistiques annuelles des livraisons enregistrées</h5>
+      </div>
+      <div class="card-body d-flex w-100">
+        <div class="align-self-center chart chart-lg">
+          <canvas id="fin-chartjs-dashboard-bar"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<h2 class="h3 mb-3">Décompte livraisons</h2>
+<div class="row">
+  <div class="col-xl order-xl-2">
+    <div class="row row-cols-2">
+      <!-- nombre de livraisons journalières -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Journalières</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="box"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- nombre de livraisons Hebdomadaires -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Hebdomadaires</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="box"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- nombre de livraisons Mensuelles -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Mensuelles</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="box"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- nombre de livraisons Annuelles -->
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Annuelles</h5>
+              </div>
+              <div class="col-auto">
+                <div class="stat text-primary">
+                  <i class="align-middle" data-feather="box"></i>
+                </div>
+              </div>
+            </div>
+            <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
+            <div class="mb-0">
+              <span class="text-muted">Total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl order-xl-1">
+    <div class="card flex-fill w-100">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Statistiques annuelles des états</h5>
+      </div>
+      <div class="card-body d-flex">
+        <div class="align-self-center w-100">
+          <div class="py-3">
+            <div class="chart chart-sm">
+              <canvas id="chartjs-dashboard-pie"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- bar -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-    var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-    gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-    gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-    // Line chart
-    new Chart(document.getElementById("chartjs-dashboard-line"), {
-      type: "line",
+    const bar_data = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/bar_fact_liv') ?>",
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Sales ($)",
-          fill: true,
-          backgroundColor: gradient,
-          borderColor: window.theme.primary,
-          data: [
-            2115,
-            1562,
-            1584,
-            1892,
-            1587,
-            1923,
-            2566,
-            2448,
-            2805,
-            3438,
-            2917,
-            3327
-          ]
-        }]
+        token: '<?= csrf_hash() ?>'
       },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          intersect: false
-        },
-        hover: {
-          intersect: true
-        },
-        plugins: {
-          filler: {
-            propagate: false
-          }
-        },
-        scales: {
-          xAxes: [{
-            reverse: true,
-            gridLines: {
-              color: "rgba(0,0,0,0.0)"
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              stepSize: 1000
-            },
-            display: true,
-            borderDash: [3, 3],
-            gridLines: {
-              color: "rgba(0,0,0,0.0)"
-            }
-          }]
-        }
-      }
+      dataType: "JSON",
     });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Pie chart
-    new Chart(document.getElementById("chartjs-dashboard-pie"), {
-      type: "pie",
-      data: {
-        labels: ["Chrome", "Firefox", "IE"],
-        datasets: [{
-          data: [4306, 3801, 1689],
-          backgroundColor: [
-            window.theme.primary,
-            window.theme.warning,
-            window.theme.danger
-          ],
-          borderWidth: 5
-        }]
-      },
-      options: {
-        responsive: !window.MSInputMethodContext,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        cutoutPercentage: 75
-      }
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
     // Bar chart
-    new Chart(document.getElementById("chartjs-dashboard-bar"), {
-      type: "bar",
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "This year",
-          backgroundColor: window.theme.primary,
-          borderColor: window.theme.primary,
-          hoverBackgroundColor: window.theme.primary,
-          hoverBorderColor: window.theme.primary,
-          data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-          barPercentage: .75,
-          categoryPercentage: .5
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        scales: {
-          yAxes: [{
-            gridLines: {
-              display: false
-            },
-            stacked: false,
-            ticks: {
-              stepSize: 20
-            }
-          }],
-          xAxes: [{
-            stacked: false,
-            gridLines: {
-              color: "transparent"
-            }
+    bar_data.done(res => {
+      new Chart(document.getElementById("fin-chartjs-dashboard-bar"), {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jlt", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+          datasets: [{
+            label: "Livraisons",
+            backgroundColor: '#0097e6',
+            borderColor: '#0097e6',
+            hoverBackgroundColor: '#0097e6',
+            hoverBorderColor: '#0097e6',
+            data: res.liv,
+            barPercentage: .60,
+            categoryPercentage: .5
           }]
-        }
-      }
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var markers = [{
-        coords: [31.230391, 121.473701],
-        name: "Shanghai"
-      },
-      {
-        coords: [28.704060, 77.102493],
-        name: "Delhi"
-      },
-      {
-        coords: [6.524379, 3.379206],
-        name: "Lagos"
-      },
-      {
-        coords: [35.689487, 139.691711],
-        name: "Tokyo"
-      },
-      {
-        coords: [23.129110, 113.264381],
-        name: "Guangzhou"
-      },
-      {
-        coords: [40.7127837, -74.0059413],
-        name: "New York"
-      },
-      {
-        coords: [34.052235, -118.243683],
-        name: "Los Angeles"
-      },
-      {
-        coords: [41.878113, -87.629799],
-        name: "Chicago"
-      },
-      {
-        coords: [51.507351, -0.127758],
-        name: "London"
-      },
-      {
-        coords: [40.416775, -3.703790],
-        name: "Madrid "
-      }
-    ];
-    var map = new jsVectorMap({
-      map: "world",
-      selector: "#world_map",
-      zoomButtons: true,
-      markers: markers,
-      markerStyle: {
-        initial: {
-          r: 9,
-          strokeWidth: 7,
-          stokeOpacity: .4,
-          fill: window.theme.primary
         },
-        hover: {
-          fill: window.theme.primary,
-          stroke: window.theme.primary
+        options: {
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                display: false
+              },
+              stacked: false,
+              ticks: {
+                stepSize: 10000000
+              }
+            }],
+            xAxes: [{
+              stacked: false,
+              gridLines: {
+                color: "transparent"
+              }
+            }]
+          }
         }
-      },
-      zoomOnScroll: false
-    });
-    window.addEventListener("resize", () => {
-      map.updateSize();
-    });
+      });
+    })
   });
 </script>
+
+<!-- pie -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-    var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-    document.getElementById("datetimepicker-dashboard").flatpickr({
-      inline: true,
-      prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-      nextArrow: "<span title=\"Next month\">&raquo;</span>",
-      defaultDate: defaultDate
+
+    const pie_stat_liv = $.ajax({
+      type: "get",
+      url: "<?= base_url('api/graph/pie_stat_liv') ?>",
+      data: {
+        token: '<?= csrf_hash() ?>'
+      },
+      dataType: "JSON",
     });
+
+    pie_stat_liv.done(res => {
+      // console.log(res);
+      new Chart(document.getElementById("chartjs-dashboard-pie"), {
+        type: "pie",
+        data: {
+          labels: [
+            "Sur plateau",
+            "Mise à terre",
+            "En cours",
+            "Livrés",
+            "Annulés",
+          ],
+          datasets: [{
+            data: res,
+            backgroundColor: [
+              window.theme.info,
+              '#2d3436',
+              window.theme.warning,
+              window.theme.success,
+              window.theme.danger
+            ],
+            borderWidth: 5
+          }]
+        },
+        options: {
+          responsive: !window.MSInputMethodContext,
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
+          cutoutPercentage: 75
+        }
+      });
+    })
+
   });
 </script>
-<script>
-  new Chart(document.getElementById("chartjs-polar-area"), {
-    type: "polarArea",
-    data: {
-      labels: ["Speed", "Reliability", "Comfort", "Safety", "Efficiency"],
-      datasets: [{
-        label: "Model S",
-        data: [35, 38, 65, 70, 24],
-        backgroundColor: [
-          window.theme.primary,
-          window.theme.success,
-          window.theme.danger,
-          window.theme.warning,
-          window.theme.info
-        ]
-      }]
-    }
-  });
-</script>
+
 <?= $this->endSection(); ?>

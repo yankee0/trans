@@ -6,7 +6,6 @@ Dashboard
 <div class="container-fluid p-0">
   <h1 class="h3 mb-3"><strong>Finance</strong> Dashboard</h1>
   <div class="row">
-
     <!-- nombre de clients -->
     <div class="col-md-6 col-lg-4 col-xl-3">
       <div class="card">
@@ -50,7 +49,6 @@ Dashboard
         </div>
       </div>
     </div>
-
   </div>
   <h2 class="h3 mb-3">Encaissements livraisons</h2>
   <div class="row">

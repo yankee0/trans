@@ -194,7 +194,6 @@ Dashboard
     <div class="col-md-6 col-lg-7 col-xl-8 d-flex">
       <div class="card flex-fill w-100">
         <div class="card-header">
-
           <h5 class="card-title mb-0">Statistiques annuelles des livraisons enregistrées</h5>
         </div>
         <div class="card-body d-flex w-100">
