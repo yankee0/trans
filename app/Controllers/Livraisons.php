@@ -170,22 +170,24 @@ class Livraisons extends BaseController
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->orderBy('livraisons.created_at', 'DESC');
-        
-            if (!empty($y)) {
-                $builder->where('YEAR(fact_Liv.date_pg)', $y);
-            } 
-            if (!empty($m)) {
-                $builder->where('MONTH(fact_Liv.date_pg)', $m);
-            } 
-            if (!empty($d)) {
-                $builder->where('DAY(fact_Liv.date_pg)', $d);
-            } 
-            if (!empty($w)) {
-                $builder->where('WEEK(fact_Liv.date_pg)', $w);
-            }
+            ->orderBy('livraisons.created_at', 'DESC')
+            ->where('fact_liv.annulation', 'NON')
+            ->where('fact_liv.preget', 'OUI');
 
-            return $builder->find();
+        if (!empty($y)) {
+            $builder->where('YEAR(fact_Liv.date_pg)', $y);
+        }
+        if (!empty($m)) {
+            $builder->where('MONTH(fact_Liv.date_pg)', $m);
+        }
+        if (!empty($d)) {
+            $builder->where('DAY(fact_Liv.date_pg)', $d);
+        }
+        if (!empty($w)) {
+            $builder->where('WEEK(fact_Liv.date_pg)', $w);
+        }
+
+        return $builder->find();
     }
 
     public function abord()

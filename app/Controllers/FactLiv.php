@@ -626,7 +626,7 @@ class FactLiv extends BaseController
                 ')
                 ->join('zones', 'zones.id = fact_liv_lieux.id_zone')
                 ->first();
-            
+
             $data['prix'] = $data['type'] == '20' ? $prix['ht_liv_20'] : $prix['ht_liv_40'];
             // dd($data);
             (new FactLivLignes())->save($data);
@@ -687,5 +687,11 @@ class FactLiv extends BaseController
             ->withInput()
             ->with('n', true)
             ->with('m', 'Facture annulée.');
+    }
+
+    public function factInfo($d = null, $w = null, $m = null, $y = null)
+    {
+        $modele = new ModelsFactLiv();
+
     }
 }

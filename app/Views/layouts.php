@@ -13,21 +13,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
-  <script>
-    function disablePageInteraction() {
-      $('#loadingOverlay').show();
-    }
-
-    function enablePageInteraction() {
-      $('#loadingOverlay').hide();
-    }
-    $(document).ready(function() {
-      disablePageInteraction();
-    });
-    $(window).on('load', function() {
-      enablePageInteraction();
-    });
-  </script>
 </head>
 
 <body class="position-relative">
@@ -363,10 +348,10 @@
         </div>
       </nav>
 
-      <main class="content">
-        <?= $this->renderSection('main'); ?>
-
-
+      <main class="content p-3">
+        <div class="container-fluid">
+          <?= $this->renderSection('main'); ?>
+        </div>
       </main>
 
       <footer class="footer">
@@ -449,12 +434,33 @@
   <?php endif ?>
 
 
+
   <div id="backTop" class=" position-fixed bottom-0 end-0 p-4 d-none">
     <a class="btn btn-primary btn-lg display-4" href="#" role="button"><i class="align-middle " data-feather="arrow-up"></i></a>
   </div>
 
 
+  <script>
+    function disablePageInteraction() {
+      $('#loadingOverlay').show();
+    }
 
+    function enablePageInteraction() {
+      $('#loadingOverlay').fadeOut();
+    }
+    $(document).ready(function() {
+      disablePageInteraction();
+    });
+    $(window).on('load', function() {
+      enablePageInteraction();
+    });
+  </script>
+  <!-- <script>
+    setTimeout(() => {
+      // alert();
+      $('#loadingOverlay').fadeOut();
+    }, 5000)
+  </script> -->
 
   <script>
     const momdp = new bootstrap.Modal(document.getElementById('modmdp'), options)

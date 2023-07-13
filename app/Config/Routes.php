@@ -112,6 +112,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->group('finance', function($routes)
             {
                 $routes->get('/','Rapports::index_finance');
+                $routes->post('/','Rapports::generate_finance');
             });
             $routes->group('carburant', function($routes)
             {

@@ -75,9 +75,15 @@ class Rapports extends BaseController
         return view('rapports/carburant/index');
     }
 
-    public function index_finance()
+    public function index_finance($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/finance/index');
+        return view('rapports/finance/index',$data);
+    }
+
+    public function generate_finance(){
+        session()->p = 'rapports';
+        
+
     }
 }
