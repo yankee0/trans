@@ -99,6 +99,26 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 
         //recherche operation
         $routes->get('search', 'Ops::search');
+
+        // rapport
+        $routes->group('rapports', function($routes)
+        {
+            $routes->get('/','Rapports::index');
+            $routes->group('livraisons', function($routes)
+            {
+                $routes->get('/','Rapports::index_livraison');
+                $routes->post('/','Rapports::generate_livraison');
+            });
+            $routes->group('finance', function($routes)
+            {
+                $routes->get('/','Rapports::index_finance');
+            });
+            $routes->group('carburant', function($routes)
+            {
+                $routes->get('/','Rapports::index_carburant');
+            });
+
+        });
     });
 
     $routes->group('flotte', ['filter' => 'flotte'], function ($routes) {

@@ -8,12 +8,35 @@
   <meta name="author" content="Yankee">
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" />
   <title><?= $this->renderSection('title'); ?></title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
+  <script>
+    function disablePageInteraction() {
+      $('#loadingOverlay').show();
+    }
+
+    function enablePageInteraction() {
+      $('#loadingOverlay').hide();
+    }
+    $(document).ready(function() {
+      disablePageInteraction();
+    });
+    $(window).on('load', function() {
+      enablePageInteraction();
+    });
+  </script>
 </head>
 
 <body class="position-relative">
+
+  <div id="loadingOverlay" class="overlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement en cours...</span>
+    </div>
+  </div>
   <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
       <div class="sidebar-content js-simplebar">
@@ -48,7 +71,7 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'flotte'
-            or session()->r == 'ops'
+            // or session()->r == 'ops'
           ) : ?>
 
             <li class="sidebar-header">
@@ -163,12 +186,12 @@
             session()->r == 'admin'
           ) : ?>
             <li class="sidebar-header">
-              Rapports
+              Statisques
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'r-livraions') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports/livraisons') ?>">
-                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+            <li class="sidebar-item <?= (session()->p == 'rapports') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/rapports') ?>">
+                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Rapports</span>
               </a>
             </li>
           <?php endif ?>
@@ -178,8 +201,8 @@
       </div>
     </nav>
 
-    <div class="main">
-      <nav class="navbar navbar-expand navbar-light navbar-bg">
+    <div class="main ">
+      <nav class="navbar navbar-expand navbar-light navbar-bg sticky-top">
         <a class="sidebar-toggle js-sidebar-toggle">
           <i class="hamburger align-self-center"></i>
         </a>
@@ -425,9 +448,13 @@
     </div>
   <?php endif ?>
 
+
   <div id="backTop" class=" position-fixed bottom-0 end-0 p-4 d-none">
     <a class="btn btn-primary btn-lg display-4" href="#" role="button"><i class="align-middle " data-feather="arrow-up"></i></a>
   </div>
+
+
+
 
   <script>
     const momdp = new bootstrap.Modal(document.getElementById('modmdp'), options)

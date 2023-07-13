@@ -243,7 +243,7 @@
             <?php if ($facture['copie'] > 0) : ?>
               <tr>
                 <td colspan="5">
-                  <b>Imprimante</b>
+                  <b>Impression</b>
                 </td>
                 <td>
                   <?= $facture['copie'] ?>
