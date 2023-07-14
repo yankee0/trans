@@ -83,7 +83,50 @@ class Rapports extends BaseController
 
     public function generate_finance(){
         session()->p = 'rapports';
-        
+        $data = $this->request->getPost();
+        $timestamp = strtotime($data['date']);
 
+        $y = date('Y', $timestamp);
+        $m = date('m', $timestamp);
+        $d = date('d', $timestamp);
+        $w = date('W', $timestamp);
+
+        $ctrl = new FactLiv();
+        $sheet = [];
+        $name = '';
+        switch ($data['type']) {
+            case 'j':
+                $sheet = $ctrl->factInfo($d, $w, $m, $y);
+                $name = 'Rapport finance journalier des livraisons du '.$data['date'];
+                break;
+            case 'h':
+                $sheet = $ctrl->factInfo(null, $w, $m, $y);
+                $name = 'Rapport finance hebdomadaire des livraisons  de la semaine '.$w.' année '.$y;
+                break;
+            case 'm':
+                $sheet = $ctrl->factInfo(null, null, $m, $y);
+                $name = 'Rapport finance mensuel des livraisons du '.$m.'e mois année '.$y;
+                break;
+            case 'a':
+                $sheet = $ctrl->factInfo(null, null, null, $y);
+                $name = 'Rapport finance annuel des livraisons année '.$y;
+                break;
+
+            default:
+                return redirect()
+                    ->back()
+                    ->with('n', false)
+                    ->with('m', '499 - Données invalide');
+                break;
+        }
+
+        return $this->index_finance(
+            [
+                'data' => $sheet,
+                'type' => $data['type'],
+                'date' => $data['date'],
+                'name' => $name
+            ]
+        );
     }
 }

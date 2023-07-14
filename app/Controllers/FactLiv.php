@@ -692,6 +692,33 @@ class FactLiv extends BaseController
     public function factInfo($d = null, $w = null, $m = null, $y = null)
     {
         $modele = new ModelsFactLiv();
+        $builder = $modele
+            ->select('
+                fact_Liv.*,
+                fact_Liv.id as facture,
+                clients.*,
+                clients.id client,
+                fact_liv_lignes.prix,
+                (SUM(fact_liv_lignes.prix))*(1+(18/100))+fact_Liv.ages+fact_Liv.copie as total
+            ')
+            ->groupBy('fact_liv.id, fact_liv_lignes.prix')
+            ->join('clients', 'clients.id = fact_liv.id_client')
+            ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
+            ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
+            
+        if (!empty($y)) {
+            $builder->where('YEAR(fact_Liv.date_paiement)', $y);
+        }
+        if (!empty($m)) {
+            $builder->where('MONTH(fact_Liv.date_paiement)', $m);
+        }
+        if (!empty($d)) {
+            $builder->where('DAY(fact_Liv.date_paiement)', $d);
+        }
+        if (!empty($w)) {
+            $builder->where('WEEK(fact_Liv.date_paiement)', $w);
+        }
 
+        return $builder->find();
     }
 }

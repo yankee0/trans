@@ -56,12 +56,22 @@
                   <th class="d-table-cell">Client</th>
                   <th class="d-table-cell">Consignataire</th>
                   <th class="d-table-cell">Règlement</th>
-                  <th class="d-table-cell">Montant</th>
+                  <th class="d-table-cell">Montant TTC</th>
                   <th class="d-table-cell">Date de paiement</th>
                 </tr>
               </thead>
               <tbody>
-                
+              <?php foreach ($data as $l) : ?>
+                <tr>
+                  <td><?= $l['facture'] ?></td>
+                  <td><?= $l['client'] ?></td>
+                  <td><?= $l['nom'] ?></td>
+                  <td><?= $l['consignataire'] ?></td>
+                  <td><?= $l['reglement'] ?></td>
+                  <td><?= intval($l['total']) ?></td>
+                  <td><?= $l['date_paiement'] ?></td>
+                </tr>
+              <?php endforeach ?>
               </tbody>
             </table>
           </div>

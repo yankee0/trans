@@ -50,99 +50,97 @@
   </div>
 </div>
 <h2 class="h3 mb-3">Encaissements livraisons</h2>
-<div class="row">
-  <div class="col-xl">
-    <div class="row row-cols-2">
-      <!-- Encaissements journaliers livraisons -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Journaliers</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="dollar-sign"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $sumFactLivD ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total TTC en FCFA</span>
+<div class="row ">
+  <!-- Encaissements journaliers livraisons -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Journaliers</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="dollar-sign"></i>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Encaissements hebdomadaires livraisons -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Hebdomadaires</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="dollar-sign"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $sumFactLivW ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total TTC en FCFA</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Encaissements mensuels livraisons -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Mensuels</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="dollar-sign"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $sumFactLivM ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total TTC en FCFA</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Encaissements annuels livraisons -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Annuels</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="dollar-sign"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $sumFactLivY ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total TTC en FCFA</span>
-            </div>
-          </div>
+        <h1 class="mt-1 mb-3"><?= $sumFactLivD ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total TTC en FCFA</span>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xl">
+
+  <!-- Encaissements hebdomadaires livraisons -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Hebdomadaires</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="dollar-sign"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3"><?= $sumFactLivW ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total TTC en FCFA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encaissements mensuels livraisons -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Mensuels</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="dollar-sign"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3"><?= $sumFactLivM ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total TTC en FCFA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encaissements annuels livraisons -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Annuels</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="dollar-sign"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3"><?= $sumFactLivY ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total TTC en FCFA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
     <div class="card flex-fill w-100">
       <div class="card-header">
         <h5 class="card-title mb-0">Statistiques annuelles des livraisons enregistrées</h5>
@@ -154,102 +152,99 @@
       </div>
     </div>
   </div>
-
 </div>
 <h2 class="h3 mb-3">Décompte livraisons</h2>
 <div class="row">
-  <div class="col-xl order-xl-2">
-    <div class="row row-cols-2">
-      <!-- nombre de livraisons journalières -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Journalières</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="box"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total</span>
+  <!-- nombre de livraisons journalières -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Journalières</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="box"></i>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- nombre de livraisons Hebdomadaires -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Hebdomadaires</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="box"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- nombre de livraisons Mensuelles -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Mensuelles</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="box"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- nombre de livraisons Annuelles -->
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col mt-0">
-                <h5 class="card-title">Annuelles</h5>
-              </div>
-              <div class="col-auto">
-                <div class="stat text-primary">
-                  <i class="align-middle" data-feather="box"></i>
-                </div>
-              </div>
-            </div>
-            <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
-            <div class="mb-0">
-              <span class="text-muted">Total</span>
-            </div>
-          </div>
+        <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total</span>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xl order-xl-1">
+
+  <!-- nombre de livraisons Hebdomadaires -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Hebdomadaires</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="box"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- nombre de livraisons Mensuelles -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Mensuelles</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="box"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- nombre de livraisons Annuelles -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title">Annuelles</h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="box"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
     <div class="card flex-fill w-100">
       <div class="card-header">
         <h5 class="card-title mb-0">Statistiques annuelles des états</h5>
