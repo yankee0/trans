@@ -117,6 +117,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->group('carburant', function($routes)
             {
                 $routes->get('/','Rapports::index_carburant');
+                $routes->post('/','Rapports::generate_carburant');
             });
 
         });

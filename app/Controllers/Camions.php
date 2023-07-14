@@ -142,4 +142,32 @@ class Camions extends BaseController
         ];
         return view('camions/list', $data);
     }
+
+    public function consCarb($d = null, $w = null, $m = null, $y = null)
+    {
+        $builder = new ModelsCamions();
+        $builder
+            ->select('
+            camions.im,
+            SUM(fact_liv_lieux.carburant) as litrage,
+        ')
+            ->groupBy('camions.id')
+            ->join('livraisons', 'camions.id = livraisons.cam_aller')
+            ->join('fact_liv_lignes', 'fact_liv_lignes.id = livraisons.id_fact_ligne')
+            ->join('fact_liv_lieux', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
+        if (!empty($y)) {
+            $builder->where('YEAR(livraisons.date_aller)', $y);
+        }
+        if (!empty($m)) {
+            $builder->where('MONTH(livraisons.date_aller)', $m);
+        }
+        if (!empty($d)) {
+            $builder->where('DAY(livraisons.date_aller)', $d);
+        }
+        if (!empty($w)) {
+            $builder->where('WEEK(livraisons.date_aller)', $w);
+        }
+
+        return $builder->find();
+    }
 }

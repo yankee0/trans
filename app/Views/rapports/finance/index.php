@@ -14,9 +14,9 @@
         <?= csrf_field() ?>
         <div class="row">
           <div class="col-md mb-3">
-            <label for="type"class="form-label">Type </label>
-            <select class="form-select"name="type"id="type"required>
-              <option value=""selected hidden>Sélectionnez un type</option>
+            <label for="type" class="form-label">Type </label>
+            <select class="form-select" name="type" id="type" required>
+              <option value="" selected hidden>Sélectionnez un type</option>
               <option value="j">Journalier</option>
               <option value="h">Hebdomadaire</option>
               <option value="m">Mensuel</option>
@@ -24,12 +24,12 @@
             </select>
           </div>
           <div class="col-md mb-3">
-            <label for="date"class="form-label">Date</label>
-            <input type="date"class="form-control"value="<?= isset($date) ? $date : '' ?>"name="date"required id="date"placeholder="Sélectionnez la date">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" value="<?= isset($date) ? $date : '' ?>" name="date" required id="date" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3 d-flex flex-column justify-content-end">
-            <button type="submit"class="btn btn-primary d-flex align-items-center justify-content-center gap-3">
-              <i class="align-middle"data-feather="clipboard"></i>
+            <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center gap-3">
+              <i class="align-middle" data-feather="clipboard"></i>
               <span>Générer un rapport</span>
             </button>
           </div>
@@ -43,35 +43,33 @@
 
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title"><?= $name ?></h5>
-        </div>
         <div class="card-body">
+          <h5 class="card-title"><?= $name ?></h5>
           <div class="table-responsive">
-            <table id="table"class="table table-hover my-0">
+            <table id="table" class="table table-hover my-0">
               <thead>
                 <tr>
                   <th class="d-table-cell">Nº Facture</th>
                   <th class="d-table-cell">Nº Compte client</th>
                   <th class="d-table-cell">Client</th>
                   <th class="d-table-cell">Consignataire</th>
-                  <th class="d-table-cell">Règlement</th>
+                  <th class="d-table-cell">Paiement</th>
                   <th class="d-table-cell">Montant TTC</th>
                   <th class="d-table-cell">Date de paiement</th>
                 </tr>
               </thead>
               <tbody>
-              <?php foreach ($data as $l) : ?>
-                <tr>
-                  <td><?= $l['facture'] ?></td>
-                  <td><?= $l['client'] ?></td>
-                  <td><?= $l['nom'] ?></td>
-                  <td><?= $l['consignataire'] ?></td>
-                  <td><?= $l['reglement'] ?></td>
-                  <td><?= intval($l['total']) ?></td>
-                  <td><?= $l['date_paiement'] ?></td>
-                </tr>
-              <?php endforeach ?>
+                <?php foreach ($data as $l) : ?>
+                  <tr>
+                    <td><?= $l['facture'] ?></td>
+                    <td><?= $l['client'] ?></td>
+                    <td><?= $l['nom'] ?></td>
+                    <td><?= $l['consignataire'] ?></td>
+                    <td><?= $l['paiement'] ?></td>
+                    <td><?= intval($l['total']) ?></td>
+                    <td><?= $l['date_paiement'] ?></td>
+                  </tr>
+                <?php endforeach ?>
               </tbody>
             </table>
           </div>

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Controllers\Camions as ControllersCamions;
+use App\Models\Camions;
 
 class Rapports extends BaseController
 {
@@ -15,7 +17,7 @@ class Rapports extends BaseController
     public function index_livraison($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/livraisons/index',$data);
+        return view('rapports/livraisons/index', $data);
     }
 
     public function generate_livraison()
@@ -35,19 +37,19 @@ class Rapports extends BaseController
         switch ($data['type']) {
             case 'j':
                 $sheet = $ctrl->getAllLivs($y, $m, $d, $w);
-                $name = 'Rapport journalier des livraisons du '.$data['date'];
+                $name = 'Rapport journalier des livraisons du ' . $data['date'];
                 break;
             case 'h':
                 $sheet = $ctrl->getAllLivs($y, $m, null, $w);
-                $name = 'Rapport hebdomadaire des livraisons  de la semaine '.$w.' année '.$y;
+                $name = 'Rapport hebdomadaire des livraisons  de la semaine ' . $w . ' année ' . $y;
                 break;
             case 'm':
                 $sheet = $ctrl->getAllLivs($y, $m);
-                $name = 'Rapport mensuel des livraisons du '.$m.'e mois année '.$y;
+                $name = 'Rapport mensuel des livraisons du ' . $m . 'e mois année ' . $y;
                 break;
             case 'a':
                 $sheet = $ctrl->getAllLivs($y);
-                $name = 'Rapport annuel des livraisons année '.$y;
+                $name = 'Rapport annuel des livraisons année ' . $y;
                 break;
 
             default:
@@ -66,22 +68,76 @@ class Rapports extends BaseController
                 'name' => $name
             ]
         );
-
     }
 
-    public function index_carburant()
+    public function index_carburant($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/carburant/index');
+        return view('rapports/carburant/index',$data);
+    }
+
+    public function generate_carburant()
+    {
+        session()->p = 'rapports';
+        $data = $this->request->getPost();
+        $timestamp = strtotime($data['date']);
+
+        $y = date('Y', $timestamp);
+        $m = date('m', $timestamp);
+        $d = date('d', $timestamp);
+        $w = date('W', $timestamp);
+
+        $ctrl = new ControllersCamions();
+        $sheet = [];
+        $name = '';
+        switch ($data['type']) {
+            case 'j':
+                $sheet = $ctrl->consCarb($d, $w, $m, $y);
+                $name = 'Rapport consommation de carburant journalier lors des livraisons du ' . $data['date'];
+                break;
+            case 'h':
+                $sheet = $ctrl->consCarb(null, $w, $m, $y);
+                $name = 'Rapport consommation de carburant hebdomadaire lors des livraisons  de la semaine ' . $w . ' année ' . $y;
+                break;
+            case 'm':
+                $sheet = $ctrl->consCarb(null, null, $m, $y);
+                $name = 'Rapport consommation de carburant mensuel lors des livraisons du ' . $m . 'e mois année ' . $y;
+                break;
+            case 'a':
+                $sheet = $ctrl->consCarb(null, null, null, $y);
+                $name = 'Rapport consommation de carburant annuel lors des livraisons année ' . $y;
+                break;
+
+            default:
+                return redirect()
+                    ->back()
+                    ->with('n', false)
+                    ->with('m', '499 - Données invalide');
+                break;
+        }
+        $sum = 0 ;
+        foreach ($sheet as $i) {
+            $sum += intval($i['litrage']);
+        }
+        return $this->index_carburant(
+            [
+                'data' => $sheet,
+                'type' => $data['type'],
+                'date' => $data['date'],
+                'name' => $name,
+                'sum' => $sum
+            ]
+        );
     }
 
     public function index_finance($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/finance/index',$data);
+        return view('rapports/finance/index', $data);
     }
 
-    public function generate_finance(){
+    public function generate_finance()
+    {
         session()->p = 'rapports';
         $data = $this->request->getPost();
         $timestamp = strtotime($data['date']);
@@ -97,19 +153,19 @@ class Rapports extends BaseController
         switch ($data['type']) {
             case 'j':
                 $sheet = $ctrl->factInfo($d, $w, $m, $y);
-                $name = 'Rapport finance journalier des livraisons du '.$data['date'];
+                $name = 'Rapport finance journalier des livraisons du ' . $data['date'];
                 break;
             case 'h':
                 $sheet = $ctrl->factInfo(null, $w, $m, $y);
-                $name = 'Rapport finance hebdomadaire des livraisons  de la semaine '.$w.' année '.$y;
+                $name = 'Rapport finance hebdomadaire des livraisons  de la semaine ' . $w . ' année ' . $y;
                 break;
             case 'm':
                 $sheet = $ctrl->factInfo(null, null, $m, $y);
-                $name = 'Rapport finance mensuel des livraisons du '.$m.'e mois année '.$y;
+                $name = 'Rapport finance mensuel des livraisons du ' . $m . 'e mois année ' . $y;
                 break;
             case 'a':
                 $sheet = $ctrl->factInfo(null, null, null, $y);
-                $name = 'Rapport finance annuel des livraisons année '.$y;
+                $name = 'Rapport finance annuel des livraisons année ' . $y;
                 break;
 
             default:
