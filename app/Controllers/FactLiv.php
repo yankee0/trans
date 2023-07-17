@@ -733,8 +733,8 @@ class FactLiv extends BaseController
         $modele = new ModelsFactLiv();
         $builder = $modele
             ->select('
-                fact_Liv.*,
-                fact_Liv.id as facture,
+                fact_liv.*,
+                fact_liv.id as facture,
                 clients.*,
                 clients.id client,
                 fact_liv_lignes.prix,
@@ -746,16 +746,16 @@ class FactLiv extends BaseController
             ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
 
         if (!empty($y)) {
-            $builder->where('YEAR(fact_Liv.date_paiement)', $y);
+            $builder->where('YEAR(fact_liv.date_paiement)', $y);
         }
         if (!empty($m)) {
-            $builder->where('MONTH(fact_Liv.date_paiement)', $m);
+            $builder->where('MONTH(fact_liv.date_paiement)', $m);
         }
         if (!empty($d)) {
-            $builder->where('DAY(fact_Liv.date_paiement)', $d);
+            $builder->where('DAY(fact_liv.date_paiement)', $d);
         }
         if (!empty($w)) {
-            $builder->where('WEEK(fact_Liv.date_paiement)', $w);
+            $builder->where('WEEK(fact_liv.date_paiement)', $w);
         }
 
         return $builder->find();
