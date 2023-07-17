@@ -92,34 +92,29 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('preget','Livraisons::preget');
-            $routes->post('preget','Livraisons::checkPreget');
-            $routes->post('preget/(:segment)','Livraisons::handlePG/$1');
+            $routes->get('preget', 'Livraisons::preget');
+            $routes->post('preget', 'Livraisons::checkPreget');
+            $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
         });
 
         //recherche operation
         $routes->get('search', 'Ops::search');
 
         // rapport
-        $routes->group('rapports', function($routes)
-        {
-            $routes->get('/','Rapports::index');
-            $routes->group('livraisons', function($routes)
-            {
-                $routes->get('/','Rapports::index_livraison');
-                $routes->post('/','Rapports::generate_livraison');
+        $routes->group('rapports', function ($routes) {
+            $routes->get('/', 'Rapports::index');
+            $routes->group('livraisons', function ($routes) {
+                $routes->get('/', 'Rapports::index_livraison');
+                $routes->post('/', 'Rapports::generate_livraison');
             });
-            $routes->group('finance', function($routes)
-            {
-                $routes->get('/','Rapports::index_finance');
-                $routes->post('/','Rapports::generate_finance');
+            $routes->group('finance', function ($routes) {
+                $routes->get('/', 'Rapports::index_finance');
+                $routes->post('/', 'Rapports::generate_finance');
             });
-            $routes->group('carburant', function($routes)
-            {
-                $routes->get('/','Rapports::index_carburant');
-                $routes->post('/','Rapports::generate_carburant');
+            $routes->group('carburant', function ($routes) {
+                $routes->get('/', 'Rapports::index_carburant');
+                $routes->post('/', 'Rapports::generate_carburant');
             });
-
         });
     });
 
@@ -214,10 +209,26 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         });
 
         //livraisons
-        $routes->group('livraisons', function($routes)
-        {
-            $routes->get('/','Finance::showLivs');
-            $routes->post('reglement/(:num)','Finance::managePay/$1');
+        $routes->group('livraisons', function ($routes) {
+            $routes->get('/', 'Finance::showLivs');
+            $routes->post('reglement/(:num)', 'Finance::managePay/$1');
+        });
+
+        // rapport
+        $routes->group('rapports', function ($routes) {
+            $routes->get('/', 'Rapports::index');
+            $routes->group('livraisons', function ($routes) {
+                $routes->get('/', 'Rapports::index_livraison');
+                $routes->post('/', 'Rapports::generate_livraison');
+            });
+            $routes->group('finance', function ($routes) {
+                $routes->get('/', 'Rapports::index_finance');
+                $routes->post('/', 'Rapports::generate_finance');
+            });
+            $routes->group('carburant', function ($routes) {
+                $routes->get('/', 'Rapports::index_carburant');
+                $routes->post('/', 'Rapports::generate_carburant');
+            });
         });
     });
 
@@ -270,11 +281,28 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('preget','Livraisons::preget');
-            $routes->post('preget','Livraisons::checkPreget');
-            $routes->post('preget/(:segment)','Livraisons::handlePG/$1');
+            $routes->get('preget', 'Livraisons::preget');
+            $routes->post('preget', 'Livraisons::checkPreget');
+            $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
         });
 
+        // rapport
+        $routes->group('rapports', function ($routes) {
+            $routes->get('/', 'Rapports::index');
+            $routes->group('livraisons', function ($routes) {
+                $routes->get('/', 'Rapports::index_livraison');
+                $routes->post('/', 'Rapports::generate_livraison');
+            });
+            // not able
+            // $routes->group('finance', function ($routes) {
+            //     $routes->get('/', 'Rapports::index_finance');
+            //     $routes->post('/', 'Rapports::generate_finance');
+            // });
+            $routes->group('carburant', function ($routes) {
+                $routes->get('/', 'Rapports::index_carburant');
+                $routes->post('/', 'Rapports::generate_carburant');
+            });
+        });
     });
 });
 

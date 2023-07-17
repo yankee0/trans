@@ -13,7 +13,7 @@ Rapports
       <div class="card-body">
         <h5 class="card-title">Rapport des livraisons</h5>
         <p class="card-text">Rapports sur les livraisons de <?= APP_NAME ?>.</p>
-        <a href="<?= base_url(session()->r.'/rapports/livraisons') ?>">Accéder</a>
+        <a href="<?= base_url(session()->r . '/rapports/livraisons') ?>">Accéder</a>
       </div>
     </div>
   </div>
@@ -24,21 +24,23 @@ Rapports
       <div class="card-body">
         <h5 class="card-title">Rapport carburant</h5>
         <p class="card-text">Rapports sur la consommation de carburant.</p>
-        <a href="<?= base_url(session()->r.'/rapports/carburant') ?>">Accéder</a>
+        <a href="<?= base_url(session()->r . '/rapports/carburant') ?>">Accéder</a>
       </div>
     </div>
   </div>
 
-  <div class=" col-md-6 col-xl-3">
-    <div class="card">
-      <img src="<?= base_url('assets/img/money.jpeg') ?>" class="card-img-top">
-      <div class="card-body">
-        <h5 class="card-title">Rapport financier</h5>
-        <p class="card-text">Rapports sur l'état financier de <?= APP_NAME ?>.</p>
-        <a href="<?= base_url(session()->r.'/rapports/finance') ?>">Accéder</a>
+  <?php if (session()->r == 'finance') : ?>
+    <div class=" col-md-6 col-xl-3">
+      <div class="card">
+        <img src="<?= base_url('assets/img/money.jpeg') ?>" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Rapport financier</h5>
+          <p class="card-text">Rapports sur l'état financier de <?= APP_NAME ?>.</p>
+          <a href="<?= base_url(session()->r . '/rapports/finance') ?>">Accéder</a>
+        </div>
       </div>
     </div>
-  </div>
+  <?php endif ?>
 
 </div>
 

@@ -169,6 +169,8 @@
 
           <?php if (
             session()->r == 'admin'
+            or session()->r == 'finance'
+            or session()->r == 'ops'
           ) : ?>
             <li class="sidebar-header">
               Statisques
