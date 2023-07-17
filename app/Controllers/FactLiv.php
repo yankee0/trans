@@ -738,7 +738,7 @@ class FactLiv extends BaseController
                 clients.*,
                 clients.id client,
                 fact_liv_lignes.prix,
-                (SUM(fact_liv_lignes.prix))*(1+(18/100))+fact_Liv.ages+fact_Liv.copie as total
+                (SUM(fact_liv_lignes.prix))*(1+(18/100))+fact_liv.ages+fact_liv.copie as total
             ')
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
             ->join('clients', 'clients.id = fact_liv.id_client')
