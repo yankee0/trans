@@ -54,7 +54,9 @@
                 </div>
               </div>
             </div>
-
+            <div class="text-center">
+              <span class="m-auto text-center">Poly-Trans App V 2.0 - ©2023 by <a target="_blank" href="https://www.github.com/yankee0">Yankee</a></span>
+            </div>
           </div>
         </div>
       </div>
