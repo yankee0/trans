@@ -76,7 +76,7 @@ class FactLiv extends BaseController
                     'bl' => strtoupper($data['bl']),
                     'csrf_test_name' => $data['csrf_test_name'],
                     'copie' => isset($data['copie']) ? 500 : 0,
-                    'ages' => isset($data['ages']) ? 1500 : 0,
+                    // 'ages' => isset($data['ages']) ? 1500 : 0,
                     'hammar' => isset($data['hamCheck']) and isset($data['hammar']) ? $data['hammar'] : 0,
                 ];
             }
@@ -137,7 +137,7 @@ class FactLiv extends BaseController
 
                         if (sizeof($check) != 0) {
                             if ($defined_invoice == null) {
-                                (new FactLiv)->delete($facture);
+                                (new ModelsFactLiv())->delete($facture);
                             }
                             throw new Exception('Un doublon de zone détecté.');
                         }
@@ -153,7 +153,7 @@ class FactLiv extends BaseController
                         ], true);
                     } catch (Exception $e) {
                         if ($defined_invoice == null) {
-                            (new FactLiv)->delete($facture);
+                            (new ModelsFactLiv())->delete($facture);
                         }
                         return redirect()
                             ->back()
@@ -175,7 +175,7 @@ class FactLiv extends BaseController
 
                                 if (sizeof($check) != 0) {
                                     if ($defined_invoice == null) {
-                                        (new FactLiv)->delete($facture);
+                                        (new ModelsFactLiv())->delete($facture);
                                     }
                                     throw new Exception('Un doublon de conteneur détecté.');
                                 }
@@ -243,6 +243,13 @@ class FactLiv extends BaseController
                         }
                     }
                 }
+
+                //nombre de ticket AGES
+                $agsCount = (new FactLivLignes())->where('id_lieu', $lieux)->countAllResults();
+                (new ModelsFactLiv())->save([
+                    'id' => $facture,
+                    'ages' => 1500 * $agsCount,
+                ]);
             } catch (Exception $e) {
                 if ($defined_invoice == null) {
                     (new FactLiv)->delete($facture);
@@ -431,10 +438,25 @@ class FactLiv extends BaseController
     {
         // dd($f);
         try {
-            (new FactLivLieux())
+            $data = (new FactLivLieux())
+                ->select('
+                    fact_liv_lieux.id as zone,
+                    COUNT(fact_liv_lignes.id) as count,
+                    fact_liv.ages,
+                ')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id')
+                ->join('fact_liv', 'fact_liv.id= fact_liv_lieux.id_fact')
+                ->groupBy('fact_liv_lignes.id_lieu')
                 ->where('id_fact', $f)
                 ->where('id_zone', $z)
-                ->delete();
+                ->first();
+
+            (new ModelsFactLiv())->save([
+                'id' => $f,
+                'ages' => $data['ages'] - ($data['count'] * $data['ages'])
+            ]);
+
+            (new FactLivLieux())->delete($data['zone']);
         } catch (Exception $e) {
             return redirect()
                 ->back()
@@ -566,7 +588,17 @@ class FactLiv extends BaseController
     {
 
         try {
+            $data = (new FactLivLignes())
+                ->select('fact_liv.id as id_fact,fact_liv.ages')
+                ->join('fact_liv_lieux', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact')
+                ->where('fact_liv_lignes.id', $id)
+                ->first();
             (new FactLivLignes())->delete($id);
+            (new ModelsFactLiv())->save([
+                'id' => $data['id_fact'],
+                'ages' => $data['ages'] - 1500
+            ]);
         } catch (Exception $e) {
             return redirect()
                 ->back()
@@ -623,10 +655,17 @@ class FactLiv extends BaseController
                 ->select('
                     zones.ht_liv_20,
                     zones.ht_liv_40,
+                    fact_liv.id as facture,
+                    fact_liv.ages,
                 ')
                 ->join('zones', 'zones.id = fact_liv_lieux.id_zone')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact')
                 ->first();
-
+            $dataAGS = [
+                'id' => $prix['facture'],
+                'ages' => $prix['ages'] + 1500,
+            ];
+            (new ModelsFactLiv())->save($dataAGS);
             $data['prix'] = $data['type'] == '20' ? $prix['ht_liv_20'] : $prix['ht_liv_40'];
             // dd($data);
             (new FactLivLignes())->save($data);
@@ -705,7 +744,7 @@ class FactLiv extends BaseController
             ->join('clients', 'clients.id = fact_liv.id_client')
             ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
             ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
-            
+
         if (!empty($y)) {
             $builder->where('YEAR(fact_Liv.date_paiement)', $y);
         }

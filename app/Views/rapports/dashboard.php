@@ -7,7 +7,7 @@ Rapports
 
 <div class="row">
 
-  <div class=" col-sm-6 col-md-4 col-lg-3">
+  <div class=" col-md-6 col-xl-3">
     <div class="card">
       <img src="<?= base_url('assets/img/truck.jpeg') ?>" class="card-img-top">
       <div class="card-body">
@@ -18,7 +18,7 @@ Rapports
     </div>
   </div>
 
-  <div class=" col-sm-6 col-md-4 col-lg-3">
+  <div class=" col-md-6 col-xl-3">
     <div class="card">
       <img src="<?= base_url('assets/img/fuel.jpeg') ?>" class="card-img-top">
       <div class="card-body">
@@ -29,7 +29,7 @@ Rapports
     </div>
   </div>
 
-  <div class=" col-sm-6 col-md-4 col-lg-3">
+  <div class=" col-md-6 col-xl-3">
     <div class="card">
       <img src="<?= base_url('assets/img/money.jpeg') ?>" class="card-img-top">
       <div class="card-body">

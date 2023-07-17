@@ -49,8 +49,8 @@
 
     <div class="col-12">
       <div class="card">
-        <h5 class="card-title"><?= $name ?></h5>
         <div class="card-body">
+          <h5 class="card-title"><?= $name ?></h5>
           <p>
             <strong>Consommation totale: <span class="text-primary"><?= $sum ?></span> L</strong>
           </p>

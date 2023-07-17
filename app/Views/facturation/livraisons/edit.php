@@ -146,6 +146,12 @@ Facturation livraisons
                 </div>
               <?php endif ?>
             </div>
+            <div class="col-md-6 col-lg">
+              <h5 class="card-title text-dark">Frais supplémentaires</h5>
+              <hr>
+              <span><strong class="text-primary">Impression:</strong> <?= $facture['copie'] ?> FCFA</span><br>
+              <span><strong class="text-primary">Ticket AGES:</strong> <?= $facture['ages'] ?> FCFA</span>
+            </div>
           </div>
           <div class="row">
             <h5 class="card-title text-dark">Informations sur le transport</h5>
