@@ -175,16 +175,16 @@ class Livraisons extends BaseController
             ->where('fact_liv.preget', 'OUI');
 
         if (!empty($y)) {
-            $builder->where('YEAR(fact_Liv.date_pg)', $y);
+            $builder->where('YEAR(fact_liv.date_pg)', $y);
         }
         if (!empty($m)) {
-            $builder->where('MONTH(fact_Liv.date_pg)', $m);
+            $builder->where('MONTH(fact_liv.date_pg)', $m);
         }
         if (!empty($d)) {
-            $builder->where('DAY(fact_Liv.date_pg)', $d);
+            $builder->where('DAY(fact_liv.date_pg)', $d);
         }
         if (!empty($w)) {
-            $builder->where('WEEK(fact_Liv.date_pg)', $w);
+            $builder->where('WEEK(fact_liv.date_pg)', $w);
         }
 
         return $builder->find();

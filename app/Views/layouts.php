@@ -359,7 +359,7 @@
           <div class="row text-muted">
             <div class="col-6 text-start">
               <p class="mb-0">
-                <a class="text-muted" href="<?= APP_WEB ?>" target="_blank"><strong><?= APP_NAME ?></strong></a> - by <a class="text-muted" href="https://github.com/yankee0" target="_blank"><strong>Yankee</strong></a> &copy;2023
+                <a class="text-muted" href="<?= APP_WEB ?>" target="_blank"><strong><?= APP_NAME ?> v 2.0 </strong></a> - &copy;2023 by <a class="text-muted" href="https://github.com/yankee0" target="_blank"><strong>Yankee</strong></a>
               </p>
             </div>
             <div class="col-6 text-end">
