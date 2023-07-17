@@ -47,43 +47,46 @@ Liste des zones
           <?= form_open(base_url(session()->r . '/zones/del'), [
             'id' => 'gd'
           ]) ?>
-          <table class="table table-hover my-0">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Nom</th>
-                <th class="d-none d-sm-table-cell">HT Livraison 20'</th>
-                <th class="d-none d-xl-table-cell">HT Livraison 40'</th>
-                <th class="d-none d-sm-table-cell">HT Hammar 20'</th>
-                <th class="d-none d-xl-table-cell">HT Hammar 40'</th>
-                <th class="d-none d-sm-table-cell">Carburant (en L)</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($list as $l) : ?>
+          <div class=" table-responsive">
+
+            <table class="table table-hover my-0">
+              <thead>
                 <tr>
-                  <td id="<?= $l['id'] ?>">
-                    <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
-                  </td>
-                  <td><?= $l['nom'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['ht_liv_20'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['ht_liv_40'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['ham_20'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['ham_40'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['carburant'] ?></td>
-                  <td>
-                    <div class="d-flex gap-2">
-                      <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
-                        <i cla data-feather="trash"></i>
-                      </button>
-                      <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="edit"></i></button>
-                    </div>
-                  </td>
+                  <th></th>
+                  <th>Nom</th>
+                  <th class="d-none d-sm-table-cell">HT Livraison 20'</th>
+                  <th class="d-none d-xl-table-cell">HT Livraison 40'</th>
+                  <th class="d-none d-sm-table-cell">HT Hammar 20'</th>
+                  <th class="d-none d-xl-table-cell">HT Hammar 40'</th>
+                  <th class="d-none d-sm-table-cell">Carburant (en L)</th>
+                  <th></th>
                 </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <?php foreach ($list as $l) : ?>
+                  <tr>
+                    <td id="<?= $l['id'] ?>">
+                      <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
+                    </td>
+                    <td><?= $l['nom'] ?></td>
+                    <td class="d-none d-sm-table-cell"><?= $l['ht_liv_20'] ?></td>
+                    <td class="d-none d-sm-table-cell"><?= $l['ht_liv_40'] ?></td>
+                    <td class="d-none d-sm-table-cell"><?= $l['ham_20'] ?></td>
+                    <td class="d-none d-xl-table-cell"><?= $l['ham_40'] ?></td>
+                    <td class="d-none d-sm-table-cell"><?= $l['carburant'] ?></td>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
+                          <i cla data-feather="trash"></i>
+                        </button>
+                        <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la zone" data-bs-toggle="modal" data-bs-target="#modalIdEdit"><i cla data-feather="edit"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
           <?= form_close() ?>
         <?php endif ?>
         <div class="card-footer text-center d-flex justify-content-end" style="overflow-x: scroll">

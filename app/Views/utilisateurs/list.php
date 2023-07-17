@@ -41,47 +41,50 @@ Liste des utilisateurs
             </div>
           </div>
         <?php else :  ?>
-          <table class="table table-hover my-0">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Nom</th>
-                <th class="d-none d-sm-table-cell">Profil</th>
-                <th class="d-none d-xl-table-cell">Email</th>
-                <th class="d-none d-xl-table-cell">Téléphone</th>
-                <th class="d-none d-sm-table-cell">Date de création</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?= form_open(base_url(session()->r . '/utilisateurs/del'), [
-                'id' => 'delG'
-              ]) ?>
-              <?php foreach ($list as $l) : ?>
+          <div class="table-responsive">
+
+            <table class="table table-hover my-0">
+              <thead>
                 <tr>
-                  <td id="<?= $l['id'] ?>">
-                    <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
-                  </td>
-                  <td><?= $l['nom'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['profil'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['email'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
-                  <td class="d-none d-sm-table-cell"><?= $l['created_at'] ?></td>
-                  <td>
-                    <div class="d-flex gap-2">
-                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
-                        <i cla data-feather="trash"></i>
-                      </button>
-                      <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
-                        <i cla data-feather="edit"></i>
-                      </button>
-                    </div>
-                  </td>
+                  <th></th>
+                  <th>Nom</th>
+                  <th class="d-none d-sm-table-cell">Profil</th>
+                  <th class="d-none d-xl-table-cell">Email</th>
+                  <th class="d-none d-xl-table-cell">Téléphone</th>
+                  <th class="d-none d-sm-table-cell">Date de création</th>
+                  <th></th>
                 </tr>
-              <?php endforeach ?>
-              <?= form_close() ?>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <?= form_open(base_url(session()->r . '/utilisateurs/del'), [
+                  'id' => 'delG'
+                ]) ?>
+                <?php foreach ($list as $l) : ?>
+                  <tr>
+                    <td id="<?= $l['id'] ?>">
+                      <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
+                    </td>
+                    <td><?= $l['nom'] ?></td>
+                    <td class="d-none d-sm-table-cell"><?= $l['profil'] ?></td>
+                    <td class="d-none d-xl-table-cell"><?= $l['email'] ?></td>
+                    <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
+                    <td class="d-none d-sm-table-cell"><?= $l['created_at'] ?></td>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
+                          <i cla data-feather="trash"></i>
+                        </button>
+                        <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" data-bs-toggle="modal" value="<?= $l['id'] ?>" data-bs-target="#modalIdmodu" class="update btn text-warning" title="Modifier les informations de l'utilisateur">
+                          <i cla data-feather="edit"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+                <?= form_close() ?>
+              </tbody>
+            </table>
+          </div>
         <?php endif ?>
         <div class="card-footer text-center d-flex justify-content-end" style="overflow-x: scroll">
           <nav class="pagination">
