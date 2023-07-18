@@ -192,7 +192,7 @@
                   <h6><small>Conteneurs 20'</small></h6>
                   <div class="row gap-2">
                     <?php foreach ($z['c_20'] as $c) : ?>
-                      <div class="col-3 text-uppercase text-sm text-muted">$c</div>
+                      <div class="col-3 text-uppercase text-sm text-muted"><?= $c ?></div>
                     <?php endforeach ?>
                   </div>
                 <?php endif ?>
@@ -200,7 +200,7 @@
                   <h6><small>Conteneurs 40'</small></h6>
                   <div class="row gap-2">
                     <?php foreach ($z['c_40'] as $c) : ?>
-                      <div class="col-3 text-uppercase text-sm text-muted">$c</div>
+                      <div class="col-3 text-uppercase text-sm text-muted"><?= $c ?></div>
                     <?php endforeach ?>
                   </div>
                 <?php endif ?>
