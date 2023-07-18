@@ -184,26 +184,28 @@
           <?php foreach ($zones as $z) : ?>
             <tr>
               <td>
-                <p class="d-flex g-1 flex-column">
-                  <b><?= $z['designation'] ?></b>
-                  <i><?= $z['adresse'] ?></i>
-                </p>
-                <?php if (sizeof($z['c_20']) > 0) : ?>
-                  <h6><small>Conteneurs 20'</small></h6>
-                  <div class="row gap-2">
-                    <?php foreach ($z['c_20'] as $c) : ?>
-                      <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
-                    <?php endforeach ?>
-                  </div>
-                <?php endif ?>
-                <?php if (sizeof($z['c_40']) > 0) : ?>
-                  <h6><small>Conteneurs 40'</small></h6>
-                  <div class="row gap-2">
-                    <?php foreach ($z['c_40'] as $c) : ?>
-                      <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
-                    <?php endforeach ?>
-                  </div>
-                <?php endif ?>
+                <div>
+                  <p class="d-flex g-1 flex-column">
+                    <b><?= $z['designation'] ?></b>
+                    <i><?= $z['adresse'] ?></i>
+                  </p>
+                  <?php if (sizeof($z['c_20']) > 0) : ?>
+                    <h6><small>Conteneurs 20'</small></h6>
+                    <div class="row gap-2">
+                      <?php foreach ($z['c_20'] as $c) : ?>
+                        <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
+                      <?php endforeach ?>
+                    </div>
+                  <?php endif ?>
+                  <?php if (sizeof($z['c_40']) > 0) : ?>
+                    <h6><small>Conteneurs 40'</small></h6>
+                    <div class="row gap-2">
+                      <?php foreach ($z['c_40'] as $c) : ?>
+                        <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
+                      <?php endforeach ?>
+                    </div>
+                  <?php endif ?>
+                </div>
               </td>
               <td><?= sizeof($z['c_20']) ?></td>
               <td><?= (isset($z['c_20'][0]['prix'])) ? $z['c_20'][0]['prix'] : '' ?></td>
