@@ -190,19 +190,11 @@
                 </p>
                 <?php if (sizeof($z['c_20']) > 0) : ?>
                   <h6><small>Conteneurs 20'</small></h6>
-                  <p>
-                    <?php foreach ($z['c_20'] as $c) : ?>
-                      <?= $c['conteneur'] ?> -
-                    <?php endforeach ?>
-                  </p>
+                  <p><?php foreach ($z['c_20'] as $c) : ?><?= $c['conteneur'].' ' ?><?php endforeach ?></p>
                 <?php endif ?>
                 <?php if (sizeof($z['c_40']) > 0) : ?>
                   <h6><small>Conteneurs 40'</small></h6>
-                  <p>
-                    <?php foreach ($z['c_40'] as $c) : ?>
-                      <?= $c['conteneur'] ?> -
-                    <?php endforeach ?>
-                  </p>
+                  <p><?php foreach ($z['c_40'] as $c) : ?><?= $c['conteneur'].' ' ?><?php endforeach ?></p>
                 <?php endif ?>
               </td>
               <td><?= sizeof($z['c_20']) ?></td>
