@@ -191,18 +191,24 @@
                   </p>
                   <?php if (sizeof($z['c_20']) > 0) : ?>
                     <h6><small>Conteneurs 20'</small></h6>
-                    <div class="row gap-2">
-                      <?php foreach ($z['c_20'] as $c) : ?>
-                        <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
-                      <?php endforeach ?>
+                    <div class="container-fluid">
+
+                      <div class="row">
+                        <?php foreach ($z['c_20'] as $c) : ?>
+                          <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
+                        <?php endforeach ?>
+                      </div>
                     </div>
                   <?php endif ?>
                   <?php if (sizeof($z['c_40']) > 0) : ?>
                     <h6><small>Conteneurs 40'</small></h6>
-                    <div class="row gap-2">
-                      <?php foreach ($z['c_40'] as $c) : ?>
-                        <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
-                      <?php endforeach ?>
+                    <div class="container-fluid">
+
+                      <div class="row">
+                        <?php foreach ($z['c_40'] as $c) : ?>
+                          <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
+                        <?php endforeach ?>
+                      </div>
                     </div>
                   <?php endif ?>
                 </div>
