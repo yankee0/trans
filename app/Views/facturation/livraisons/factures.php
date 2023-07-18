@@ -147,7 +147,7 @@
             <div id="lo"></div>
             <!-- <img id="logo" src="<?= base_url('assets/img/logo.png') ?>" height="100px" alt=""> -->
             <div class=" d-flex flex-column align-items-start">
-              <h3 class="fs-3 text-primary">POLY-TRANS SUARL</h3>
+              <h3 class="fs-3 ">POLY-TRANS SUARL</h3>
               <span>Transit - Transport - Manutention - Consignation - Entreposage - Groupage - Conseils</span>
             </div>
           </div>
@@ -157,7 +157,7 @@
         </div>
       </div>
       <hr>
-      <h2 class="invoice-title text-center text-capitalize text-primary fs-1"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
+      <h2 class="invoice-title text-center text-capitalize  fs-1"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
       <div class="invoice-details d-flex align-items-center justify-content-between">
         <div>
           <p class="fs-1"><?= $facture['consignataire'] ?></p>
@@ -284,7 +284,7 @@
           </tr>
         </tfoot>
       </table>
-      <p class=""><strong>Arrête la présente facture à la somme de Francs CFA: <span id="lettre" class=" text-uppercase text-primary"></span></strong></p>
+      <p class=""><strong>Arrête la présente facture à la somme de Francs CFA: <span id="lettre" class=" text-uppercase "></span></strong></p>
       <p class="text-sm">
         44, Av Lamine GUEYE Immeuble BHT 2ème étage porte B <br>
         Tél/Fax: 33 842 52 58 <br>
