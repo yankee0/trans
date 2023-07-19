@@ -30,7 +30,7 @@ class FactLiv extends BaseController
         $i = sizeof($f);
         $i -= 1;
     
-        $last = !($i < 0) ? intval($f[$i]['id']) : 1;
+        $last = !($i < 0) ? intval($f[$i]['id'] + 1) : 1;
 
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations())->FactLivInfos($factLiv[$i]);
