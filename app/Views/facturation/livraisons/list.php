@@ -41,7 +41,7 @@ Facturation livraisons
         <?= form_open(base_url(session()->r . '/livraisons'), []) ?>
         <?= csrf_field() ?>
         <div class="row mb-3">
-          <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span class="text-primary"><?= intval($fact_liv_last[sizeof($fact_liv_last) - 1]['id']) + 1 ?></span></h5>
+          <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span class="text-primary"><?= $last ?></span></h5>
           <div class="col-md-6 col-xl-3 mb-3">
             <label for="date_creation" class="form-label">Date de Facturation</label>
             <input type="date" class="form-control" name="date_creation" id="date_creation" placeholder="Date de facturation" required>

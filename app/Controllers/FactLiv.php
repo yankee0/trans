@@ -21,8 +21,16 @@ class FactLiv extends BaseController
         session()->p = 'f-livraisons';
         $factLiv = (new ModelsFactLiv())
             ->limit(5)
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('date_creation', 'DESC')
             ->findAll();
+
+        //recuperation de l'id de la derniere facture
+        $f = (new ModelsFactLiv())
+            ->findAll();
+        $i = sizeof($f);
+        $i -= 1;
+        $last = intval($f[$i]['id']);
+
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations())->FactLivInfos($factLiv[$i]);
         }
@@ -32,6 +40,7 @@ class FactLiv extends BaseController
                 ->orderBy('nom')
                 ->findAll(),
             'fact_liv_last' => $factLiv,
+            'last' => $last
 
         ]);
     }
