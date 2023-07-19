@@ -98,6 +98,7 @@ Facturation livraisons
         <div class="card-body">
           <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
           <p class="fs-3 "><span class="text-primary" id="lettre"></span> FCFA TTC</p>
+          <p class="fs-3">Crée le <?= $facture['date_creation'] ?></p>
           <p class="d-grid d-sm-flex gap-2">
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delFactLiv">Supprimer la facture</button>
             <?php if ($facture['annulation'] == 'NON') : ?>

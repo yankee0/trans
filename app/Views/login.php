@@ -27,7 +27,7 @@
                     <img src="<?= base_url('assets/img/logo.png') ?>" alt="<?= APP_NAME ?> - Logo" class="img-fluid" width="132" height="132" />
                   </div>
                   <div class="text-center mt-3">
-                    <h1 class="h2 text-primary"><?= APP_NAME ?> APP</h1>
+                    <!-- <h1 class="h2 text-primary"><?= APP_NAME ?> APP</h1> -->
                   </div>
                   <div class="text-center mt-3">
                     <?php if (session()->has('n')) : ?>
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="text-center">
-              <span class="m-auto text-center">Poly-Trans App V 2.0 - ©2023 by <a target="_blank" href="https://www.github.com/yankee0">Yankee</a></span>
+              <span class="m-auto text-center text-muted">Poly-Trans App V 2.0 - ©2023 by <a target="_blank" class="text-muted" href="https://www.github.com/yankee0">Yankee</a></span>
             </div>
           </div>
         </div>

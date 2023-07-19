@@ -16,7 +16,7 @@ class Facturations extends BaseController
         $model_fact_liv = new FactLiv();
         $factLiv = $model_fact_liv
             ->limit(5)
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('date_creation', 'DESC')
             ->findAll();
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = $this->FactLivInfos($factLiv[$i]);

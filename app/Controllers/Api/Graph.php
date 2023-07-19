@@ -18,8 +18,8 @@ class Graph extends BaseController
         for ($i = 1; $i <= 12; $i++) {
 
             $factures = $modele
-                ->where('MONTH(created_at)', $i)
-                ->where('YEAR(created_at)', date('Y',time()))
+                ->where('MONTH(date_creation)', $i)
+                ->where('YEAR(date_creation)', date('Y',time()))
                 ->where('paiement', 'OUI')
                 ->find();
 

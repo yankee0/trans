@@ -78,6 +78,7 @@ class FactLiv extends BaseController
                     'copie' => isset($data['copie']) ? 500 : 0,
                     // 'ages' => isset($data['ages']) ? 1500 : 0,
                     'hammar' => isset($data['hamCheck']) and isset($data['hammar']) ? $data['hammar'] : 0,
+                    'date_creation' => $data['date_creation']
                 ];
             }
             try {
@@ -746,16 +747,16 @@ class FactLiv extends BaseController
             ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
 
         if (!empty($y)) {
-            $builder->where('YEAR(fact_liv.date_paiement)', $y);
+            $builder->where('YEAR(fact_liv.date_creation)', $y);
         }
         if (!empty($m)) {
-            $builder->where('MONTH(fact_liv.date_paiement)', $m);
+            $builder->where('MONTH(fact_liv.date_creation)', $m);
         }
         if (!empty($d)) {
-            $builder->where('DAY(fact_liv.date_paiement)', $d);
+            $builder->where('DAY(fact_liv.date_creation)', $d);
         }
         if (!empty($w)) {
-            $builder->where('WEEK(fact_liv.date_paiement)', $w);
+            $builder->where('WEEK(fact_liv.date_creation)', $w);
         }
 
         return $builder->find();

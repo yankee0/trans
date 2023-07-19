@@ -106,7 +106,7 @@
                   <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
                   <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                   <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
                   <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>

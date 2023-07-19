@@ -41,6 +41,13 @@ Facturation livraisons
         <?= form_open(base_url(session()->r . '/livraisons'), []) ?>
         <?= csrf_field() ?>
         <div class="row mb-3">
+          <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span class="text-primary"><?= intval($fact_liv_last[sizeof($fact_liv_last) - 1]['id']) + 1 ?></span></h5>
+          <div class="col-md-6 col-xl-3 mb-3">
+            <label for="date_creation" class="form-label">Date de Facturation</label>
+            <input type="date" class="form-control" name="date_creation" id="date_creation" placeholder="Date de facturation" required>
+          </div>
+        </div>
+        <div class="row mb-3">
           <div class="col-md-6 col-xl">
             <h5 class="card-title mb-0 text-dark mb-2">Client</h5>
             <div class="mb-3">
@@ -136,7 +143,7 @@ Facturation livraisons
                 <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
                 <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
-                <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
+                <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                 <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
                 <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
                 <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>

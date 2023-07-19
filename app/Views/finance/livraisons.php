@@ -48,7 +48,7 @@ Livraisons
                   <td><?= $line['id'] ?></td>
                   <td class="table-cell"><?= $line['bl'] ?></td>
                   <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
-                  <td class="d-none d-xl-table-cell"><?= $line['created_at'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td><span class="badge bg-<?= ($line['reglement'] == 'NON PAYÉ' or $line['reglement'] == 'À CRÉDIT') ? 'danger' : 'success' ?>"><?= $line['reglement'] ?></span></td>
                   <td><?= $line['date_paiement'] != null ? $line['date_paiement'] : '<span class="badge bg-dark">INDÉFINIE</span>'  ?></td>
