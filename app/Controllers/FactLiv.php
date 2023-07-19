@@ -29,7 +29,8 @@ class FactLiv extends BaseController
             ->findAll();
         $i = sizeof($f);
         $i -= 1;
-        $last = intval($f[$i]['id']);
+    
+        $last = !($i < 0) ? intval($f[$i]['id']) : 1;
 
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations())->FactLivInfos($factLiv[$i]);
