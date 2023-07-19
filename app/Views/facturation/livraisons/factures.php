@@ -162,7 +162,7 @@
         <div>
           <p class="fs-1"><?= $facture['consignataire'] ?></p>
           <p>Compte Nº <?= $facture['id_client'] ?></p>
-          <p>Date de facturation : <?= $facture['created_at'] ?></p>
+          <p>Date de facturation : <?= $facture['date_creation'] ?></p>
         </div>
         <div>
           <p class="fs-1"></p>
