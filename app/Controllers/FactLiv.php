@@ -338,7 +338,7 @@ class FactLiv extends BaseController
 
 
             //le total
-            $total = $invoice['ages'] + $invoice['hammar'] + $invoice['copie'];
+            $total = $invoice['hammar'];
 
             for ($i = 0; $i < sizeof($zones); $i++) {
                 $c_20 = (new FactLivLignes())
@@ -365,7 +365,7 @@ class FactLiv extends BaseController
                 'zones' => $zones,
                 'total' => $total,
                 'taxe' => $total * 18 / 100,
-                'ttc' => $total + $total * 18 / 100,
+                'ttc' => $total + ($total * 18 / 100) + $invoice['ages'] + $invoice['copie'],
             ];
         }
         return $data;
