@@ -38,7 +38,7 @@ class FactLiv extends BaseController
 
         return view('facturation/livraisons/list', [
             'cli' => (new Clients())
-                ->orderBy('nom')
+                ->orderBy('id')
                 ->findAll(),
             'fact_liv_last' => $factLiv,
             'last' => $last

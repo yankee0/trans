@@ -238,7 +238,7 @@
                 </td>
               </tr>
             <?php endif ?>
-            <?php if ($facture['ages'] > 0) : ?>
+            <?php if ($facture['ages'] > 0 and $facture['avec_ages'] == 'OUI') : ?>
               <tr>
                 <td colspan="5">
                   <b>Ticket A.G.S</b>
