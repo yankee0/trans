@@ -166,21 +166,16 @@ class FactLiv extends BaseController
                             'adresse' => $data['address'][$i],
                         ], true);
                     } catch (Exception $e) {
-                        if ($defined_invoice == null) {
-                            (new ModelsFactLiv())->delete($facture);
-                        }
                         return redirect()
-                            ->back()
-                            ->withInput()
+                            ->to(session()->r . '/livraisons/edit/' . $facture)
                             ->with('n', false)
-                            ->with('m', '<br />' . $e->getMessage());
+                            ->with('m', 'Une erreur s\'est produite.');
                     }
                     //pour les 20'
                     foreach ($c_20[$i] as $c) {
 
                         if (!empty($c)) {
                             $trimed = trim($c);
-
                             try {
                                 $check = (new FactLivLignes())->where([
                                     'id_lieu' => intval($lieux),
@@ -188,10 +183,10 @@ class FactLiv extends BaseController
                                 ])->find();
 
                                 if (sizeof($check) != 0) {
-                                    if ($defined_invoice == null) {
-                                        (new ModelsFactLiv())->delete($facture);
-                                    }
-                                    throw new Exception('Un doublon de conteneur détecté.');
+                                    return redirect()
+                                        ->to(session()->r . '/livraisons/edit/' . $facture)
+                                        ->with('n', false)
+                                        ->with('m', 'Un doublon de conteneur détecté.');
                                 }
 
                                 //création de la ligne de facture
@@ -230,10 +225,10 @@ class FactLiv extends BaseController
                                 ])->find();
 
                                 if (sizeof($check) != 0) {
-                                    if ($defined_invoice == null) {
-                                        (new FactLiv)->delete($facture);
-                                    }
-                                    throw new Exception('Un doublon de conteneur détecté.');
+                                    return redirect()
+                                        ->to(session()->r . '/livraisons/edit/' . $facture)
+                                        ->with('n', false)
+                                        ->with('m', 'Un doublon de conteneur détecté.');
                                 }
 
                                 //création de la ligne de facture
@@ -265,14 +260,10 @@ class FactLiv extends BaseController
                     'ages' => 1500 * $agsCount,
                 ]);
             } catch (Exception $e) {
-                if ($defined_invoice == null) {
-                    (new FactLiv)->delete($facture);
-                }
                 return redirect()
-                    ->back()
-                    ->withInput()
+                    ->to(session()->r . '/livraisons/edit/' . $facture)
                     ->with('n', false)
-                    ->with('m', '<br />' . $e->getMessage());
+                    ->with('m', 'Une erreur s\'est produite.');
             }
             return redirect()
                 ->to(session()->r . '/livraisons/edit/' . $facture)
