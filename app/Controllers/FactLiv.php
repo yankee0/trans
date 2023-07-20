@@ -304,6 +304,7 @@ class FactLiv extends BaseController
         $r = $modele
             ->like('bl', $s)
             ->orLike('id_client', $s)
+            ->orLike('id', $s)
             ->orLike('compagnie', $s)
             ->orLike('date_creation', $s)
             ->orderBy('date_creation', 'DESC')
