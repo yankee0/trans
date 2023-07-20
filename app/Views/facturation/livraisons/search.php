@@ -38,7 +38,7 @@ Facturation livraisons
               <p class=" text-opacity-75">
                 BL Nº <strong><?= $res['bl'] ?></strong> de la compagnie <strong><?= $res['compagnie'] ?></strong> <br>
                 Consignataire: <strong><?= $res['consignataire'] ?></strong> <br>
-                <span class="text-muted text-sm">Créée le <?= $res['created_at'] ?></span>
+                <span class="text-muted text-sm">Créée le <?= $res['date_creation'] ?></span>
               </p>
             </article>
             <hr>
