@@ -383,7 +383,7 @@ class FactLiv extends BaseController
                 'zones' => $zones,
                 'total' => $total,
                 'taxe' => $total * $tva,
-                'ttc' => $total + ($total * $tva) + $ags + $copie,
+                'ttc' => intval($total + ($total * $tva) + $ags + $copie),
             ];
         }
         return $data;

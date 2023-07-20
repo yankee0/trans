@@ -88,7 +88,7 @@ class Facturations extends BaseController
         $ags = $factLiv['avec_ages'] == 'OUI' ? $factLiv['ages'] : 0;
         $copie = $factLiv['avec_copie'] == 'OUI' ? $factLiv['copie'] : 0;
         $total = $total + $ags + $copie + $factLiv['hammar'];
-        $factLiv['total'] = $total + ($total * $tva);
+        $factLiv['total'] = intval($total + ($total * $tva));
 
         return $factLiv;
     }
