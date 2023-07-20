@@ -15,9 +15,8 @@ class Facturations extends BaseController
         session()->p = 'dashboard';
         $model_fact_liv = new FactLiv();
         $factLiv = $model_fact_liv
-            ->limit(5)
             ->orderBy('date_creation', 'DESC')
-            ->findAll();
+            ->paginate(10);
             // dd($factLiv);
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = $this->FactLivInfos($factLiv[$i]);

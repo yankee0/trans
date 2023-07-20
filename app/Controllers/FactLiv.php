@@ -20,16 +20,15 @@ class FactLiv extends BaseController
     {
         session()->p = 'f-livraisons';
         $factLiv = (new ModelsFactLiv())
-            ->limit(5)
             ->orderBy('date_creation', 'DESC')
-            ->findAll();
+            ->paginate(10);
 
         //recuperation de l'id de la derniere facture
         $f = (new ModelsFactLiv())
             ->findAll();
         $i = sizeof($f);
         $i -= 1;
-    
+
         $last = !($i < 0) ? intval($f[$i]['id'] + 1) : 1;
 
         for ($i = 0; $i < sizeof($factLiv); $i++) {
@@ -375,7 +374,7 @@ class FactLiv extends BaseController
                 $zones[$i]['c_40'] = [];
                 $zones[$i]['c_40'] = array_merge($zones[$i]['c_40'], $c_40);
             }
-            $tva = $invoice['avec_tva'] == 'OUI' ? 18/100 : 0;
+            $tva = $invoice['avec_tva'] == 'OUI' ? 18 / 100 : 0;
             $ags = $invoice['avec_ages'] == 'OUI' ? $invoice['ages'] : 0;
             $copie = $invoice['avec_copie'] == 'OUI' ? $invoice['copie'] : 0;
             $data = [
