@@ -148,10 +148,16 @@ Facturation livraisons
               <?php endif ?>
             </div>
             <div class="col-md-6 col-lg">
+
               <h5 class="card-title text-dark">Frais supplémentaires</h5>
               <hr>
-              <span><strong class="text-primary">Impression:</strong> <?= $facture['copie'] ?> FCFA</span><br>
-              <span><strong class="text-primary">Ticket AGES:</strong> <?= $facture['ages'] ?> FCFA</span>
+              <span><strong class="text-primary">TVA:</strong> <?= $facture['avec_tva'] == 'OUI' ? '18%' : 'NON' ?></span><br>
+              <span><strong class="text-primary">Impression:</strong> <?= $facture['avec_copie'] == 'OUI' ? $facture['copie'] . ' FCFA' : 'NON' ?></span><br>
+              <span><strong class="text-primary">Ticket AGS:</strong> <?= $facture['avec_ages'] == 'OUI' ? $facture['ages'] . ' FCFA' : 'NON' ?></span>
+              <button class="btn d-flex align-items-center justify-content-center gap-3 px-0" data-bs-toggle="modal" data-bs-target="#modFees">
+                <i data-feather="edit"></i>
+                <span>Modifier</span>
+              </button>
             </div>
           </div>
           <div class="row">
@@ -392,6 +398,49 @@ Facturation livraisons
 </div>
 <script>
   const myModalmodHam = new bootstrap.Modal(document.getElementById('modCie'), options)
+</script>
+
+<!-- frais et taxes -->
+<div class="modal fade" id="modFees" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="fees" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fees">Taxes et frais supplémentaires</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/livraisons/edit/entete/' . $facture['id']),
+          [
+            'id' => 'modFeesForm'
+          ]
+        ) ?>
+
+        <div class="form-check form-switch">
+          <input class="form-check-input" name="avec_tva" value="OUI" type="checkbox" id="tva" <?= $facture['avec_tva'] == 'OUI' ? 'checked' : '' ?>>
+          <label class="form-check-label" for="tva">TVA 18%</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" name="avec_ages" value="OUI" type="checkbox" id="pass" <?= $facture['avec_ages'] == 'OUI' ? 'checked' : '' ?>>
+          <label class="form-check-label" for="pass">1500 FCFA / Ticket A.G.S. / Conteneur</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" name="avec_copie" value="OUI" type="checkbox" id="print" <?= $facture['avec_copie'] == 'OUI' ? 'checked' : '' ?>>
+          <label class="form-check-label" for="print">500 FCFA Photocopie</label>
+        </div>
+        <input type="text" hidden name="honeypot" readonly>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modFeesForm" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalfees = new bootstrap.Modal(document.getElementById('modFees'), options)
 </script>
 
 <!-- del zone -->

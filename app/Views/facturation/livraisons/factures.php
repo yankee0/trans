@@ -265,11 +265,11 @@
             <td colspan="5" class="invoice-total ">
               Total Hors Taxe <br>
               TVA <br>
-              Taxe
+              Taxes
             </td>
             <td id="total">
               <?= $total ?> <br>
-              18% <br>
+              <?= $facture['avec_tva'] == 'OUI' ? '18%' : '0' ?> <br>
               <?= $taxe ?>
             </td>
           </tr>

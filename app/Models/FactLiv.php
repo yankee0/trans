@@ -31,6 +31,9 @@ class FactLiv extends Model
         'ages',
         'copie',
         'hammar',
+        'avec_tva',
+        'avec_ages',
+        'avec_copie',
     ];
 
     // Dates

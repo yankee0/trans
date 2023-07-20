@@ -86,10 +86,14 @@ class FactLiv extends BaseController
                     'bl' => strtoupper($data['bl']),
                     'csrf_test_name' => $data['csrf_test_name'],
                     'copie' => isset($data['copie']) ? 500 : 0,
-                    // 'ages' => isset($data['ages']) ? 1500 : 0,
+                    'avec_ages' => isset($data['ages']) ? 'OUI' : 'NON',
+                    'avec_copie' => isset($data['copie']) ? 'OUI' : 'NON',
+                    'avec_tva' => isset($data['tva']) ? 'OUI' : 'NON',
                     'hammar' => isset($data['hamCheck']) and isset($data['hammar']) ? $data['hammar'] : 0,
                     'date_creation' => $data['date_creation']
                 ];
+
+                // dd($data_liv);
             }
             try {
                 $facture = ($defined_invoice == null) ? (new ModelsFactLiv())->insert($data_liv, true) : $defined_invoice;
@@ -311,8 +315,8 @@ class FactLiv extends BaseController
             ->like('bl', $s)
             ->orLike('id_client', $s)
             ->orLike('compagnie', $s)
-            ->orLike('created_at', $s)
-            ->orderBy('created_at', 'DESC')
+            ->orLike('date_creation', $s)
+            ->orderBy('date_creation', 'DESC')
             ->paginate(20);
         // if (!empty($r)) {
         //     for ($i = 0; $i < sizeof($r); $i++) {
@@ -371,12 +375,15 @@ class FactLiv extends BaseController
                 $zones[$i]['c_40'] = [];
                 $zones[$i]['c_40'] = array_merge($zones[$i]['c_40'], $c_40);
             }
+            $tva = $invoice['avec_tva'] == 'OUI' ? 18/100 : 0;
+            $ags = $invoice['avec_ages'] == 'OUI' ? $invoice['ages'] : 0;
+            $copie = $invoice['avec_copie'] == 'OUI' ? $invoice['copie'] : 0;
             $data = [
                 'facture' => $invoice,
                 'zones' => $zones,
                 'total' => $total,
-                'taxe' => $total * 18 / 100,
-                'ttc' => $total + ($total * 18 / 100) + $invoice['ages'] + $invoice['copie'],
+                'taxe' => $total * $tva,
+                'ttc' => $total + ($total * $tva) + $ags + $copie,
             ];
         }
         return $data;
@@ -423,6 +430,13 @@ class FactLiv extends BaseController
                     ->with('n', false)
                     ->with('m', '<br />' . $this->validator->listErrors());
             }
+        }
+
+        if (isset($data['honeypot'])) {
+            $data['avec_ages'] = isset($data['avec_ages']) ? 'OUI' : 'NON';
+            $data['avec_copie'] = isset($data['avec_copie']) ? 'OUI' : 'NON';
+            $data['copie'] = 500;
+            $data['avec_tva'] = isset($data['avec_tva']) ? 'OUI' : 'NON';
         }
         try {
             (new ModelsFactLiv())->save($data);

@@ -18,6 +18,7 @@ class Facturations extends BaseController
             ->limit(5)
             ->orderBy('date_creation', 'DESC')
             ->findAll();
+            // dd($factLiv);
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = $this->FactLivInfos($factLiv[$i]);
         }
@@ -32,6 +33,7 @@ class Facturations extends BaseController
                 ->where('preget', 'NON')
                 ->findAll(),
             'fact_liv_last' => $factLiv,
+            'avec_tva' => (isset($data['tva'])) ? 'OUI' : 'NON'
         ];
         return view('facturation/dashboard', $data);
     }
@@ -82,8 +84,11 @@ class Facturations extends BaseController
         $factLiv['n40'] = $n40;
 
         //ainsi le total + tva
-        $total = $total + $factLiv['ages'] + $factLiv['copie'] + $factLiv['hammar'];
-        $factLiv['total'] = $total + ($total * 18 / 100);
+        $tva = $factLiv['avec_tva'] == 'OUI' ? 18 / 100 : 0;
+        $ags = $factLiv['avec_ages'] == 'OUI' ? $factLiv['ages'] : 0;
+        $copie = $factLiv['avec_copie'] == 'OUI' ? $factLiv['copie'] : 0;
+        $total = $total + $ags + $copie + $factLiv['hammar'];
+        $factLiv['total'] = $total + ($total * $tva);
 
         return $factLiv;
     }

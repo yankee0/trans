@@ -95,6 +95,10 @@ Facturation livraisons
           <div class="col-md-6 col-xl">
             <h5 class="card-title mb-0 text-dark mb-2">Frais supplémentaires</h5>
             <div class="form-check form-switch">
+              <input class="form-check-input" name="tva" type="checkbox" id="tva" checked>
+              <label class="form-check-label" for="tva">TVA 18%</label>
+            </div>
+            <div class="form-check form-switch">
               <input class="form-check-input" name="ages" type="checkbox" id="pass" checked>
               <label class="form-check-label" for="pass">1500 FCFA Ticket A.G.S. par conteneur</label>
             </div>
