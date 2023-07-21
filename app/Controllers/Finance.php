@@ -156,7 +156,8 @@ class Finance extends BaseController
         $modelLiv = new FactLiv();
         if (isset($get['search'])) {
             $facts = $modelLiv
-                ->like('bl', $get['search'])
+                ->like('id', $get['search'])
+                ->orLike('bl', $get['search'])
                 ->orLike('id_client', $get['search'])
                 ->orLike('compagnie', $get['search'])
                 ->orLike('created_at', $get['search'])

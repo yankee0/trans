@@ -302,9 +302,9 @@ class FactLiv extends BaseController
         $s = isset($data['search']) ? $data['search'] : '%';
         $modele = new ModelsFactLiv();
         $r = $modele
-            ->like('bl', $s)
+            ->like('id', $s)
+            ->orLike('bl', $s)
             ->orLike('id_client', $s)
-            ->orLike('id', $s)
             ->orLike('compagnie', $s)
             ->orLike('date_creation', $s)
             ->orderBy('date_creation', 'DESC')
