@@ -17,9 +17,8 @@ class Finance extends BaseController
 
         //get the last liv invoices
         $factLiv = $model_fact_liv
-            ->limit(5)
             ->orderBy('created_at', 'DESC')
-            ->findAll();
+            ->paginate(15);
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations)->FactLivInfos($factLiv[$i]);
         }
@@ -160,8 +159,9 @@ class Finance extends BaseController
                 ->orLike('bl', $get['search'])
                 ->orLike('id_client', $get['search'])
                 ->orLike('compagnie', $get['search'])
-                ->orLike('created_at', $get['search'])
-                ->orderBy('created_at', 'DESC')
+                ->orLike('paiement', $get['search'])
+                ->orLike('date_creation', $get['search'])
+                ->orderBy('date_creation', 'DESC')
                 ->paginate(25);
             $data['search'] = $get['search'];
         } else {

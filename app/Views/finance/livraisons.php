@@ -10,7 +10,7 @@ Livraisons
     <div class="card">
       <div class="card-body">
         <form action="<?= base_url(session()->r . '/livraisons') ?>" class="d-flex gap-2">
-          <input type="search" value="<?= (isset($_GET['search'])) ? $_GET['search'] : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Nº Facture, Nº BL ou date d'enregistrement">
+          <input type="search" value="<?= (isset($_GET['search'])) ? $_GET['search'] : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Nº Facture, Nº BL, paiement(OUI ou NON), ou ou date d'enregistrement">
           <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
         </form>
       </div>
