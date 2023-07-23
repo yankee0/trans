@@ -13,7 +13,7 @@ class FactLiv extends Migration
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'auto_increment' => true,
+                // 'auto_increment' => true,
             ],
             'id_client' => [
                 'type' => 'INT',
@@ -116,7 +116,7 @@ class FactLiv extends Migration
                 'null' => true,
             ],
         ]);
-        $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey('id');
         $this->forge->addUniqueKey('bl');
         $this->forge->addForeignKey('id_client', 'clients', 'id', 'CASCADE', 'SET NULL');
         $this->forge->createTable('fact_liv', true);

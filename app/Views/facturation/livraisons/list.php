@@ -41,10 +41,26 @@ Facturation livraisons
         <?= form_open(base_url(session()->r . '/livraisons'), []) ?>
         <?= csrf_field() ?>
         <div class="row mb-3">
-          <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span class="text-primary"><?= $last ?></span></h5>
+          <div class="d-flex align-items-center gap-3">
+            <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span id="nF" class="text-primary"><?= $last ?></span></h5>
+  
+          </div>
+          <div class="col-md-6 col-xl-3 mb-3">
+            <label for="id" class="form-label">Numéro de facture</label>
+            <input type="number" min="1" class="form-control" name="id" id="id" value="<?= set_value('id', $last) ?>" placeholder="Numéro de la facture" required>
+            <script>
+              $(document).ready(function() {
+                $('#nF').html('<?= $last ?>');
+                $('#id').keyup(function(e) {
+                  e.preventDefault();
+                  $('#nF').html($(this).val());
+                });
+              });
+            </script>
+          </div>
           <div class="col-md-6 col-xl-3 mb-3">
             <label for="date_creation" class="form-label">Date de Facturation</label>
-            <input type="date" class="form-control" name="date_creation" id="date_creation" placeholder="Date de facturation" required>
+            <input type="date" class="form-control" name="date_creation" id="date_creation" value="<?= set_value('date_creation') ?>" placeholder="Date de facturation" required>
           </div>
         </div>
         <div class="row mb-3">

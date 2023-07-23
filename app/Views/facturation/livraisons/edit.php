@@ -76,12 +76,11 @@ Facturation livraisons
   });
 </script>
 <div class="container-fluid p-0">
-  <h1 class="h3 mb-3"><strong class="text-primary">Modification</strong> Facture <span class="text-primary">Nº <?= $facture['id'] ?></span></h1>
   <div class="row">
     <div class="col-12 d-flex">
       <div class="card flex-fill">
-        <div class="card-header d-flex align-items-center justify-content-between">
-          <h4 class="card-title">Informations sur la facture</h4>
+        <div class="card-header d-flex align-items-center justify-content-between ">
+          <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span id="nF" class="text-primary"><?= $facture['id'] ?></span></h5>
         </div>
         <?php if (
           $facture['annulation'] == 'NON'
@@ -94,11 +93,14 @@ Facturation livraisons
             <p class="text-center display-2 text-bg-danger">ANNULÉE</p>
             <p class="text-center text-bg-danger"><?= $facture['motif'] ?></p>
           </div>
-        <?php endif ?>
-        <div class="card-body">
-          <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
-          <p class="fs-3 "><span class="text-primary" id="lettre"></span> FCFA TTC</p>
-          <p class="fs-3">Crée le <?= $facture['date_creation'] ?></p>
+          <?php endif ?>
+          <div class="card-body">
+            <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
+            <p class="fs-3 "><span class="text-primary" id="lettre"></span> FCFA TTC</p>
+            <p class="fs-3">
+              <span>Crée le <?= $facture['date_creation'] ?></span>
+              <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modID"><i data-feather="edit" class="text-warning"></i> Modifier la date</button>
+          </p>
           <p class="d-grid d-sm-flex gap-2">
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delFactLiv">Supprimer la facture</button>
             <?php if ($facture['annulation'] == 'NON') : ?>
@@ -270,6 +272,47 @@ Facturation livraisons
 <script>
   const myModalcli = new bootstrap.Modal(document.getElementById('modalIdmodcompte'), options)
 </script>
+
+<!-- mod Date F -->
+<button type="button" class="btn btn-primary btn-lg">
+  Launch
+</button>
+
+
+<div class="modal fade" id="modID" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modidti" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modidti">Modification de la date de facturation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <?= form_open(
+          base_url(session()->r . '/livraisons/edit/entete/' . $facture['id']),
+          [
+            'id' => 'modidform'
+          ]
+        ) ?>
+
+        <div class="mb-3">
+          <label for="id" class="form-label">Numéro de facture <span class="text-primary">*</span></label>
+          <input type="date"  class="form-control" name="date_creation" value="<?= set_value('date_creation',$facture['date_creation']) ?>" placeholder="Date de création de la facture" required>
+        </div>
+
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="modidform" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalID = new bootstrap.Modal(document.getElementById('modID'), options)
+</script>
+
 
 <!-- mod consignataire -->
 <div class="modal fade" id="modalIdmodconsi" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdmodcons" aria-hidden="true">

@@ -23,17 +23,13 @@ class FactLiv extends BaseController
             ->orderBy('date_creation', 'DESC')
             ->paginate(10);
 
-        //recuperation de l'id de la derniere facture
-        $f = (new ModelsFactLiv())
-            ->findAll();
-        $i = sizeof($f);
-        $i -= 1;
-
-        $last = !($i < 0) ? intval($f[$i]['id'] + 1) : 1;
-
         for ($i = 0; $i < sizeof($factLiv); $i++) {
             $factLiv[$i] = (new Facturations())->FactLivInfos($factLiv[$i]);
         }
+        $last = (new ModelsFactLiv())
+            ->select('MAX(id) as value')
+            ->first();
+        $last = empty($last['value']) ? 1 : intval($last['value']) + 1;
 
         return view('facturation/livraisons/list', [
             'cli' => (new Clients())
@@ -55,11 +51,17 @@ class FactLiv extends BaseController
                 ->back()
                 ->withInput()
                 ->with('n', false)
-                ->with('m', 'Facturation incorrecte.');
+                ->with('m', 'Vous devez ajouter au moins une zone.');
         }
 
         //le BL doit etre unique
         $rules = [
+            'id' => [
+                'rules' => 'is_unique[fact_liv.id]',
+                'errors' => [
+                    'is_unique' => 'Numéro de facture en doublon.'
+                ]
+            ],
             'bl' => [
                 'rules' => 'is_unique[fact_liv.bl]',
                 'errors' => [
@@ -79,6 +81,7 @@ class FactLiv extends BaseController
             //creation de la facture
             if ($defined_invoice == null) {
                 $data_liv = [
+                    'id' => intval($data['id']),
                     'consignataire' => strtoupper($data['consignataire']),
                     'id_client' => intval($data['id_client']),
                     'compagnie' => strtoupper($data['compagnie']),
@@ -382,6 +385,7 @@ class FactLiv extends BaseController
 
     public function showEdit($id)
     {
+        session()->p = 'f-livraisons';
         $data = $this->getInvoice($id);
         $data['cli'] = (new Clients())
             ->orderBy('nom')
@@ -395,7 +399,9 @@ class FactLiv extends BaseController
     public function editFactLiveHeader($id)
     {
         $data = $this->request->getPost();
-        $data['id'] = $id;
+        if (!isset($data['id'])) {
+            $data['id'] = $id;
+        }
         if (isset($data['consignataire'])) {
             $data['consignataire'] = strtoupper($data['consignataire']);
         }
@@ -410,6 +416,12 @@ class FactLiv extends BaseController
                     'rules' => 'is_unique[fact_liv.bl,bl,' . strtoupper($data['last_bl']) . ']',
                     'errors' => [
                         'is_unique' => 'BL en doublon.'
+                    ]
+                ],
+                'id' => [
+                    'rules' => 'is_unique[fact_liv.id,id,' . $id . ']',
+                    'errors' => [
+                        'is_unique' => 'Numéro de facture en doublon'
                     ]
                 ],
             ];
@@ -430,11 +442,11 @@ class FactLiv extends BaseController
             $data['avec_tva'] = isset($data['avec_tva']) ? 'OUI' : 'NON';
         }
         try {
-            (new ModelsFactLiv())->save($data);
+            // dd($data);
+            (new ModelsFactLiv())->update($data['id'],$data);
         } catch (Exception $e) {
             return redirect()
                 ->back()
-                ->withInput()
                 ->with('n', false)
                 ->with('m', '<br />' . $e->getMessage());
         }

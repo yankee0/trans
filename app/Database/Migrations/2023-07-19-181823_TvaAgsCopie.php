@@ -32,7 +32,7 @@ class TvaAgsCopie extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('fact_liv','avec_ags');
+        $this->forge->dropColumn('fact_liv','avec_ages');
         $this->forge->dropColumn('fact_liv','avec_copie');
         $this->forge->dropColumn('fact_liv','avec_tva');
     }
