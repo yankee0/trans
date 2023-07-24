@@ -15,7 +15,7 @@ class Facturations extends BaseController
         session()->p = 'dashboard';
         $model_fact_liv = new FactLiv();
         $factLiv = $model_fact_liv
-            ->orderBy('date_creation', 'DESC')
+            ->orderBy('id', 'DESC')
             ->paginate(10);
             // dd($factLiv);
         for ($i = 0; $i < sizeof($factLiv); $i++) {
@@ -29,6 +29,7 @@ class Facturations extends BaseController
             'liv' => (new FactLiv())
                 ->countAll(),
             'liv_preget' => (new FactLiv())
+                ->orderBy('id','DESC')
                 ->where('preget', 'NON')
                 ->findAll(),
             'fact_liv_last' => $factLiv,

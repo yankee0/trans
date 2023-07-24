@@ -320,7 +320,7 @@ class FactLiv extends BaseController
             ->orLike('id_client', $s)
             ->orLike('compagnie', $s)
             ->orLike('date_creation', $s)
-            ->orderBy('date_creation', 'DESC')
+            ->orderBy('id', 'DESC')
             ->paginate(20);
         // if (!empty($r)) {
         //     for ($i = 0; $i < sizeof($r); $i++) {
@@ -780,6 +780,7 @@ class FactLiv extends BaseController
                 COUNT(fact_liv_lignes.prix) as tcs
             ')
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
+            ->orderBy('fact_liv.id'.'DESC')
             ->join('clients', 'clients.id = fact_liv.id_client')
             ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
             ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');

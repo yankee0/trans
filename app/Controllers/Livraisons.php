@@ -170,7 +170,7 @@ class Livraisons extends BaseController
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->orderBy('livraisons.created_at', 'DESC')
+            ->orderBy('livraisons.date_retour', 'DESC')
             ->where('fact_liv.annulation', 'NON')
             ->where('fact_liv.preget', 'OUI');
 

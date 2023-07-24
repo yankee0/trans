@@ -54,7 +54,7 @@ Factures
               <?php endforeach ?>
             </tbody>
           </table>
-          <table id="unpaid" class="table table-hover my-0 d-none">
+          <table id="unpaid" class="table table-hover d-none my-0 ">
             <thead>
               <tr>
                 <th class="d-table-cell">Nº Facture</th>
@@ -80,7 +80,7 @@ Factures
               <?php endforeach ?>
             </tbody>
           </table>
-          <table id="paid" class="table table-hover my-0 d-none">
+          <table id="paid" class="table table-hover d-none my-0 ">
             <thead>
               <tr>
                 <th class="d-table-cell">Nº Facture</th>
@@ -106,7 +106,7 @@ Factures
               <?php endforeach ?>
             </tbody>
           </table>
-          <table id="aborded" class="table table-hover my-0 d-none">
+          <table id="aborded" class="table table-hover d-none my-0 ">
             <thead>
               <tr>
                 <th class="d-table-cell">Nº Facture</th>
@@ -138,7 +138,40 @@ Factures
   </div>
 </div>
 
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 
+<script>
+
+
+  $(document).ready(function() {
+
+    $('#all , #paid, #unpaid, #aborded').DataTable({
+      responsive: true,
+      dom: 'Bfrtip',
+      buttons: [
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5',
+      ],
+      language: {
+        decimal: ',',
+        thousands: '.'
+      },
+    });
+
+    
+
+
+  });
+
+</script>
 
 
 <?= $this->endSection(); ?>
