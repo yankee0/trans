@@ -48,6 +48,12 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('search', 'Utilisateurs::search');
         });
 
+        //gestion des factures
+        $routes->group('factures', function ($routes) {
+            $routes->get('/', 'factures::dashboard');
+            
+        });
+
         //gestion des zones
         $routes->group('zones', function ($routes) {
             $routes->get('/', 'Zones::list');

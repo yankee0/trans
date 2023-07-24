@@ -52,6 +52,11 @@
                 <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilisateurs</span>
               </a>
             </li>
+            <li class="sidebar-item <?= (session()->p == 'factures') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/factures') ?>">
+                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures</span>
+              </a>
+            </li>
           <?php endif ?>
           <?php if (
             session()->r == 'admin'

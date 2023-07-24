@@ -19,7 +19,7 @@ class Graph extends BaseController
 
             $factures = $modele
                 ->where('MONTH(date_creation)', $i)
-                ->where('YEAR(date_creation)', date('Y',time()))
+                ->where('YEAR(date_creation)', date('Y', time()))
                 ->where('paiement', 'OUI')
                 ->find();
 
@@ -137,6 +137,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
                 ->where('fact_liv.preget', 'OUI')
+                ->where('fact_liv.annulation', 'NON')
                 ->where('MONTH(livraisons.created_at)', $i)
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->find());

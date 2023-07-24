@@ -776,7 +776,8 @@ class FactLiv extends BaseController
                 clients.*,
                 clients.id client,
                 fact_liv_lignes.prix,
-                (SUM(fact_liv_lignes.prix))*(1+(18/100))+fact_liv.ages+fact_liv.copie as total
+                SUM(fact_liv_lignes.prix) as total,
+                COUNT(fact_liv_lignes.prix) as tcs
             ')
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
             ->join('clients', 'clients.id = fact_liv.id_client')
@@ -796,6 +797,19 @@ class FactLiv extends BaseController
             $builder->where('WEEK(fact_liv.date_creation)', $w);
         }
 
-        return $builder->find();
+        $data = $builder->find();
+
+        for ($i=0; $i < sizeof($data); $i++) { 
+            if ($data[$i]['avec_tva'] == 'OUI') {
+                $data[$i]['total'] += ($data[$i]['total']*18/100);
+            }
+            if ($data[$i]['avec_ages'] == 'OUI') {
+                $data[$i]['total'] += ($data[$i]['tcs']*1500);
+            }
+            if ($data[$i]['avec_copie'] == 'OUI') {
+                $data[$i]['total'] += 500;
+            }
+        }
+        return $data;
     }
 }

@@ -29,7 +29,7 @@ Rapports
     </div>
   </div>
 
-  <?php if (session()->r == 'finance') : ?>
+  <?php if (session()->r == 'finance' or session()->r == 'admin') : ?>
     <div class=" col-md-6 col-xl-3">
       <div class="card">
         <img src="<?= base_url('assets/img/money.jpeg') ?>" class="card-img-top">
