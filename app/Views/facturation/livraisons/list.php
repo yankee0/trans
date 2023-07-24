@@ -41,13 +41,45 @@ Facturation livraisons
         <?= form_open(base_url(session()->r . '/livraisons'), []) ?>
         <?= csrf_field() ?>
         <div class="row mb-3">
-          <div class="d-flex align-items-center gap-3">
-            <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facture Nº <span id="nF" class="text-primary"><?= $last ?></span></h5>
-  
-          </div>
+          <h5 class="card-title mb-0 text-dark mb-2 fs-1">Facturation</span></h5>
+
+        </div>
+        <div class="row mb-3">
+
           <div class="col-md-6 col-xl-3 mb-3">
-            <label for="id" class="form-label">Numéro de facture</label>
-            <input type="number" min="1" class="form-control" name="id" id="id" value="<?= set_value('id', $last) ?>" placeholder="Numéro de la facture" required>
+            <div class="mb-3">
+              <label for="id" class="form-label">Numéro de facture</label>
+              <input type="number" min="1" class="form-control" name="id" id="id" value="<?= set_value('id', $last) ?>" placeholder="Numéro de la facture" required>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" <?= set_radio('fact', 'auto', true) ?> type="radio" name="fact" value="auto" id="autoFact" checked>
+              <label class="form-check-label" for="autoFact">Numéro de facture automatique</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" <?= set_radio('fact', 'perso') ?> type="radio" name="fact" id="persoFact">
+              <label class="form-check-label" for="persoFact">Numéro de facture personnalisé</label>
+              <script>
+                $(document).ready(function() {
+                  $('#id').attr('disabled', 'disabled');
+                  $('#autoFact').click(function(e) {
+                    if (e.target.checked) {
+                      $('#id').attr('disabled', 'disabled');
+                      $('#id').attr('placeholder', 'Automatique');
+                      $('#id').val(null);
+                    }
+                  });
+                  $('#persoFact').click(function(e) {
+                    if (e.target.checked) {
+                      $('#id').removeAttr('disabled');
+                      $('#id').attr('placeholder', 'Numéro de facture');
+
+                    }
+                  });
+                });
+              </script>
+
+            </div>
+
             <script>
               $(document).ready(function() {
                 $('#nF').html('<?= $last ?>');
@@ -81,10 +113,10 @@ Facturation livraisons
           <div class="col-md-6 col-xl">
             <h5 class="card-title mb-0 text-dark mb-2">Compagnie</h5>
             <div class="mb-3">
-              <input type="text" class="form-control text-uppercase" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
+              <input type="text" class="form-control text-uppercase" value="<?= set_value('compagnie') ?>" name="compagnie" id="compagnie" aria-describedby="helpId" placeholder="Compagnie" required>
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control text-uppercase" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
+              <input type="text" class="form-control text-uppercase" value="<?= set_value('bl') ?>" name="bl" id="bl" aria-describedby="helpId" placeholder="BL" required>
             </div>
           </div>
           <div class="col-md-6 col-xl">

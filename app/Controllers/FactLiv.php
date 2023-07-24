@@ -79,9 +79,19 @@ class FactLiv extends BaseController
         } else {
 
             //creation de la facture
+            // dd($data);
             if ($defined_invoice == null) {
+
+                if ($data['fact'] == 'auto') {
+                    $last = (new ModelsFactLiv())
+                        ->select('MAX(id) as value')
+                        ->first();
+                    $id = empty($last['value']) ? 1 : intval($last['value']) + 1;
+                } else {
+                    $id = $data['id'];
+                }
                 $data_liv = [
-                    'id' => intval($data['id']),
+                    'id' => intval($id),
                     'consignataire' => strtoupper($data['consignataire']),
                     'id_client' => intval($data['id_client']),
                     'compagnie' => strtoupper($data['compagnie']),
@@ -443,7 +453,7 @@ class FactLiv extends BaseController
         }
         try {
             // dd($data);
-            (new ModelsFactLiv())->update($data['id'],$data);
+            (new ModelsFactLiv())->update($data['id'], $data);
         } catch (Exception $e) {
             return redirect()
                 ->back()
