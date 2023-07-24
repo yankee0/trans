@@ -47,6 +47,7 @@ Liste des clients
               <thead>
                 <tr>
                   <th></th>
+                  <th>Compte</th>
                   <th>Nom</th>
                   <th class="d-none d-xl-table-cell">Email</th>
                   <th class="d-none d-xl-table-cell">Téléphone</th>
@@ -63,6 +64,7 @@ Liste des clients
                     <td id="<?= $l['id'] ?>">
                       <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                     </td>
+                    <td><?= $l['id'] ?></td>
                     <td><?= $l['nom'] ?></td>
                     <td class="d-none d-xl-table-cell"><?= $l['email'] ?></td>
                     <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
@@ -152,12 +154,12 @@ Liste des clients
           <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nom" placeholder="Nom du client">
         </div>
         <div class="mb-3">
-          <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-          <input required type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email du client">
+          <label for="email" class="form-label">Email</label>
+          <input  type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="email" placeholder="Email du client">
         </div>
         <div class="mb-3">
-          <label for="tel" class="form-label">Téléphone<span class="text-danger">*</span></label>
-          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone du client">
+          <label for="tel" class="form-label">Téléphone</label>
+          <input type="tel" class="form-control" name="tel" id="tel" value="<?= set_value('tel', '') ?>"  placeholder="Numéro de téléphone du client">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -186,12 +188,12 @@ Liste des clients
           <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nommod" placeholder="Nom du client">
         </div>
         <div class="mb-3">
-          <label for="emailmod" class="form-label">Email<span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod" required placeholder="Email du client">
+          <label for="emailmod" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" value="<?= set_value('email', '') ?>" id="emailmod"  placeholder="Email du client">
         </div>
         <div class="mb-3">
-          <label for="telmod" class="form-label">Téléphone<span class="text-danger">*</span></label>
-          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>" required placeholder="Numéro de téléphone du client">
+          <label for="telmod" class="form-label">Téléphone</label>
+          <input type="tel" class="form-control" name="tel" id="telmod" value="<?= set_value('tel', '') ?>"  placeholder="Numéro de téléphone du client">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>

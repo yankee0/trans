@@ -11,132 +11,144 @@ Factures
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Factures de livraisons</h4>
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Toutes</a>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">all</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Non payées</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="unpaid-tab" data-bs-toggle="tab" data-bs-target="#unpaid" type="button" role="tab" aria-controls="unpaid" aria-selected="false">unpaid</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Payées</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid" type="button" role="tab" aria-controls="paid" aria-selected="false">paid</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Annulées</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="aborded-tab" data-bs-toggle="tab" data-bs-target="#aborded" type="button" role="tab" aria-controls="aborded" aria-selected="false">aborded</button>
           </li>
         </ul>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
-          <table id="all" class="table table-hover my-0">
-            <thead>
-              <tr>
-                <th class="d-table-cell">Nº Facture</th>
-                <th class="d-table-cell">Nº Compte client</th>
-                <th class="d-table-cell">Client</th>
-                <th class="d-table-cell">Consignataire</th>
-                <th class="d-table-cell">Paiement</th>
-                <th class="d-table-cell">Montant TTC</th>
-                <th class="d-table-cell">Date de paiement</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($all as $l) : ?>
+        <div class="tab-content">
+          <div class="tab-pane active " id="all" role="tabpanel" aria-labelledby="all-tab">
+            <table id="all-table" class="table table-hover my-0">
+              <thead>
                 <tr>
-                  <td><?= $l['facture'] ?></td>
-                  <td><?= $l['client'] ?></td>
-                  <td><?= $l['nom'] ?></td>
-                  <td><?= $l['consignataire'] ?></td>
-                  <td><?= $l['paiement'] ?></td>
-                  <td><?= intval($l['total']) ?></td>
-                  <td><?= $l['date_paiement'] ?></td>
+                  <th class="d-table-cell">Nº Facture</th>
+                  <th class="d-table-cell">Nº Compte client</th>
+                  <th class="d-table-cell">Client</th>
+                  <th class="d-table-cell">Consignataire</th>
+                  <th class="d-table-cell">Paiement</th>
+                  <th class="d-table-cell">Montant TTC</th>
+                  <th class="d-table-cell">Date de paiement</th>
                 </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-          <table id="unpaid" class="table table-hover d-none my-0 ">
-            <thead>
-              <tr>
-                <th class="d-table-cell">Nº Facture</th>
-                <th class="d-table-cell">Nº Compte client</th>
-                <th class="d-table-cell">Client</th>
-                <th class="d-table-cell">Consignataire</th>
-                <th class="d-table-cell">Paiement</th>
-                <th class="d-table-cell">Montant TTC</th>
-                <th class="d-table-cell">Date de paiement</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($unpaid as $l) : ?>
+              </thead>
+              <tbody>
+                <?php foreach ($all as $l) : ?>
+                  <tr>
+                    <td><?= $l['facture'] ?></td>
+                    <td><?= $l['client'] ?></td>
+                    <td><?= $l['nom'] ?></td>
+                    <td><?= $l['consignataire'] ?></td>
+                    <td><?= $l['paiement'] ?></td>
+                    <td><?= intval($l['total']) ?></td>
+                    <td><?= $l['date_paiement'] ?></td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane " id="unpaid" role="tabpanel" aria-labelledby="unpaid-tab">
+            <table id="unpaid-table" class="table d-none table-hover d-none my-0 ">
+              <thead>
                 <tr>
-                  <td><?= $l['facture'] ?></td>
-                  <td><?= $l['client'] ?></td>
-                  <td><?= $l['nom'] ?></td>
-                  <td><?= $l['consignataire'] ?></td>
-                  <td><?= $l['paiement'] ?></td>
-                  <td><?= intval($l['total']) ?></td>
-                  <td><?= $l['date_paiement'] ?></td>
+                  <th class="d-table-cell">Nº Facture</th>
+                  <th class="d-table-cell">Nº Compte client</th>
+                  <th class="d-table-cell">Client</th>
+                  <th class="d-table-cell">Consignataire</th>
+                  <th class="d-table-cell">Paiement</th>
+                  <th class="d-table-cell">Montant TTC</th>
+                  <th class="d-table-cell">Date de paiement</th>
                 </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-          <table id="paid" class="table table-hover d-none my-0 ">
-            <thead>
-              <tr>
-                <th class="d-table-cell">Nº Facture</th>
-                <th class="d-table-cell">Nº Compte client</th>
-                <th class="d-table-cell">Client</th>
-                <th class="d-table-cell">Consignataire</th>
-                <th class="d-table-cell">Paiement</th>
-                <th class="d-table-cell">Montant TTC</th>
-                <th class="d-table-cell">Date de paiement</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($paid as $l) : ?>
+              </thead>
+              <tbody>
+                <?php foreach ($unpaid as $l) : ?>
+                  <tr>
+                    <td><?= $l['facture'] ?></td>
+                    <td><?= $l['client'] ?></td>
+                    <td><?= $l['nom'] ?></td>
+                    <td><?= $l['consignataire'] ?></td>
+                    <td><?= $l['paiement'] ?></td>
+                    <td><?= intval($l['total']) ?></td>
+                    <td><?= $l['date_paiement'] ?></td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="paid" role="tabpanel" aria-labelledby="paid-tab">
+            <table id="paid-table" class="table d-none table-hover d-none my-0 ">
+              <thead>
                 <tr>
-                  <td><?= $l['facture'] ?></td>
-                  <td><?= $l['client'] ?></td>
-                  <td><?= $l['nom'] ?></td>
-                  <td><?= $l['consignataire'] ?></td>
-                  <td><?= $l['paiement'] ?></td>
-                  <td><?= intval($l['total']) ?></td>
-                  <td><?= $l['date_paiement'] ?></td>
+                  <th class="d-table-cell">Nº Facture</th>
+                  <th class="d-table-cell">Nº Compte client</th>
+                  <th class="d-table-cell">Client</th>
+                  <th class="d-table-cell">Consignataire</th>
+                  <th class="d-table-cell">Paiement</th>
+                  <th class="d-table-cell">Montant TTC</th>
+                  <th class="d-table-cell">Date de paiement</th>
                 </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-          <table id="aborded" class="table table-hover d-none my-0 ">
-            <thead>
-              <tr>
-                <th class="d-table-cell">Nº Facture</th>
-                <th class="d-table-cell">Nº Compte client</th>
-                <th class="d-table-cell">Client</th>
-                <th class="d-table-cell">Consignataire</th>
-                <th class="d-table-cell">Paiement</th>
-                <th class="d-table-cell">Montant TTC</th>
-                <th class="d-table-cell">Date de paiement</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($aborded as $l) : ?>
+              </thead>
+              <tbody>
+                <?php foreach ($paid as $l) : ?>
+                  <tr>
+                    <td><?= $l['facture'] ?></td>
+                    <td><?= $l['client'] ?></td>
+                    <td><?= $l['nom'] ?></td>
+                    <td><?= $l['consignataire'] ?></td>
+                    <td><?= $l['paiement'] ?></td>
+                    <td><?= intval($l['total']) ?></td>
+                    <td><?= $l['date_paiement'] ?></td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="aborded" role="tabpanel" aria-labelledby="aborded-tab">
+            <table id="aborded-table" class="table d-none table-hover d-none my-0 ">
+              <thead>
                 <tr>
-                  <td><?= $l['facture'] ?></td>
-                  <td><?= $l['client'] ?></td>
-                  <td><?= $l['nom'] ?></td>
-                  <td><?= $l['consignataire'] ?></td>
-                  <td><?= $l['paiement'] ?></td>
-                  <td><?= intval($l['total']) ?></td>
-                  <td><?= $l['date_paiement'] ?></td>
+                  <th class="d-table-cell">Nº Facture</th>
+                  <th class="d-table-cell">Nº Compte client</th>
+                  <th class="d-table-cell">Client</th>
+                  <th class="d-table-cell">Consignataire</th>
+                  <th class="d-table-cell">Paiement</th>
+                  <th class="d-table-cell">Montant TTC</th>
+                  <th class="d-table-cell">Date de paiement</th>
                 </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <?php foreach ($aborded as $l) : ?>
+                  <tr>
+                    <td><?= $l['facture'] ?></td>
+                    <td><?= $l['client'] ?></td>
+                    <td><?= $l['nom'] ?></td>
+                    <td><?= $l['consignataire'] ?></td>
+                    <td><?= $l['paiement'] ?></td>
+                    <td><?= intval($l['total']) ?></td>
+                    <td><?= $l['date_paiement'] ?></td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
@@ -147,11 +159,9 @@ Factures
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 
 <script>
-
-
   $(document).ready(function() {
 
-    $('#all , #paid, #unpaid, #aborded').DataTable({
+    $('#all-table').DataTable({
       responsive: true,
       dom: 'Bfrtip',
       buttons: [
@@ -166,11 +176,11 @@ Factures
       },
     });
 
-    
+
+
 
 
   });
-
 </script>
 
 
