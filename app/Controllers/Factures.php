@@ -9,8 +9,9 @@ class Factures extends BaseController
 {
     public function dashboard()
     {
-        $modele = new FactLiv();
-        $builder = $modele
+        session()->p = 'factures';
+
+        $all = (new FactLiv())
             ->select('
                 fact_liv.*,
                 fact_liv.id as facture,
@@ -23,13 +24,12 @@ class Factures extends BaseController
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
             ->join('clients', 'clients.id = fact_liv.id_client')
             ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
-            ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
-
-        $all = $builder->findAll();
+            ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu')
+            ->findAll();
         $all = $this->setFees($all);
 
 
-        $unpaid = $builder
+        $unpaid = (new FactLiv())
             ->select('
                 fact_liv.*,
                 fact_liv.id as facture,
@@ -46,12 +46,11 @@ class Factures extends BaseController
             ->where('paiement', 'NON')
             ->where('annulation', 'NON')
             ->find();
-        // dd($unpaid);
 
         $unpaid = $this->setFees($unpaid);
 
 
-        $paid = $builder
+        $paid = (new FactLiv())
             ->select('
                 fact_liv.*,
                 fact_liv.id as facture,
@@ -70,23 +69,16 @@ class Factures extends BaseController
             ->find();
         $paid = $this->setFees($paid);
 
-        $aborded = $builder
+        $aborded = (new FactLiv())
             ->select('
                 fact_liv.*,
                 fact_liv.id as facture,
                 clients.*,
                 clients.id client,
-                fact_liv_lignes.prix,
-                SUM(fact_liv_lignes.prix) as total,
-                COUNT(fact_liv_lignes.prix) as tcs
             ')
-            ->groupBy('fact_liv.id, fact_liv_lignes.prix')
             ->join('clients', 'clients.id = fact_liv.id_client')
-            ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
-            ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu')
             ->where('annulation', 'OUI')
             ->find();
-        $aborded = $this->setFees($aborded);
 
         $data = [
             'all' => $all,

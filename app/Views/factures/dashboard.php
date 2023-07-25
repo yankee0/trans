@@ -14,23 +14,26 @@ Factures
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">all</button>
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">Toutes</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="unpaid-tab" data-bs-toggle="tab" data-bs-target="#unpaid" type="button" role="tab" aria-controls="unpaid" aria-selected="false">unpaid</button>
+            <button class="nav-link" id="unpaid-tab" data-bs-toggle="tab" data-bs-target="#unpaid" type="button" role="tab" aria-controls="unpaid" aria-selected="false">Impayées</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid" type="button" role="tab" aria-controls="paid" aria-selected="false">paid</button>
+            <button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid" type="button" role="tab" aria-controls="paid" aria-selected="false">Payées</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="aborded-tab" data-bs-toggle="tab" data-bs-target="#aborded" type="button" role="tab" aria-controls="aborded" aria-selected="false">aborded</button>
+            <button class="nav-link" id="aborded-tab" data-bs-toggle="tab" data-bs-target="#aborded" type="button" role="tab" aria-controls="aborded" aria-selected="false">Annulées</button>
           </li>
         </ul>
       </div>
       <div class="card-body">
         <div class="tab-content">
           <div class="tab-pane active " id="all" role="tabpanel" aria-labelledby="all-tab">
-            <table id="all-table" class="table table-hover my-0">
+          <div class="table-responsive">
+            
+          </div>  
+          <table id="all-table" class="table table-hover my-0">
               <thead>
                 <tr>
                   <th class="d-table-cell">Nº Facture</th>
@@ -58,7 +61,10 @@ Factures
             </table>
           </div>
           <div class="tab-pane " id="unpaid" role="tabpanel" aria-labelledby="unpaid-tab">
-            <table id="unpaid-table" class="table d-none table-hover d-none my-0 ">
+          <div class="table-responsive">
+            
+          </div>  
+          <table id="unpaid-table" class="table table-hover my-0 ">
               <thead>
                 <tr>
                   <th class="d-table-cell">Nº Facture</th>
@@ -86,7 +92,10 @@ Factures
             </table>
           </div>
           <div class="tab-pane" id="paid" role="tabpanel" aria-labelledby="paid-tab">
-            <table id="paid-table" class="table d-none table-hover d-none my-0 ">
+          <div class="table-responsive">
+            
+          </div>  
+          <table id="paid-table" class="table table-hover my-0 ">
               <thead>
                 <tr>
                   <th class="d-table-cell">Nº Facture</th>
@@ -114,16 +123,16 @@ Factures
             </table>
           </div>
           <div class="tab-pane" id="aborded" role="tabpanel" aria-labelledby="aborded-tab">
-            <table id="aborded-table" class="table d-none table-hover d-none my-0 ">
+          <div class="table-responsive">
+            
+          </div>  
+          <table id="aborded-table" class="table table-hover my-0 ">
               <thead>
                 <tr>
                   <th class="d-table-cell">Nº Facture</th>
                   <th class="d-table-cell">Nº Compte client</th>
                   <th class="d-table-cell">Client</th>
-                  <th class="d-table-cell">Consignataire</th>
-                  <th class="d-table-cell">Paiement</th>
-                  <th class="d-table-cell">Montant TTC</th>
-                  <th class="d-table-cell">Date de paiement</th>
+                  <th class="d-table-cell">Motif d'annulation</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,10 +141,8 @@ Factures
                     <td><?= $l['facture'] ?></td>
                     <td><?= $l['client'] ?></td>
                     <td><?= $l['nom'] ?></td>
-                    <td><?= $l['consignataire'] ?></td>
-                    <td><?= $l['paiement'] ?></td>
-                    <td><?= intval($l['total']) ?></td>
-                    <td><?= $l['date_paiement'] ?></td>
+                    <td><?= $l['motif'] ?></td>
+
                   </tr>
                 <?php endforeach ?>
               </tbody>
@@ -161,7 +168,7 @@ Factures
 <script>
   $(document).ready(function() {
 
-    $('#all-table').DataTable({
+    $('#all-table,#paid-table,#unpaid-table,#aborded-table').DataTable({
       responsive: true,
       dom: 'Bfrtip',
       buttons: [
@@ -175,8 +182,6 @@ Factures
         thousands: '.'
       },
     });
-
-
 
 
 
