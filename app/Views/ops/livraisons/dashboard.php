@@ -27,7 +27,7 @@ Dashboard livraisons
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header">
-          <h5 class="card-title mb-0">En attente de livraison</h5>
+          <h5 class="card-title mb-0">Derniers enregistrements</h5>
         </div>
         <?php if (sizeof($livs['data']) == 0) : ?>
           <div class="card-body">
