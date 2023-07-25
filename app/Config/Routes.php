@@ -50,7 +50,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 
         //gestion des factures
         $routes->group('factures', function ($routes) {
-            $routes->get('/', 'factures::dashboard');
+            $routes->get('/', 'Factures::dashboard');
             
         });
 
