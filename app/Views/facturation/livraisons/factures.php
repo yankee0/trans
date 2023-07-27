@@ -167,6 +167,7 @@
         <div>
           <p class="fs-1"></p>
           <p>BL Nº <?= $facture['bl'] ?></p>
+          <p>Compagnie <?= $facture['compagnie'] ?></p>
         </div>
       </div>
       <table class="table invoice-table">
