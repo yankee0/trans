@@ -7,6 +7,7 @@ use App\Controllers\FactLiv as ControllersFactLiv;
 use App\Models\Camions;
 use App\Models\Chauffeurs;
 use App\Models\FactLiv;
+use App\Models\FactLivLignes;
 use App\Models\Livraisons as ModelsLivraisons;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use Exception;
@@ -71,10 +72,10 @@ class Livraisons extends BaseController
         return view('ops/livraisons/dashboard.php', $data);
     }
 
-    public function getLivs($tc = '%', $limit = 10)
+    public function getLivs($tc = '%', $limit = 10, $pg = false)
     {
         $model = new ModelsLivraisons();
-        $data = $model
+        $model
             ->select('
                 livraisons.id,
                 livraisons.etat,
@@ -91,6 +92,7 @@ class Livraisons extends BaseController
                 fact_liv.date_pg,
                 fact_liv.preget,
                 fact_liv.bl,
+                fact_liv.id as facture,
                 fact_liv.compagnie,
                 chauffeurs.nom AS ch_aller,
                 chauffeur2.nom AS ch_retour,
@@ -114,12 +116,16 @@ class Livraisons extends BaseController
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->where('fact_liv.preget', 'OUI')
             ->where('fact_liv.annulation', 'NON')
             ->like('fact_liv_lignes.conteneur', $tc)
-            ->orderBy('fact_liv.paiement', 'DESC')
-            ->paginate($limit);
+            ->orderBy('fact_liv.paiement', 'DESC');
+        if (!$pg) {
+            $model->where('fact_liv.preget', 'OUI');
+        }
+
+        $data = $model->paginate($limit);
         $pager = $model->pager;
+
         return [
             'data' => $data,
             'pager' => $pager
@@ -337,10 +343,53 @@ class Livraisons extends BaseController
         return $this->checkPreget($data['bl']);
     }
 
-    public function info($id)
+    public function info($bl, $id)
     {
-        $res = $this->getLivs($id);
-        $res = $res['data']['0'];
+        $res = (new FactLivLignes())
+            ->like('conteneur', $id)
+            ->select('
+                livraisons.etat,
+                fact_liv_lignes.id,
+                fact_liv_lignes.conteneur,
+                fact_liv_lignes.type,
+                zones.nom AS zone,
+                fact_liv_lieux.adresse,
+                fact_liv_lieux.carburant,
+                clients.nom AS nom_client,
+                clients.tel AS tel_client,
+                clients.email AS email_client,
+                livraisons.created_at AS date_enregistrement,
+                fact_liv.paiement,
+                fact_liv.date_pg,
+                fact_liv.preget,
+                fact_liv.bl,
+                fact_liv.date_creation,
+                fact_liv.id as facture,
+                fact_liv.compagnie,
+                chauffeurs.nom AS ch_aller,
+                chauffeur2.nom AS ch_retour,
+                camions.im AS cam_aller,
+                camion2.im AS cam_retour,
+                chauffeurs.id AS ch_aller_id,
+                chauffeur2.id AS ch_retour_id,
+                camions.id AS cam_aller_id,
+                camion2.id AS cam_retour_id,
+                livraisons.commentaire,
+                livraisons.date_aller,
+                livraisons.date_retour,
+                livraisons.motif,
+            ')
+            ->join('livraisons','livraisons.id =fact_liv_lignes.id')
+            ->join('chauffeurs', 'chauffeurs.id = livraisons.ch_aller', 'left')
+            ->join('chauffeurs AS chauffeur2', 'chauffeur2.id = livraisons.ch_retour', 'left')
+            ->join('camions', 'camions.id = livraisons.cam_aller', 'left')
+            ->join('camions AS camion2', 'camion2.id = livraisons.cam_retour', 'left')
+            ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+            ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
+            ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
+            ->join('clients', 'clients.id = fact_liv.id_client', 'left')
+            ->first();
+        // dd($res);
         if (empty($res)) {
             throw new PageNotFoundException('Informations de livraison introuvable.', 404);
         } else {

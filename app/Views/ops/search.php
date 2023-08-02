@@ -41,7 +41,7 @@ Recherches
                 <th>Type</th>
                 <th>Paiement</th>
                 <th>État</th>
-                <th>Date PREGET</th>
+                <th>Preget</th>
                 <th>Zone de destination</th>
                 <th>Adresse exacte</th>
                 <th></th>
@@ -58,36 +58,40 @@ Recherches
                   </td>
                   <td>
                     <?php
-                    switch ($liv['etat']) {
-                      case 'MISE À TERRE':
+                    if ($liv['preget'] == 'OUI') {
+                      switch ($liv['etat']) {
+                        case 'MISE À TERRE':
                     ?>
-                        <span class="badge bg-dark"><?= $liv['etat'] ?></span>
-                      <?php
-                        break;
-                      case 'SUR PLATEAU':
-                      ?>
-                        <span class="badge bg-info"><?= $liv['etat'] ?></span>
-                      <?php
-                        break;
-                      case 'LIVRÉ':
-                      ?>
-                        <span class="badge bg-success"><?= $liv['etat'] ?></span>
-                      <?php
-                        break;
-                      case 'ANNULÉ':
-                      ?>
-                        <span class="badge bg-danger"><?= $liv['etat'] ?></span>
-                      <?php
-                        break;
-                      case 'EN COURS':
-                      ?>
-                        <span class="badge bg-warning"><?= $liv['etat'] ?></span>
+                          <span class="badge bg-dark"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'SUR PLATEAU':
+                        ?>
+                          <span class="badge bg-info"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'LIVRÉ':
+                        ?>
+                          <span class="badge bg-success"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'ANNULÉ':
+                        ?>
+                          <span class="badge bg-danger"><?= $liv['etat'] ?></span>
+                        <?php
+                          break;
+                        case 'EN COURS':
+                        ?>
+                          <span class="badge bg-warning"><?= $liv['etat'] ?></span>
                     <?php
-                        break;
+                          break;
 
-                      default:
-                        echo 'Error 404';
-                        break;
+                        default:
+                          echo 'Error 404';
+                          break;
+                      }
+                    } else {
+                      echo '-';
                     }
                     ?>
                   </td>
@@ -100,7 +104,7 @@ Recherches
                       <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
                       <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" data-id="<?= $liv['id'] ?>" data-challer="<?= $liv['ch_aller_id'] ?>" data-chretour="<?= $liv['ch_retour_id'] ?>" data-camaller="<?= $liv['cam_aller_id'] ?>" data-camretour="<?= $liv['cam_retour_id'] ?>" data-datealler="<?= $liv['date_aller'] ?>" data-dateretour="<?= $liv['date_retour'] ?>" data-commentaire="<?= $liv['commentaire'] ?>" data-etat="<?= $liv['etat'] == 'LIVRÉ' ? 'true' : 'false' ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                       <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
-                      <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' . $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
+                      <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' .$liv['bl'].'/'. $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Informations"><i cla data-feather="info"></i></a>
                     </div>
                   </td>
                 </tr>

@@ -93,7 +93,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'Livraisons::index');
-            $routes->get('infos/(:segment)', 'Livraisons::info/$1');
+            $routes->get('infos/(:segment)/(:segment)', 'Livraisons::info/$1/$2');
             $routes->post('/', 'Livraisons::save');
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
@@ -282,7 +282,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'Livraisons::index');
-            $routes->get('infos/(:segment)', 'Livraisons::info/$1');
+            $routes->get('infos/(:segment)/(:segment)', 'Livraisons::info/$1/$2');
             $routes->post('/', 'Livraisons::save');
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');

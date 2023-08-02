@@ -14,6 +14,11 @@ Information de livraison
       <div class="card-body">
         <div class="row">
           <div class="col-12">
+            <?php if ($preget == 'NON') : ?>
+              <div class="alert alert-warning text-center" role="alert">
+                Preget non reçu
+              </div>
+            <?php endif ?>
             <div>
               <h1 class="display-6">TC Nº <span class="text-primary"><?= $conteneur ?></span></h1>
             </div>
@@ -45,9 +50,16 @@ Information de livraison
           <div class="col-md-6 col-lg-4  col-xl-3">
             <div class="fs-2">Client</div>
             <p>
+            <div class="text-sm text-muted">Nº de facture</div>
+            <div><?= $facture ?></div>
+            </p>
+            <div class="text-sm text-muted">Date de facturation</div>
+            <div><?= $date_creation ?></div>
+            </p>
             <div class="text-sm text-muted">Client</div>
             <div><?= $nom_client ?></div>
             </p>
+            <p>
             <p>
             <div class="text-sm text-muted">Email</div>
             <div><?= $email_client ?></div>
