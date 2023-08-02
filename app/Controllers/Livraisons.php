@@ -293,7 +293,7 @@ class Livraisons extends BaseController
         $preget = $p == null ? $this->request->getVar('preget') : $p;
         $res = (new FactLiv())
             ->select('id')
-            ->where('fact_liv.bl', $preget)
+            ->like('fact_liv.bl', $preget)
             ->first();
 
         if (!empty($res)) {
