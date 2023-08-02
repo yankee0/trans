@@ -85,6 +85,12 @@
                 <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Remorques</span>
               </a>
             </li>
+
+            <li class="sidebar-item <?= (session()->p == 'carburant') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/carburant') ?>">
+                <i class="align-middle" data-feather="filter"></i> <span class="align-middle">Carburant</span>
+              </a>
+            </li>
           <?php endif ?>
 
           <?php if (
