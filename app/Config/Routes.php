@@ -106,7 +106,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion du carburant
         $routes->group('carburant', function ($routes) {
             $routes->get('/', 'Carburant::index');
+            $routes->post('/','Carburant::ravitaillement');
             $routes->post('recharge','Carburant::recharge');
+            $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
         });
 
 
