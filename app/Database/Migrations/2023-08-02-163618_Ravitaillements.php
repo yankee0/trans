@@ -22,9 +22,9 @@ class Ravitaillements extends Migration
                 'null' => true,
             ],
             'litres' => [
-                'type' => 'INT',
+                'type' => 'FLOAT',
                 'constraint' => 11,
-                'default' => 0,
+                'default' => 0.00,
                 'null' => true,
             ],
             'type_carb' => [

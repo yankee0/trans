@@ -4,7 +4,9 @@ Gestion du carburant
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <h1 class="h3 mb-3"><strong>Gestion</strong> Carburant</h1>
+
 <div class="row">
+
   <div class="col-sm col-md-2 col-lg-4 col-xl-3">
     <div class="card">
       <div class="card-body">
@@ -17,13 +19,55 @@ Gestion du carburant
             <small class="text-muted">Dernier ravitallement de <?= $lastRec['montant'] ?> par <?= $lastRec['nom'] ?> le <?= $lastRec['created_at'] ?></small>
           <?php endif ?>
         </div>
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
-        </div>
+        <?php if (session()->r == 'admin') : ?>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
+          </div>
+        <?php endif ?>
       </div>
     </div>
   </div>
 </div>
+<?php if (session()->r == 'admin') : ?>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><strong>Liste des rechargements</strong></h5>
+          <div class="table-responsive">
+            <table id="ravitaillements" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date de recharge</th>
+                  <th>Montant</th>
+                  <th>Utilisateur</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($ravs as $rav) : ?>
+                  <tr>
+                    <td><?= $rav['created_at'] ?></td>
+                    <td><?= $rav['conducteur'] ?></td>
+                    <td><?= $rav['type_veh'] ?></td>
+                    <td>
+                      <div class="d-flex justify-content-around">
+                        <button type="button" class="btn border-0 text-warning"><i cla data-feather="edit"></i> Modifier</button>
+                        <button data-id="<?= $rav['id'] ?>" data-conducteur="<?= $rav['conducteur'] ?>" data-date="<?= $rav['created_at'] ?>" data-bs-toggle="modal" data-bs-target="#supRav" type="button" class="btn supRav border-0 text-danger">
+                          <i cla data-feather="trash"></i> Supprimer
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endif ?>
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -75,7 +119,7 @@ Gestion du carburant
 
             <div class="mb-3">
               <label for="litres" class="form-label">Nombre de litres <span class="text-danger"><strong>*</strong></span></label>
-              <input required type="number" min="0" max="500" class="form-control" name="litres" id="litres" value="<?= set_value('litres') ?>" placeholder="Nombre de litre">
+              <input required type="number" min="0" step="0.1" max="500" class="form-control" name="litres" id="litres" value="<?= set_value('litres') ?>" placeholder="Nombre de litre">
             </div>
           </div>
           <div class="col-12">
@@ -89,52 +133,7 @@ Gestion du carburant
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title"><strong>Liste des ravitaillements</strong></h5>
-        <div class="table-responsive">
-          <table id="ravitaillements" class="table table-hover">
-            <thead>
-              <tr>
-                <th>Date de ravitaillement</th>
-                <th>Conducteur</th>
-                <th>Type de véhicule</th>
-                <th>Immatriculation</th>
-                <th>Carburant</th>
-                <th>Nombre de litres</th>
-                <th>Auteur</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($ravs as $rav) : ?>
-                <tr>
-                  <td><?= $rav['created_at'] ?></td>
-                  <td><?= $rav['conducteur'] ?></td>
-                  <td><?= $rav['type_veh'] ?></td>
-                  <td><?= $rav['imm'] ?></td>
-                  <td><?= $rav['type_carb'] ?></td>
-                  <td><?= $rav['litres'] ?></td>
-                  <td><?= $rav['auteur'] ?></td>
-                  <td>
-                    <div class="d-flex justify-content-around">
-                      <button type="button" class="btn border-0 text-warning"><i cla data-feather="edit"></i> Modifier</button>
-                      <button data-id="<?= $rav['id'] ?>" data-conducteur="<?= $rav['conducteur'] ?>" data-date="<?= $rav['created_at'] ?>" data-bs-toggle="modal" data-bs-target="#supRav" type="button" class="btn supRav border-0 text-danger">
-                        <i cla data-feather="trash"></i> Supprimer
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- modal recharge -->
 <div class="modal fade" id="recharge" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="rechargeModalTitle" aria-hidden="true">
@@ -196,11 +195,11 @@ Gestion du carburant
 </script>
 
 <script>
-  $('.supRav').click(function (e) { 
+  $('.supRav').click(function(e) {
     e.preventDefault();
     $('#supDate').html($(this).data('date'));
     $('#supConducteur').html($(this).data('conducteur'));
-    $('#supRavBtn').attr('href', '<?= base_url(session()->r.'/carburant/supprimer/') ?>'+$(this).data('id'));
+    $('#supRavBtn').attr('href', '<?= base_url(session()->r . '/carburant/supprimer/') ?>' + $(this).data('id'));
   });
 </script>
 

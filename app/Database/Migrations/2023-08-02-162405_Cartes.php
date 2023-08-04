@@ -22,9 +22,10 @@ class Cartes extends Migration
                 'null' => true,
             ],
             'solde' => [
-                'type' => 'INT',
+                'type' => 'FLOAT',
                 'constraint' => 11,
                 'null' => true,
+                'default' => 0.00
             ],
             'created_at' => [
                 'type' => 'DATETIME',
