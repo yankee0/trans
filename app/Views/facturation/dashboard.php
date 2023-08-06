@@ -88,6 +88,7 @@
               <tr>
                 <th>Nº Facture</th>
                 <th class="table-cell">BL</th>
+                <th class="table-cell">Compagnie</th>
                 <th class="d-none d-xl-table-cell">20'</th>
                 <th class="d-none d-xl-table-cell">40'</th>
                 <th class="d-none d-md-table-cell">Montant</th>
@@ -103,6 +104,7 @@
                 <tr>
                   <td><?= $line['id'] ?></td>
                   <td class="table-cell"><?= $line['bl'] ?></td>
+                  <td class="table-cell"><?= $line['compagnie'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
                   <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>

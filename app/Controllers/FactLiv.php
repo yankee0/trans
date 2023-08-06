@@ -2,15 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+use Exception;
+use App\Models\Zones;
 use App\Models\Clients;
-use App\Models\FactLiv as ModelsFactLiv;
+use App\Models\Livraisons;
 use App\Models\FactLivLieux;
 use App\Models\FactLivLignes;
-use App\Models\Livraisons;
-use App\Models\Zones;
+use App\Controllers\Facturations;
+use App\Controllers\BaseController;
+use App\Models\FactLiv as ModelsFactLiv;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use Exception;
 
 
 
@@ -327,6 +328,9 @@ class FactLiv extends BaseController
         //         (new Facturations)->FactLivInfos($r);
         //     }
         // }
+        for ($i = 0; $i < sizeof($r); $i++) {
+            $r[$i] = (new Facturations)->FactLivInfos($r[$i]);
+        }
         $data = [
             'r' => $r,
             'pager' => $modele->pager,

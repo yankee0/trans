@@ -96,28 +96,30 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'ops'
+            or session()->r == 'facturation'
           ) : ?>
             <li class="sidebar-header">
               Opérations
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
-                <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
-              </a>
-            </li>
-
-            <!-- <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
-                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
-              </a>
-            </li> -->
-
-            <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
-                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
-              </a>
-            </li>
+            <?php if (session()->r != 'facturation') : ?>
+              <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
+                  <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
+                </a>
+              </li>
+  
+              <!-- <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
+                  <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
+                </a>
+              </li> -->
+              <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
+                  <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+                </a>
+              </li>
+            <?php endif ?>
 
             <li class="sidebar-item <?= (session()->p == 'search') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/search') ?>">
