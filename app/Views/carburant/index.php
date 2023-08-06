@@ -16,7 +16,7 @@ Gestion du carburant
           <?php if (empty($recs)) : ?>
             <small>Pas de recharge enregistrée</small>
           <?php else : ?>
-            <small class="text-muted">Dernier ravitallement de <span class="num"><?= $recs[0]['montant'] ?></span> par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
+            <small class="text-muted">Dernier ravitallement de <span class="num"><?= $recs[0]['montant'] ?></span> de FCFA par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
           <?php endif ?>
         </div>
         <?php if (session()->r == 'admin') : ?>

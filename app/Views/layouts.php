@@ -452,6 +452,23 @@
     <a class="btn btn-primary btn-lg display-4" href="#" role="button"><i class="align-middle " data-feather="arrow-up"></i></a>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var elementsAvecNombres = document.querySelectorAll('.num'); // Remplacez "votre-classe" par la classe appropriée
+       
+      elementsAvecNombres.forEach(function(element) {
+        var texte = element.textContent;
+        if (!isNaN(texte)) {
+          var nombreAvecPoints = ajouterPoints(texte);
+          element.textContent = nombreAvecPoints;
+        }
+      });
+    });
+          
+    function ajouterPoints(nombre) {
+      return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }     
+  </script>
 
   <script>
     function disablePageInteraction() {
