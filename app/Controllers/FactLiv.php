@@ -304,7 +304,7 @@ class FactLiv extends BaseController
                 ->with('m', '<br />' . $e->getMessage());
         }
         return redirect()
-            ->back()
+            ->to(session()->r . '/livraisons')
             ->with('n', true)
             ->with('m', 'Suppression réussie');
     }
