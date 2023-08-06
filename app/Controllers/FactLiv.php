@@ -474,7 +474,7 @@ class FactLiv extends BaseController
 
     public function deleteZone($f, $z)
     {
-        // dd($f);
+        // dd($z);
         try {
             $data = (new FactLivLieux())
                 ->select('
@@ -489,12 +489,16 @@ class FactLiv extends BaseController
                 ->where('id_zone', $z)
                 ->first();
 
-            (new ModelsFactLiv())->save([
-                'id' => $f,
-                'ages' => $data['ages'] - ($data['count'] * $data['ages'])
-            ]);
-
-            (new FactLivLieux())->delete($data['zone']);
+            if (!empty($data)) {
+                (new ModelsFactLiv())->save([
+                    'id' => $f,
+                    'ages' => $data['ages'] - ($data['count'] * $data['ages'])
+                ]);
+            }
+            (new FactLivLieux())
+                ->where('id_fact', $f)
+                ->where('id_zone', $z)
+                ->delete();
         } catch (Exception $e) {
             return redirect()
                 ->back()
@@ -780,7 +784,7 @@ class FactLiv extends BaseController
                 COUNT(fact_liv_lignes.prix) as tcs
             ')
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
-            ->orderBy('fact_liv.id','DESC')
+            ->orderBy('fact_liv.id', 'DESC')
             ->join('clients', 'clients.id = fact_liv.id_client')
             ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
             ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
@@ -800,12 +804,12 @@ class FactLiv extends BaseController
 
         $data = $builder->find();
 
-        for ($i=0; $i < sizeof($data); $i++) { 
+        for ($i = 0; $i < sizeof($data); $i++) {
             if ($data[$i]['avec_tva'] == 'OUI') {
-                $data[$i]['total'] += ($data[$i]['total']*18/100);
+                $data[$i]['total'] += ($data[$i]['total'] * 18 / 100);
             }
             if ($data[$i]['avec_ages'] == 'OUI') {
-                $data[$i]['total'] += ($data[$i]['tcs']*1500);
+                $data[$i]['total'] += ($data[$i]['tcs'] * 1500);
             }
             if ($data[$i]['avec_copie'] == 'OUI') {
                 $data[$i]['total'] += 500;
