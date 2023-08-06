@@ -15,11 +15,11 @@ class Carburant extends BaseController
 
         return view('carburant/index', [
             'carte' => (new Carte())->first(),
-            'lastRec' => (new Rechargement())
-                ->select('montant, utilisateurs.nom, rechargements.created_at')
+            'recs' => (new Rechargement())
+                ->select('rechargements.*, utilisateurs.nom')
+                ->join('utilisateurs', 'utilisateur = utilisateurs.id')
                 ->orderBy('created_at', 'DESC')
-                ->join('utilisateurs', 'utilisateurs.id = utilisateur')
-                ->first(),
+                ->findAll(),
             'ravs' => (new Ravitaillement())->orderBy('created_at', 'DESC')->findAll()
         ]);
     }
@@ -51,11 +51,12 @@ class Carburant extends BaseController
         $data = $this->request->getPost();
         $data['carte'] = 1;
         $data['auteur'] = session()->u['nom'];
+        $data['imm'] = strtoupper($data['imm']);
+        $data['prix_litre'] = $prix = $data['type_carb'] == 'ESSENCE' ? 990 : 755;
         (new Ravitaillement())->save($data);
 
         //debiter la carte
         $carte = (new Carte())->first();
-        $prix = $data['type_carb'] == 'ESSENCE' ? 990 : 755;
         $debit = $data['litres'] * $prix;
         $carte['solde'] -= $debit;
         (new Carte())->save($carte);
@@ -85,5 +86,37 @@ class Carburant extends BaseController
             ->back()
             ->with('n', true)
             ->with('m', 'Suppression réussie, ' . $solde . ' FCFA retournés à la carte.');
+    }
+
+    public function modRav()
+    {
+        $data = $this->request->getPost();
+        $data['imm'] = strtoupper($data['imm']);
+
+
+        //l'ancien montant
+        $ancien_montant = (new Ravitaillement())->find($data['id'])['litres'] * (new Ravitaillement())->find($data['id'])['prix_litre'];
+        $solde = (new Carte())->first()['solde'];
+        (new Carte())->save([
+            'id' => 1,
+            'solde' => $solde + $ancien_montant
+        ]);
+
+        //le nouveau montant
+        $data['prix_litre'] = $prix = $data['type_carb'] == 'ESSENCE' ? 990 : 755;
+        $nouveau_montant = $data['litres'] * $data['prix_litre'];
+        $solde = (new Carte())->first()['solde'];
+        (new Carte())->save([
+            'id' => 1,
+            'solde' => $solde - $nouveau_montant
+        ]);
+
+        // Enregistrement
+        (new Ravitaillement())->save($data);
+
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Modification réussie.');
     }
 }

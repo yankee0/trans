@@ -33,7 +33,7 @@ class Ravitaillements extends Migration
                 'null' => true,
             ],
             'prix_litre' => [
-                'type' => 'INT',
+                'type' => 'FLOAT',
                 'constraint' => 11,
                 'default' => 0,
                 'null' => true,
