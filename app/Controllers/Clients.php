@@ -88,7 +88,7 @@ class Clients extends BaseController
                 ->back()
                 ->withInput()
                 ->with('n', false)
-                ->with('m', '<br />' . $e->getMessage());
+                ->with('m', '<br />'.$e->getMessage());
         }
         return redirect()
             ->back()
@@ -99,16 +99,17 @@ class Clients extends BaseController
     public function edit()
     {
         $data = $this->request->getPost();
-        $u = (new ModelsClients())->find($data['id']);
+        // dd($data);
+        $u = (new ModelsClients())->find($data['idmod']);
         $rules = [
             'email' => [
-                'rules' => 'is_unique[clients.email,email,' . $u['email'] . ']',
+                'rules' => 'is_unique[clients.email,email,'.$u['email'].']',
                 'errors' => [
                     'is_unique' => 'Cet email existe déjà.'
                 ]
             ],
             'tel' => [
-                'rules' => 'is_unique[clients.tel,tel,' . $u['tel'] . ']',
+                'rules' => 'is_unique[clients.tel,tel,'.$u['tel'].']',
                 'errors' => [
                     'is_unique' => 'Ce numéro de téléphone existe déjà.'
                 ]
@@ -119,17 +120,17 @@ class Clients extends BaseController
                 ->back()
                 ->withInput()
                 ->with('n', false)
-                ->with('m', '<br />' . $this->validator->listErrors());
+                ->with('m', '<br />'.$this->validator->listErrors());
         } else {
             try {
                 $data['nom'] = strtoupper($data['nom']);
-                (new ModelsClients())->save($data);
+                (new ModelsClients())->update($data['idmod'], $data);
             } catch (Exception $e) {
                 return redirect()
                     ->back()
                     ->withInput()
                     ->with('n', false)
-                    ->with('m', '<br />' . $e->getMessage());
+                    ->with('m', '<br />'.$e->getMessage());
             }
             return redirect()
                 ->back()
@@ -143,7 +144,7 @@ class Clients extends BaseController
         $data = $this->request->getGet();
         $s = isset($data['search']) ? $data['search'] : '%';
         if (empty($s)) {
-            return redirect()->to(session()->r . '/clients');
+            return redirect()->to(session()->r.'/clients');
         }
         $modele = new ModelsClients();
         $r = $modele
