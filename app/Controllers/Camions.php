@@ -14,8 +14,7 @@ class Camions extends BaseController
         $modele = new ModelsCamions();
         $data = [
             'count' => $modele->countAll(),
-            'list' => $modele->paginate(25),
-            'pager' => $modele->pager
+            'list' => $modele->findAll(),
         ];
         return view('camions/list', $data);
     }

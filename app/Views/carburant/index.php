@@ -11,12 +11,12 @@ Gestion du carburant
     <div class="card">
       <div class="card-body">
         <h5 class="card-title"><strong>Solde de la carte</strong></h5>
-        <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><?= $carte['solde'] ?> <strong>FCFA</strong></div>
+        <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $carte['solde'] ?></span> <strong>FCFA</strong></div>
         <div class="mb-2">
           <?php if (empty($recs)) : ?>
             <small>Pas de recharge enregistrée</small>
           <?php else : ?>
-            <small class="text-muted">Dernier ravitallement de <?= $recs[0]['montant'] ?> par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
+            <small class="text-muted">Dernier ravitallement de <span class="num"><?= $recs[0]['montant'] ?></span> de FCFA par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
           <?php endif ?>
         </div>
         <?php if (session()->r == 'admin') : ?>

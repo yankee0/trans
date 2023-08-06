@@ -168,15 +168,18 @@ Information de livraison
           </div>
           <div class="col-12">
             <div class="row gap-3">
-              <div class="col-md d-grid">
-                <button class="btn btn-dark d-flex align-items-center justify-content-center gap-2 <?= ($etat == 'MISE À TERRE' or $etat == 'LIVRÉ') ? 'disabled' : '' ?>" data-bs-toggle="modal" data-bs-target="#delivDrop"><i data-feather="arrow-down"></i>Mise à terre</button>
-              </div>
-              <div class="col-md d-grid">
-                <button class="btn btn-info d-flex align-items-center justify-content-center gap-2 <?= ($etat == 'SUR PLATEAU' or $etat == 'LIVRÉ') ? 'disabled' : '' ?>" data-bs-toggle="modal" data-bs-target="#uptc"><i data-feather="arrow-up"></i>Mise sur plateau</button>
-              </div>
-              <div class="col-md d-grid">
-                <button class="btn btn-warning d-flex align-items-center justify-content-center gap-2 infDelv" data-bs-toggle="modal" data-bs-target="#livInf"><i data-feather="truck"></i>Livraison</button>
-              </div>
+              <?php if (session()->r != 'facturation') : ?>
+
+                <div class="col-md d-grid">
+                  <button class="btn btn-dark d-flex align-items-center justify-content-center gap-2 <?= ($etat == 'MISE À TERRE' or $etat == 'LIVRÉ') ? 'disabled' : '' ?>" data-bs-toggle="modal" data-bs-target="#delivDrop"><i data-feather="arrow-down"></i>Mise à terre</button>
+                </div>
+                <div class="col-md d-grid">
+                  <button class="btn btn-info d-flex align-items-center justify-content-center gap-2 <?= ($etat == 'SUR PLATEAU' or $etat == 'LIVRÉ') ? 'disabled' : '' ?>" data-bs-toggle="modal" data-bs-target="#uptc"><i data-feather="arrow-up"></i>Mise sur plateau</button>
+                </div>
+                <div class="col-md d-grid">
+                  <button class="btn btn-warning d-flex align-items-center justify-content-center gap-2 infDelv" data-bs-toggle="modal" data-bs-target="#livInf"><i data-feather="truck"></i>Livraison</button>
+                </div>
+              <?php endif ?>
               <div class="col-md d-grid">
                 <button class="btn btn-danger d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#abordDelv"><i data-feather="x"></i>Annuler</button>
               </div>

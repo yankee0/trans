@@ -14,8 +14,7 @@ class Remorques extends BaseController
         $modele = new ModelsRemorques();
         $data = [
             'count' => $modele->countAll(),
-            'list' => $modele->paginate(25),
-            'pager' => $modele->pager
+            'list' => $modele->findAll(),
         ];
         return view('remorques/list', $data);
     }
