@@ -19,7 +19,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $cli ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $cli ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span><br>
           </div>
@@ -40,7 +40,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $liv ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $liv ?></h1>
           <div class="mb-0">
             <span class="text-muted"> <i class="mdi mdi-arrow-bottom-right"></i> <?= count($liv_preget) ?> en attente de PREGET</span>
           </div>
@@ -88,6 +88,7 @@
               <tr>
                 <th>Nº Facture</th>
                 <th class="table-cell">BL</th>
+                <th class="table-cell">Compagnie</th>
                 <th class="d-none d-xl-table-cell">20'</th>
                 <th class="d-none d-xl-table-cell">40'</th>
                 <th class="d-none d-md-table-cell">Montant</th>
@@ -103,9 +104,10 @@
                 <tr>
                   <td><?= $line['id'] ?></td>
                   <td class="table-cell"><?= $line['bl'] ?></td>
+                  <td class="table-cell"><?= $line['compagnie'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
-                  <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
+                  <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                   <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
                   <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>

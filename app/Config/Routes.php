@@ -209,6 +209,22 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'Zones::edit');
             $routes->get('search', 'Zones::search');
         });
+
+        //recherche operation
+        $routes->get('search', 'Ops::search');
+        //gestion des livraisons
+        $routes->group('livraisons', function ($routes) {
+            // $routes->get('/', 'Livraisons::index');
+            $routes->get('infos/(:segment)/(:segment)', 'Livraisons::info/$1/$2');
+            // $routes->post('/', 'Livraisons::save');
+            $routes->post('abord', 'Livraisons::abord');
+            // $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
+            // $routes->get('up/(:segment)', 'Livraisons::up/$1');
+            // $routes->get('preget', 'Livraisons::preget');
+            // $routes->post('preget', 'Livraisons::checkPreget');
+            // $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
+        });
+
     });
 
     $routes->group('finance', ['filter' => 'finance'], function ($routes) {

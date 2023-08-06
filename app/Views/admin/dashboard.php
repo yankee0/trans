@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $cli ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $cli ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total</span><br>
         </div>
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $factLivNotPaid ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $factLivNotPaid ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total pour livraisons</span>
         </div>
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $sumFactLivD ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $sumFactLivD ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total TTC en FCFA</span>
         </div>
@@ -87,7 +87,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $sumFactLivW ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $sumFactLivW ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total TTC en FCFA</span>
         </div>
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $sumFactLivM ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $sumFactLivM ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total TTC en FCFA</span>
         </div>
@@ -131,7 +131,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $sumFactLivY ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $sumFactLivY ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total TTC en FCFA</span>
         </div>
@@ -169,7 +169,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $livsDailyCount ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total</span>
         </div>
@@ -191,7 +191,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $livsWeekyCount ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total</span>
         </div>
@@ -213,7 +213,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $livsMonthlyCount ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total</span>
         </div>
@@ -235,7 +235,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
+        <h1 class="mt-1 mb-3 num"><?= $livsYearlyCount ?></h1>
         <div class="mb-0">
           <span class="text-muted">Total</span>
         </div>
