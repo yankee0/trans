@@ -20,7 +20,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $cli ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $cli ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total</span><br>
           </div>
@@ -42,7 +42,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $factLivNotPaid ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $factLivNotPaid ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total pour livraisons</span>
           </div>
@@ -67,7 +67,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $sumFactLivD ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $sumFactLivD ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total TTC en FCFA</span>
           </div>
@@ -89,7 +89,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $sumFactLivW ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $sumFactLivW ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total TTC en FCFA</span>
           </div>
@@ -111,7 +111,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $sumFactLivM ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $sumFactLivM ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total TTC en FCFA</span>
           </div>
@@ -133,7 +133,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <h1 class="mt-1 mb-3"><?= $sumFactLivY ?></h1>
+          <h1 class="mt-1 mb-3 num"><?= $sumFactLivY ?></h1>
           <div class="mb-0">
             <span class="text-muted">Total TTC en FCFA</span>
           </div>
@@ -198,7 +198,7 @@ Dashboard
                 <tr>
                   <td><?= $line['id'] ?></td>
                   <td class="table-cell"><?= $line['bl'] ?></td>
-                  <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
+                  <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td><span class="badge bg-<?= ($line['reglement'] == 'NON PAYÉ' or $line['reglement'] == 'À CRÉDIT') ? 'danger' : 'success' ?>"><?= $line['reglement'] ?></span></td>
