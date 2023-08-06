@@ -81,7 +81,7 @@ class Ops extends BaseController
         $data = $this->request->getGet();
         $search = isset($data['search']) ? $data['search'] : '%';
         $data = [
-            'livs' => (new Livraisons())->getLivs($search,20),
+            'livs' => (new Livraisons())->getLivs($search,30,true),
             'search' => $search,
             'drivers' => (new Chauffeurs())
                 ->orderBy('nom')

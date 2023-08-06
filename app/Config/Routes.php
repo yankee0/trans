@@ -50,7 +50,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 
         //gestion des factures
         $routes->group('factures', function ($routes) {
-            $routes->get('/', 'factures::dashboard');
+            $routes->get('/', 'Factures::dashboard');
             
         });
 
@@ -93,7 +93,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'Livraisons::index');
-            $routes->get('infos/(:segment)', 'Livraisons::info/$1');
+            $routes->get('infos/(:segment)/(:segment)', 'Livraisons::info/$1/$2');
             $routes->post('/', 'Livraisons::save');
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
@@ -102,6 +102,16 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('preget', 'Livraisons::checkPreget');
             $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
         });
+
+        //gestion du carburant
+        $routes->group('carburant', function ($routes) {
+            $routes->get('/', 'Carburant::index');
+            $routes->post('/','Carburant::ravitaillement');
+            $routes->post('recharge','Carburant::recharge');
+            $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
+            $routes->post('modifier', 'Carburant::modRav');
+        });
+
 
         //recherche operation
         $routes->get('search', 'Ops::search');
@@ -282,7 +292,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             $routes->get('/', 'Livraisons::index');
-            $routes->get('infos/(:segment)', 'Livraisons::info/$1');
+            $routes->get('infos/(:segment)/(:segment)', 'Livraisons::info/$1/$2');
             $routes->post('/', 'Livraisons::save');
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');

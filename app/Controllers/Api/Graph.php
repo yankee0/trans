@@ -138,8 +138,8 @@ class Graph extends BaseController
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
                 ->where('fact_liv.preget', 'OUI')
                 ->where('fact_liv.annulation', 'NON')
-                ->where('MONTH(livraisons.created_at)', $i)
-                ->where('YEAR(livraisons.created_at)', date('Y', time()))
+                ->where('MONTH(fact_liv.date_pg)', $i)
+                ->where('YEAR(fact_liv.date_pg)', date('Y', time()))
                 ->find());
             array_push($data, $item);
         }
