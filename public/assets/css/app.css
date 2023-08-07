@@ -13198,11 +13198,24 @@ body.dark-mode {
   background-color: #0056b3
 }
 
-.dark-mode .card{
+.dark-mode .card {
   background-color: hsla(0, 100%, 100%, 0.08);
-	box-shadow:
-		/* offset-x | offset-y | blur-radius | spread-radius | color */
-		0px 3px 4px 0px hsla(0,0%,0%,0.14), 
-		0px 3px 3px -2px hsla(0,0%,0%,0.12), 
-		0px 1px 8px 0px hsla(0,0%,0%,0.2);
+  box-shadow:
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    0px 3px 4px 0px hsla(0, 0%, 0%, 0.14),
+    0px 3px 3px -2px hsla(0, 0%, 0%, 0.12),
+    0px 1px 8px 0px hsla(0, 0%, 0%, 0.2);
+}
+
+.table{
+  column-span: 0;
+}
+
+.print table,
+.print td,
+.print tr
+{
+  border-left: solid 2px #000;
+  border-right: solid 2px #000;
+  border-color: black;
 }
