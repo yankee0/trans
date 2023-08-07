@@ -40,9 +40,9 @@ Liste des camions
                   <tr>
                     <th></th>
                     <th>Immatriculation</th>
-                    <th class="d-none d-xl-table-cell">Société</th>
-                    <th class="d-none d-sm-table-cell">Fin visite technique</th>
-                    <th class="d-none d-xl-table-cell">Fin assurance</th>
+                    <th class="">Société</th>
+                    <th class="">Fin visite technique</th>
+                    <th class="">Fin assurance</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -53,9 +53,9 @@ Liste des camions
                         <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                       </td>
                       <td><?= $l['im'] ?></td>
-                      <td class="d-none d-xl-table-cell"><?= $l['societe'] ?></td>
-                      <td class="d-none d-sm-table-cell"><?= $l['vt'] ?></td>
-                      <td class="d-none d-xl-table-cell"><?= $l['as'] ?></td>
+                      <td class=""><?= $l['societe'] ?></td>
+                      <td class=""><?= $l['vt'] ?></td>
+                      <td class=""><?= $l['as'] ?></td>
                       <td>
                         <div class="d-flex gap-2">
                           <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">

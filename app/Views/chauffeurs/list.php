@@ -40,9 +40,9 @@ Liste des chauffeurs
                   <tr>
                     <th></th>
                     <th>Nom</th>
-                    <th class="d-none d-xl-table-cell">Téléphone</th>
-                    <th class="d-none d-sm-table-cell">Société</th>
-                    <th class="d-none d-xl-table-cell">Camion</th>
+                    <th class="">Téléphone</th>
+                    <th class="">Société</th>
+                    <th class="">Camion</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -53,10 +53,10 @@ Liste des chauffeurs
                         <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                       </td>
                       <td><?= $l['nom'] ?></td>
-                      <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
-                      <td class="d-none d-sm-table-cell"><?= $l['societe'] ?></td>
+                      <td class=""><?= $l['tel'] ?></td>
+                      <td class=""><?= $l['societe'] ?></td>
   
-                      <td class="d-none d-xl-table-cell"><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
+                      <td class=""><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
                       <td>
                         <div class="d-flex gap-2">
                           <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
