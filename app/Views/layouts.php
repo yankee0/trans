@@ -61,7 +61,7 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'flotte'
-            // or session()->r == 'ops'
+            or session()->r == 'ops'
           ) : ?>
 
             <li class="sidebar-header">
