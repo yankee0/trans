@@ -188,11 +188,10 @@ Liste des camions
       </div>
       <div class="modal-body">
         Supprimer le camion: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/camions/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" id="znb" name="id" form="delForm" class="btn btn-primary">Supprimer</button>
+        <a id="znb" href="" class="btn btn-primary">Supprimer</a>
       </div>
     </div>
   </div>
@@ -230,7 +229,7 @@ Liste des camions
   $('.delete').click(function(e) {
     e.preventDefault();
     $('#zn').html($(this).data('im'));
-    $('#znb').val($(this).data('id'));
+    $('#znb').attr("href",'<?= base_url(session()->r . '/camions/del/') ?>'+$(this).data('id'));
   });
 
   $('.update').click(function(e) {
