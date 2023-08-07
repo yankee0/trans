@@ -27,11 +27,11 @@ class Clients extends BaseController
         $data = $this->request->getVar();
         try {
             (new ModelsClients())->delete($data['id']);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return redirect()
                 ->back()
                 ->with('n', false)
-                ->with('m', 'Une erreur est survenue lors de la suppression.');
+                ->with('m', 'Une erreur est survenue lors de la suppression: <br />'.$e->getMessage());
         }
         return redirect()
             ->back()
