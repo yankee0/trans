@@ -318,6 +318,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
         });
 
+        //gestion du carburant
+        $routes->group('carburant', function ($routes) {
+            $routes->get('/', 'Carburant::index');
+            $routes->post('/','Carburant::ravitaillement');
+            $routes->post('recharge','Carburant::recharge');
+            $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
+            $routes->post('modifier', 'Carburant::modRav');
+        });
+
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');

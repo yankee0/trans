@@ -15,14 +15,12 @@ class Admin extends BaseController
     {
         session()->p = 'dashboard';
 
-        $model_fact_liv = new FactLiv();
-
         //get the yearly total amount liv
-        $yearlyFactLivPaid = $model_fact_liv
-            ->where('YEAR(date_paiement)', date('Y', time()))
+        $yearlyFactLivPaid = (new FactLiv())
+            ->where('YEAR(date_paiement)', date('Y'))
             ->where('paiement', 'OUI')
             ->find();
-        // dd(date('Y', time()));
+        // dd(date('Y'));
         for ($i = 0; $i < sizeof($yearlyFactLivPaid); $i++) {
             $yearlyFactLivPaid[$i] = (new Facturations)
                 ->FactLivInfos($yearlyFactLivPaid[$i]);
@@ -33,8 +31,8 @@ class Admin extends BaseController
         }
 
         //get the monthly total amount liv
-        $monthlyFactLivPaid = $model_fact_liv
-            ->where('MONTH(date_paiement)', date('m', time()))
+        $monthlyFactLivPaid = (new FactLiv())
+            ->where('MONTH(date_paiement)', date('m'))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($monthlyFactLivPaid); $i++) {
@@ -47,8 +45,8 @@ class Admin extends BaseController
         }
 
         //get weeky total amount liv
-        $weekyFactLivPaid = $model_fact_liv
-            ->where('WEEK(date_paiement)', date('W', time()))
+        $weekyFactLivPaid = (new FactLiv())
+            ->where('WEEK(date_paiement)', date('W'))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($weekyFactLivPaid); $i++) {
@@ -61,8 +59,8 @@ class Admin extends BaseController
         }
 
         //get daily total amount liv
-        $dailyFactLivPaid = $model_fact_liv
-            ->where('DAY(date_paiement)', date('d', time()))
+        $dailyFactLivPaid = (new FactLiv())
+            ->where('DAY(date_paiement)', date('d'))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($dailyFactLivPaid); $i++) {
@@ -89,7 +87,7 @@ class Admin extends BaseController
             'sumFactLivW' => $sumFactLivW,
             'sumFactLivD' => $sumFactLivD,
             'factLivNotPaid' => sizeof(
-                $model_fact_liv
+                (new FactLiv())
                     ->where('annulation', 'NON')
                     ->where('paiement', 'NON')
                     ->find()

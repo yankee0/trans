@@ -10,9 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" />
   <title><?= APP_NAME ?> - Facture N<?= $facture['id'] ?></title>
-  <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
+  <!-- <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet"> -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap);
+
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
     .invoice-container {
       padding: 0px;
       background-color: white;
@@ -51,20 +57,18 @@
       margin: 0;
     }
 
-    .invoice-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
+    .print table,
+    .print td,
+    .print tr {
+      border: solid 1px #000;
     }
+
+
 
     .invoice-table th,
     .invoice-table td {
       padding: 10px;
       text-align: left;
-    }
-
-    .invoice-table th {
-      background-color: #f0f0f0;
     }
 
     .invoice-table td {
@@ -75,11 +79,6 @@
       font-weight: bold;
     }
 
-    tr,
-    td {
-      border: solid 1px black;
-      border-color: black;
-    }
 
     @media print {
       @page {
@@ -126,7 +125,7 @@
   </style>
 </head>
 
-<body class="text-dark py-3">
+<body class="text-dark py-3 print">
   <div id="invoice" class="container invoice-container bg-white" style="min-width: 794px;">
     <?php if (
       $facture['annulation'] == 'NON'
@@ -147,7 +146,7 @@
             <div id="lo"></div>
             <!-- <img id="logo" src="<?= base_url('assets/img/logo.png') ?>" height="100px" alt=""> -->
             <div class=" d-flex flex-column align-items-start">
-              <h3 class="fs-3 ">POLY-TRANS SUARL</h3>
+              <h3 class="fs-3 "><strong>POLY-TRANS SUARL</strong></h3>
               <span>Transit - Transport - Manutention - Consignation - Entreposage - Groupage - Conseils</span>
             </div>
           </div>
@@ -161,29 +160,29 @@
       <div class="invoice-details d-flex align-items-center justify-content-between">
         <div>
           <p class="fs-1"><?= $facture['consignataire'] ?></p>
-          <p>Compte Nº <?= $facture['id_client'] ?></p>
-          <p>Date de facturation : <?= $facture['date_creation'] ?></p>
+          <p><strong>Compte Nº</strong> <?= $facture['id_client'] ?></p>
+          <p><strong>Date de facturation</strong> <?= $facture['date_creation'] ?></p>
         </div>
         <div>
           <p class="fs-1"></p>
-          <p>BL Nº <?= $facture['bl'] ?></p>
-          <p>Compagnie <?= $facture['compagnie'] ?></p>
+          <p><strong>BL Nº</strong> <?= $facture['bl'] ?></p>
+          <p><strong>Compagnie</strong> <?= $facture['compagnie'] ?></p>
         </div>
       </div>
-      <table class="table invoice-table">
-        <thead>
-          <tr>
-            <th>Désignation</th>
-            <th>Quantité 20'</th>
-            <th>P.U. 20'</th>
-            <th>Quantité 40'</th>
-            <th>P.U. 40'</th>
-            <th>Total</th>
+      <table class="table ">
+        <thead class=" border border-danger bg-danger">
+          <tr >
+            <th class="text-white">Désignation</th>
+            <th class="text-white">Quantité 20'</th>
+            <th class="text-white">P.U. 20'</th>
+            <th class="text-white">Quantité 40'</th>
+            <th class="text-white">P.U. 40'</th>
+            <th class="text-white">Total</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($zones as $z) : ?>
-            <tr>
+            <tr class=" border-dark">
               <td>
                 <div>
                   <p class="d-flex g-1 flex-column">
@@ -196,7 +195,7 @@
 
                       <div class="row">
                         <?php foreach ($z['c_20'] as $c) : ?>
-                          <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
+                          <div class="col-6 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
                         <?php endforeach ?>
                       </div>
                     </div>
@@ -207,17 +206,17 @@
 
                       <div class="row">
                         <?php foreach ($z['c_40'] as $c) : ?>
-                          <div class="col-6 text-uppercase text-sm text-muted"><?= $c['conteneur'] ?></div>
+                          <div class="col-6 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
                         <?php endforeach ?>
                       </div>
                     </div>
                   <?php endif ?>
                 </div>
               </td>
-              <td><?= sizeof($z['c_20']) ?></td>
-              <td><?= (isset($z['c_20'][0]['prix'])) ? $z['c_20'][0]['prix'] : '' ?></td>
-              <td><?= sizeof($z['c_40']) ?></td>
-              <td><?= (isset($z['c_40'][0]['prix'])) ? $z['c_40'][0]['prix'] : '' ?></td>
+              <td class="num"><?= sizeof($z['c_20']) ?></td>
+              <td class="num"><?= (isset($z['c_20'][0]['prix'])) ? $z['c_20'][0]['prix'] : '' ?></td>
+              <td class="num"><?= sizeof($z['c_40']) ?></td>
+              <td class="num"><?= (isset($z['c_40'][0]['prix'])) ? $z['c_40'][0]['prix'] : '' ?></td>
               <?php
               $tc = 0;
               if (isset($z['c_20'][0]['prix'])) {
@@ -227,30 +226,30 @@
                 $tc += $z['c_40'][0]['prix'] * sizeof($z['c_40']);
               }
               ?>
-              <td class="tp"><?= $tc ?></td>
+              <td class="tp num"><?= $tc ?></td>
             </tr>
             <?php if ($facture['hammar'] > 0) : ?>
-              <tr>
+              <tr class=" border-dark">
                 <td colspan="5">
                   <b>Frais de manutension Hammar</b>
                 </td>
                 <td>
-                  <?= $facture['hammar'] ?>
+                  <span class="num"><?= $facture['hammar'] ?></span>
                 </td>
               </tr>
             <?php endif ?>
             <?php if ($facture['ages'] > 0 and $facture['avec_ages'] == 'OUI') : ?>
-              <tr>
+              <tr class=" border-dark">
                 <td colspan="5">
                   <b>Ticket A.G.S</b>
                 </td>
                 <td>
-                  <?= $facture['ages'] ?>
+                  <span class="num"><?= $facture['ages'] ?></span>
                 </td>
               </tr>
             <?php endif ?>
             <?php if ($facture['copie'] > 0) : ?>
-              <tr>
+              <tr class=" border-dark">
                 <td colspan="5">
                   <b>Impression</b>
                 </td>
@@ -262,25 +261,25 @@
           <?php endforeach ?>
         </tbody>
         <tfoot>
-          <tr>
+          <tr class=" border-dark">
             <td colspan="5" class="invoice-total ">
               Total Hors Taxe <br>
               TVA <br>
               Taxes
             </td>
             <td id="total">
-              <?= $total ?> <br>
+              <span class="num"><?= $total ?></span> <br>
               <?= $facture['avec_tva'] == 'OUI' ? '18%' : '0' ?> <br>
-              <?= $taxe ?>
+              <span class="num"><?= $taxe ?></span>
             </td>
           </tr>
 
-          <tr class="fs-3">
+          <tr class=" border-dark fs-3">
             <td colspan="5" class="invoice-total text-end">
               NET À PAYER
             </td>
             <td id="total">
-              <?= $ttc ?>
+              <span class="num"><?= $ttc ?></span>
             </td>
           </tr>
         </tfoot>
@@ -308,7 +307,7 @@
   </div>
   <script>
     generateQRCode(
-      'Facture de <?= $facture['consignataire'] ?> | Montant: <?= $ttc ?>',
+      "<?= base_url('docs/livraisons/details/' . $facture['id']) ?>",
       'qrcode'
     )
 
@@ -334,6 +333,23 @@
     const nombre = <?= $ttc ?>;
     const resultat = NumberToLetter(nombre);
     document.getElementById('lettre').innerHTML = resultat
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var elementsAvecNombres = document.querySelectorAll('.num'); // Remplacez "votre-classe" par la classe appropriée
+       
+      elementsAvecNombres.forEach(function(element) {
+        var texte = element.textContent;
+        if (!isNaN(texte)) {
+          var nombreAvecPoints = ajouterPoints(texte);
+          element.textContent = nombreAvecPoints;
+        }
+      });
+    });
+          
+    function ajouterPoints(nombre) {
+      return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }     
   </script>
 </body>
 
