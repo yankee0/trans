@@ -40,9 +40,9 @@ Liste des camions
                   <tr>
                     <th></th>
                     <th>Immatriculation</th>
-                    <th class="d-none d-xl-table-cell">Société</th>
-                    <th class="d-none d-sm-table-cell">Fin visite technique</th>
-                    <th class="d-none d-xl-table-cell">Fin assurance</th>
+                    <th class="">Société</th>
+                    <th class="">Fin visite technique</th>
+                    <th class="">Fin assurance</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -53,9 +53,9 @@ Liste des camions
                         <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                       </td>
                       <td><?= $l['im'] ?></td>
-                      <td class="d-none d-xl-table-cell"><?= $l['societe'] ?></td>
-                      <td class="d-none d-sm-table-cell"><?= $l['vt'] ?></td>
-                      <td class="d-none d-xl-table-cell"><?= $l['as'] ?></td>
+                      <td class=""><?= $l['societe'] ?></td>
+                      <td class=""><?= $l['vt'] ?></td>
+                      <td class=""><?= $l['as'] ?></td>
                       <td>
                         <div class="d-flex gap-2">
                           <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
@@ -188,11 +188,10 @@ Liste des camions
       </div>
       <div class="modal-body">
         Supprimer le camion: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/camions/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" id="znb" name="id" form="delForm" class="btn btn-primary">Supprimer</button>
+        <a id="znb" href="" class="btn btn-primary">Supprimer</a>
       </div>
     </div>
   </div>
@@ -230,7 +229,7 @@ Liste des camions
   $('.delete').click(function(e) {
     e.preventDefault();
     $('#zn').html($(this).data('im'));
-    $('#znb').val($(this).data('id'));
+    $('#znb').attr("href",'<?= base_url(session()->r . '/camions/del/') ?>'+$(this).data('id'));
   });
 
   $('.update').click(function(e) {

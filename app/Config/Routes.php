@@ -51,14 +51,14 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion des factures
         $routes->group('factures', function ($routes) {
             $routes->get('/', 'Factures::dashboard');
-            
         });
 
         //gestion des zones
         $routes->group('zones', function ($routes) {
             $routes->get('/', 'Zones::list');
             $routes->post('/', 'Zones::add');
-            $routes->add('del', 'Zones::delete');
+            $routes->get('del/(:segment)', 'Zones::delete/$1');
+            $routes->post('del', 'Zones::delete');
             $routes->post('edit', 'Zones::edit');
             $routes->get('search', 'Zones::search');
         });
@@ -67,7 +67,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('chauffeurs', function ($routes) {
             $routes->get('/', 'Chauffeurs::list');
             $routes->post('/', 'Chauffeurs::add');
-            $routes->add('del', 'Chauffeurs::delete');
+            $routes->get('del/(:segment)', 'Chauffeurs::delete/$1');
+            $routes->post('del', 'Chauffeurs::delete');
             $routes->post('edit', 'Chauffeurs::edit');
             $routes->get('search', 'Chauffeurs::search');
         });
@@ -76,7 +77,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('camions', function ($routes) {
             $routes->get('/', 'Camions::list');
             $routes->post('/', 'Camions::add');
-            $routes->add('del', 'Camions::delete');
+            $routes->get('del/(:segment)', 'Camions::delete/$1');
+            $routes->post('del', 'Camions::delete');
             $routes->post('edit', 'Camions::edit');
             $routes->get('search', 'Camions::search');
         });
@@ -85,7 +87,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('remorques', function ($routes) {
             $routes->get('/', 'Remorques::list');
             $routes->post('/', 'Remorques::add');
-            $routes->add('del', 'Remorques::delete');
+            $routes->get('del/(:segment)', 'Remorques::delete/$1');
+            $routes->post('del', 'Remorques::delete');
             $routes->post('edit', 'Remorques::edit');
             $routes->get('search', 'Remorques::search');
         });
@@ -106,8 +109,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion du carburant
         $routes->group('carburant', function ($routes) {
             $routes->get('/', 'Carburant::index');
-            $routes->post('/','Carburant::ravitaillement');
-            $routes->post('recharge','Carburant::recharge');
+            $routes->post('/', 'Carburant::ravitaillement');
+            $routes->post('recharge', 'Carburant::recharge');
             $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
             $routes->post('modifier', 'Carburant::modRav');
         });
@@ -142,7 +145,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('chauffeurs', function ($routes) {
             $routes->get('/', 'Chauffeurs::list');
             $routes->post('/', 'Chauffeurs::add');
-            $routes->add('del', 'Chauffeurs::delete');
+            $routes->get('del/(:segment)', 'Chauffeurs::delete/$1');
+            $routes->post('del', 'Chauffeurs::delete');
             $routes->post('edit', 'Chauffeurs::edit');
             $routes->get('search', 'Chauffeurs::search');
         });
@@ -151,7 +155,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('camions', function ($routes) {
             $routes->get('/', 'Camions::list');
             $routes->post('/', 'Camions::add');
-            $routes->add('del', 'Camions::delete');
+            $routes->get('del/(:segment)', 'Camions::delete/$1');
+            $routes->post('del', 'Camions::delete');
             $routes->post('edit', 'Camions::edit');
             $routes->get('search', 'Camions::search');
         });
@@ -160,7 +165,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('remorques', function ($routes) {
             $routes->get('/', 'Remorques::list');
             $routes->post('/', 'Remorques::add');
-            $routes->add('del', 'Remorques::delete');
+            $routes->get('del/(:segment)', 'Remorques::delete/$1');
+            $routes->post('del', 'Remorques::delete');
             $routes->post('edit', 'Remorques::edit');
             $routes->get('search', 'Remorques::search');
         });
@@ -174,7 +180,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('clients', function ($routes) {
             $routes->get('/', 'Clients::list');
             $routes->post('/', 'Clients::add');
-            $routes->add('del', 'Clients::delete');
+            $routes->get('del/(:segment)', 'Clients::delete/$1');
+            $routes->post('del', 'Clients::delete');
             $routes->post('edit', 'Clients::edit');
             $routes->get('search', 'Clients::search');
         });
@@ -205,7 +212,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('zones', function ($routes) {
             $routes->get('/', 'Zones::list');
             $routes->post('/', 'Zones::add');
-            $routes->add('del', 'Zones::delete');
+            $routes->get('del/(:segment)', 'Zones::delete/$1');
+            $routes->post('del', 'Zones::delete');
             $routes->post('edit', 'Zones::edit');
             $routes->get('search', 'Zones::search');
         });
@@ -224,7 +232,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             // $routes->post('preget', 'Livraisons::checkPreget');
             // $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
         });
-
     });
 
     $routes->group('finance', ['filter' => 'finance'], function ($routes) {
@@ -235,7 +242,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('clients', function ($routes) {
             $routes->get('/', 'Clients::list');
             $routes->post('/', 'Clients::add');
-            $routes->add('del', 'Clients::delete');
+            $routes->get('del/(:segment)', 'Clients::delete/$1');
+            $routes->post('del', 'Clients::delete');
             $routes->post('edit', 'Clients::edit');
             $routes->get('search', 'Clients::search');
         });
@@ -273,7 +281,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('chauffeurs', function ($routes) {
             $routes->get('/', 'Chauffeurs::list');
             $routes->post('/', 'Chauffeurs::add');
-            $routes->add('del', 'Chauffeurs::delete');
+            $routes->get('del/(:segment)', 'Chauffeurs::delete/$1');
+            $routes->post('del', 'Chauffeurs::delete');
             $routes->post('edit', 'Chauffeurs::edit');
             $routes->get('search', 'Chauffeurs::search');
         });
@@ -282,7 +291,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('camions', function ($routes) {
             $routes->get('/', 'Camions::list');
             $routes->post('/', 'Camions::add');
-            $routes->add('del', 'Camions::delete');
+            $routes->get('del/(:segment)', 'Camions::delete/$1');
+            $routes->post('del', 'Camions::delete');
             $routes->post('edit', 'Camions::edit');
             $routes->get('search', 'Camions::search');
         });
@@ -291,7 +301,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('remorques', function ($routes) {
             $routes->get('/', 'Remorques::list');
             $routes->post('/', 'Remorques::add');
-            $routes->add('del', 'Remorques::delete');
+            $routes->get('del/(:segment)', 'Remorques::delete/$1');
+            $routes->post('del', 'Remorques::delete');
             $routes->post('edit', 'Remorques::edit');
             $routes->get('search', 'Remorques::search');
         });
@@ -300,7 +311,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('zones', function ($routes) {
             $routes->get('/', 'Zones::list');
             $routes->post('/', 'Zones::add');
-            $routes->add('del', 'Zones::delete');
+            $routes->get('del/(:segment)', 'Zones::delete/$1');
+            $routes->post('del', 'Zones::delete');
             $routes->post('edit', 'Zones::edit');
             $routes->get('search', 'Zones::search');
         });
@@ -321,8 +333,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         //gestion du carburant
         $routes->group('carburant', function ($routes) {
             $routes->get('/', 'Carburant::index');
-            $routes->post('/','Carburant::ravitaillement');
-            $routes->post('recharge','Carburant::recharge');
+            $routes->post('/', 'Carburant::ravitaillement');
+            $routes->post('recharge', 'Carburant::recharge');
             $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
             $routes->post('modifier', 'Carburant::modRav');
         });

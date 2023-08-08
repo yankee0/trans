@@ -22,16 +22,16 @@ class Clients extends BaseController
 
 
 
-    public function delete()
+    public function delete($id = null)
     {
-        $data = $this->request->getVar();
+        $data = empty($id) ? $this->request->getVar() : ['id' => $id];
         try {
             (new ModelsClients())->delete($data['id']);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return redirect()
                 ->back()
                 ->with('n', false)
-                ->with('m', 'Une erreur est survenue lors de la suppression.');
+                ->with('m', 'Une erreur est survenue lors de la suppression: <br />' . $e->getMessage());
         }
         return redirect()
             ->back()
@@ -50,7 +50,7 @@ class Clients extends BaseController
                 ->back()
                 ->withInput()
                 ->with('n', false)
-                ->with('m', '<br />'.$e->getMessage());
+                ->with('m', '<br />' . $e->getMessage());
         }
         return redirect()
             ->back()
@@ -70,7 +70,7 @@ class Clients extends BaseController
                 ->back()
                 ->withInput()
                 ->with('n', false)
-                ->with('m', '<br />'.$e->getMessage());
+                ->with('m', '<br />' . $e->getMessage());
         }
         return redirect()
             ->back()
@@ -83,7 +83,7 @@ class Clients extends BaseController
         $data = $this->request->getGet();
         $s = isset($data['search']) ? $data['search'] : '%';
         if (empty($s)) {
-            return redirect()->to(session()->r.'/clients');
+            return redirect()->to(session()->r . '/clients');
         }
         $modele = new ModelsClients();
         $r = $modele
