@@ -42,6 +42,9 @@ Dashboard livraisons
                 <tr>
                   <th>Conteneur</th>
                   <th>Type</th>
+                  <th>BL</th>
+                  <th>Compagnie</th>
+                  <th>Client</th>
                   <th>Paiement</th>
                   <th>État</th>
                   <th>Date PREGET</th>
@@ -56,6 +59,9 @@ Dashboard livraisons
                   <tr>
                     <td><?= $liv['conteneur'] ?></td>
                     <td><?= $liv['type'] ?></td>
+                    <td><?= $liv['bl'] ?></td>
+                    <td><?= $liv['compagnie'] ?></td>
+                    <td><?= $liv['nom_client'] ?></td>
                     <td>
                       <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
                     </td>

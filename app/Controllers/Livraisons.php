@@ -119,7 +119,7 @@ class Livraisons extends BaseController
             ->where('fact_liv.annulation', 'NON')
             ->like('fact_liv_lignes.conteneur', $tc)
             ->orLike('fact_liv.bl', $tc)
-            ->orderBy('fact_liv.paiement', 'DESC');
+            ->orderBy('fact_liv.date_pg', 'DESC');
         if (!$pg) {
             $model->where('fact_liv.preget', 'OUI');
         }

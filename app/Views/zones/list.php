@@ -67,10 +67,10 @@ Liste des zones
                       <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                     </td>
                     <td><?= $l['nom'] ?></td>
-                    <td><?= $l['ht_liv_20'] ?></td>
-                    <td><?= $l['ht_liv_40'] ?></td>
-                    <td><?= $l['ham_20'] ?></td>
-                    <td><?= $l['ham_40'] ?></td>
+                    <td class="num"><?= $l['ht_liv_20'] ?> FCFA</td>
+                    <td class="num"><?= $l['ht_liv_40'] ?> FCFA</td>
+                    <td class="num"><?= $l['ham_20'] ?> FCFA</td>
+                    <td class="num"><?= $l['ham_40'] ?> FCFA</td>
                     <td><?= $l['carburant'] ?></td>
                     <td>
                       <div class="d-flex gap-2">
