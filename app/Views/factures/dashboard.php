@@ -52,7 +52,7 @@ Factures
                       <td><?= $l['nom'] ?></td>
                       <td><?= $l['consignataire'] ?></td>
                       <td><?= $l['paiement'] ?></td>
-                      <td><?= intval($l['total']) ?></td>
+                      <td class="num"><?= intval($l['total']) ?> FCFA</td>
                       <td><?= $l['date_paiement'] ?></td>
                     </tr>
                   <?php endforeach ?>
@@ -83,7 +83,7 @@ Factures
                       <td><?= $l['nom'] ?></td>
                       <td><?= $l['consignataire'] ?></td>
                       <td><?= $l['paiement'] ?></td>
-                      <td><?= intval($l['total']) ?></td>
+                      <td class="num"><?= intval($l['total']) ?> FCFA</td>
                       <td><?= $l['date_paiement'] ?></td>
                     </tr>
                   <?php endforeach ?>
@@ -114,7 +114,7 @@ Factures
                       <td><?= $l['nom'] ?></td>
                       <td><?= $l['consignataire'] ?></td>
                       <td><?= $l['paiement'] ?></td>
-                      <td><?= intval($l['total']) ?></td>
+                      <td class="num"><?= intval($l['total']) ?> FCFA</td>
                       <td><?= $l['date_paiement'] ?></td>
                     </tr>
                   <?php endforeach ?>
