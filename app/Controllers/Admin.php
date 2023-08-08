@@ -2,12 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\Carte;
 use App\Models\Camions;
 use App\Models\Clients;
 use App\Models\FactLiv;
 use App\Models\Chauffeurs;
-use App\Controllers\BaseController;
 use App\Models\Livraisons;
+use App\Models\Rechargement;
+use App\Controllers\BaseController;
 
 class Admin extends BaseController
 {
@@ -80,6 +82,13 @@ class Admin extends BaseController
 
         return view('admin/dashboard', [
 
+            //stat carburant
+            'carte' => (new Carte())->first(),
+            'recs' => (new Rechargement())
+                ->select('rechargements.*, utilisateurs.nom')
+                ->join('utilisateurs', 'utilisateur = utilisateurs.id')
+                ->orderBy('created_at', 'DESC')
+                ->findAll(),
 
             //client count
             'cli' => (new Clients())

@@ -6,48 +6,27 @@
 <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 <div class="row">
   <!-- nombre de clients -->
-  <div class="col-md-6 col-lg-4 col-xl-3">
+  <div class="col-md-6 col-lg-4 ">
     <div class="card">
       <div class="card-body">
-        <div class="row">
-          <div class="col mt-0">
-            <h5 class="card-title">Clients</h5>
-          </div>
-          <div class="col-auto">
-            <div class="stat text-primary">
-              <i class="align-middle" data-feather="users"></i>
-            </div>
-          </div>
+        <h5 class="card-title"><strong>Solde de la carte carburant</strong></h5>
+        <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><?= $carte['solde'] ?> <strong>FCFA</strong></div>
+        <div class="mb-2">
+          <?php if (empty($recs)) : ?>
+            <small>Pas de recharge enregistrée</small>
+          <?php else : ?>
+            <small class="text-muted">Dernier ravitallement de <?= $recs[0]['montant'] ?> par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
+          <?php endif ?>
         </div>
-        <h1 class="mt-1 mb-3 num"><?= $cli ?></h1>
-        <div class="mb-0">
-          <span class="text-muted">Total</span><br>
-        </div>
+        <?php if (session()->r == 'admin') : ?>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
+          </div>
+        <?php endif ?>
       </div>
     </div>
   </div>
 
-  <!-- facturation de livraisons impayées -->
-  <div class="col-md-6 col-lg-4 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col mt-0">
-            <h5 class="card-title">Factures non payées</h5>
-          </div>
-          <div class="col-auto">
-            <div class="stat text-primary">
-              <i class="align-middle" data-feather="file"></i>
-            </div>
-          </div>
-        </div>
-        <h1 class="mt-1 mb-3 num"><?= $factLivNotPaid ?></h1>
-        <div class="mb-0">
-          <span class="text-muted">Total pour livraisons</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <h2 class="h3 mb-3">Encaissements livraisons</h2>
 <div class="row ">
@@ -261,7 +240,42 @@
     </div>
   </div>
 </div>
-
+<!-- modal recharge -->
+<div class="modal fade" id="recharge" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="rechargeModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rechargeModalTitle">Recharge</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(
+          base_url(session()->r . '/carburant/recharge'),
+          [
+            'id' => 'rechargeForm'
+          ]
+        ) ?>
+        <div class="mb-3">
+          <label for="montant" class="form-label">Montant</label>
+          <input type="number" min="1" class="form-control" name="montant" id="montant" placeholder="Montant de la recharge" required>
+        </div>
+        <div class="mb-3">
+          <label for="created_at" class="form-label">Date de recharge</label>
+          <input type="datetime-local" min="1" class="form-control" name="created_at" id="created_at" placeholder="Date de la recharge" required>
+        </div>
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="rechargeForm" class="btn btn-success">Recharger la carte</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const recharge = new bootstrap.Modal(document.getElementById('recharge'), options)
+</script>
 <!-- bar -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
