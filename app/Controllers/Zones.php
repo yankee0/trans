@@ -20,9 +20,9 @@ class Zones extends BaseController
         return view('zones/list', $data);
     }
 
-    public function delete()
+    public function delete($id = null)
     {
-        $data = $this->request->getVar();
+        $data = empty($id) ? $this->request->getVar() : ['id' => $id];
         try {
             (new ModelsZones())->delete($data['id']);
         } catch (\Throwable $th) {

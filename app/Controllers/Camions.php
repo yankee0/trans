@@ -19,9 +19,9 @@ class Camions extends BaseController
         return view('camions/list', $data);
     }
 
-    public function delete()
+    public function delete($id = null)
     {
-        $data = $this->request->getVar();
+        $data = empty($id) ? $this->request->getVar() : ['id' => $id];
         try {
             (new ModelsCamions())->delete($data['id']);
         } catch (\Throwable $th) {

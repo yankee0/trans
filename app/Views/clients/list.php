@@ -233,7 +233,7 @@ Liste des clients
     const id = $(this).data('id');
 
     $('#delUser').html($(this).data('nom'));
-    $('#delsubmit').attr('href', '<?= base_url(session()->r . '/clients/del?id=') ?>' + id);
+    $('#delsubmit').attr('href', '<?= base_url(session()->r . '/clients/del/') ?>' + id);
   });
 </script>
 <script>

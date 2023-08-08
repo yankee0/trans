@@ -34,8 +34,6 @@ Liste des zones
         </div>
         <?php
 
-        use App\Filters\Facturation;
-
         if (sizeof($list) == 0) : ?>
           <div class="card-body">
             <div class="alert alert-warning" role="alert">
@@ -54,11 +52,11 @@ Liste des zones
                 <tr>
                   <th></th>
                   <th>Nom</th>
-                  <th class="d-none d-sm-table-cell">HT Livraison 20'</th>
-                  <th class="d-none d-xl-table-cell">HT Livraison 40'</th>
-                  <th class="d-none d-sm-table-cell">HT Hammar 20'</th>
-                  <th class="d-none d-xl-table-cell">HT Hammar 40'</th>
-                  <th class="d-none d-sm-table-cell">Carburant (en L)</th>
+                  <th>HT Livraison 20'</th>
+                  <th>HT Livraison 40'</th>
+                  <th>HT Hammar 20'</th>
+                  <th>HT Hammar 40'</th>
+                  <th>Carburant (en L)</th>
                   <th></th>
                 </tr>
               </thead>
@@ -69,11 +67,11 @@ Liste des zones
                       <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                     </td>
                     <td><?= $l['nom'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['ht_liv_20'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['ht_liv_40'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['ham_20'] ?></td>
-                    <td class="d-none d-xl-table-cell"><?= $l['ham_40'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['carburant'] ?></td>
+                    <td class="num"><?= $l['ht_liv_20'] ?> FCFA</td>
+                    <td class="num"><?= $l['ht_liv_40'] ?> FCFA</td>
+                    <td class="num"><?= $l['ham_20'] ?> FCFA</td>
+                    <td class="num"><?= $l['ham_40'] ?> FCFA</td>
+                    <td><?= $l['carburant'] ?></td>
                     <td>
                       <div class="d-flex gap-2">
                         <button data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-htliv20="<?= $l['ht_liv_20'] ?>" data-htliv40="<?= $l['ht_liv_40'] ?>" data-ham20="<?= $l['ham_20'] ?>" data-ham40="<?= $l['ham_40'] ?>" data-carburant="<?= $l['carburant'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la zone" data-bs-toggle="modal" data-bs-target="#delete">
@@ -135,7 +133,7 @@ Liste des zones
         <?php endif ?>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
-          <input type="number" min="0"  class="form-control" name="carburant" id="carburant" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" min="0" class="form-control" name="carburant" id="carburant" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -188,7 +186,7 @@ Liste des zones
         <?php endif ?>
         <div class="mb-3">
           <label for="carburant" class="form-label">Carburant</label>
-          <input type="number" min="0"  class="form-control" name="carburant" id="carburantmod" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
+          <input type="number" min="0" class="form-control" name="carburant" id="carburantmod" value="<?= set_value('carburant', 0) ?>" placeholder="Entrez la valeur">
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -214,11 +212,10 @@ Liste des zones
       </div>
       <div class="modal-body">
         Supprimer la zone: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/zones/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" id="znb" name="id" form="delForm" class="btn btn-primary">Supprimer</button>
+        <a id="znb" href="" class="btn btn-primary">Supprimer</a>
       </div>
     </div>
   </div>
@@ -254,7 +251,7 @@ Liste des zones
   $('.delete').click(function(e) {
     e.preventDefault();
     $('#zn').html($(this).data('nom'));
-    $('#znb').val($(this).data('id'));
+    $('#znb').attr('href', '<?= base_url(session()->r . '/zones/del/') ?>' + $(this).data('id'));
   });
 
   $('.update').click(function(e) {

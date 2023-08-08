@@ -255,6 +255,9 @@ Dashboard
                 <tr>
                   <th>Conteneur</th>
                   <th>Type</th>
+                  <th>BL</th>
+                  <th>Compagnie</th>
+                  <th>Client</th>
                   <th>Paiement</th>
                   <th>État</th>
                   <th>Date PREGET</th>
@@ -269,6 +272,9 @@ Dashboard
                   <tr>
                     <td><?= $liv['conteneur'] ?></td>
                     <td><?= $liv['type'] ?></td>
+                    <td><?= $liv['bl'] ?></td>
+                    <td><?= $liv['compagnie'] ?></td>
+                    <td><?= $liv['nom_client'] ?></td>
                     <td>
                       <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
                     </td>
@@ -317,6 +323,7 @@ Dashboard
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" data-id="<?= $liv['id'] ?>" data-challer="<?= $liv['ch_aller_id'] ?>" data-chretour="<?= $liv['ch_retour_id'] ?>" data-camaller="<?= $liv['cam_aller_id'] ?>" data-camretour="<?= $liv['cam_retour_id'] ?>" data-datealler="<?= $liv['date_aller'] ?>" data-dateretour="<?= $liv['date_retour'] ?>" data-commentaire="<?= $liv['commentaire'] ?>" data-etat="<?= $liv['etat'] == 'LIVRÉ' ? 'true' : 'false' ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
                         <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' .$liv['bl'].'/'. $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
+
                       </div>
                     </td>
                   </tr>

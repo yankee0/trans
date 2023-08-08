@@ -72,7 +72,7 @@ class Livraisons extends BaseController
         return view('ops/livraisons/dashboard.php', $data);
     }
 
-    public function getLivs($tc = '%', $limit = 10, $pg = false)
+    public function getLivs($tc = '%', $limit = 15, $pg = false)
     {
         $model = new ModelsLivraisons();
         $model
@@ -119,7 +119,7 @@ class Livraisons extends BaseController
             ->where('fact_liv.annulation', 'NON')
             ->like('fact_liv_lignes.conteneur', $tc)
             ->orLike('fact_liv.bl', $tc)
-            ->orderBy('fact_liv.paiement', 'DESC');
+            ->orderBy('fact_liv.date_pg', 'DESC');
         if (!$pg) {
             $model->where('fact_liv.preget', 'OUI');
         }

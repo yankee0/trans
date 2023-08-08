@@ -19,9 +19,9 @@ class Remorques extends BaseController
         return view('remorques/list', $data);
     }
 
-    public function delete()
+    public function delete($id = null)
     {
-        $data = $this->request->getVar();
+        $data = empty($id) ? $this->request->getVar() : ['id' => $id];
         try {
             (new ModelsRemorques())->delete($data['id']);
         } catch (\Throwable $th) {
