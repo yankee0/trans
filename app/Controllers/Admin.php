@@ -33,6 +33,7 @@ class Admin extends BaseController
         //get the monthly total amount liv
         $monthlyFactLivPaid = (new FactLiv())
             ->where('MONTH(date_paiement)', date('m'))
+            ->where('YEAR(date_paiement)', date('Y'))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($monthlyFactLivPaid); $i++) {
@@ -47,6 +48,7 @@ class Admin extends BaseController
         //get weeky total amount liv
         $weekyFactLivPaid = (new FactLiv())
             ->where('WEEK(date_paiement)', date('W'))
+            ->where('YEAR(date_paiement)', date('Y'))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($weekyFactLivPaid); $i++) {
@@ -61,6 +63,8 @@ class Admin extends BaseController
         //get daily total amount liv
         $dailyFactLivPaid = (new FactLiv())
             ->where('DAY(date_paiement)', date('d'))
+            ->where('MONTH(date_paiement)', date('m'))
+            ->where('YEAR(date_paiement)', date('Y'))
             ->where('paiement', 'OUI')
             ->find();
         for ($i = 0; $i < sizeof($dailyFactLivPaid); $i++) {
