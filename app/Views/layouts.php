@@ -61,7 +61,7 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'flotte'
-            // or session()->r == 'ops'
+            or session()->r == 'ops'
           ) : ?>
 
             <li class="sidebar-header">
@@ -96,28 +96,30 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'ops'
+            or session()->r == 'facturation'
           ) : ?>
             <li class="sidebar-header">
               Opérations
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
-                <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
-              </a>
-            </li>
-
-            <!-- <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
-                <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
-              </a>
-            </li> -->
-
-            <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
-                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
-              </a>
-            </li>
+            <?php if (session()->r != 'facturation') : ?>
+              <li class="sidebar-item <?= (session()->p == 'zones') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/zones') ?>">
+                  <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
+                </a>
+              </li>
+  
+              <!-- <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
+                  <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
+                </a>
+              </li> -->
+              <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
+                  <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+                </a>
+              </li>
+            <?php endif ?>
 
             <li class="sidebar-item <?= (session()->p == 'search') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/search') ?>">
@@ -452,6 +454,23 @@
     <a class="btn btn-primary btn-lg display-4" href="#" role="button"><i class="align-middle " data-feather="arrow-up"></i></a>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var elementsAvecNombres = document.querySelectorAll('.num'); // Remplacez "votre-classe" par la classe appropriée
+       
+      elementsAvecNombres.forEach(function(element) {
+        var texte = element.textContent;
+        if (!isNaN(texte)) {
+          var nombreAvecPoints = ajouterPoints(texte);
+          element.textContent = nombreAvecPoints;
+        }
+      });
+    });
+          
+    function ajouterPoints(nombre) {
+      return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }     
+  </script>
 
   <script>
     function disablePageInteraction() {

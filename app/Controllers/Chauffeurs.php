@@ -13,7 +13,7 @@ class Chauffeurs extends BaseController
     {
         session()->p = 'chauffeurs';
         $modele = new ModelsChauffeurs();
-        $list = $modele->paginate(25);
+        $list = $modele->findAll();
         for ($i = 0; $i < sizeof($list); $i++) {
             if (!empty($list[$i]['camion'])) {
                 $l = (new Camions())->find($list[$i]['camion']);
@@ -29,15 +29,14 @@ class Chauffeurs extends BaseController
         $data = [
             'count' => $modele->countAll(),
             'list' => $list,
-            'pager' => $modele->pager,
             'cam' => (new Camions())->orderBy('im')->findAll()
         ];
         return view('chauffeurs/list', $data);
     }
 
-    public function delete()
+    public function delete($id = null)
     {
-        $data = $this->request->getVar();
+        $data = empty($id) ? $this->request->getVar() : ['id' => $id];
         try {
             (new ModelsChauffeurs())->delete($data['id']);
         } catch (\Throwable $th) {

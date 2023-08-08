@@ -14,15 +14,14 @@ class Remorques extends BaseController
         $modele = new ModelsRemorques();
         $data = [
             'count' => $modele->countAll(),
-            'list' => $modele->paginate(25),
-            'pager' => $modele->pager
+            'list' => $modele->findAll(),
         ];
         return view('remorques/list', $data);
     }
 
-    public function delete()
+    public function delete($id = null)
     {
-        $data = $this->request->getVar();
+        $data = empty($id) ? $this->request->getVar() : ['id' => $id];
         try {
             (new ModelsRemorques())->delete($data['id']);
         } catch (\Throwable $th) {

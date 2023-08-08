@@ -150,6 +150,10 @@ Liste des clients
         ]) ?>
 
         <div class="mb-3">
+          <label for="id" class="form-label">Numéro de compte<span class="text-danger">*</span></label>
+          <input type="number" min="1" value="400<?= set_value('id', '') ?>" class="form-control" name="id" id="id" placeholder="Automatique">
+        </div>
+        <div class="mb-3">
           <label for="nom" class="form-label">Nom<span class="text-danger">*</span></label>
           <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nom" placeholder="Nom du client">
         </div>
@@ -184,6 +188,10 @@ Liste des clients
           'id' => 'modUser'
         ]) ?>
         <div class="mb-3">
+          <label for="idmod" class="form-label">Numéro de compte<span class="text-danger">*</span></label>
+          <input type="number" min="1" value="<?= set_value('id', '') ?>" class="form-control" name="id" id="idmod" placeholder="Automatique">
+        </div>
+        <div class="mb-3">
           <label for="nommod" class="form-label">Nom<span class="text-danger">*</span></label>
           <input required type="text" value="<?= set_value('nom', '') ?>" class="form-control" name="nom" id="nommod" placeholder="Nom du client">
         </div>
@@ -200,7 +208,7 @@ Liste des clients
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" form="modUser" name="id" id="submod" class="btn btn-primary">Modifier</button>
+        <button type="submit" form="modUser" name="idmod" id="submod" class="btn btn-primary">Modifier</button>
       </div>
     </div>
   </div>
@@ -225,12 +233,13 @@ Liste des clients
     const id = $(this).data('id');
 
     $('#delUser').html($(this).data('nom'));
-    $('#delsubmit').attr('href', '<?= base_url(session()->r . '/clients/del?id=') ?>' + id);
+    $('#delsubmit').attr('href', '<?= base_url(session()->r . '/clients/del/') ?>' + id);
   });
 </script>
 <script>
   $('.update').click(function(e) {
     e.preventDefault();
+    $('#idmod').val($(this).data('id'));
     $('#nommod').val($(this).data('nom'));
     $('#emailmod').val($(this).data('email'));
     $('#telmod').val($(this).data('tel'));

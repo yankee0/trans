@@ -16,79 +16,67 @@ Liste des chauffeurs
   <div class="row">
     <div class="col-12 d-flex">
       <div class="card flex-fill">
-        <div class="card-body ">
-          <form action="<?= base_url(session()->r . '/chauffeurs/search') ?>" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un chauffeur">
-            <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 d-flex">
-      <div class="card flex-fill">
         <div class="card-header">
           <h5 class="card-title mb-3">Liste des chauffeurs (<span class="text-primary"><?= $count ?></span>)</h5>
           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalIddelG">
             Suppression groupée
           </button>
         </div>
-        <?php if (sizeof($list) == 0) : ?>
-          <div class="card-body">
-            <div class="alert alert-warning" role="alert">
-              Aucun résultat.
+        <div class="card-body">
+          <?php if (sizeof($list) == 0) : ?>
+            <div class="card-body">
+              <div class="alert alert-warning" role="alert">
+                Aucun résultat.
+              </div>
             </div>
-          </div>
-
-        <?php else : ?>
-          <?= form_open(base_url(session()->r . '/chauffeurs/del'), [
-            'id' => 'gd'
-          ]) ?>
-          <div class="table-responsive">
-
-            <table class="table table-hover my-0">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Nom</th>
-                  <th class="d-none d-xl-table-cell">Téléphone</th>
-                  <th class="d-none d-sm-table-cell">Société</th>
-                  <th class="d-none d-xl-table-cell">Camion</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($list as $l) : ?>
-                  <tr>
-                    <td id="<?= $l['id'] ?>">
-                      <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
-                    </td>
-                    <td><?= $l['nom'] ?></td>
-                    <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['societe'] ?></td>
+          <?php else : ?>
+            <?= form_open(base_url(session()->r . '/chauffeurs/del'), [
+              'id' => 'gd'
+            ]) ?>
+            <div class="table-responsive">
   
-                    <td class="d-none d-xl-table-cell"><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
-                    <td>
-                      <div class="d-flex gap-2">
-                        <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
-                          <i cla data-feather="trash"></i>
-                        </button>
-                        <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>"  value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
-                          <i cla data-feather="edit"></i>
-                        </button>
-                      </div>
-                    </td>
+              <table class="table table-hover my-0">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Nom</th>
+                    <th class="">Téléphone</th>
+                    <th class="">Société</th>
+                    <th class="">Camion</th>
+                    <th></th>
                   </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
-          </div>
-          <?= form_close() ?>
-        <?php endif ?>
-        <div class="card-footer text-center d-flex justify-content-end" style="overflow-x: scroll">
-          <nav class="pagination">
-            <?= $pager->links() ?>
-          </nav>
+                </thead>
+                <tbody>
+                  <?php foreach ($list as $l) : ?>
+                    <tr>
+                      <td id="<?= $l['id'] ?>">
+                        <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
+                      </td>
+                      <td><?= $l['nom'] ?></td>
+                      <td class=""><?= $l['tel'] ?></td>
+                      <td class=""><?= $l['societe'] ?></td>
+  
+                      <td class=""><?= (empty($l['camion'])) ? '<span class=" badge bg-dark">Pas de camion</span>' : $l['camion'] ?></td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la chauffeur" data-bs-toggle="modal" data-bs-target="#delete">
+                            <i cla data-feather="trash"></i>
+                          </button>
+                          <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-camion="<?= $l['camion'] ?>" data-camionid="<?= $l['camion_id'] ?>" data-societe="<?= $l['societe'] ?>" data-tel="<?= $l['tel'] ?>" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations du chauffeur" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                            <i cla data-feather="edit"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+            <?= form_close() ?>
+          <?php endif ?>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -123,7 +111,7 @@ Liste des chauffeurs
         </div>
         <div class="mb-3">
           <label for="camion" class="form-label">Camions</label>
-          <select class="form-select" name="camion" id="camion" >
+          <select class="form-select" name="camion" id="camion">
             <option value="" hidden selected>Sélectionner un camion</option>
             <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
             <?php foreach ($cam as $c) : ?>
@@ -175,7 +163,7 @@ Liste des chauffeurs
         </div>
         <div class="mb-3">
           <label for="camion" class="form-label">Camions</label>
-          <select class="form-select" name="camion" id="camionmod" >
+          <select class="form-select" name="camion" id="camionmod">
             <option value="" hidden selected>Sélectionner un camion</option>
             <option value="" <?= set_select('camion', '', false) ?>>Pas de camion</option>
             <?php foreach ($cam as $c) : ?>
@@ -210,11 +198,10 @@ Liste des chauffeurs
       </div>
       <div class="modal-body">
         Supprimer le chauffeur: <span id="zn" class="text-primary"></span>
-        <form action="<?= base_url(session()->r . '/chauffeurs/del') ?>" id="delForm" method="get"></form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" id="znb" name="id" form="delForm" class="btn btn-primary">Supprimer</button>
+        <a id="znb" href="" class="btn btn-primary">Supprimer</a>
       </div>
     </div>
   </div>
@@ -252,7 +239,8 @@ Liste des chauffeurs
   $('.delete').click(function(e) {
     e.preventDefault();
     $('#zn').html($(this).data('nom'));
-    $('#znb').val($(this).data('id'));
+    $('#znb').attr('href','<?= base_url(session()->r . '/chauffeurs/del/') ?>'+$(this).data('id'));
+
   });
 
   $('.update').click(function(e) {
@@ -263,8 +251,33 @@ Liste des chauffeurs
     $('#camionmod').val($(this).data('camionid'));
     $('#societemod').val($(this).data('societe'));
   });
+</script>
 
-  
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('.table').DataTable({
+      responsive: true,
+      dom: 'Bfrtip',
+      buttons: [
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5',
+      ],
+      language: {
+        decimal: ',',
+        thousands: '.'
+      },
+    });
+  });
 </script>
 
 <?= $this->endSection(); ?>

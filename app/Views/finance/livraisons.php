@@ -98,7 +98,7 @@ Livraisons
             </label>
           </div>
           <div class="form-check form-switch">
-            <input class="form-check-input payState" type="radio" value="EN ESPÈCES" name="reglement" id="enEspeces">
+            <input checked class="form-check-input payState" type="radio" value="EN ESPÈCES" name="reglement" id="enEspeces">
             <label class="form-check-label" for="enEspeces">
               Règlement en espèces
             </label>
@@ -117,7 +117,7 @@ Livraisons
           </div>
           <div class="mb-3">
             <label for="date_paiement" class="form-label">Date de paiement</label>
-            <input type="date" class="form-control" name="date_paiement" id="date_paiement">
+            <input required type="date" class="form-control" name="date_paiement" id="date_paiement">
           </div>
           <script>
             document.getElementById('payCheck').addEventListener('change', (e) => {
