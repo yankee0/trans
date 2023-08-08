@@ -72,7 +72,7 @@ class Livraisons extends BaseController
         return view('ops/livraisons/dashboard.php', $data);
     }
 
-    public function getLivs($tc = '%', $limit = 10, $pg = false)
+    public function getLivs($tc = '%', $limit = 15, $pg = false)
     {
         $model = new ModelsLivraisons();
         $model
