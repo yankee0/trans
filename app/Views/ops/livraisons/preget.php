@@ -37,32 +37,45 @@ Preget livraisons
               Preget non enregistré
             </div>
           <?php endif ?>
-          <div class="fs-3">Compagnie <span class="text-primary"><?= $facture['facture']['compagnie'] ?></span></div>
-          <div class="fs-3">Client <span class="text-primary"><?= $facture['facture']['client_nom'] ?></span></div>
+          <?php if(date('Y-m-d',strtotime($facture['facture']['deadline'])) <= date('Y-m-d',strtotime('+5days'))) : ?>
+            <div class="alert alert-warning text-center" role="alert">
+              <strong>Attention!</strong> La date de deadline est dépassée ou est dans moins de 5 jours.
+            </div>
+              
+            <?php endif ?>
           <div class="display-6">BL <span class="text-primary"><?= $facture['facture']['bl'] ?></span></div>
-          <div class="fs-4">Facturé le <span class="text-primary"><?= $facture['facture']['date_creation'] ?></span></div>
+          <div class="fs-3">Client <span class="text-primary"><?= $facture['facture']['client_nom'] ?></span></div>
+          <div class="fs-3">Compagnie <span class="text-primary"><?= $facture['facture']['compagnie'] ?></span></div>
+          <div class="fs-3">Deadline <span class="text-primary"><?= $facture['facture']['deadline'] ?></span></div>
+          <?php 
+            $count = 0;
+            foreach ($facture['zones'] as $zone) {
+              $count += count($zone['c_20']) + count($zone['c_40']);
+            }
+          ?>
+          <div class="fs-3">Lot de <span class="text-primary"><?= $count ?> conteneur<?= ($count) > 1 ? 's' : '' ?></span> facturé le <span class="text-primary"><?= $facture['facture']['date_creation'] ?></span></div>
           <hr>
           <div class="row">
             <?php foreach ($facture['zones'] as $zone) : ?>
               <div class="col-md-6 col-xxl-4">
-                <div class="fs-3"><?= $zone['designation'] ?></div>
+                <div class="fs-3"><?= $zone['designation'] ?> de <?= count($zone['c_20']) + count($zone['c_40']) ?></div>
                 <div class="mb-3 text-muted">Adresse exacte: <span class="text-primary"><?= empty($zone['adresse']) ? '<span class="badge bg-dark">INDÉFINIE</span>' : $zone['adresse'] ?></span></div>
                 <div class="row mb-3">
-                  <div class="col-12 text-muted">Conteneur 20':</div>
+                  <div class="col-12 text-muted"><strong class="text-primary"><?= count($zone['c_20']) ?></strong> conteneur<?= count($zone['c_20']) > 1 ? 's' : '' ?> de 20':</div>
                   <?php if (empty($zone['c_20'])) : ?>
                     <span><i>Aucun</i></span>
                   <?php endif ?>
                   <?php foreach ($zone['c_20'] as $c) : ?>
-                    <div class="col-6 col-sm-4 col-md-3 text-sm"><?= $c['conteneur'] ?></div>
+                    <div class="col-sm-4 text-sm"><?= $c['conteneur'] ?></div>
                   <?php endforeach ?>
                 </div>
                 <div class="row">
-                  <div class="col-12 text-muted">Conteneur 40':</div>
+                  <div class="col-12 text-muted"><strong class="text-primary"><?= count($zone['c_40']) ?></strong> conteneur<?= count($zone['c_40']) > 1 ? 's' : '' ?> de 40':</div>
                   <?php if (empty($zone['c_40'])) : ?>
                     <span><i>Aucun</i></span>
                   <?php endif ?>
                   <?php foreach ($zone['c_40'] as $c) : ?>
-                    <div class="col-6 col-sm-4 col-md-3 text-sm"><?= $c['conteneur'] ?></div>
+                    <div class="col-sm-4 text-sm"><?= $c['conteneur'] ?></div>
                   <?php endforeach ?>
                 </div>
               </div>
@@ -87,12 +100,16 @@ Preget livraisons
                     ]
                   ) ?>
                   <div class="form-check form-switch">
-                    <input class="form-check-input" <?= $facture['facture']['preget'] == 'OUI' ? 'checked' : '' ?> name="preget" type="checkbox" id="pregetCatch">
+                    <input required class="form-check-input" <?= $facture['facture']['preget'] == 'OUI' ? 'checked' : '' ?> name="preget" type="checkbox" id="pregetCatch">
                     <label class="form-check-label" for="pregetCatch">Preget reçu</label>
                   </div>
                   <div class="mb-3">
                     <label for="date_pg" class="form-label">Date de réception</label>
-                    <input type="date" class="form-control" value="<?= $facture['facture']['date_pg'] ?>" name="date_pg" id="date_pg" placeholder="Saisir la date">
+                    <input required type="date" class="form-control" value="<?= $facture['facture']['date_pg'] ?>" name="date_pg" id="date_pg" placeholder="Saisir la date">
+                  </div>
+                  <div class="mb-3">
+                    <label for="deadline" class="form-label">Deadline</label>
+                    <input required type="date" class="form-control" value="<?= $facture['facture']['deadline'] ?>" name="deadline" id="deadline" placeholder="Saisir la date">
                   </div>
                   <div class="form-check form-switch">
                     <input class="form-check-input" name='amendement' <?= $facture['facture']['amendement'] == 'OUI' ? 'checked' : '' ?> value="OUI" type="checkbox" id="amendement">
