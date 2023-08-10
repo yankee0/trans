@@ -38,7 +38,9 @@ Preget livraisons
             </div>
           <?php endif ?>
           <div class="fs-3">Compagnie <span class="text-primary"><?= $facture['facture']['compagnie'] ?></span></div>
+          <div class="fs-3">Client <span class="text-primary"><?= $facture['facture']['client_nom'] ?></span></div>
           <div class="display-6">BL <span class="text-primary"><?= $facture['facture']['bl'] ?></span></div>
+          <div class="fs-4">Facturé le <span class="text-primary"><?= $facture['facture']['date_creation'] ?></span></div>
           <hr>
           <div class="row">
             <?php foreach ($facture['zones'] as $zone) : ?>
