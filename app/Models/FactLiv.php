@@ -34,6 +34,7 @@ class FactLiv extends Model
         'avec_tva',
         'avec_ages',
         'avec_copie',
+        'deadline',
     ];
 
     // Dates

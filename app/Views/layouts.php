@@ -126,6 +126,11 @@
                 <i class="align-middle" data-feather="search"></i> <span class="align-middle">Recherches</span>
               </a>
             </li>
+            <li class="sidebar-item <?= (session()->p == 'preget') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons/preget') ?>">
+                <i class="align-middle" data-feather="file"></i> <span class="align-middle">Pregets</span>
+              </a>
+            </li>
           <?php endif; ?>
           <?php if (
             session()->r == 'facturation'

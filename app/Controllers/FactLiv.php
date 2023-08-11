@@ -342,7 +342,10 @@ class FactLiv extends BaseController
 
     public function getInvoice($id)
     {
-        $invoice = (new ModelsFactLiv())->find($id);
+        $invoice = (new ModelsFactLiv())
+            ->select('fact_liv.*, clients.nom as client_nom')
+            ->join('clients', 'clients.id = fact_liv.id_client', 'left')
+            ->find($id);
         if (empty($invoice)) {
             throw new PageNotFoundException('Facture introuvable ou supprimée.', 404);
         } else {
