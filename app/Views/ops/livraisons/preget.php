@@ -37,21 +37,20 @@ Preget livraisons
               Preget non enregistré
             </div>
           <?php endif ?>
-          <?php if(date('Y-m-d',strtotime($facture['facture']['deadline'])) <= date('Y-m-d',strtotime('+5days'))) : ?>
+          <?php if (date('Y-m-d', strtotime($facture['facture']['deadline'])) <= date('Y-m-d', strtotime('+5days'))) : ?>
             <div class="alert alert-warning text-center" role="alert">
               <strong>Attention!</strong> La date de deadline est dépassée ou est dans moins de 5 jours.
             </div>
-              
-            <?php endif ?>
+          <?php endif ?>
           <div class="display-6">BL <span class="text-primary"><?= $facture['facture']['bl'] ?></span></div>
           <div class="fs-3">Client <span class="text-primary"><?= $facture['facture']['client_nom'] ?></span></div>
           <div class="fs-3">Compagnie <span class="text-primary"><?= $facture['facture']['compagnie'] ?></span></div>
           <div class="fs-3">Deadline <span class="text-primary"><?= $facture['facture']['deadline'] ?></span></div>
-          <?php 
-            $count = 0;
-            foreach ($facture['zones'] as $zone) {
-              $count += count($zone['c_20']) + count($zone['c_40']);
-            }
+          <?php
+          $count = 0;
+          foreach ($facture['zones'] as $zone) {
+            $count += count($zone['c_20']) + count($zone['c_40']);
+          }
           ?>
           <div class="fs-3">Lot de <span class="text-primary"><?= $count ?> conteneur<?= ($count) > 1 ? 's' : '' ?></span> facturé le <span class="text-primary"><?= $facture['facture']['date_creation'] ?></span></div>
           <hr>
