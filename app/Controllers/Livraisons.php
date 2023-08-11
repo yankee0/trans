@@ -292,11 +292,13 @@ class Livraisons extends BaseController
 
     public function preget()
     {
+        session()->p = 'preget';
         return view('ops/livraisons/preget');
     }
 
     public function checkPreget($p = null)
     {
+        session()->p = 'preget';
         $preget = $p == null ? $this->request->getVar('preget') : $p;
         $res = (new FactLiv())
             ->select('id')

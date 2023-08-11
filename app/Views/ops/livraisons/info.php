@@ -72,6 +72,15 @@ Information de livraison
           <div class="col-md-6 col-lg-4  col-xl-3">
             <div class="fs-2">Livraison</div>
             <p>
+            <div class="text-sm text-muted">Deadline</div>
+            <?php if (date('Y-m-d', strtotime($facture['facture']['deadline'])) <= date('Y-m-d', strtotime('+5days'))) : ?>
+              <div class="alert alert-warning text-center" role="alert">
+                <strong>Attention!</strong> La date de deadline est dépassée ou est dans moins de 5 jours.
+              </div>
+            <?php endif ?>
+            </p>
+            <p>
+            <p>
             <div class="text-sm text-muted">Etat</div>
             <div>
               <?php
