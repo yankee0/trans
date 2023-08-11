@@ -57,7 +57,7 @@ Preget livraisons
           <div class="row">
             <?php foreach ($facture['zones'] as $zone) : ?>
               <div class="col-md-6 col-xxl-4">
-                <div class="fs-3"><?= $zone['designation'] ?> de <?= count($zone['c_20']) + count($zone['c_40']) ?></div>
+                <div class="fs-3"><?= $zone['designation'] ?> de <?= count($zone['c_20']) + count($zone['c_40']) ?> conteneur<?= count($zone['c_40']) + count($zone['c_20']) > 1 ? 's' : '' ?></div>
                 <div class="mb-3 text-muted">Adresse exacte: <span class="text-primary"><?= empty($zone['adresse']) ? '<span class="badge bg-dark">INDÉFINIE</span>' : $zone['adresse'] ?></span></div>
                 <div class="row mb-3">
                   <div class="col-12 text-muted"><strong class="text-primary"><?= count($zone['c_20']) ?></strong> conteneur<?= count($zone['c_20']) > 1 ? 's' : '' ?> de 20':</div>

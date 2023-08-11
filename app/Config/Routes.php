@@ -228,9 +228,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             // $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             // $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            // $routes->get('preget', 'Livraisons::preget');
-            // $routes->post('preget', 'Livraisons::checkPreget');
-            // $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
+            $routes->get('preget', 'Livraisons::preget');
+            $routes->post('preget', 'Livraisons::checkPreget');
+            $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
         });
     });
 
