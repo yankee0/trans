@@ -123,7 +123,7 @@
 
             <li class="sidebar-item <?= (session()->p == 'search') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/search') ?>">
-                <i class="align-middle" data-feather="search"></i> <span class="align-middle">Recherches</span>
+                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Conteneurs</span>
               </a>
             </li>
           <?php endif; ?>
