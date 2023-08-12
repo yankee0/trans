@@ -54,7 +54,7 @@
               <table class="table table-hover table-striped table-sm">
                 <thead>
                   <tr class=" ">
-                    <th ><?= $pg['nom'] ?></th>
+                    <th><?= $pg['nom'] ?></th>
                     <th></th>
                     <th>Facture Nº <?= $pg['facture'] ?></th>
                   </tr>
@@ -71,7 +71,7 @@
                 <tbody>
                   <?php foreach ($pg['zones'] as $z) : ?>
                     <?php foreach ($z['tc'] as $tc) : ?>
-                      <tr>
+                      <tr class=" cursor-pointer" onclick="window.location = '<?= base_url(session()->r . '/livraisons/infos/' . $pg['bl'] . '/' . $tc['conteneur']) ?>'">
                         <td><?= $tc['conteneur'] ?></td>
                         <td><?= $tc['type'] ?></td>
                         <td><?= $z['adresse'] ?></td>
@@ -102,7 +102,6 @@
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 
 <script>
-
   $(document).ready(function() {
     $('.table').DataTable({
       responsive: true,
