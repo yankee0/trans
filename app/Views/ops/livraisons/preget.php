@@ -203,7 +203,7 @@ Preget livraisons
                 <tbody>
                   <?php foreach ($pg['zones'] as $z) : ?>
                     <?php foreach ($z['tc'] as $tc) : ?>
-                      <tr>
+                      <tr onclick="window.location = '<?= base_url(session()->r.'/livraisons/infos/'.$pg['bl'].'/'.$tc['conteneur']) ?>'">
                         <td><?= $tc['conteneur'] ?></td>
                         <td><?= $tc['type'] ?></td>
                         <td><?= $z['adresse'] ?></td>
