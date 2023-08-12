@@ -185,13 +185,15 @@ Preget livraisons
             <div class="card-body">
               <table class="table table-hover table-striped table-sm" id="table">
                 <thead>
-                  <tr>
-                    <th class="bg-dark text-white" colspan="3" ><?= $pg['nom'] ?></th>
+                  <tr class=" ">
+                    <th ><?= $pg['nom'] ?></th>
+                    <th></th>
+                    <th>Facture Nº <?= $pg['facture'] ?></th>
                   </tr>
                   <tr>
-                    <th class="bg-dark text-white">BL Nº <?= $pg['bl'] ?></th>
-                    <th class="bg-dark text-white"></th>
-                    <th class="bg-dark text-white">Facture Nº <?= $pg['facture'] ?></th>
+                    <th>BL Nº <?= $pg['bl'] ?></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                   <tr>
                     <th>Conteneur</th>
