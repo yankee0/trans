@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Livraisons;
 use App\Controllers\BaseController;
 use App\Controllers\Camions as ControllersCamions;
-use App\Models\Camions;
 
 class Rapports extends BaseController
 {
@@ -177,6 +177,62 @@ class Rapports extends BaseController
         }
 
         return $this->index_finance(
+            [
+                'data' => $sheet,
+                'type' => $data['type'],
+                'date' => $data['date'],
+                'name' => $name
+            ]
+        );
+    }
+
+    public function index_preget($data = [])
+    {
+        session()->p = 'rapports';
+        return view('rapports/pregets/index', $data);
+    }
+
+    public function generate_preget()
+    {
+        session()->p = 'rapports';
+        $data = $this->request->getPost();
+        $timestamp = strtotime($data['date']);
+
+        $y = date('Y', $timestamp);
+        $m = date('m', $timestamp);
+        $d = date('d', $timestamp);
+        $w = date('W', $timestamp);
+
+        $ctrl = new Livraisons();
+        $sheet = [];
+        $name = '';
+        switch ($data['type']) {
+            case 'j':
+                $sheet = $ctrl->getLastPregets($d, $w, $m, $y);
+                $name = 'Rapport pregets journaliers du ' . $data['date'];
+                break;
+            case 'h':
+                $sheet = $ctrl->getLastPregets(null, $w, $m, $y);
+                $name = 'Rapport pregets hebdomadaires de la semaine ' . $w . ' année ' . $y;
+                break;
+            case 'm':
+                $sheet = $ctrl->getLastPregets(null, null, $m, $y);
+                $name = 'Rapport pregets mensuels du ' . $m . 'e mois année ' . $y;
+                break;
+            case 'a':
+                $sheet = $ctrl->getLastPregets(null, null, null, $y);
+                $name = 'Rapport pregets annuels année ' . $y;
+                break;
+
+            default:
+                return redirect()
+                    ->back()
+                    ->with('n', false)
+                    ->with('m', '499 - Données invalide');
+                break;
+        }
+
+        return $this->index_preget(
             [
                 'data' => $sheet,
                 'type' => $data['type'],

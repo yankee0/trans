@@ -122,6 +122,12 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
+            $routes->group('pregets', function ($routes) {
+                $routes->get('/', 'Rapports::index_preget');
+                $routes->post('/', 'Rapports::generate_preget');
+            });
+            
+            
             $routes->group('livraisons', function ($routes) {
                 $routes->get('/', 'Rapports::index_livraison');
                 $routes->post('/', 'Rapports::generate_livraison');
@@ -257,6 +263,13 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
+
+            $routes->group('pregets', function ($routes) {
+                $routes->get('/', 'Rapports::index_preget');
+                $routes->post('/', 'Rapports::generate_preget');
+            });
+            
+            
             $routes->group('livraisons', function ($routes) {
                 $routes->get('/', 'Rapports::index_livraison');
                 $routes->post('/', 'Rapports::generate_livraison');
@@ -342,6 +355,12 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
+            $routes->group('pregets', function ($routes) {
+                $routes->get('/', 'Rapports::index_preget');
+                $routes->post('/', 'Rapports::generate_preget');
+            });
+            
+            
             $routes->group('livraisons', function ($routes) {
                 $routes->get('/', 'Rapports::index_livraison');
                 $routes->post('/', 'Rapports::generate_livraison');

@@ -2,15 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Controllers\FactLiv as ControllersFactLiv;
+use Exception;
 use App\Models\Camions;
-use App\Models\Chauffeurs;
 use App\Models\FactLiv;
+use App\Models\Chauffeurs;
+use App\Models\FactLivLieux;
 use App\Models\FactLivLignes;
+use App\Controllers\BaseController;
 use App\Models\Livraisons as ModelsLivraisons;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use Exception;
+use App\Controllers\FactLiv as ControllersFactLiv;
 
 class Livraisons extends BaseController
 {
@@ -293,7 +294,47 @@ class Livraisons extends BaseController
     public function preget()
     {
         session()->p = 'preget';
-        return view('ops/livraisons/preget');
+        return view('ops/livraisons/preget', [
+            'daily_pg' => $this->getLastPregets()
+        ]);
+    }
+
+    public function getLastPregets($d = null, $w = null, $m = null, $y = null)
+    {
+        $builder = (new FactLiv())
+            ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
+            ->join('clients', 'clients.id = fact_liv.id_client', 'left')
+            ->orderBy('fact_liv.date_pg', 'DESC');
+            if (!empty($y)) {
+                $builder->where('YEAR(fact_liv.date_pg)', $y);
+            }
+            if (!empty($m)) {
+                $builder->where('MONTH(fact_liv.date_pg)', $m);
+            }
+            if (!empty($d)) {
+                $builder->where('DAY(fact_liv.date_pg)', $d);
+            }
+            if (!empty($w)) {
+            }
+            if (empty($y) and empty($m) and empty($d) and empty($w)) {
+                $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
+            }
+
+        $res = $builder
+            ->find();
+        for ($i = 0; $i < sizeof($res); $i++) {
+            $res[$i]['zones'] = (new FactLivLieux())
+                ->where('id_fact', $res[$i]['facture'])
+                ->findAll();
+            if (!empty($res[$i]['zones'])) {
+                for ($j = 0; $j < sizeof($res[$i]['zones']); $j++) {
+                    $res[$i]['zones'][$j]['tc'] = (new FactLivLignes())
+                        ->where('id_lieu', $res[$i]['zones'][$j]['id'])
+                        ->findAll();
+                }
+            }
+        }
+        return $res;
     }
 
     public function checkPreget($p = null)
@@ -307,16 +348,22 @@ class Livraisons extends BaseController
 
         if (!empty($res)) {
             $res = (new ControllersFactLiv)->getInvoice($res['id']);
-            return view('ops/livraisons/preget', [
+            $data = [
                 'facture' => $res,
-                'preget' => $preget
-            ]);
+                'preget' => $preget,
+                'daily_pg' => (new ControllersFactLiv())
+                    ->factInfo(null, null, null, null, true)
+
+            ];
         } else {
-            return view('ops/livraisons/preget', [
+            $data = [
                 'facture' => false,
-                'preget' => $preget
-            ]);
+                'preget' => $preget,
+                'daily_pg' => (new ControllersFactLiv())
+                    ->factInfo(null, null, null, null, true)
+            ];
         }
+        return view('ops/livraisons/preget', $data);
     }
 
     public function handlePG($id)
@@ -382,7 +429,7 @@ class Livraisons extends BaseController
                 livraisons.date_retour,
                 livraisons.motif,
             ')
-            ->join('livraisons','livraisons.id =fact_liv_lignes.id')
+            ->join('livraisons', 'livraisons.id =fact_liv_lignes.id')
             ->join('chauffeurs', 'chauffeurs.id = livraisons.ch_aller', 'left')
             ->join('chauffeurs AS chauffeur2', 'chauffeur2.id = livraisons.ch_retour', 'left')
             ->join('camions', 'camions.id = livraisons.cam_aller', 'left')

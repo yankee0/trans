@@ -171,7 +171,7 @@
       </div>
       <table class="table ">
         <thead class=" border border-danger bg-danger">
-          <tr >
+          <tr>
             <th class="text-white">Désignation</th>
             <th class="text-white">Quantité 20'</th>
             <th class="text-white">P.U. 20'</th>
@@ -228,37 +228,37 @@
               ?>
               <td class="tp num"><?= $tc ?></td>
             </tr>
-            <?php if ($facture['hammar'] > 0) : ?>
-              <tr class=" border-dark">
-                <td colspan="5">
-                  <b>Frais de manutension Hammar</b>
-                </td>
-                <td>
-                  <span class="num"><?= $facture['hammar'] ?></span>
-                </td>
-              </tr>
-            <?php endif ?>
-            <?php if ($facture['ages'] > 0 and $facture['avec_ages'] == 'OUI') : ?>
-              <tr class=" border-dark">
-                <td colspan="5">
-                  <b>Ticket A.G.S</b>
-                </td>
-                <td>
-                  <span class="num"><?= $facture['ages'] ?></span>
-                </td>
-              </tr>
-            <?php endif ?>
-            <?php if ($facture['copie'] > 0) : ?>
-              <tr class=" border-dark">
-                <td colspan="5">
-                  <b>Impression</b>
-                </td>
-                <td>
-                  <?= $facture['copie'] ?>
-                </td>
-              </tr>
-            <?php endif ?>
           <?php endforeach ?>
+          <?php if ($facture['hammar'] > 0) : ?>
+            <tr class=" border-dark">
+              <td colspan="5">
+                <b>Frais de manutension Hammar</b>
+              </td>
+              <td>
+                <span class="num"><?= $facture['hammar'] ?></span>
+              </td>
+            </tr>
+          <?php endif ?>
+          <?php if ($facture['ages'] > 0 and $facture['avec_ages'] == 'OUI') : ?>
+            <tr class=" border-dark">
+              <td colspan="5">
+                <b>Ticket A.G.S</b>
+              </td>
+              <td>
+                <span class="num"><?= $facture['ages'] ?></span>
+              </td>
+            </tr>
+          <?php endif ?>
+          <?php if ($facture['copie'] > 0) : ?>
+            <tr class=" border-dark">
+              <td colspan="5">
+                <b>Impression</b>
+              </td>
+              <td>
+                <?= $facture['copie'] ?>
+              </td>
+            </tr>
+          <?php endif ?>
         </tbody>
         <tfoot>
           <tr class=" border-dark">
@@ -337,7 +337,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var elementsAvecNombres = document.querySelectorAll('.num'); // Remplacez "votre-classe" par la classe appropriée
-       
+
       elementsAvecNombres.forEach(function(element) {
         var texte = element.textContent;
         if (!isNaN(texte)) {
@@ -346,10 +346,10 @@
         }
       });
     });
-          
+
     function ajouterPoints(nombre) {
       return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }     
+    }
   </script>
 </body>
 
