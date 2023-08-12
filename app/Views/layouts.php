@@ -108,7 +108,13 @@
                   <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Zones </span>
                 </a>
               </li>
-  
+
+              <li class="sidebar-item <?= (session()->p == 'preget') ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons/preget') ?>">
+                  <i class="align-middle" data-feather="file"></i> <span class="align-middle">Pregets</span>
+                </a>
+              </li>
+
               <!-- <li class="sidebar-item <?= (session()->p == 'transferts') ? 'active' : '' ?>">
                 <a class="sidebar-link" href="<?= base_url(session()->r . '/transferts') ?>">
                   <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Transferts</span>
@@ -116,7 +122,7 @@
               </li> -->
               <li class="sidebar-item <?= (session()->p == 'livraisons') ? 'active' : '' ?>">
                 <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons') ?>">
-                  <i class="align-middle" data-feather="box"></i> <span class="align-middle">Livraisons</span>
+                  <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Livraisons</span>
                 </a>
               </li>
             <?php endif ?>
@@ -124,11 +130,6 @@
             <li class="sidebar-item <?= (session()->p == 'search') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/search') ?>">
                 <i class="align-middle" data-feather="box"></i> <span class="align-middle">Conteneurs</span>
-              </a>
-            </li>
-            <li class="sidebar-item <?= (session()->p == 'preget') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons/preget') ?>">
-                <i class="align-middle" data-feather="file"></i> <span class="align-middle">Pregets</span>
               </a>
             </li>
           <?php endif; ?>
@@ -462,7 +463,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var elementsAvecNombres = document.querySelectorAll('.num'); // Remplacez "votre-classe" par la classe appropriée
-       
+
       elementsAvecNombres.forEach(function(element) {
         var texte = element.textContent;
         if (!isNaN(texte)) {
@@ -471,10 +472,10 @@
         }
       });
     });
-          
+
     function ajouterPoints(nombre) {
       return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }     
+    }
   </script>
 
   <script>

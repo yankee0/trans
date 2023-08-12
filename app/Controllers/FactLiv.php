@@ -21,7 +21,7 @@ class FactLiv extends BaseController
     {
         session()->p = 'f-livraisons';
         $factLiv = (new ModelsFactLiv())
-            ->orderBy('date_creation', 'DESC')
+            ->orderBy('id', 'DESC')
             ->paginate(10);
 
         for ($i = 0; $i < sizeof($factLiv); $i++) {
@@ -777,7 +777,7 @@ class FactLiv extends BaseController
             ->with('m', 'Facture annulée.');
     }
 
-    public function factInfo($d = null, $w = null, $m = null, $y = null)
+    public function factInfo($d = null, $w = null, $m = null, $y = null,$pg = false)
     {
         $modele = new ModelsFactLiv();
         $builder = $modele
@@ -807,6 +807,11 @@ class FactLiv extends BaseController
         }
         if (!empty($w)) {
             $builder->where('WEEK(fact_liv.date_creation)', $w);
+        }
+        if ($pg) {
+            $builder->where('fact_liv.preget', 'OUI');
+            // $builder->where('fact_liv.date_pg', date('Y-m-d'));
+
         }
 
         $data = $builder->find();

@@ -22,6 +22,145 @@ Dashboard livraisons
     </div>
   </div>
 
+
+
+  <div class="row">
+    <!-- nombre de livraisons journalières -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Journalières</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de livraisons Hebdomadaires -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Hebdomadaires</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de livraisons Mensuelles -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Mensuelles</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nombre de livraisons Annuelles -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col mt-0">
+              <h5 class="card-title">Annuelles</h5>
+            </div>
+            <div class="col-auto">
+              <div class="stat text-primary">
+                <i class="align-middle" data-feather="box"></i>
+              </div>
+            </div>
+          </div>
+          <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
+          <div class="mb-0">
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- liv graphs -->
+  <div class="row">
+    <div class="col-md-6 col-lg-7 col-xl-8 d-flex">
+      <div class="card flex-fill w-100">
+        <div class="card-header">
+
+          <h5 class="card-title mb-0">Statistiques annuelles des livraisons enregistrées</h5>
+        </div>
+        <div class="card-body d-flex w-100">
+          <div class="align-self-center chart chart-lg">
+            <canvas id="chartjs-dashboard-bar"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-4 d-flex">
+      <div class="card flex-fill w-100">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Statistiques annuelles des états</h5>
+        </div>
+        <div class="card-body d-flex">
+          <div class="align-self-center w-100">
+            <div class="py-3">
+              <div class="chart chart-sm">
+                <canvas id="chartjs-dashboard-pie"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class=" col-xl-6 col-xxl-7">
+      <div class="card flex-fill w-100">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Mouvements recent</h5>
+        </div>
+        <div class="card-body py-3">
+          <div class="chart chart-sm">
+            <canvas id="chartjs-dashboard-line"></canvas>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+  
   <!-- liv table -->
   <div class="row">
     <div class="col-12 d-flex">
@@ -109,7 +248,7 @@ Dashboard livraisons
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" data-id="<?= $liv['id'] ?>" data-challer="<?= $liv['ch_aller_id'] ?>" data-chretour="<?= $liv['ch_retour_id'] ?>" data-camaller="<?= $liv['cam_aller_id'] ?>" data-camretour="<?= $liv['cam_retour_id'] ?>" data-datealler="<?= $liv['date_aller'] ?>" data-dateretour="<?= $liv['date_retour'] ?>" data-commentaire="<?= $liv['commentaire'] ?>" data-etat="<?= $liv['etat'] == 'LIVRÉ' ? 'true' : 'false' ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
                         <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
-                        <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' .$liv['bl'].'/'. $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
+                        <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' . $liv['bl'] . '/' . $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Information"><i cla data-feather="info"></i></a>
 
                       </div>
                     </td>
@@ -341,144 +480,6 @@ Dashboard livraisons
       </div>
     </div> -->
   </div>
-
-  <div class="row">
-    <!-- nombre de livraisons journalières -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Journalières</h5>
-            </div>
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="box"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $livsDailyCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- nombre de livraisons Hebdomadaires -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Hebdomadaires</h5>
-            </div>
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="box"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $livsWeekyCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- nombre de livraisons Mensuelles -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Mensuelles</h5>
-            </div>
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="box"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $livsMonthlyCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- nombre de livraisons Annuelles -->
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col mt-0">
-              <h5 class="card-title">Annuelles</h5>
-            </div>
-            <div class="col-auto">
-              <div class="stat text-primary">
-                <i class="align-middle" data-feather="box"></i>
-              </div>
-            </div>
-          </div>
-          <h1 class="mt-1 mb-3"><?= $livsYearlyCount ?></h1>
-          <div class="mb-0">
-            <span class="text-muted">Total</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- liv graphs -->
-  <div class="row">
-    <div class="col-md-6 col-lg-7 col-xl-8 d-flex">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-
-          <h5 class="card-title mb-0">Statistiques annuelles des livraisons enregistrées</h5>
-        </div>
-        <div class="card-body d-flex w-100">
-          <div class="align-self-center chart chart-lg">
-            <canvas id="chartjs-dashboard-bar"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-5 col-xl-4 d-flex">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Statistiques annuelles des états</h5>
-        </div>
-        <div class="card-body d-flex">
-          <div class="align-self-center w-100">
-            <div class="py-3">
-              <div class="chart chart-sm">
-                <canvas id="chartjs-dashboard-pie"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class=" col-xl-6 col-xxl-7">
-      <div class="card flex-fill w-100">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Mouvements recent</h5>
-        </div>
-        <div class="card-body py-3">
-          <div class="chart chart-sm">
-            <canvas id="chartjs-dashboard-line"></canvas>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-  </div>
-
 
 </div>
 <script>
