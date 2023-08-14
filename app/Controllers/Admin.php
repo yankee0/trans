@@ -87,7 +87,7 @@ class Admin extends BaseController
             'recs' => (new Rechargement())
                 ->select('rechargements.*, utilisateurs.nom')
                 ->join('utilisateurs', 'utilisateur = utilisateurs.id')
-                ->orderBy('created_at', 'DESC')
+                 ->orderBy('created_at', 'DESC')
                 ->findAll(),
 
             //client count
