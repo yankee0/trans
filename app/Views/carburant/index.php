@@ -26,7 +26,7 @@ Gestion du carburant
     </div>
   </div>
 </div>
-<?php if (session()->r == 'admin') : ?>
+<?php if (session()->r == 'admin' or session()->r == 'finance') : ?>
   <div class="row">
     <div class="col-12">
       <div class="card">
