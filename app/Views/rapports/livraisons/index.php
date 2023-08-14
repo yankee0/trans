@@ -51,17 +51,23 @@
                 <tr>
                   <th class=" d-table-cell">Conteneur</th>
                   <th class=" d-table-cell">Type</th>
+                  <th class=" d-table-cell">Client</th>
+                  <th class=" d-table-cell">Compagnie</th>
+                  <th class=" d-table-cell">Nº Facture</th>
+                  <th class=" d-table-cell">Date facturation</th>
                   <th class=" d-table-cell">Paiement</th>
+                  <th class=" d-table-cell">Date paiement</th>
                   <th class=" d-table-cell">État</th>
                   <th class=" d-table-cell">Date PREGET</th>
                   <th class=" d-table-cell">Zone de destination</th>
                   <th class=" d-table-cell">Adresse exacte</th>
+                  <th class=" d-table-cell">Chauffeur ALLER</th>
+                  <th class=" d-table-cell">Camion ALLER</th>
+                  <th class=" d-table-cell">Date ALLER</th>
                   <th class=" d-table-cell">Chauffeur RETOUR</th>
                   <th class=" d-table-cell">Camion RETOUR</th>
                   <th class=" d-table-cell">Date RETOUR</th>
-                  <th class=" d-table-cell">Chauffeur RETOUR</th>
-                  <th class=" d-table-cell">Camion RETOUR</th>
-                  <th class=" d-table-cell">Date RETOUR</th>
+                  <th class=" d-table-cell">Commentaire</th>
                 </tr>
               </thead>
               <tbody>
@@ -69,9 +75,12 @@
                   <tr>
                     <td class=" d-table-cell"><?= $liv['conteneur'] ?></td>
                     <td class=" d-table-cell"><?= $liv['type'] ?></td>
-                    <td class=" d-table-cell">
-                      <?= $liv['paiement'] ?>
-                    </td>
+                    <td class=" d-table-cell"><?= $liv['nom_client'] ?></td>
+                    <td class=" d-table-cell"><?= $liv['compagnie'] ?></td>
+                    <td class=" d-table-cell"><?= $liv['facture'] ?></td>
+                    <td class=" d-table-cell"><?= $liv['date_creation'] ?></td>
+                    <td class=" d-table-cell"><?= $liv['paiement'] ?></td>
+                    <td class=" d-table-cell"><?= $liv['date_paiement'] ?></td>
                     <td class=" d-table-cell"><?= $liv['etat'] ?></td>
                     <td class=" d-table-cell"><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
                     <td class=" d-table-cell"><?= $liv['zone'] ?></td>
@@ -82,6 +91,7 @@
                     <td class=" d-table-cell"><?= $liv['ch_retour'] ?></td>
                     <td class=" d-table-cell"><?= $liv['cam_retour'] ?></td>
                     <td class=" d-table-cell"><?= $liv['date_retour'] ?></td>
+                    <td class=" d-table-cell"><?= $liv['commentaire'] ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
@@ -117,10 +127,7 @@
         'copyHtml5',
         'excelHtml5',
         'csvHtml5',
-        // 'pdfHtml5',
-        {
-          extend: "pdfHtml5"
-        }
+
       ],
       language: {
         decimal: ',',
