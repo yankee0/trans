@@ -18,9 +18,9 @@ class Carburant extends BaseController
             'recs' => (new Rechargement())
                 ->select('rechargements.*, utilisateurs.nom')
                 ->join('utilisateurs', 'utilisateur = utilisateurs.id')
-                ->orderBy('created_at','DESC')
+                ->orderBy('DATE(rechargements.created_at)','DESC')
                 ->findAll(),
-            'ravs' => (new Ravitaillement())->orderBy('created_at','DESC')->findAll()
+            'ravs' => (new Ravitaillement())->orderBy('DATE(ravitaillements.created_at)','DESC')->findAll()
         ]);
     }
 
