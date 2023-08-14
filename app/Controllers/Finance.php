@@ -3,10 +3,12 @@
 namespace App\Controllers;
 
 use Exception;
+use App\Models\Carte;
 use App\Models\Clients;
 use App\Models\FactLiv;
-use App\Controllers\BaseController;
 use CodeIgniter\I18n\Time;
+use App\Models\Rechargement;
+use App\Controllers\BaseController;
 
 class Finance extends BaseController
 {
@@ -104,7 +106,15 @@ class Finance extends BaseController
                     ->where('annulation', 'NON')
                     ->where('paiement', 'NON')
                     ->find()
-            )
+            ),
+
+            // Informarions sur la carte de carburant
+            'carte' => (new Carte())->first(),
+            'recs' => (new Rechargement())
+                ->select('rechargements.*, utilisateurs.nom')
+                ->join('utilisateurs', 'utilisateur = utilisateurs.id')
+                 ->orderBy('created_at', 'DESC')
+                ->findAll(),
         ];
         return view('finance/dashboard', $data);
     }
