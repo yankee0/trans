@@ -290,36 +290,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
         $routes->get('search', 'Ops::search');
 
-        //gestion des chauffeurs
-        $routes->group('chauffeurs', function ($routes) {
-            $routes->get('/', 'Chauffeurs::list');
-            $routes->post('/', 'Chauffeurs::add');
-            $routes->get('del/(:segment)', 'Chauffeurs::delete/$1');
-            $routes->post('del', 'Chauffeurs::delete');
-            $routes->post('edit', 'Chauffeurs::edit');
-            $routes->get('search', 'Chauffeurs::search');
-        });
-
-        //gestion des camions
-        $routes->group('camions', function ($routes) {
-            $routes->get('/', 'Camions::list');
-            $routes->post('/', 'Camions::add');
-            $routes->get('del/(:segment)', 'Camions::delete/$1');
-            $routes->post('del', 'Camions::delete');
-            $routes->post('edit', 'Camions::edit');
-            $routes->get('search', 'Camions::search');
-        });
-
-        //gestion des remorques
-        $routes->group('remorques', function ($routes) {
-            $routes->get('/', 'Remorques::list');
-            $routes->post('/', 'Remorques::add');
-            $routes->get('del/(:segment)', 'Remorques::delete/$1');
-            $routes->post('del', 'Remorques::delete');
-            $routes->post('edit', 'Remorques::edit');
-            $routes->get('search', 'Remorques::search');
-        });
-
         //gestion des zones
         $routes->group('zones', function ($routes) {
             $routes->get('/', 'Zones::list');
