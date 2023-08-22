@@ -108,7 +108,7 @@ Gestion du carburant
 
             <div class="mb-3">
               <label for="litres" class="form-label">Nombre de litres <span class="text-danger"><strong>*</strong></span></label>
-              <input required type="number" min="1" step="0.1" max="500" class="form-control" name="litres" id="litres" value="<?= set_value('litres') ?>" placeholder="Nombre de litre">
+              <input required type="number" min="1" step="0.00001" max="500" class="form-control" name="litres" id="litres" value="<?= set_value('litres') ?>" placeholder="Nombre de litre">
             </div>
           </div>
           <div class="col-12">
@@ -191,7 +191,7 @@ Gestion du carburant
         ) ?>
         <div class="mb-3">
           <label for="montant" class="form-label">Montant</label>
-          <input type="number" min="1" class="form-control" name="montant" id="montant" placeholder="Montant de la recharge" required>
+          <input type="number" step="0.00001" min="1" class="form-control" name="montant" id="montant" placeholder="Montant de la recharge" required>
         </div>
         <div class="mb-3">
           <label for="created_at" class="form-label">Date de recharge</label>
@@ -303,7 +303,7 @@ Gestion du carburant
 
             <div class="mb-3">
               <label for="litres_mod" class="form-label">Nombre de litres <span class="text-danger"><strong>*</strong></span></label>
-              <input required type="number" min="1" step="0.1" max="500" class="form-control" name="litres" id="litres_mod" value="<?= set_value('litres') ?>" placeholder="Nombre de litre">
+              <input required type="number" min="1" step="0.00001" max="500" class="form-control" name="litres" id="litres_mod" value="<?= set_value('litres') ?>" placeholder="Nombre de litre">
             </div>
           </div>
           <div class="col-12">

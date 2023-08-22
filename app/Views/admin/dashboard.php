@@ -257,7 +257,7 @@
         ) ?>
         <div class="mb-3">
           <label for="montant" class="form-label">Montant</label>
-          <input type="number" min="1" class="form-control" name="montant" id="montant" placeholder="Montant de la recharge" required>
+          <input type="number" step="0.00001" min="1" class="form-control" name="montant" id="montant" placeholder="Montant de la recharge" required>
         </div>
         <div class="mb-3">
           <label for="created_at" class="form-label">Date de recharge</label>
