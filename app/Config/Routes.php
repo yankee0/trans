@@ -176,6 +176,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('edit', 'Remorques::edit');
             $routes->get('search', 'Remorques::search');
         });
+
+        //gestion du carburant
+        $routes->group('carburant', function ($routes) {
+            $routes->get('/', 'Carburant::index');
+            $routes->post('/', 'Carburant::ravitaillement');
+            $routes->post('recharge', 'Carburant::recharge');
+            $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
+            $routes->post('modifier', 'Carburant::modRav');
+        });
     });
 
     $routes->group('facturation', ['filter' => 'facturation'], function ($routes) {
