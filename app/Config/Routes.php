@@ -101,9 +101,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('preget', 'Livraisons::preget');
-            $routes->post('preget', 'Livraisons::checkPreget');
-            $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
+            $routes->get('pregate', 'Livraisons::preGate');
+            $routes->post('pregate', 'Livraisons::checkPreGate');
+            $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
 
         //gestion du carburant
@@ -122,9 +122,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
-            $routes->group('pregets', function ($routes) {
-                $routes->get('/', 'Rapports::index_preget');
-                $routes->post('/', 'Rapports::generate_preget');
+            $routes->group('pregate', function ($routes) {
+                $routes->get('/', 'Rapports::index_pregate');
+                $routes->post('/', 'Rapports::generate_pregate');
             });
             
             
@@ -243,9 +243,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             // $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             // $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('preget', 'Livraisons::preget');
-            $routes->post('preget', 'Livraisons::checkPreget');
-            $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
+            $routes->get('pregate', 'Livraisons::preGate');
+            $routes->post('pregate', 'Livraisons::checkPreGate');
+            $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
     });
 
@@ -282,9 +282,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
 
-            $routes->group('pregets', function ($routes) {
-                $routes->get('/', 'Rapports::index_preget');
-                $routes->post('/', 'Rapports::generate_preget');
+            $routes->group('pregate', function ($routes) {
+                $routes->get('/', 'Rapports::index_pregate');
+                $routes->post('/', 'Rapports::generate_pregate');
             });
             
             
@@ -326,9 +326,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('preget', 'Livraisons::preget');
-            $routes->post('preget', 'Livraisons::checkPreget');
-            $routes->post('preget/(:segment)', 'Livraisons::handlePG/$1');
+            $routes->get('pregate', 'Livraisons::preGate');
+            $routes->post('pregate', 'Livraisons::checkPreGate');
+            $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
 
         //gestion du carburant
@@ -343,9 +343,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
-            $routes->group('pregets', function ($routes) {
-                $routes->get('/', 'Rapports::index_preget');
-                $routes->post('/', 'Rapports::generate_preget');
+            $routes->group('pregate', function ($routes) {
+                $routes->get('/', 'Rapports::index_pregate');
+                $routes->post('/', 'Rapports::generate_pregate');
             });
             
             

@@ -809,7 +809,7 @@ class FactLiv extends BaseController
             $builder->where('WEEK(fact_liv.date_creation)', $w);
         }
         if ($pg) {
-            $builder->where('fact_liv.preget', 'OUI');
+            $builder->where('fact_liv.pregate', 'OUI');
             // $builder->where('fact_liv.date_pg', date('Y-m-d'));
 
         }

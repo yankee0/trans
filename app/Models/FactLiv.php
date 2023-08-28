@@ -23,7 +23,7 @@ class FactLiv extends Model
         'paiement',
         'date_paiement',
         'date_creation',
-        'preget',
+        'pregate',
         'date_pg',
         'annulation',
         'motif',

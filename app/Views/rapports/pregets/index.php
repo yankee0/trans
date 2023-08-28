@@ -1,15 +1,15 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-<?= isset($name) ? $name : 'Rapports pregets' ?>
+<?= isset($name) ? $name : 'Rapports pregates' ?>
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Rapports</strong> pregets</h1>
+<h1 class="h3 mb-3"><strong>Rapports</strong> pregates</h1>
 
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Générer un rapport des pregets enregistrés</h5>
+        <h5 class="card-title">Générer un rapport des pregates enregistrés</h5>
         <?= form_open() ?>
         <?= csrf_field() ?>
         <div class="row">
@@ -42,7 +42,7 @@
   <?php if (isset($name)) : ?>
     <div class="col-12">
       <div class="fs-1"><?= $name ?></div>
-      <div class="fs-2 mb-3 text-opacity-75"><?= count($data) ?> preget<?= count($data) > 1 ? 's' : '' ?> enregistré<?= count($data) > 1 ? 's' : '' ?></div>
+      <div class="fs-2 mb-3 text-opacity-75"><?= count($data) ?> pregate<?= count($data) > 1 ? 's' : '' ?> enregistré<?= count($data) > 1 ? 's' : '' ?></div>
       <hr>
 
     </div>

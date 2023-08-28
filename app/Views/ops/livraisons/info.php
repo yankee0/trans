@@ -14,9 +14,9 @@ Information de livraison
       <div class="card-body">
         <div class="row">
           <div class="col-12">
-            <?php if ($preget == 'NON') : ?>
+            <?php if ($pregate == 'NON') : ?>
               <div class="alert alert-warning text-center" role="alert">
-                Preget non reçu
+                pregate non reçu
               </div>
             <?php endif ?>
             <div>
@@ -43,7 +43,7 @@ Information de livraison
             <div><?= $bl ?></div>
             </p>
             <p>
-            <div class="text-sm text-muted">Date de réception du preget</div>
+            <div class="text-sm text-muted">Date de réception du pregate</div>
             <div><?= $date_pg ?></div>
             </p>
           </div>

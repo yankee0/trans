@@ -186,13 +186,13 @@ class Rapports extends BaseController
         );
     }
 
-    public function index_preget($data = [])
+    public function index_pregate($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/pregets/index', $data);
+        return view('rapports/pregates/index', $data);
     }
 
-    public function generate_preget()
+    public function generate_pregate()
     {
         session()->p = 'rapports';
         $data = $this->request->getPost();
@@ -208,20 +208,20 @@ class Rapports extends BaseController
         $name = '';
         switch ($data['type']) {
             case 'j':
-                $sheet = $ctrl->getLastPregets($d, $w, $m, $y);
-                $name = 'Rapport pregets journaliers du ' . $data['date'];
+                $sheet = $ctrl->getLastpregates($d, $w, $m, $y);
+                $name = 'Rapport pregates journaliers du ' . $data['date'];
                 break;
             case 'h':
-                $sheet = $ctrl->getLastPregets(null, $w, $m, $y);
-                $name = 'Rapport pregets hebdomadaires de la semaine ' . $w . ' année ' . $y;
+                $sheet = $ctrl->getLastpregates(null, $w, $m, $y);
+                $name = 'Rapport pregates hebdomadaires de la semaine ' . $w . ' année ' . $y;
                 break;
             case 'm':
-                $sheet = $ctrl->getLastPregets(null, null, $m, $y);
-                $name = 'Rapport pregets mensuels du ' . $m . 'e mois année ' . $y;
+                $sheet = $ctrl->getLastpregates(null, null, $m, $y);
+                $name = 'Rapport pregates mensuels du ' . $m . 'e mois année ' . $y;
                 break;
             case 'a':
-                $sheet = $ctrl->getLastPregets(null, null, null, $y);
-                $name = 'Rapport pregets annuels année ' . $y;
+                $sheet = $ctrl->getLastpregates(null, null, null, $y);
+                $name = 'Rapport pregates annuels année ' . $y;
                 break;
 
             default:
@@ -232,7 +232,7 @@ class Rapports extends BaseController
                 break;
         }
 
-        return $this->index_preget(
+        return $this->index_pregate(
             [
                 'data' => $sheet,
                 'type' => $data['type'],

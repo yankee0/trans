@@ -91,7 +91,7 @@ class Livraisons extends BaseController
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
-                fact_liv.preget,
+                fact_liv.pregate,
                 fact_liv.bl,
                 fact_liv.id as facture,
                 fact_liv.compagnie,
@@ -122,7 +122,7 @@ class Livraisons extends BaseController
             ->orLike('fact_liv.bl', $tc)
             ->orderBy('fact_liv.date_pg', 'DESC');
         if (!$pg) {
-            $model->where('fact_liv.preget', 'OUI');
+            $model->where('fact_liv.pregate', 'OUI');
         }
 
         $data = $model->paginate($limit);
@@ -153,7 +153,7 @@ class Livraisons extends BaseController
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
-                fact_liv.preget,
+                fact_liv.pregate,
                 fact_liv.bl,
                 fact_liv.id as facture,
                 fact_liv.date_creation,
@@ -183,7 +183,7 @@ class Livraisons extends BaseController
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->orderBy('livraisons.date_retour', 'DESC')
             ->where('fact_liv.annulation', 'NON')
-            ->where('fact_liv.preget', 'OUI');
+            ->where('fact_liv.pregate', 'OUI');
 
         if (!empty($y)) {
             $builder->where('YEAR(livraisons.date_retour)', $y);
@@ -294,15 +294,15 @@ class Livraisons extends BaseController
             ->with('m', 'Informations de livraisons enregistrées.');
     }
 
-    public function preget()
+    public function pregate()
     {
-        session()->p = 'preget';
-        return view('ops/livraisons/preget', [
-            'daily_pg' => $this->getLastPregets()
+        session()->p = 'pregate';
+        return view('ops/livraisons/pregate', [
+            'daily_pg' => $this->getLastpregates()
         ]);
     }
 
-    public function getLastPregets($d = null, $w = null, $m = null, $y = null)
+    public function getLastpregates($d = null, $w = null, $m = null, $y = null)
     {
         $builder = (new FactLiv())
             ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
@@ -340,20 +340,20 @@ class Livraisons extends BaseController
         return $res;
     }
 
-    public function checkPreget($p = null)
+    public function checkpregate($p = null)
     {
-        session()->p = 'preget';
-        $preget = $p == null ? $this->request->getVar('preget') : $p;
+        session()->p = 'pregate';
+        $pregate = $p == null ? $this->request->getVar('pregate') : $p;
         $res = (new FactLiv())
             ->select('id')
-            ->like('fact_liv.bl', $preget)
+            ->like('fact_liv.bl', $pregate)
             ->first();
 
         if (!empty($res)) {
             $res = (new ControllersFactLiv)->getInvoice($res['id']);
             $data = [
                 'facture' => $res,
-                'preget' => $preget,
+                'pregate' => $pregate,
                 'daily_pg' => (new ControllersFactLiv())
                     ->factInfo(null, null, null, null, true)
 
@@ -361,25 +361,25 @@ class Livraisons extends BaseController
         } else {
             $data = [
                 'facture' => false,
-                'preget' => $preget,
+                'pregate' => $pregate,
                 'daily_pg' => (new ControllersFactLiv())
                     ->factInfo(null, null, null, null, true)
             ];
         }
-        return view('ops/livraisons/preget', $data);
+        return view('ops/livraisons/pregate', $data);
     }
 
     public function handlePG($id)
     {
         $data = $this->request->getPost();
-        if (!isset($data['preget'])) {
+        if (!isset($data['pregate'])) {
             $data['id'] = $id;
-            $data['preget'] = 'NON';
+            $data['pregate'] = 'NON';
             $data['date_pg'] = null;
             $data['amendement'] = 'NON';
         } else {
             $data['id'] = $id;
-            $data['preget'] = 'OUI';
+            $data['pregate'] = 'OUI';
             $data['date_pg'] = $data['date_pg'];
             $data['amendement'] = isset($data['amendement']) ? 'OUI' : 'NON';
         }
@@ -393,7 +393,7 @@ class Livraisons extends BaseController
                 ->with('n', false)
                 ->with('m', 'Une erreur est survenue lors de la modification.');
         }
-        return $this->checkPreget($data['bl']);
+        return $this->checkpregate($data['bl']);
     }
 
     public function info($bl, $id)
@@ -414,7 +414,7 @@ class Livraisons extends BaseController
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
-                fact_liv.preget,
+                fact_liv.pregate,
                 fact_liv.bl,
                 fact_liv.date_creation,
                 fact_liv.id as facture,
