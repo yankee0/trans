@@ -11,9 +11,9 @@ Rapports
     <div class="card flex-fill">
       <img src="<?= base_url('assets/img/pregate.jpg') ?>" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">Rapport des pregates</h5>
-        <p class="card-text">pregates enregistrés.</p>
-        <a href="<?= base_url(session()->r . '/rapports/pregates') ?>" class="btn btn-sm btn-primary">Accéder <i data-feather="arrow-right"></i></a>
+        <h5 class="card-title">Rapport des pregate</h5>
+        <p class="card-text">pregate enregistrés.</p>
+        <a href="<?= base_url(session()->r . '/rapports/pregate') ?>" class="btn btn-sm btn-primary">Accéder <i data-feather="arrow-right"></i></a>
       </div>
     </div>
   </div>

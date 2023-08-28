@@ -189,7 +189,7 @@ class Rapports extends BaseController
     public function index_pregate($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/pregates/index', $data);
+        return view('rapports/pregate/index', $data);
     }
 
     public function generate_pregate()
@@ -208,20 +208,20 @@ class Rapports extends BaseController
         $name = '';
         switch ($data['type']) {
             case 'j':
-                $sheet = $ctrl->getLastpregates($d, $w, $m, $y);
-                $name = 'Rapport pregates journaliers du ' . $data['date'];
+                $sheet = $ctrl->getLastpregate($d, $w, $m, $y);
+                $name = 'Rapport pregate journaliers du ' . $data['date'];
                 break;
             case 'h':
-                $sheet = $ctrl->getLastpregates(null, $w, $m, $y);
-                $name = 'Rapport pregates hebdomadaires de la semaine ' . $w . ' année ' . $y;
+                $sheet = $ctrl->getLastpregate(null, $w, $m, $y);
+                $name = 'Rapport pregate hebdomadaires de la semaine ' . $w . ' année ' . $y;
                 break;
             case 'm':
-                $sheet = $ctrl->getLastpregates(null, null, $m, $y);
-                $name = 'Rapport pregates mensuels du ' . $m . 'e mois année ' . $y;
+                $sheet = $ctrl->getLastpregate(null, null, $m, $y);
+                $name = 'Rapport pregate mensuels du ' . $m . 'e mois année ' . $y;
                 break;
             case 'a':
-                $sheet = $ctrl->getLastpregates(null, null, null, $y);
-                $name = 'Rapport pregates annuels année ' . $y;
+                $sheet = $ctrl->getLastpregate(null, null, null, $y);
+                $name = 'Rapport pregate annuels année ' . $y;
                 break;
 
             default:

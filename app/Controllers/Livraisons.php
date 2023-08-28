@@ -298,42 +298,61 @@ class Livraisons extends BaseController
     {
         session()->p = 'pregate';
         return view('ops/livraisons/pregate', [
-            'daily_pg' => $this->getLastpregates()
+            'daily_pg' => $this->getLastpregate()
         ]);
     }
 
-    public function getLastpregates($d = null, $w = null, $m = null, $y = null)
+    public function getLastpregate($d = null, $w = null, $m = null, $y = null)
     {
         $builder = (new FactLiv())
             ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->orderBy('fact_liv.date_pg', 'DESC');
-            if (!empty($y)) {
-                $builder->where('YEAR(fact_liv.date_pg)', $y);
-            }
-            if (!empty($m)) {
-                $builder->where('MONTH(fact_liv.date_pg)', $m);
-            }
-            if (!empty($d)) {
-                $builder->where('DAY(fact_liv.date_pg)', $d);
-            }
-            if (!empty($w)) {
-            }
-            if (empty($y) and empty($m) and empty($d) and empty($w)) {
-                $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
-            }
+        if (!empty($y)) {
+            $builder->where('YEAR(fact_liv.date_pg)', $y);
+        }
+        if (!empty($m)) {
+            $builder->where('MONTH(fact_liv.date_pg)', $m);
+        }
+        if (!empty($d)) {
+            $builder->where('DAY(fact_liv.date_pg)', $d);
+        }
+        if (!empty($w)) {
+        }
+        if (empty($y) and empty($m) and empty($d) and empty($w)) {
+            $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
+        }
 
         $res = $builder
             ->find();
+
+        //Recuperation des zones
         for ($i = 0; $i < sizeof($res); $i++) {
             $res[$i]['zones'] = (new FactLivLieux())
                 ->where('id_fact', $res[$i]['facture'])
                 ->findAll();
+
             if (!empty($res[$i]['zones'])) {
+
+                // recuperation des conteneurs
                 for ($j = 0; $j < sizeof($res[$i]['zones']); $j++) {
                     $res[$i]['zones'][$j]['tc'] = (new FactLivLignes())
                         ->where('id_lieu', $res[$i]['zones'][$j]['id'])
                         ->findAll();
+
+                    //recuperation des information de livraisons
+                    for ($k = 0; $k < sizeof($res[$i]['zones'][$j]['tc']); $k++) {
+                        $res[$i]['zones'][$j]['tc'][$k]['infos'] = (new ModelsLivraisons())
+                            ->where('id_fact_ligne', $res[$i]['zones'][$j]['id'])
+                            ->first();
+                    }
+
+                    //définir l'etat du pregate
+                    foreach ($res[$i]['zones'][$j]['tc'] as $r) {
+                        if ($r['infos']['etat'] == 'EN COURS' or $r['infos']['etat'] == 'LIVRÉ') {
+                            $res[$i]['etat'] = 'EN COURS';
+                        }
+                    }
                 }
             }
         }

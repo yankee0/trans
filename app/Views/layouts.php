@@ -101,9 +101,9 @@
               Opérations
             </li>
 
-            <li class="sidebar-item <?= (session()->p == 'pregates') ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons/pregates') ?>">
-                <i class="align-middle" data-feather="file"></i> <span class="align-middle">pregates</span>
+            <li class="sidebar-item <?= (session()->p == 'pregate') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/livraisons/pregate') ?>">
+                <i class="align-middle" data-feather="file"></i> <span class="align-middle">Pregate</span>
               </a>
             </li>
             <?php if (session()->r != 'facturation') : ?>
@@ -205,7 +205,7 @@
               </a>
             </li>
           <?php endif ?>
-
+            <li class="py-5"></li>
 
         </ul>
       </div>

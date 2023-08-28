@@ -1,15 +1,15 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-<?= isset($name) ? $name : 'Rapports pregates' ?>
+<?= isset($name) ? $name : 'Rapports pregate' ?>
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Rapports</strong> pregates</h1>
+<h1 class="h3 mb-3"><strong>Rapports</strong> pregate</h1>
 
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Générer un rapport des pregates enregistrés</h5>
+        <h5 class="card-title">Générer un rapport des pregate enregistrés</h5>
         <?= form_open() ?>
         <?= csrf_field() ?>
         <div class="row">
