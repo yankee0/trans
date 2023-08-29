@@ -28,9 +28,9 @@ class Facturations extends BaseController
             'cli' => (new Clients())->countAll(),
             'liv' => (new FactLiv())
                 ->countAll(),
-            'liv_preget' => (new FactLiv())
+            'liv_pregate' => (new FactLiv())
                 ->orderBy('id','DESC')
-                ->where('preget', 'NON')
+                ->where('pregate', 'NON')
                 ->findAll(),
             'fact_liv_last' => $factLiv,
             'avec_tva' => (isset($data['tva'])) ? 'OUI' : 'NON'

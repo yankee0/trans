@@ -1,16 +1,16 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Preget livraisons
+Pregate livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Livraisons</strong> Preget</h1>
-<?php if (!empty($preget)) : ?>
+<h1 class="h3 mb-3"><strong>Livraisons</strong> pregate</h1>
+<?php if (isset($pregate) and !empty($pregate)) : ?>
   <div class="row mb-3">
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-body">
-          <form action="<?= base_url(session()->r . '/livraisons/preget') ?>" method="post" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($preget)) ? $preget : '' ?>" class="form-control flex-grow-1" name="preget" id="preget" placeholder="Entrer le numéro du BL">
+          <form action="<?= base_url(session()->r . '/livraisons/pregate') ?>" method="post" class="d-flex gap-2">
+            <input required type="search" value="<?= (isset($pregate)) ? $pregate : '' ?>" class="form-control flex-grow-1" name="pregate" id="pregate" placeholder="Entrer le numéro du BL">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Vérifier</span></button>
           </form>
         </div>
@@ -27,14 +27,14 @@ Preget livraisons
               Aucune facturation portant le numéro de BL saisi n'a été engeristrée. Si ce cas sagit d'une erreur d'enregistrement merci de signaler l'incidant aux personnes ayant les profils agréés. (Profil: FACTURATION)
             </div>
           <?php elseif (isset($facture) and sizeof($facture) > 0) : ?>
-            <?php if ($facture['facture']['preget'] == 'OUI') : ?>
+            <?php if ($facture['facture']['pregate'] == 'OUI') : ?>
               <div class="alert alert-success text-center" role="alert">
                 <?= $facture['facture']['amendement'] == 'OUI' ? '<span class="fs-3">AMENDEMENT</span> <br />' : '' ?>
-                Preget enregistré le <?= $facture['facture']['date_pg'] ?>
+                pregate enregistré le <?= $facture['facture']['date_pg'] ?>
               </div>
             <?php else : ?>
               <div class="alert alert-warning text-center" role="alert">
-                Preget non enregistré
+                pregate non enregistré
               </div>
             <?php endif ?>
             <?php if (date('Y-m-d', strtotime($facture['facture']['deadline'])) <= date('Y-m-d', strtotime('+5days'))) : ?>
@@ -82,25 +82,25 @@ Preget livraisons
             </div>
 
             <div class="d-flex align-items-center justify-content-center mt-3">
-              <button class="btn btn-primary" href="#" role="button" data-bs-toggle="modal" data-bs-target="#modalId">Informations PREGET</button>
+              <button class="btn btn-primary" href="#" role="button" data-bs-toggle="modal" data-bs-target="#modalId">Informations pregate</button>
             </div>
             <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">Preget</h5>
+                    <h5 class="modal-title" id="modalTitleId">pregate</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <?= form_open(
-                      base_url(session()->r . '/livraisons/preget/' . $facture['facture']['id']),
+                      base_url(session()->r . '/livraisons/pregate/' . $facture['facture']['id']),
                       [
                         'id' => 'formP'
                       ]
                     ) ?>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" <?= $facture['facture']['preget'] == 'OUI' ? 'checked' : '' ?> name="preget" type="checkbox" id="pregetCatch">
-                      <label class="form-check-label" for="pregetCatch">Preget reçu</label>
+                      <input class="form-check-input" <?= $facture['facture']['pregate'] == 'OUI' ? 'checked' : '' ?> name="pregate" type="checkbox" id="pregateCatch">
+                      <label class="form-check-label" for="pregateCatch">pregate reçu</label>
                     </div>
                     <div class="mb-3">
                       <label for="date_pg" class="form-label">Date de réception</label>
@@ -138,80 +138,58 @@ Preget livraisons
     <div class="col-12">
       <div class="card flex-fill">
         <div class="card-body">
-          <form action="<?= base_url(session()->r . '/livraisons/preget') ?>" method="post" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($preget)) ? $preget : '' ?>" class="form-control flex-grow-1" name="preget" id="preget" placeholder="Entrer le numéro du BL">
+          <form action="<?= base_url(session()->r . '/livraisons/pregate') ?>" method="post" class="d-flex gap-2">
+            <input type="search" value="<?= (isset($pregate)) ? $pregate : '' ?>" class="form-control flex-grow-1" name="pregate" id="pregate" placeholder="Entrer le numéro du BL">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Vérifier</span></button>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- component that i will use later -->
-    <!-- <div class="col-sm-6 col-lg-4">
-      <div class="card flex-fill">
-        <div class="card-body">
-          <div class="h2">Lot de 12 conteneurs</div>
-          <hr>
-          <div><strong>Client:</strong> Madtrans</div>
-          <div><strong>Compagnie:</strong> mks</div>
-          <div><strong>BL:</strong> 0000000000</div>
-          <div><strong>Date preget:</strong> 00/00/0000</div>
-          <div><strong>Deadline:</strong> 00/00/0000</div>
-          <hr>
-          <div class="d-flex justify-content-between">
-            <div>
-              <span class="text-sm text-black-50">LIVRES</span> <br>
-              <span class="fs-2">04</span>
-            </div>
-            <div>
-              <span class="text-sm text-black-50">EN COURS</span> <br>
-              <span class="fs-2">04</span>
-            </div>
-            <div>
-              <span class="text-sm text-black-50">RESTANTS</span> <br>
-              <span class="fs-2">04</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="col-12">
-      <div class="fs-2 mb-3"><?= count($daily_pg) ?> preget<?= count($daily_pg) > 1 ? 's' : '' ?> enregistré<?= count($daily_pg) > 1 ? 's' : '' ?> aujourd'hui</div>
+      <div class="fs-2 mb-3"><?= count($daily_pg) ?> pregate<?= count($daily_pg) > 1 ? 's' : '' ?> enregistré<?= count($daily_pg) > 1 ? 's' : '' ?> aujourd'hui</div>
     </div>
     <?php foreach ($daily_pg as $pg) : ?>
-      <div class="col-xl-6">
-        <div class="table-responsive">
-          <div class="card">
-            <div class="card-body">
-              <table class="table table-hover table-striped table-sm" id="table">
-                <thead>
-                  <tr class=" ">
-                    <th ><?= $pg['nom'] ?></th>
-                    <th></th>
-                    <th>Facture Nº <?= $pg['facture'] ?></th>
-                  </tr>
-                  <tr>
-                    <th>BL Nº <?= $pg['bl'] ?></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <th>Conteneur</th>
-                    <th>Type TC</th>
-                    <th>Destination</th>
-                  </tr>
-                <tbody>
-                  <?php foreach ($pg['zones'] as $z) : ?>
-                    <?php foreach ($z['tc'] as $tc) : ?>
-                      <tr onclick="window.location = '<?= base_url(session()->r.'/livraisons/infos/'.$pg['bl'].'/'.$tc['conteneur']) ?>'">
-                        <td><?= $tc['conteneur'] ?></td>
-                        <td><?= $tc['type'] ?></td>
-                        <td><?= $z['adresse'] ?></td>
-                      </tr>
-                    <?php endforeach ?>
-                  <?php endforeach ?>
-                </tbody>
-              </table>
+      <div class="col-sm-6 col-xl-4">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <div>
+              <?php if ($pg['livres'] != 0 and $pg['restants'] == 0 and $pg['encours'] == 0) : ?>
+                <span class="badge bg-success">Lot achevé</span>
+              <?php endif ?>
+              <span class="badge bg-<?= $pg['paiement'] == 'OUI' ? 'success' : 'danger' ?>"><?= $pg['paiement'] == 'OUI' ? 'Payé le ' . $pg['date_paiement'] : 'Non payé' ?></span>
+              <?php if ($pg['amendement'] == 'OUI') : ?>
+                <span class="badge bg-warning">Amendement</span>
+              <?php endif ?>
+            </div>
+            <div class="h2">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s)</div>
+            <hr>
+            <div class="d-flex gap-3">
+              <div class="flex-fill flex-grow-1">
+                <div><small class=" text-black-50">Client:</small><br><?= $pg['nom'] ?></div>
+                <div><small class=" text-black-50">Compagnie:</small><br><?= $pg['compagnie'] ?></div>
+                <div><small class=" text-black-50">BL:</small><br><?= $pg['bl'] ?></div>
+              </div>
+              <div class="flex-fill flex-grow-1">
+                <div><small class=" text-black-50">Nº facture:</small><br><?= $pg['id'] ?></div>
+                <div><small class=" text-black-50">Date pregate:</small><br><?= $pg['date_pg'] ?></div>
+                <div><small class=" text-black-50">Deadline:</small><br><?= $pg['deadline'] ?></div>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+              <div>
+                <span class="text-sm text-black-50">LIVRES</span> <br>
+                <span class="fs-2"><?= $pg['livres'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">EN COURS</span> <br>
+                <span class="fs-2"><?= $pg['encours'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">RESTANTS</span> <br>
+                <span class="fs-2"><?= $pg['restants'] ?></span>
+              </div>
             </div>
           </div>
         </div>

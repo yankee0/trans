@@ -182,7 +182,7 @@ Facturation livraisons
               <th class="d-none d-md-table-cell">Montant</th>
               <th class="d-none d-xl-table-cell">Date</th>
               <th>Annulée</th>
-              <th>Preget</th>
+              <th>pregate</th>
               <th>Paiement</th>
               <th></th>
             </tr>
@@ -197,7 +197,7 @@ Facturation livraisons
                 <td class="d-none d-md-table-cell"><?= $line['total'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                 <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
-                <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
+                <td><span class="badge bg-<?= ($line['pregate'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['pregate'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
                 <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                 <td class="d-flex gap-1">
                   <a class="btn text-warning btn-sm d-flex align-items-center justify-content-center gap-2" title="Modifier les informations" href="<?= base_url(session()->r . '/livraisons/edit/' . $line['id']) ?>" role="button"><i class="align-middle" data-feather="edit"></i></a>
