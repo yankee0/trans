@@ -414,9 +414,9 @@ Dashboard yhjgh
         type: "pie",
         data: {
           labels: [
-            'Factures non payées et sans pregate',
-            'Factures payées et sans pregate',
-            'Factures non payées et pregate reçu',
+            'Factures non payées et sans preget',
+            'Factures payées et sans preget',
+            'Factures non payées et preget reçu',
             'Factures annulées'
           ],
           datasets: [{

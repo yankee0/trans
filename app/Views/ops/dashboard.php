@@ -94,8 +94,8 @@ Dashboard
 
   <div class="d-flex align-items-center justify-content-between mb-3">
     <h2 class="h4 mb-0">Livraisons</h2>
-    <a class="btn btn-primary d-flex gap-1 align-items-center" href="<?= base_url(session()->r . '/livraisons/pregate') ?>" role="button">
-      <i data-feather="plus"></i><span>pregate</span>
+    <a class="btn btn-primary d-flex gap-1 align-items-center" href="<?= base_url(session()->r . '/livraisons/preget') ?>" role="button">
+      <i data-feather="plus"></i><span>Preget</span>
     </a>
   </div>
 
@@ -260,7 +260,7 @@ Dashboard
                   <th>Client</th>
                   <th>Paiement</th>
                   <th>État</th>
-                  <th>Date pregate</th>
+                  <th>Date PREGET</th>
                   <th>Zone de destination</th>
                   <th>Adresse exacte</th>
                   <th></th>
@@ -313,7 +313,7 @@ Dashboard
                       }
                       ?>
                     </td>
-                    <td><?= $liv['pregate'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
+                    <td><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
                     <td><?= $liv['zone'] ?></td>
                     <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
                     <td>

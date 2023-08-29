@@ -45,7 +45,7 @@ Recherches
                 <th>Client</th>
                 <th>Paiement</th>
                 <th>État</th>
-                <th>pregate</th>
+                <th>Preget</th>
                 <th>Zone de destination</th>
                 <th>Adresse exacte</th>
                 <th></th>
@@ -66,7 +66,7 @@ Recherches
                   </td>
                   <td>
                     <?php
-                    if ($liv['pregate'] == 'OUI') {
+                    if ($liv['preget'] == 'OUI') {
                       switch ($liv['etat']) {
                         case 'MISE À TERRE':
                     ?>
@@ -103,7 +103,7 @@ Recherches
                     }
                     ?>
                   </td>
-                  <td><?= $liv['pregate'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
+                  <td><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
                   <td><?= $liv['zone'] ?></td>
                   <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
                   <td>

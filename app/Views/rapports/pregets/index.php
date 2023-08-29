@@ -1,15 +1,15 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-<?= isset($name) ? $name : 'Rapports pregate' ?>
+<?= isset($name) ? $name : 'Rapports pregets' ?>
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Rapports</strong> pregate</h1>
+<h1 class="h3 mb-3"><strong>Rapports</strong> pregets</h1>
 
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Générer un rapport des pregate enregistrés</h5>
+        <h5 class="card-title">Générer un rapport des pregets enregistrés</h5>
         <?= form_open() ?>
         <?= csrf_field() ?>
         <div class="row">
@@ -42,50 +42,44 @@
   <?php if (isset($name)) : ?>
     <div class="col-12">
       <div class="fs-1"><?= $name ?></div>
-      <div class="fs-2 mb-3 text-opacity-75"><?= count($data) ?> pregate<?= count($data) > 1 ? 's' : '' ?> enregistré<?= count($data) > 1 ? 's' : '' ?></div>
+      <div class="fs-2 mb-3 text-opacity-75"><?= count($data) ?> preget<?= count($data) > 1 ? 's' : '' ?> enregistré<?= count($data) > 1 ? 's' : '' ?></div>
       <hr>
+
     </div>
     <?php foreach ($data as $pg) : ?>
-      <div class="col-sm-6 col-xl-4">
-        <div class="card flex-fill">
-          <div class="card-body">
-            <div>
-              <?php if ($pg['livres'] != 0 and $pg['restants'] == 0 and $pg['encours'] == 0) : ?>
-                <span class="badge bg-success">Lot achevé</span>
-              <?php endif ?>
-              <span class="badge bg-<?= $pg['paiement'] == 'OUI' ? 'success' : 'danger' ?>"><?= $pg['paiement'] == 'OUI' ? 'Payé le ' . $pg['date_paiement'] : 'Non payé' ?></span>
-              <?php if ($pg['amendement'] == 'OUI') : ?>
-                <span class="badge bg-warning">Amendement</span>
-              <?php endif ?>
-            </div>
-            <div class="h2">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s)</div>
-            <hr>
-            <div class="d-flex gap-3">
-              <div class="flex-fill flex-grow-1">
-                <div><small class=" text-black-50">Client:</small><br><?= $pg['nom'] ?></div>
-                <div><small class=" text-black-50">Compagnie:</small><br><?= $pg['compagnie'] ?></div>
-                <div><small class=" text-black-50">BL:</small><br><?= $pg['bl'] ?></div>
-              </div>
-              <div class="flex-fill flex-grow-1">
-                <div><small class=" text-black-50">Nº facture:</small><br><?= $pg['id'] ?></div>
-                <div><small class=" text-black-50">Date pregate:</small><br><?= $pg['date_pg'] ?></div>
-                <div><small class=" text-black-50">Deadline:</small><br><?= $pg['deadline'] ?></div>
-              </div>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <div>
-                <span class="text-sm text-black-50">LIVRES</span> <br>
-                <span class="fs-2"><?= $pg['livres'] ?></span>
-              </div>
-              <div>
-                <span class="text-sm text-black-50">EN COURS</span> <br>
-                <span class="fs-2"><?= $pg['encours'] ?></span>
-              </div>
-              <div>
-                <span class="text-sm text-black-50">RESTANTS</span> <br>
-                <span class="fs-2"><?= $pg['restants'] ?></span>
-              </div>
+      <div class="col-xl-6">
+        <div class="table-responsive">
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-hover table-striped table-sm">
+                <thead>
+                  <tr class=" ">
+                    <th><?= $pg['nom'] ?></th>
+                    <th></th>
+                    <th>Facture Nº <?= $pg['facture'] ?></th>
+                  </tr>
+                  <tr>
+                    <th>BL Nº <?= $pg['bl'] ?></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <th>Conteneur</th>
+                    <th>Type TC</th>
+                    <th>Destination</th>
+                  </tr>
+                <tbody>
+                  <?php foreach ($pg['zones'] as $z) : ?>
+                    <?php foreach ($z['tc'] as $tc) : ?>
+                      <tr class=" cursor-pointer" onclick="window.location = '<?= base_url(session()->r . '/livraisons/infos/' . $pg['bl'] . '/' . $tc['conteneur']) ?>'">
+                        <td><?= $tc['conteneur'] ?></td>
+                        <td><?= $tc['type'] ?></td>
+                        <td><?= $z['adresse'] ?></td>
+                      </tr>
+                    <?php endforeach ?>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

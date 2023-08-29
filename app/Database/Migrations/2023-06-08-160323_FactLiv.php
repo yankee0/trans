@@ -84,7 +84,7 @@ class FactLiv extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
-            'pregate' => [
+            'preget' => [
                 'type' => 'ENUM("OUI","NON")',
                 'null' => true,
                 'default' => "NON"

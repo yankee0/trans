@@ -44,21 +44,21 @@ class Graph extends BaseController
         $data = [];
         $modele = new FactLiv();
         $data = [
-            // 'no_pregate_no_paiement'
+            // 'no_preget_no_paiement'
             count($modele
                 ->where('paiement', 'NON')
-                ->where('pregate', 'NON')
+                ->where('preget', 'NON')
                 ->where('annulation', 'NON')
                 ->find()),
-            // 'no_pregate_yes_paiement' => 
+            // 'no_preget_yes_paiement' => 
             count($modele
                 ->where('paiement', 'OUI')
-                ->where('pregate', 'NON')
+                ->where('preget', 'NON')
                 ->where('annulation', 'NON')
                 ->find()),
             count($modele
                 ->where('paiement', 'NON')
-                ->where('pregate', 'OUI')
+                ->where('preget', 'OUI')
                 ->where('annulation', 'NON')
                 ->find()),
             // 'Annulée' => 
@@ -78,7 +78,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
-                ->where('fact_liv.pregate', 'OUI')
+                ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('livraisons.etat', 'SUR PLATEAU')
                 ->find()),
@@ -87,7 +87,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
-                ->where('fact_liv.pregate', 'OUI')
+                ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'MISE À TERRE')
                 ->find()),
@@ -96,7 +96,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
-                ->where('fact_liv.pregate', 'OUI')
+                ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'EN COURS')
                 ->find()),
@@ -105,7 +105,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
-                ->where('fact_liv.pregate', 'OUI')
+                ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'LIVRÉ')
                 ->find()),
@@ -114,7 +114,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
-                ->where('fact_liv.pregate', 'OUI')
+                ->where('fact_liv.preget', 'OUI')
                 ->where('YEAR(livraisons.created_at)', date('Y', time()))
                 ->where('etat', 'ANNULÉ')
                 ->find()),
@@ -136,7 +136,7 @@ class Graph extends BaseController
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
                 ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
-                ->where('fact_liv.pregate', 'OUI')
+                ->where('fact_liv.preget', 'OUI')
                 ->where('fact_liv.annulation', 'NON')
                 ->where('MONTH(fact_liv.date_pg)', $i)
                 ->where('YEAR(fact_liv.date_pg)', date('Y', time()))

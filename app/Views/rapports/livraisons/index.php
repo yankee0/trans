@@ -58,7 +58,7 @@
                   <th class=" d-table-cell">Paiement</th>
                   <th class=" d-table-cell">Date paiement</th>
                   <th class=" d-table-cell">État</th>
-                  <th class=" d-table-cell">Date pregate</th>
+                  <th class=" d-table-cell">Date PREGET</th>
                   <th class=" d-table-cell">Zone de destination</th>
                   <th class=" d-table-cell">Adresse exacte</th>
                   <th class=" d-table-cell">Chauffeur ALLER</th>
@@ -82,7 +82,7 @@
                     <td class=" d-table-cell"><?= $liv['paiement'] ?></td>
                     <td class=" d-table-cell"><?= $liv['date_paiement'] ?></td>
                     <td class=" d-table-cell"><?= $liv['etat'] ?></td>
-                    <td class=" d-table-cell"><?= $liv['pregate'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
+                    <td class=" d-table-cell"><?= $liv['preget'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
                     <td class=" d-table-cell"><?= $liv['zone'] ?></td>
                     <td class=" d-table-cell"><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
                     <td class=" d-table-cell"><?= $liv['ch_aller'] ?></td>

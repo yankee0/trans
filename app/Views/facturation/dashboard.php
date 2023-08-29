@@ -42,7 +42,7 @@
           </div>
           <h1 class="mt-1 mb-3 num"><?= $liv ?></h1>
           <div class="mb-0">
-            <span class="text-muted"> <i class="mdi mdi-arrow-bottom-right"></i> <?= count($liv_pregate) ?> en attente de pregate</span>
+            <span class="text-muted"> <i class="mdi mdi-arrow-bottom-right"></i> <?= count($liv_preget) ?> en attente de PREGET</span>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
                 <th class="d-none d-md-table-cell">Montant</th>
                 <th class="d-none d-xl-table-cell">Date</th>
                 <th>Annulée</th>
-                <th>pregate</th>
+                <th>Preget</th>
                 <th>Paiement</th>
                 <th></th>
               </tr>
@@ -110,7 +110,7 @@
                   <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                   <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
-                  <td><span class="badge bg-<?= ($line['pregate'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['pregate'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
+                  <td><span class="badge bg-<?= ($line['preget'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['preget'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td>
                     <div class="d-flex gap-1">
@@ -238,9 +238,9 @@
         type: "pie",
         data: {
           labels: [
-            'Factures non payées et sans pregate',
-            'Factures payées et sans pregate',
-            'Factures non payées et pregate reçu',
+            'Factures non payées et sans preget',
+            'Factures payées et sans preget',
+            'Factures non payées et preget reçu',
             'Factures annulées'
           ],
           datasets: [{

@@ -91,7 +91,7 @@ class Livraisons extends BaseController
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
-                fact_liv.pregate,
+                fact_liv.preget,
                 fact_liv.bl,
                 fact_liv.id as facture,
                 fact_liv.compagnie,
@@ -122,7 +122,7 @@ class Livraisons extends BaseController
             ->orLike('fact_liv.bl', $tc)
             ->orderBy('fact_liv.date_pg', 'DESC');
         if (!$pg) {
-            $model->where('fact_liv.pregate', 'OUI');
+            $model->where('fact_liv.preget', 'OUI');
         }
 
         $data = $model->paginate($limit);
@@ -153,7 +153,7 @@ class Livraisons extends BaseController
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
-                fact_liv.pregate,
+                fact_liv.preget,
                 fact_liv.bl,
                 fact_liv.id as facture,
                 fact_liv.date_creation,
@@ -183,7 +183,7 @@ class Livraisons extends BaseController
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->orderBy('livraisons.date_retour', 'DESC')
             ->where('fact_liv.annulation', 'NON')
-            ->where('fact_liv.pregate', 'OUI');
+            ->where('fact_liv.preget', 'OUI');
 
         if (!empty($y)) {
             $builder->where('YEAR(livraisons.date_retour)', $y);
@@ -205,7 +205,7 @@ class Livraisons extends BaseController
     {
         $data = $this->request->getPost();
         $data['etat'] = 'ANNULÉ';
-
+        // dd($data);
         try {
             (new ModelsLivraisons())->save($data);
         } catch (Exception $e) {
@@ -228,7 +228,7 @@ class Livraisons extends BaseController
             'id' => $id,
             'etat' => 'MISE À TERRE'
         ];
-
+        // dd($data);
         try {
             (new ModelsLivraisons())->save($data);
         } catch (Exception $e) {
@@ -251,7 +251,7 @@ class Livraisons extends BaseController
             'id' => $id,
             'etat' => 'SUR PLATEAU'
         ];
-
+        // dd($data);
         try {
             (new ModelsLivraisons())->save($data);
         } catch (Exception $e) {
@@ -270,7 +270,7 @@ class Livraisons extends BaseController
     public function save()
     {
         $data = $this->request->getPost();
-
+        // dd($data);
         $data['etat'] = isset($data['eirs']) ? 'LIVRÉ' : 'EN COURS';
         $data['ch_aller'] = empty($data['ch_aller']) ? null : $data['ch_aller'];
         $data['ch_retour'] = empty($data['ch_retour']) ? null : $data['ch_retour'];
@@ -294,134 +294,96 @@ class Livraisons extends BaseController
             ->with('m', 'Informations de livraisons enregistrées.');
     }
 
-    public function pregate()
+    public function preget()
     {
-        session()->p = 'pregate';
-        return view('ops/livraisons/pregate', [
-            'daily_pg' => $this->getLastpregate()
+        session()->p = 'preget';
+        return view('ops/livraisons/preget', [
+            'daily_pg' => $this->getLastPregets()
         ]);
     }
 
-    public function getLastpregate($d = null, $w = null, $m = null, $y = null)
+    public function getLastPregets($d = null, $w = null, $m = null, $y = null)
     {
         $builder = (new FactLiv())
             ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->orderBy('fact_liv.deadline', 'DESC');
-        if (!empty($y)) {
-            $builder->where('YEAR(fact_liv.date_pg)', $y);
-        }
-        if (!empty($m)) {
-            $builder->where('MONTH(fact_liv.date_pg)', $m);
-        }
-        if (!empty($d)) {
-            $builder->where('DAY(fact_liv.date_pg)', $d);
-        }
-        if (!empty($w)) {
-        }
-        if (empty($y) and empty($m) and empty($d) and empty($w)) {
-            $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
-        }
+            ->orderBy('fact_liv.date_pg', 'DESC');
+            if (!empty($y)) {
+                $builder->where('YEAR(fact_liv.date_pg)', $y);
+            }
+            if (!empty($m)) {
+                $builder->where('MONTH(fact_liv.date_pg)', $m);
+            }
+            if (!empty($d)) {
+                $builder->where('DAY(fact_liv.date_pg)', $d);
+            }
+            if (!empty($w)) {
+            }
+            if (empty($y) and empty($m) and empty($d) and empty($w)) {
+                $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
+            }
 
         $res = $builder
             ->find();
-
-        //Recuperation des zones
         for ($i = 0; $i < sizeof($res); $i++) {
-
             $res[$i]['zones'] = (new FactLivLieux())
                 ->where('id_fact', $res[$i]['facture'])
                 ->findAll();
-
-            //initialisation du nombre des encours
-            $res[$i]['encours'] = 0;
-
-            //initialisation du nombre des livrés
-            $res[$i]['livres'] = 0;
-
-            //initialisation du nombre des restants
-            $res[$i]['restants'] = 0;
-
             if (!empty($res[$i]['zones'])) {
-
-                // recuperation des conteneurs
                 for ($j = 0; $j < sizeof($res[$i]['zones']); $j++) {
                     $res[$i]['zones'][$j]['tc'] = (new FactLivLignes())
                         ->where('id_lieu', $res[$i]['zones'][$j]['id'])
                         ->findAll();
-
-                    //recuperation des informations de livraisons
-                    for ($k = 0; $k < sizeof($res[$i]['zones'][$j]['tc']); $k++) {
-                        $res[$i]['zones'][$j]['tc'][$k]['infos'] = (new ModelsLivraisons())
-                            ->where('id_fact_ligne', $res[$i]['zones'][$j]['tc'][$k]['id'])
-                            ->first();
-                    }
-
-                    //définir l'etat du pregate
-                    foreach ($res[$i]['zones'][$j]['tc'] as $line) {
-
-                        if ($line['infos']['etat'] == 'EN COURS') {
-                            $res[$i]['encours'] += 1;
-                        } else if ($line['infos']['etat'] == 'LIVRÉ') {
-                            $res[$i]['livres'] += 1;
-                        } else if (
-                            $line['infos']['etat'] == 'SUR PLATEAU'
-                            or $line['infos']['etat'] == 'MISE À TERRE'
-                            or $line['infos']['etat'] == 'ANNULÉ'
-                        ) {
-                            $res[$i]['restants'] += 1;
-                        }
-                    }
                 }
             }
         }
         return $res;
     }
 
-    public function checkpregate($p = null)
+    public function checkPreget($p = null)
     {
-        session()->p = 'pregate';
-        $pregate = $p == null ? $this->request->getVar('pregate') : $p;
+        session()->p = 'preget';
+        $preget = $p == null ? $this->request->getVar('preget') : $p;
         $res = (new FactLiv())
             ->select('id')
-            ->like('fact_liv.bl', $pregate)
+            ->like('fact_liv.bl', $preget)
             ->first();
 
         if (!empty($res)) {
             $res = (new ControllersFactLiv)->getInvoice($res['id']);
             $data = [
                 'facture' => $res,
-                'pregate' => $pregate,
+                'preget' => $preget,
                 'daily_pg' => (new ControllersFactLiv())
                     ->factInfo(null, null, null, null, true)
+
             ];
         } else {
             $data = [
                 'facture' => false,
-                'pregate' => $pregate,
+                'preget' => $preget,
                 'daily_pg' => (new ControllersFactLiv())
                     ->factInfo(null, null, null, null, true)
             ];
         }
-
-        return view('ops/livraisons/pregate', $data);
+        return view('ops/livraisons/preget', $data);
     }
 
     public function handlePG($id)
     {
         $data = $this->request->getPost();
-        if (!isset($data['pregate'])) {
+        if (!isset($data['preget'])) {
             $data['id'] = $id;
-            $data['pregate'] = 'NON';
+            $data['preget'] = 'NON';
             $data['date_pg'] = null;
             $data['amendement'] = 'NON';
         } else {
             $data['id'] = $id;
-            $data['pregate'] = 'OUI';
+            $data['preget'] = 'OUI';
             $data['date_pg'] = $data['date_pg'];
             $data['amendement'] = isset($data['amendement']) ? 'OUI' : 'NON';
         }
-
+        // dd($data);
 
         try {
             (new FactLiv())->save($data);
@@ -431,7 +393,7 @@ class Livraisons extends BaseController
                 ->with('n', false)
                 ->with('m', 'Une erreur est survenue lors de la modification.');
         }
-        return $this->checkpregate($data['bl']);
+        return $this->checkPreget($data['bl']);
     }
 
     public function info($bl, $id)
@@ -452,7 +414,7 @@ class Livraisons extends BaseController
                 livraisons.created_at AS date_enregistrement,
                 fact_liv.paiement,
                 fact_liv.date_pg,
-                fact_liv.pregate,
+                fact_liv.preget,
                 fact_liv.bl,
                 fact_liv.date_creation,
                 fact_liv.id as facture,
@@ -480,7 +442,7 @@ class Livraisons extends BaseController
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->first();
-
+        // dd($res);
         if (empty($res)) {
             throw new PageNotFoundException('Informations de livraison introuvable.', 404);
         } else {
