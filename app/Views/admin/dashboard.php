@@ -6,7 +6,7 @@
 <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 <div class="row">
   <!-- nombre de clients -->
-  <div class="col-md-6 col-lg-4 ">
+  <div class="col-sm col-md-6 col-xl-4">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title"><strong>Solde de la carte carburant</strong></h5>
