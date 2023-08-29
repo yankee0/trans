@@ -7,7 +7,7 @@ Gestion du carburant
 
 <div class="row">
 
-  <div class="col-sm col-md-2 col-lg-4 ">
+  <div class="col-sm col-md-6 col-xl-4 ">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title"><strong>Solde de la carte</strong></h5>
@@ -16,7 +16,7 @@ Gestion du carburant
           <?php if (empty($recs)) : ?>
             <small>Pas de recharge enregistrée</small>
           <?php else : ?>
-            <small class="text-muted">Dernier ravitallement de <span class="num"><?= $recs[0]['montant'] ?></span> de FCFA par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
+            <small class="text-muted">Dernière recharge de <span class="num"><?= $recs[0]['montant'] ?></span> de FCFA par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
           <?php endif ?>
         </div>
         <div class="d-flex justify-content-end">

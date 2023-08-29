@@ -9,7 +9,7 @@ class ChangerPregate extends Migration
     public function up()
     {
         $this->forge->modifyColumn('fact_liv', [
-            'preget' => [
+            'pregate' => [
                 'name' => 'pregate',
                 'type' => 'VARCHAR',
                 'constraint' => 255, // Ajustez la contrainte en fonction de votre structure
@@ -21,7 +21,7 @@ class ChangerPregate extends Migration
     {
         $this->forge->modifyColumn('fact_liv', [
             'pregate' => [
-                'name' => 'preget',
+                'name' => 'pregate',
                 'type' => 'VARCHAR',
                 'constraint' => 255, // Ajustez la contrainte en fonction de votre structure
             ]

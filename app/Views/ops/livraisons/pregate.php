@@ -1,16 +1,16 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-pregate livraisons
+Pregate livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <h1 class="h3 mb-3"><strong>Livraisons</strong> pregate</h1>
-<?php if (!empty($pregate)) : ?>
+<?php if (isset($pregate) and !empty($pregate)) : ?>
   <div class="row mb-3">
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-body">
           <form action="<?= base_url(session()->r . '/livraisons/pregate') ?>" method="post" class="d-flex gap-2">
-            <input type="search" value="<?= (isset($pregate)) ? $pregate : '' ?>" class="form-control flex-grow-1" name="pregate" id="pregate" placeholder="Entrer le numéro du BL">
+            <input required type="search" value="<?= (isset($pregate)) ? $pregate : '' ?>" class="form-control flex-grow-1" name="pregate" id="pregate" placeholder="Entrer le numéro du BL">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Vérifier</span></button>
           </form>
         </div>
@@ -146,72 +146,50 @@ pregate livraisons
       </div>
     </div>
 
-    <!-- component that i will use later -->
-    <!-- <div class="col-sm-6 col-lg-4">
-      <div class="card flex-fill">
-        <div class="card-body">
-          <div class="h2">Lot de 12 conteneurs</div>
-          <hr>
-          <div><strong>Client:</strong> Madtrans</div>
-          <div><strong>Compagnie:</strong> mks</div>
-          <div><strong>BL:</strong> 0000000000</div>
-          <div><strong>Date pregate:</strong> 00/00/0000</div>
-          <div><strong>Deadline:</strong> 00/00/0000</div>
-          <hr>
-          <div class="d-flex justify-content-between">
-            <div>
-              <span class="text-sm text-black-50">LIVRES</span> <br>
-              <span class="fs-2">04</span>
-            </div>
-            <div>
-              <span class="text-sm text-black-50">EN COURS</span> <br>
-              <span class="fs-2">04</span>
-            </div>
-            <div>
-              <span class="text-sm text-black-50">RESTANTS</span> <br>
-              <span class="fs-2">04</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="col-12">
       <div class="fs-2 mb-3"><?= count($daily_pg) ?> pregate<?= count($daily_pg) > 1 ? 's' : '' ?> enregistré<?= count($daily_pg) > 1 ? 's' : '' ?> aujourd'hui</div>
     </div>
     <?php foreach ($daily_pg as $pg) : ?>
-      <div class="col-xl-6">
-        <div class="table-responsive">
-          <div class="card">
-            <div class="card-body">
-              <table class="table table-hover table-striped table-sm" id="table">
-                <thead>
-                  <tr class=" ">
-                    <th ><?= $pg['nom'] ?></th>
-                    <th></th>
-                    <th>Facture Nº <?= $pg['facture'] ?></th>
-                  </tr>
-                  <tr>
-                    <th>BL Nº <?= $pg['bl'] ?></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <th>Conteneur</th>
-                    <th>Type TC</th>
-                    <th>Destination</th>
-                  </tr>
-                <tbody>
-                  <?php foreach ($pg['zones'] as $z) : ?>
-                    <?php foreach ($z['tc'] as $tc) : ?>
-                      <tr onclick="window.location = '<?= base_url(session()->r.'/livraisons/infos/'.$pg['bl'].'/'.$tc['conteneur']) ?>'">
-                        <td><?= $tc['conteneur'] ?></td>
-                        <td><?= $tc['type'] ?></td>
-                        <td><?= $z['adresse'] ?></td>
-                      </tr>
-                    <?php endforeach ?>
-                  <?php endforeach ?>
-                </tbody>
-              </table>
+      <div class="col-sm-6 col-xl-4">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <div>
+              <?php if ($pg['livres'] != 0 and $pg['restants'] == 0 and $pg['encours'] == 0) : ?>
+                <span class="badge bg-success">Lot achevé</span>
+              <?php endif ?>
+              <span class="badge bg-<?= $pg['paiement'] == 'OUI' ? 'success' : 'danger' ?>"><?= $pg['paiement'] == 'OUI' ? 'Payé le ' . $pg['date_paiement'] : 'Non payé' ?></span>
+              <?php if ($pg['amendement'] == 'OUI') : ?>
+                <span class="badge bg-warning">Amendement</span>
+              <?php endif ?>
+            </div>
+            <div class="h2">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s)</div>
+            <hr>
+            <div class="d-flex gap-3">
+              <div class="flex-fill flex-grow-1">
+                <div><small class=" text-black-50">Client:</small><br><?= $pg['nom'] ?></div>
+                <div><small class=" text-black-50">Compagnie:</small><br><?= $pg['compagnie'] ?></div>
+                <div><small class=" text-black-50">BL:</small><br><?= $pg['bl'] ?></div>
+              </div>
+              <div class="flex-fill flex-grow-1">
+                <div><small class=" text-black-50">Nº facture:</small><br><?= $pg['id'] ?></div>
+                <div><small class=" text-black-50">Date pregate:</small><br><?= $pg['date_pg'] ?></div>
+                <div><small class=" text-black-50">Deadline:</small><br><?= $pg['deadline'] ?></div>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+              <div>
+                <span class="text-sm text-black-50">LIVRES</span> <br>
+                <span class="fs-2"><?= $pg['livres'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">EN COURS</span> <br>
+                <span class="fs-2"><?= $pg['encours'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">RESTANTS</span> <br>
+                <span class="fs-2"><?= $pg['restants'] ?></span>
+              </div>
             </div>
           </div>
         </div>

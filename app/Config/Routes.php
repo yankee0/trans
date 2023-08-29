@@ -101,7 +101,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('pregate', 'Livraisons::preGate');
+            $routes->get('pregate', 'Livraisons::pregate');
             $routes->post('pregate', 'Livraisons::checkPreGate');
             $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
@@ -243,7 +243,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             // $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             // $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('pregate', 'Livraisons::preGate');
+            $routes->get('pregate', 'Livraisons::pregate');
             $routes->post('pregate', 'Livraisons::checkPreGate');
             $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
@@ -326,7 +326,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('abord', 'Livraisons::abord');
             $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
             $routes->get('up/(:segment)', 'Livraisons::up/$1');
-            $routes->get('pregate', 'Livraisons::preGate');
+            $routes->get('pregate', 'Livraisons::pregate');
             $routes->post('pregate', 'Livraisons::checkPreGate');
             $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
