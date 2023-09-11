@@ -13211,11 +13211,3 @@ body.dark-mode {
   column-span: 0;
 }
 
-.print table,
-.print td,
-.print tr
-{
-  border-left: solid 2px #000;
-  border-right: solid 2px #000;
-  border-color: black;
-}

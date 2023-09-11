@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" />
   <title><?= APP_NAME ?> - Facture N<?= $facture['id'] ?></title>
-  <!-- <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet"> -->
+  <link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap);
@@ -57,12 +57,6 @@
       margin: 0;
     }
 
-    .print table,
-    .print td,
-    .print tr {
-      border: solid 1px #000;
-    }
-
 
 
     .invoice-table th,
@@ -71,9 +65,6 @@
       text-align: left;
     }
 
-    .invoice-table td {
-      border-bottom: 1px solid #ddd;
-    }
 
     .invoice-total {
       font-weight: bold;
@@ -126,7 +117,7 @@
 </head>
 
 <body class="text-dark py-3 print">
-  <div id="invoice" class="container invoice-container bg-white" style="min-width: 794px;">
+  <div id="invoice" class="container invoice-container bg-white" style="width: 794px;">
     <?php if (
       $facture['annulation'] == 'NON'
       and $facture['paiement'] == 'OUI'
@@ -141,36 +132,43 @@
     <?php endif ?>
     <div class="p-2">
       <div class="invoice-header">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center gap-2">
-            <div id="lo"></div>
-            <!-- <img id="logo" src="<?= base_url('assets/img/logo.png') ?>" height="100px" alt=""> -->
-            <div class=" d-flex flex-column align-items-start">
-              <h3 class="fs-3 "><strong>POLY-TRANS SUARL</strong></h3>
-              <span>Transit - Transport - Manutention - Consignation - Entreposage - Groupage - Conseils</span>
-            </div>
+        <div class="d-flex gap-5 justify-content-between align-content-center">
+          <div id="lo"></div>
+          <div class="d-flex flex-column justify-content-center">
+            <h3 class="fs-3 "><strong>POLY-TRANS SUARL</strong></h3>
+            <span class="text-sm">Transit - Transport - Manutention - Consignation - Entreposage - Groupage - Conseils</span>
           </div>
           <div>
             <div id="qrcode"></div>
           </div>
         </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-8">
+              <div class="d-flex align-items-center gap-2">
+              </div>
+            </div>
+            <div class="col">
+            </div>
+
+          </div>
+        </div>
       </div>
-      <hr>
+
       <h2 class="invoice-title text-center text-capitalize  fs-1"><span class="text-dark">Facture</span> Nº <?= $facture['id'] ?></h2>
+      <p class="fs-1"><?= $facture['consignataire'] ?></p>
       <div class="invoice-details d-flex align-items-center justify-content-between">
         <div>
-          <p class="fs-1"><?= $facture['consignataire'] ?></p>
-          <p><strong>Compte Nº</strong> <?= $facture['id_client'] ?></p>
-          <p><strong>Date de facturation</strong> <?= $facture['date_creation'] ?></p>
-        </div>
-        <div>
-          <p class="fs-1"></p>
           <p><strong>BL Nº</strong> <?= $facture['bl'] ?></p>
           <p><strong>Compagnie</strong> <?= $facture['compagnie'] ?></p>
         </div>
+        <div>
+          <p><strong>Compte Nº</strong> <?= $facture['id_client'] ?></p>
+          <p><strong>Date de facturation</strong> <?= $facture['date_creation'] ?></p>
+        </div>
       </div>
-      <table class="table ">
-        <thead class=" border border-danger bg-danger">
+      <table class="table table-sm">
+        <thead class=" bg-danger">
           <tr>
             <th class="text-white">Désignation</th>
             <th class="text-white">Quantité 20'</th>
@@ -182,7 +180,7 @@
         </thead>
         <tbody>
           <?php foreach ($zones as $z) : ?>
-            <tr class=" border-dark">
+            <tr class="">
               <td>
                 <div>
                   <p class="d-flex g-1 flex-column">
@@ -230,7 +228,7 @@
             </tr>
           <?php endforeach ?>
           <?php if ($facture['hammar'] > 0) : ?>
-            <tr class=" border-dark">
+            <tr class=" ">
               <td colspan="5">
                 <b>Frais de manutension Hammar</b>
               </td>
@@ -240,7 +238,7 @@
             </tr>
           <?php endif ?>
           <?php if ($facture['ages'] > 0 and $facture['avec_ages'] == 'OUI') : ?>
-            <tr class=" border-dark">
+            <tr class=" ">
               <td colspan="5">
                 <b>Ticket A.G.S</b>
               </td>
@@ -250,7 +248,7 @@
             </tr>
           <?php endif ?>
           <?php if ($facture['copie'] > 0) : ?>
-            <tr class=" border-dark">
+            <tr class=" ">
               <td colspan="5">
                 <b>Impression</b>
               </td>
@@ -261,7 +259,7 @@
           <?php endif ?>
         </tbody>
         <tfoot>
-          <tr class=" border-dark">
+          <tr class="">
             <td colspan="5" class="invoice-total ">
               Total Hors Taxe <br>
               TVA <br>
@@ -274,7 +272,7 @@
             </td>
           </tr>
 
-          <tr class=" border-dark fs-3">
+          <tr class="fs-3">
             <td colspan="5" class="invoice-total text-end">
               NET À PAYER
             </td>
