@@ -489,8 +489,8 @@ class FactLiv extends BaseController
                     COUNT(fact_liv_lignes.id) as count,
                     fact_liv.ages,
                 ')
-                ->join('fact_liv_lignes', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id')
-                ->join('fact_liv', 'fact_liv.id= fact_liv_lieux.id_fact')
+                ->join('fact_liv_lignes', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
+                ->join('fact_liv', 'fact_liv.id= fact_liv_lieux.id_fact', 'left')
                 ->groupBy('fact_liv_lignes.id_lieu')
                 ->where('id_fact', $f)
                 ->where('id_zone', $z)
@@ -639,8 +639,8 @@ class FactLiv extends BaseController
         try {
             $data = (new FactLivLignes())
                 ->select('fact_liv.id as id_fact,fact_liv.ages')
-                ->join('fact_liv_lieux', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu')
-                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact')
+                ->join('fact_liv_lieux', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
                 ->where('fact_liv_lignes.id', $id)
                 ->first();
             (new FactLivLignes())->delete($id);
@@ -707,8 +707,8 @@ class FactLiv extends BaseController
                     fact_liv.id as facture,
                     fact_liv.ages,
                 ')
-                ->join('zones', 'zones.id = fact_liv_lieux.id_zone')
-                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact')
+                ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
+                ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
                 ->first();
             $dataAGS = [
                 'id' => $prix['facture'],
@@ -777,7 +777,7 @@ class FactLiv extends BaseController
             ->with('m', 'Facture annulée.');
     }
 
-    public function factInfo($d = null, $w = null, $m = null, $y = null,$pg = false)
+    public function factInfo($d = null, $w = null, $m = null, $y = null, $pg = false)
     {
         $modele = new ModelsFactLiv();
         $builder = $modele
@@ -792,9 +792,9 @@ class FactLiv extends BaseController
             ')
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
             ->orderBy('fact_liv.id', 'DESC')
-            ->join('clients', 'clients.id = fact_liv.id_client')
-            ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id')
-            ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu');
+            ->join('clients', 'clients.id = fact_liv.id_client', 'left')
+            ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id', 'left')
+            ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu', 'left');
 
         if (!empty($y)) {
             $builder->where('YEAR(fact_liv.date_creation)', $y);
