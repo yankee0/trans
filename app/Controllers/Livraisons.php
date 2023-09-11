@@ -479,7 +479,7 @@ class Livraisons extends BaseController
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->where('fact_liv.bl', $bl)
+            ->like('fact_liv.bl', $bl)
             ->first();
 
         if (empty($res)) {
