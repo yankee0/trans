@@ -17,11 +17,11 @@
 
 <body class="position-relative">
 
-  <div id="loadingOverlay" class="overlay">
+  <!-- <div id="loadingOverlay" class="overlay">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Chargement en cours...</span>
     </div>
-  </div>
+  </div> -->
   <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
       <div class="sidebar-content js-simplebar">
