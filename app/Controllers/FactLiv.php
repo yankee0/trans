@@ -489,9 +489,9 @@ class FactLiv extends BaseController
                     COUNT(fact_liv_lignes.id) as count,
                     fact_liv.ages,
                 ')
+                ->groupBy('zone')
                 ->join('fact_liv_lignes', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
                 ->join('fact_liv', 'fact_liv.id= fact_liv_lieux.id_fact', 'left')
-                ->groupBy('fact_liv_lignes.id_lieu')
                 ->where('id_fact', $f)
                 ->where('id_zone', $z)
                 ->first();
@@ -690,6 +690,8 @@ class FactLiv extends BaseController
         $data = $this->request->getPost();
         $data['conteneur'] = strtoupper($data['conteneur']);
         try {
+
+            //Verifier les doublons
             $check = (new FactLivLignes())->where([
                 'id_lieu' => intval($data['id_lieu']),
                 'conteneur' => $data['conteneur'],
@@ -717,7 +719,10 @@ class FactLiv extends BaseController
             (new ModelsFactLiv())->save($dataAGS);
             $data['prix'] = $data['type'] == '20' ? $prix['ht_liv_20'] : $prix['ht_liv_40'];
             // dd($data);
-            (new FactLivLignes())->save($data);
+            $id_ligne = (new FactLivLignes())->insert($data);
+            (new Livraisons())->insert([
+                'id_fact_ligne' => $id_ligne,
+            ]);
         } catch (Exception $e) {
             return redirect()
                 ->back()

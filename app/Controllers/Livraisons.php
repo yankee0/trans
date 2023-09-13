@@ -359,18 +359,20 @@ class Livraisons extends BaseController
 
                     //définir l'etat du pregate
                     for ($l = 0; $l < sizeof($res[$i]['zones'][$j]['tc']); $l++) {
-                        $etat = $res[$i]['zones'][$j]['tc'][$l]['infos']['etat'];
+                        if (!empty($res[$i]['zones'][$j]['tc'][$l]['infos'])) {
+                            $etat = $res[$i]['zones'][$j]['tc'][$l]['infos']['etat'];
 
-                        if ($etat == 'EN COURS') {
-                            $res[$i]['encours'] += 1;
-                        } else if ($etat == 'LIVRÉ') {
-                            $res[$i]['livres'] += 1;
-                        } else if (
-                            $etat == 'SUR PLATEAU'
-                            or $etat == 'MISE À TERRE'
-                            or $etat == 'ANNULÉ'
-                        ) {
-                            $res[$i]['restants'] += 1;
+                            if ($etat == 'EN COURS') {
+                                $res[$i]['encours'] += 1;
+                            } else if ($etat == 'LIVRÉ') {
+                                $res[$i]['livres'] += 1;
+                            } else if (
+                                $etat == 'SUR PLATEAU'
+                                or $etat == 'MISE À TERRE'
+                                or $etat == 'ANNULÉ'
+                            ) {
+                                $res[$i]['restants'] += 1;
+                            }
                         }
                     }
                 }
