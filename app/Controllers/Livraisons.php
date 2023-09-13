@@ -358,16 +358,17 @@ class Livraisons extends BaseController
                     }
 
                     //définir l'etat du pregate
-                    foreach ($res[$i]['zones'][$j]['tc'] as $line) {
+                    for ($l = 0; $l < sizeof($res[$i]['zones'][$j]['tc']); $l++) {
+                        $etat = $res[$i]['zones'][$j]['tc'][$l]['infos']['etat'];
 
-                        if ($line['infos']['etat'] == 'EN COURS') {
+                        if ($etat == 'EN COURS') {
                             $res[$i]['encours'] += 1;
-                        } else if ($line['infos']['etat'] == 'LIVRÉ') {
+                        } else if ($etat == 'LIVRÉ') {
                             $res[$i]['livres'] += 1;
                         } else if (
-                            $line['infos']['etat'] == 'SUR PLATEAU'
-                            or $line['infos']['etat'] == 'MISE À TERRE'
-                            or $line['infos']['etat'] == 'ANNULÉ'
+                            $etat == 'SUR PLATEAU'
+                            or $etat == 'MISE À TERRE'
+                            or $etat == 'ANNULÉ'
                         ) {
                             $res[$i]['restants'] += 1;
                         }
