@@ -73,7 +73,7 @@ class Livraisons extends BaseController
         return view('ops/livraisons/dashboard.php', $data);
     }
 
-    public function getLivs($tc = '%', $limit = 15, $pg = false)
+    public function getLivs($tc = '%', $limit = 15, $pg = false, $search = null)
     {
         $model = new ModelsLivraisons();
         $model
@@ -123,6 +123,26 @@ class Livraisons extends BaseController
             ->orderBy('fact_liv.date_pg', 'DESC');
         if (!$pg) {
             $model->where('fact_liv.pregate', 'OUI');
+        }
+
+        if (!empty($search)) {
+            if (is_array($search)) {
+                // // Convertir les dates au format datetime-local en timestamps Unix
+                $fromTimestamp = strtotime($search['from']);
+                $toTimestamp = strtotime($search['to']);
+                $model->where('TIMESTAMP(fact_liv.date_pg) >=', $fromTimestamp);
+                $model->where('TIMESTAMP(fact_liv.date_pg) <=', $toTimestamp);
+            } else {
+                $model->like('fact_liv.bl', $search);
+                $model->orLike('clients.nom', $search);
+                $model->orLike('fact_liv.compagnie', $search);
+                $model->orLike('chauffeurs.nom', $search);
+                $model->orLike('chauffeur2.nom', $search);
+                $model->orLike('zones.nom', $search);
+                $model->orLike('camions.im', $search);
+                $model->orLike('camion2.im', $search);
+                $model->orLike('fact_liv.paiement', $search);
+            }
         }
 
         $data = $model->paginate($limit);
@@ -298,7 +318,18 @@ class Livraisons extends BaseController
     {
         session()->p = 'pregate';
         return view('ops/livraisons/pregate', [
-            'daily_pg' => $this->getLastpregate()
+            'daily_pg' => $this->getLivs('%', 50, false, [
+                'from' => date('Y-m-d'),
+                'to' => date('Y-m-d'),
+            ]),
+
+            'drivers' => (new Chauffeurs())
+                ->orderBy('nom')
+                ->findAll(),
+
+            'trucks' => (new Camions())
+                ->orderBy('im')
+                ->findAll()
         ]);
     }
 
@@ -378,6 +409,7 @@ class Livraisons extends BaseController
                 }
             }
         }
+        // dd($res);
         return $res;
     }
 
@@ -402,8 +434,7 @@ class Livraisons extends BaseController
             $data = [
                 'facture' => false,
                 'pregate' => $pregate,
-                'daily_pg' => (new ControllersFactLiv())
-                    ->factInfo(null, null, null, null, true)
+                'daily_pg' => $this->getLastpregate()
             ];
         }
 

@@ -1,30 +1,9 @@
-<?= $this->extend('layouts'); ?>
-<?= $this->section('title'); ?>
-Conteneurs
-<?= $this->endSection(); ?>
-<?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Conteneurs</strong></h1>
-
-<div class="row">
-  <div class="col-12 d-flex">
-    <div class="card flex-fill">
-      <div class="card-body ">
-        <form action="<?= base_url(session()->r . '/search') ?>" class="d-flex gap-2">
-          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un conteneur BL">
-          <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <!-- liv table -->
 <div class="row" id="livraisons">
   <div class="col-12 d-flex">
     <div class="card flex-fill">
       <div class="card-header">
-        <h5 class="card-title mb-0">Résultat pour les livraisons</h5>
+        <h5 class="card-title mb-0"><?= $title ?></h5>
       </div>
       <?php if (sizeof($livs['data']) == 0) : ?>
         <div class="card-body">
@@ -33,99 +12,101 @@ Conteneurs
           </div>
         </div>
       <?php else : ?>
-        <div class=" table-responsive">
-          <table class="table table-hover my-0">
-            <thead>
-              <tr>
-                <th>Conteneur</th>
-                <th>Type</th>
-                <th>Nº de facture</th>
-                <th>Nº de BL</th>
-                <th>Compagnie</th>
-                <th>Client</th>
-                <th>Paiement</th>
-                <th>État</th>
-                <th>pregate</th>
-                <th>Zone de destination</th>
-                <th>Adresse exacte</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($livs['data'] as $liv) : ?>
+        <div class="card-body">
+          <div class=" table-responsive">
+            <table class="table table-hover my-0">
+              <thead>
                 <tr>
-                  <td><?= $liv['conteneur'] ?></td>
-                  <td><?= $liv['type'] ?></td>
-                  <td><?= $liv['facture'] ?></td>
-                  <td><?= $liv['bl'] ?></td>
-                  <td><?= $liv['compagnie'] ?></td>
-                  <td><?= $liv['nom_client'] ?></td>
-                  <td>
-                    <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
-                  </td>
-                  <td>
-                    <?php
-                    if ($liv['pregate'] == 'OUI') {
-                      switch ($liv['etat']) {
-                        case 'MISE À TERRE':
-                    ?>
-                          <span class="badge bg-dark"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'SUR PLATEAU':
-                        ?>
-                          <span class="badge bg-info"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'LIVRÉ':
-                        ?>
-                          <span class="badge bg-success"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'ANNULÉ':
-                        ?>
-                          <span class="badge bg-danger"><?= $liv['etat'] ?></span>
-                        <?php
-                          break;
-                        case 'EN COURS':
-                        ?>
-                          <span class="badge bg-warning"><?= $liv['etat'] ?></span>
-                    <?php
-                          break;
-
-                        default:
-                          echo 'Error 500';
-                          break;
-                      }
-                    } else {
-                      echo '-';
-                    }
-                    ?>
-                  </td>
-                  <td><?= $liv['pregate'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
-                  <td><?= $liv['zone'] ?></td>
-                  <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
-                  <td>
-                    <div class="d-flex justify-content-around">
-                      <?php if (session()->r != 'facturation') : ?>
-
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-dark dropDelv <?= ($liv['etat'] == 'MISE À TERRE' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise à terre" data-bs-toggle="modal" data-bs-target="#delivDrop"><i cla data-feather="arrow-down"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
-                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" data-id="<?= $liv['id'] ?>" data-challer="<?= $liv['ch_aller_id'] ?>" data-chretour="<?= $liv['ch_retour_id'] ?>" data-camaller="<?= $liv['cam_aller_id'] ?>" data-camretour="<?= $liv['cam_retour_id'] ?>" data-datealler="<?= $liv['date_aller'] ?>" data-dateretour="<?= $liv['date_retour'] ?>" data-commentaire="<?= $liv['commentaire'] ?>" data-etat="<?= $liv['etat'] == 'LIVRÉ' ? 'true' : 'false' ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
-                      <?php endif ?>
-                      <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
-                      <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' .$liv['bl'].'/'. $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Informations"><i cla data-feather="info"></i></a>
-                    </div>
-                  </td>
+                  <th>Conteneur</th>
+                  <th>Type</th>
+                  <th>Nº de facture</th>
+                  <th>Nº de BL</th>
+                  <th>Compagnie</th>
+                  <th>Client</th>
+                  <th>Paiement</th>
+                  <th>État</th>
+                  <th>pregate</th>
+                  <th>Zone de destination</th>
+                  <th>Adresse exacte</th>
+                  <th></th>
                 </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-
-          <div class="card-footer text-center d-flex justify-content-end" style="overflow-x: scroll">
-            <nav class="pagination">
-              <?= $livs['pager']->links() ?>
-            </nav>
+              </thead>
+              <tbody>
+                <?php foreach ($livs['data'] as $liv) : ?>
+                  <tr>
+                    <td><?= $liv['conteneur'] ?></td>
+                    <td><?= $liv['type'] ?></td>
+                    <td><?= $liv['facture'] ?></td>
+                    <td><?= $liv['bl'] ?></td>
+                    <td><?= $liv['compagnie'] ?></td>
+                    <td><?= $liv['nom_client'] ?></td>
+                    <td>
+                      <?= $liv['paiement'] == 'OUI' ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-warning">NON</span>' ?>
+                    </td>
+                    <td>
+                      <?php
+                      if ($liv['pregate'] == 'OUI') {
+                        switch ($liv['etat']) {
+                          case 'MISE À TERRE':
+                      ?>
+                            <span class="badge bg-dark"><?= $liv['etat'] ?></span>
+                          <?php
+                            break;
+                          case 'SUR PLATEAU':
+                          ?>
+                            <span class="badge bg-info"><?= $liv['etat'] ?></span>
+                          <?php
+                            break;
+                          case 'LIVRÉ':
+                          ?>
+                            <span class="badge bg-success"><?= $liv['etat'] ?></span>
+                          <?php
+                            break;
+                          case 'ANNULÉ':
+                          ?>
+                            <span class="badge bg-danger"><?= $liv['etat'] ?></span>
+                          <?php
+                            break;
+                          case 'EN COURS':
+                          ?>
+                            <span class="badge bg-warning"><?= $liv['etat'] ?></span>
+                      <?php
+                            break;
+  
+                          default:
+                            echo 'Error 500';
+                            break;
+                        }
+                      } else {
+                        echo '-';
+                      }
+                      ?>
+                    </td>
+                    <td><?= $liv['pregate'] == 'OUI' ? $liv['date_pg'] : '<span class="badge bg-dark">NON REÇU</span>' ?></td>
+                    <td><?= $liv['zone'] ?></td>
+                    <td><?= !(empty($liv['adresse'])) ? $liv['adresse'] : '<span class="badge bg-dark">INCONNUE</span>' ?></td>
+                    <td>
+                      <div class="d-flex justify-content-around">
+                        <?php if (session()->r != 'facturation') : ?>
+  
+                          <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-dark dropDelv <?= ($liv['etat'] == 'MISE À TERRE' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise à terre" data-bs-toggle="modal" data-bs-target="#delivDrop"><i cla data-feather="arrow-down"></i></button>
+                          <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-info upDelv <?= ($liv['etat'] == 'SUR PLATEAU' or $liv['etat'] == 'LIVRÉ') ? 'disabled' : '' ?>" title="Mise sur plateau" data-bs-toggle="modal" data-bs-target="#uptc"><i cla data-feather="arrow-up"></i></button>
+                          <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" data-id="<?= $liv['id'] ?>" data-challer="<?= $liv['ch_aller_id'] ?>" data-chretour="<?= $liv['ch_retour_id'] ?>" data-camaller="<?= $liv['cam_aller_id'] ?>" data-camretour="<?= $liv['cam_retour_id'] ?>" data-datealler="<?= $liv['date_aller'] ?>" data-dateretour="<?= $liv['date_retour'] ?>" data-commentaire="<?= $liv['commentaire'] ?>" data-etat="<?= $liv['etat'] == 'LIVRÉ' ? 'true' : 'false' ?>" class="update btn border-0 text-warning infDelv" title="Livraison" data-bs-toggle="modal" data-bs-target="#livInf"><i cla data-feather="truck"></i></button>
+                        <?php endif ?>
+                        <button type="button" value="<?= $liv['id'] ?>" data-container="<?= $liv['conteneur'] ?>" class="update btn border-0 text-danger abordDelv border-0 <?= $liv['etat'] == 'ANNULÉ' ? 'disabled' : '' ?>" title="Annuler" data-bs-toggle="modal" data-bs-target="#abordDelv"><i cla data-feather="x"></i></button>
+                        <a role="button" href="<?= base_url(session()->r . '/livraisons/infos/' . $liv['bl'] . '/' . $liv['conteneur']) ?>" class="update btn border-0 text-info" title="Informations"><i cla data-feather="info"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+  
+            <div class="card-footer text-center d-flex justify-content-end" style="overflow-x: scroll">
+              <nav class="pagination">
+                <?= $livs['pager']->links() ?>
+              </nav>
+            </div>
           </div>
         </div>
       <?php endif ?>
@@ -336,11 +317,8 @@ Conteneurs
     });
   </script>
   <script>
-    const myModal = new bootstrap.Modal(document.getElementById('livInf'), options)
+    const myModalL = new bootstrap.Modal(document.getElementById('livInf'), options)
   </script>
 
 
 </div>
-
-
-<?= $this->endSection(); ?>
