@@ -18,7 +18,7 @@ class Check extends BaseController
                 ->where('YEAR(created_at)', date('Y', strtotime($rav['created_at'])))
                 ->where('MONTH(created_at)', date('m', strtotime($rav['created_at'])))
                 ->where('DAY(created_at)', date('d', strtotime($rav['created_at'])))
-                ->like("TRIM(REPLACE(imm,' ',''))", trim(str_replace(' ', '', $rav['imm'])))
+                ->where("TRIM(REPLACE(imm,' ',''))", trim(str_replace(' ', '', $rav['imm'])))
                 ->find();
             if (count($res) > 1) {
                 array_push($double, $res);
