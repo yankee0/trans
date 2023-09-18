@@ -34,6 +34,8 @@ $routes->post('/', 'Auth::login');
 $routes->get('/deconnexion', 'Auth::logout');
 $routes->get('/(:segment)/livraisons/details/(:segment)', 'FactLiv::showInvoice/$2');
 
+$routes->get('/check','Check::checkDoubleRav');
+
 $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('admin', ['filter' => 'admin'], function ($routes) {
         $routes->get('/', 'Admin::index');
