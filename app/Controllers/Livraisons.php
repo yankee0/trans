@@ -127,11 +127,7 @@ class Livraisons extends BaseController
 
         if (!empty($search)) {
             if (is_array($search)) {
-                // // Convertir les dates au format datetime-local en timestamps Unix
-                $fromTimestamp = strtotime($search['from']);
-                $toTimestamp = strtotime($search['to']);
-                $model->where('TIMESTAMP(fact_liv.date_pg) >=', $fromTimestamp);
-                $model->where('TIMESTAMP(fact_liv.date_pg) <=', $toTimestamp);
+                $model->where('fact_liv.date_pg', $search['from']);
             } else {
                 $model->like('fact_liv.bl', $search);
                 $model->orLike('clients.nom', $search);
