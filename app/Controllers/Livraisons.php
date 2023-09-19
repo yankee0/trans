@@ -315,7 +315,7 @@ class Livraisons extends BaseController
     {
         session()->p = 'pregate';
         return view('ops/livraisons/pregate', [
-            'daily_pg' => $this->getLastpregate(date('d'), date('m'), date('Y')),
+            'daily_pg' => $this->getLastpregate(date('Y-m-d')),
 
             'drivers' => (new Chauffeurs())
                 ->orderBy('nom')
@@ -327,42 +327,35 @@ class Livraisons extends BaseController
         ]);
     }
 
-    public function getLastpregate($d = null, $m = null, $y = null)
+    public function getLastpregate($from = null, $to = null)
     {
-        $builder = (new FactLiv())
-            ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
-            ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-            ->orderBy('fact_liv.deadline', 'DESC');
-        if (!empty($y)) {
-            if (is_array($y)) {
-                $builder->where('YEAR(fact_liv.date_pg) >= ', $y[0]);
-                $builder->where('YEAR(fact_liv.date_pg) <= ', $y[1]);
-            } else {
-                $builder->where('YEAR(fact_liv.date_pg)', $y);
+        if (!empty($to)) {
+            $res = (new FactLiv())
+                ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
+                ->join('clients', 'clients.id = fact_liv.id_client', 'left')
+                ->orderBy('fact_liv.deadline', 'DESC')
+                ->find();
+            $occ = [];
+            for ($i = 0; $i < sizeof($res); $i++) {
+                if (
+                    strtotime($res[$i]['date_pg']) >= strtotime($from) and
+                    strtotime($res[$i]['date_pg']) <= strtotime($to)
+                ) {
+                    array_push($occ, $res[$i]);
+                }
             }
-        }
-        if (!empty($m)) {
-            if (is_array($m)) {
-                $builder->where('MONTH(fact_liv.date_pg) >= ', $m[0]);
-                $builder->where('MONTH(fact_liv.date_pg) <= ', $m[1]);
-            } else {
-                $builder->where('MONTH(fact_liv.date_pg)', $m);
-            }
-        }
-        if (!empty($d)) {
-            if (is_array($d)) {
-                $builder->where('DAY(fact_liv.date_pg) >= ', $d[0]);
-                $builder->where('DAY(fact_liv.date_pg) <= ', $d[1]);
-            } else {
-                $builder->where('DAY(fact_liv.date_pg)', $d);
-            }
-        }
-        if (empty($y) and empty($m) and empty($d) and empty($w)) {
-            $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
+            $res = $occ;
+        } else {
+            $res = (new FactLiv())
+                ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
+                ->join('clients', 'clients.id = fact_liv.id_client', 'left')
+                ->orderBy('fact_liv.deadline', 'DESC')
+                ->where('fact_liv.date_pg', $from)
+                ->find();
         }
 
-        $res = $builder
-            ->find();
+        
+
 
         //Recuperation des zones
         for ($i = 0; $i < sizeof($res); $i++) {
@@ -376,6 +369,9 @@ class Livraisons extends BaseController
 
             //initialisation du nombre des livrés
             $res[$i]['livres'] = 0;
+
+            //initialisation du nombre des livrés
+            $res[$i]['annules'] = 0;
 
             //initialisation du nombre des restants
             $res[$i]['restants'] = 0;
@@ -404,10 +400,11 @@ class Livraisons extends BaseController
                                 $res[$i]['encours'] += 1;
                             } else if ($etat == 'LIVRÉ') {
                                 $res[$i]['livres'] += 1;
+                            }else if ($etat == 'ANNULÉ') {
+                                $res[$i]['annules'] += 1;
                             } else if (
                                 $etat == 'SUR PLATEAU'
                                 or $etat == 'MISE À TERRE'
-                                or $etat == 'ANNULÉ'
                             ) {
                                 $res[$i]['restants'] += 1;
                             }
@@ -416,7 +413,8 @@ class Livraisons extends BaseController
                 }
             }
         }
-        // dd($res);
+
+        // dd([intval($res[0]['pgtimestamp']),strtotime($from)]);
         return $res;
     }
 

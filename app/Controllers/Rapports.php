@@ -197,22 +197,9 @@ class Rapports extends BaseController
         session()->p = 'rapports';
         $data = $this->request->getPost();
 
-        $y = [
-            date('Y', strtotime($data['from'])),
-            date('Y', strtotime($data['to']))
-        ];
-        $m = [
-            date('m', strtotime($data['from'])),
-            date('m', strtotime($data['to']))
-        ];
-        $d = [
-            date('d', strtotime($data['from'])),
-            date('d', strtotime($data['to']))
-        ];
-
         $ctrl = new Livraisons();
         $name = 'Rapports des pregates du ' . $data['from'] . ' au ' . $data['to'] . '.';
-        $sheet = $ctrl->getLastpregate($d, $m, $y);
+        $sheet = $ctrl->getLastpregate($data['from'], $data['to']);
 
 
         return $this->index_pregate(
