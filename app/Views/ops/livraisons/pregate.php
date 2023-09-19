@@ -159,7 +159,7 @@ Pregate livraisons
                 <span class="badge bg-warning">Amendement</span>
               <?php endif ?>
             </div>
-            <div class="h2">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s)</div>
+            <div class="h2"><a href="<?= base_url(session()->r . '/search?search=' . $pg['bl']) ?>">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s) <i data-feather="link"></i></a></div>
             <hr>
             <div class="d-flex gap-3">
               <div class="flex-fill flex-grow-1">
@@ -176,16 +176,20 @@ Pregate livraisons
             <hr>
             <div class="d-flex justify-content-between">
               <div>
-                <span class="text-sm text-black-50">LIVRES</span> <br>
-                <span class="fs-2"><?= $pg['livres'] ?></span>
+                <span class="text-sm text-black-50">LIVRÉS</span> <br>
+                <span class="fs-2 text-success"><?= $pg['livres'] ?></span>
               </div>
               <div>
                 <span class="text-sm text-black-50">EN COURS</span> <br>
-                <span class="fs-2"><?= $pg['encours'] ?></span>
+                <span class="fs-2 text-warning"><?= $pg['encours'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">ANNULÉS</span> <br>
+                <span class="fs-2 text-danger"><?= $pg['annules'] ?></span>
               </div>
               <div>
                 <span class="text-sm text-black-50">RESTANTS</span> <br>
-                <span class="fs-2"><?= $pg['restants'] ?></span>
+                <span class="fs-2 text-info"><?= $pg['restants'] ?></span>
               </div>
             </div>
           </div>

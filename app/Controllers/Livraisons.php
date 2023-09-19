@@ -370,6 +370,9 @@ class Livraisons extends BaseController
             //initialisation du nombre des livrés
             $res[$i]['livres'] = 0;
 
+            //initialisation du nombre des livrés
+            $res[$i]['annules'] = 0;
+
             //initialisation du nombre des restants
             $res[$i]['restants'] = 0;
 
@@ -397,10 +400,11 @@ class Livraisons extends BaseController
                                 $res[$i]['encours'] += 1;
                             } else if ($etat == 'LIVRÉ') {
                                 $res[$i]['livres'] += 1;
+                            }else if ($etat == 'ANNULÉ') {
+                                $res[$i]['annules'] += 1;
                             } else if (
                                 $etat == 'SUR PLATEAU'
                                 or $etat == 'MISE À TERRE'
-                                or $etat == 'ANNULÉ'
                             ) {
                                 $res[$i]['restants'] += 1;
                             }
