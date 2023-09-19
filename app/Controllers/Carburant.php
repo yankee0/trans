@@ -12,15 +12,18 @@ class Carburant extends BaseController
     public function index()
     {
         session()->p = 'carburant';
-
         return view('carburant/index', [
             'carte' => (new Carte())->first(),
+            
             'recs' => (new Rechargement())
                 ->select('rechargements.*, utilisateurs.nom')
                 ->join('utilisateurs', 'utilisateur = utilisateurs.id')
-                ->orderBy('created_at','DESC')
-                ->findAll(),
-            'ravs' => (new Ravitaillement())->orderBy('created_at','DESC')->findAll()
+                ->orderBy('DATE(rechargements.created_at)', 'desc')
+                ->find(),
+
+            'ravs' => (new Ravitaillement())
+                ->orderBy('DATE(ravitaillements.created_at)', 'desc')
+                ->find()
         ]);
     }
 
