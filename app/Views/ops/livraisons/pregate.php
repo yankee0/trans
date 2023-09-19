@@ -3,7 +3,16 @@
 Pregate livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Livraisons</strong> pregate</h1>
+<div class="row">
+  <div class="col-md">
+    <h1 class="h3 mb-3"><strong>Livraisons</strong> pregate</h1>
+  </div>
+  <div class="col-md d-flex justify-content-end">
+    <div>
+      <a class="btn btn-success" href="<?= base_url(session()->r . '/rapports/pregate') ?>" role="button">Rapport pregate</a>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-12 d-flex">
     <div class="card flex-fill">
@@ -136,11 +145,54 @@ Pregate livraisons
     </div>
   </div>
 <?php else : ?>
-
-  <?= view('ops/components/livs', [
-    'title' => 'Pregates reçus',
-    'livs' => $daily_pg,
-  ]) ?>
+  <div class="row">
+    <?php foreach ($daily_pg as $pg) : ?>
+      <div class="col-sm-6 col-xl-4">
+        <div class="card flex-fill">
+          <div class="card-body">
+            <div>
+              <?php if ($pg['livres'] != 0 and $pg['restants'] == 0 and $pg['encours'] == 0) : ?>
+                <span class="badge bg-success">Lot achevé</span>
+              <?php endif ?>
+              <span class="badge bg-<?= $pg['paiement'] == 'OUI' ? 'success' : 'danger' ?>"><?= $pg['paiement'] == 'OUI' ? 'Payé le ' . $pg['date_paiement'] : 'Non payé' ?></span>
+              <?php if ($pg['amendement'] == 'OUI') : ?>
+                <span class="badge bg-warning">Amendement</span>
+              <?php endif ?>
+            </div>
+            <div class="h2">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s)</div>
+            <hr>
+            <div class="d-flex gap-3">
+              <div class="flex-fill flex-grow-1">
+                <div><small class=" text-black-50">Client:</small><br><?= $pg['nom'] ?></div>
+                <div><small class=" text-black-50">Compagnie:</small><br><?= $pg['compagnie'] ?></div>
+                <div><small class=" text-black-50">BL:</small><br><?= $pg['bl'] ?></div>
+              </div>
+              <div class="flex-fill flex-grow-1">
+                <div><small class=" text-black-50">Nº facture:</small><br><a href="<?= base_url('factures/livraisons/details/' . $pg['id']) ?>" target="_blank"><?= $pg['id'] ?> <i data-feather="link"></i></a></div>
+                <div><small class=" text-black-50">Date pregate:</small><br><?= $pg['date_pg'] ?></div>
+                <div><small class=" text-black-50">Deadline:</small><br><?= $pg['deadline'] ?></div>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+              <div>
+                <span class="text-sm text-black-50">LIVRES</span> <br>
+                <span class="fs-2"><?= $pg['livres'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">EN COURS</span> <br>
+                <span class="fs-2"><?= $pg['encours'] ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-black-50">RESTANTS</span> <br>
+                <span class="fs-2"><?= $pg['restants'] ?></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endforeach ?>
+  </div>
 <?php endif ?>
 
 

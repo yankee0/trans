@@ -478,7 +478,7 @@
     });
 
     function ajouterPoints(nombre) {
-      return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   </script>
 

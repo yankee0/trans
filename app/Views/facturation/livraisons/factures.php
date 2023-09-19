@@ -164,7 +164,7 @@
         </div>
         <div>
           <p><strong>Compte Nº</strong> <?= $facture['id_client'] ?></p>
-          <p><strong>Date de facturation</strong> <?= $facture['date_creation'] ?></p>
+          <p><strong>Date de facturation</strong> <?= date('d/m/Y',strtotime($facture['date_creation'])) ?></p>
         </div>
       </div>
       <table class="table table-sm">

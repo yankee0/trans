@@ -51,7 +51,7 @@ Information de livraison
             <div class="fs-2">Client</div>
             <p>
             <div class="text-sm text-muted">Nº de facture</div>
-            <div><?= $facture ?></div>
+            <div><a href="<?= base_url('factures/livraisons/details/' . $facture) ?>" target="_blank"><?= $facture ?> <i data-feather="link"></i></a></div>
             </p>
             <div class="text-sm text-muted">Date de facturation</div>
             <div><?= $date_creation ?></div>
@@ -215,7 +215,7 @@ Information de livraison
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <a id="dropTCLink" href="<?= base_url(session()->r . '/livraisons/drop/' . $id) ?>" type="button" class="btn btn-primary">Mettre à terre</a>
+        <a id="dropTCLink" href="<?= base_url(session()->r . '/livraisons/drop/' . $liv) ?>" type="button" class="btn btn-primary">Mettre à terre</a>
       </div>
     </div>
   </div>
@@ -237,7 +237,7 @@ Information de livraison
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <a id="upTCLink" href="<?= base_url(session()->r . '/livraisons/up/' . $id) ?>" class="btn btn-primary">Mise sur plateau</a>
+        <a id="upTCLink" href="<?= base_url(session()->r . '/livraisons/up/' . $liv) ?>" class="btn btn-primary">Mise sur plateau</a>
       </div>
     </div>
   </div>
@@ -271,7 +271,7 @@ Information de livraison
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" form="abDeliveryForm" id="abDeliveryBtn" name="id" value="<?= $id ?>" class="btn btn-primary">Annuler la livraison</a>
+        <button type="submit" form="abDeliveryForm" id="abDeliveryBtn" name="id" value="<?= $liv ?>" class="btn btn-primary">Annuler la livraison</a>
       </div>
     </div>
   </div>
@@ -373,7 +373,7 @@ Information de livraison
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" form="livsForm" id="livSub" name="id" value="<?= $id ?>" class="btn btn-primary">Enregistrer</button>
+        <button type="submit" form="livsForm" id="livSub" name="id" value="<?= $liv ?>" class="btn btn-primary">Enregistrer</button>
       </div>
     </div>
   </div>

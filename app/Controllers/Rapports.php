@@ -73,7 +73,7 @@ class Rapports extends BaseController
     public function index_carburant($data = [])
     {
         session()->p = 'rapports';
-        return view('rapports/carburant/index',$data);
+        return view('rapports/carburant/index', $data);
     }
 
     public function generate_carburant()
@@ -115,7 +115,7 @@ class Rapports extends BaseController
                     ->with('m', '499 - Données invalide');
                 break;
         }
-        $sum = 0 ;
+        $sum = 0;
         foreach ($sheet as $i) {
             $sum += intval($i['litrage']);
         }
@@ -196,47 +196,30 @@ class Rapports extends BaseController
     {
         session()->p = 'rapports';
         $data = $this->request->getPost();
-        $timestamp = strtotime($data['date']);
 
-        $y = date('Y', $timestamp);
-        $m = date('m', $timestamp);
-        $d = date('d', $timestamp);
-        $w = date('W', $timestamp);
+        $y = [
+            date('Y', strtotime($data['from'])),
+            date('Y', strtotime($data['to']))
+        ];
+        $m = [
+            date('m', strtotime($data['from'])),
+            date('m', strtotime($data['to']))
+        ];
+        $d = [
+            date('d', strtotime($data['from'])),
+            date('d', strtotime($data['to']))
+        ];
 
         $ctrl = new Livraisons();
-        $sheet = [];
-        $name = '';
-        switch ($data['type']) {
-            case 'j':
-                $sheet = $ctrl->getLastpregate($d, $w, $m, $y);
-                $name = 'Rapport pregate journaliers du ' . $data['date'];
-                break;
-            case 'h':
-                $sheet = $ctrl->getLastpregate(null, $w, $m, $y);
-                $name = 'Rapport pregate hebdomadaires de la semaine ' . $w . ' année ' . $y;
-                break;
-            case 'm':
-                $sheet = $ctrl->getLastpregate(null, null, $m, $y);
-                $name = 'Rapport pregate mensuels du ' . $m . 'e mois année ' . $y;
-                break;
-            case 'a':
-                $sheet = $ctrl->getLastpregate(null, null, null, $y);
-                $name = 'Rapport pregate annuels année ' . $y;
-                break;
+        $name = 'Rapports des pregates du ' . $data['from'] . ' au ' . $data['to'] . '.';
+        $sheet = $ctrl->getLastpregate($d, $m, $y);
 
-            default:
-                return redirect()
-                    ->back()
-                    ->with('n', false)
-                    ->with('m', '499 - Données invalide');
-                break;
-        }
 
         return $this->index_pregate(
             [
                 'data' => $sheet,
-                'type' => $data['type'],
-                'date' => $data['date'],
+                'from' => $data['from'],
+                'to' => $data['to'],
                 'name' => $name
             ]
         );

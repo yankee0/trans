@@ -107,6 +107,7 @@ class Livraisons extends BaseController
                 livraisons.date_aller,
                 livraisons.date_retour,
                 livraisons.motif,
+                livraisons.id as liv,
             ')
             ->join('chauffeurs', 'chauffeurs.id = livraisons.ch_aller', 'left')
             ->join('chauffeurs AS chauffeur2', 'chauffeur2.id = livraisons.ch_retour', 'left')
@@ -314,10 +315,7 @@ class Livraisons extends BaseController
     {
         session()->p = 'pregate';
         return view('ops/livraisons/pregate', [
-            'daily_pg' => $this->getLivs('%', 50, false, [
-                'from' => date('Y-m-d'),
-                'to' => date('Y-m-d'),
-            ]),
+            'daily_pg' => $this->getLastpregate(date('d'), date('m'), date('Y')),
 
             'drivers' => (new Chauffeurs())
                 ->orderBy('nom')
@@ -329,22 +327,35 @@ class Livraisons extends BaseController
         ]);
     }
 
-    public function getLastpregate($d = null, $w = null, $m = null, $y = null)
+    public function getLastpregate($d = null, $m = null, $y = null)
     {
         $builder = (new FactLiv())
             ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->orderBy('fact_liv.deadline', 'DESC');
         if (!empty($y)) {
-            $builder->where('YEAR(fact_liv.date_pg)', $y);
+            if (is_array($y)) {
+                $builder->where('YEAR(fact_liv.date_pg) >= ', $y[0]);
+                $builder->where('YEAR(fact_liv.date_pg) <= ', $y[1]);
+            } else {
+                $builder->where('YEAR(fact_liv.date_pg)', $y);
+            }
         }
         if (!empty($m)) {
-            $builder->where('MONTH(fact_liv.date_pg)', $m);
+            if (is_array($m)) {
+                $builder->where('MONTH(fact_liv.date_pg) >= ', $m[0]);
+                $builder->where('MONTH(fact_liv.date_pg) <= ', $m[1]);
+            } else {
+                $builder->where('MONTH(fact_liv.date_pg)', $m);
+            }
         }
         if (!empty($d)) {
-            $builder->where('DAY(fact_liv.date_pg)', $d);
-        }
-        if (!empty($w)) {
+            if (is_array($d)) {
+                $builder->where('DAY(fact_liv.date_pg) >= ', $d[0]);
+                $builder->where('DAY(fact_liv.date_pg) <= ', $d[1]);
+            } else {
+                $builder->where('DAY(fact_liv.date_pg)', $d);
+            }
         }
         if (empty($y) and empty($m) and empty($d) and empty($w)) {
             $builder->where('fact_liv.date_pg', date('Y-m-d', time()));
@@ -464,10 +475,10 @@ class Livraisons extends BaseController
         return $this->checkpregate($data['bl']);
     }
 
-    public function info($bl, $id)
+    public function info($bl, $tc)
     {
-        $res = (new FactLivLignes())
-            ->like('conteneur', $id)
+        session()->p = 'search';
+        $res = (new ModelsLivraisons())
             ->select('
                 livraisons.etat,
                 fact_liv_lignes.id,
@@ -499,17 +510,19 @@ class Livraisons extends BaseController
                 livraisons.date_aller,
                 livraisons.date_retour,
                 livraisons.motif,
+                livraisons.id as liv
             ')
-            ->join('livraisons', 'livraisons.id =fact_liv_lignes.id')
             ->join('chauffeurs', 'chauffeurs.id = livraisons.ch_aller', 'left')
             ->join('chauffeurs AS chauffeur2', 'chauffeur2.id = livraisons.ch_retour', 'left')
             ->join('camions', 'camions.id = livraisons.cam_aller', 'left')
             ->join('camions AS camion2', 'camion2.id = livraisons.cam_retour', 'left')
+            ->join('fact_liv_lignes', 'fact_liv_lignes.id = id_fact_ligne', 'left')
             ->join('fact_liv_lieux', 'fact_liv_lignes.id_lieu = fact_liv_lieux.id', 'left')
             ->join('zones', 'zones.id = fact_liv_lieux.id_zone', 'left')
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->like('fact_liv.bl', $bl)
+            ->where('conteneur', $tc)
             ->first();
 
         if (empty($res)) {

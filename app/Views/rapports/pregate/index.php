@@ -14,18 +14,12 @@
         <?= csrf_field() ?>
         <div class="row">
           <div class="col-md mb-3">
-            <label for="type" class="form-label">Type </label>
-            <select class="form-select" name="type" id="type" required>
-              <option value="" selected hidden>Sélectionnez un type</option>
-              <option value="j">Journalier</option>
-              <option value="h">Hebdomadaire</option>
-              <option value="m">Mensuel</option>
-              <option value="a">Annuel</option>
-            </select>
+            <label for="dateFrom" class="form-label">Du</label>
+            <input type="date" class="form-control" value="<?= isset($from) ? $from : '' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" class="form-control" value="<?= isset($date) ? $date : '' ?>" name="date" required id="date" placeholder="Sélectionnez la date">
+            <label for="dateTo" class="form-label">Au</label>
+            <input type="date" class="form-control" value="<?= isset($to) ? $to : '' ?>" name="to" required id="dateTo" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3 d-flex flex-column justify-content-end">
             <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center gap-3">
