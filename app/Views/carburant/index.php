@@ -361,6 +361,21 @@ Gestion du carburant
     responsive: true,
   });
 </script>
+<script>
+  $('#type_veh,#type_veh_mod').change(function(e) {
+    switch ($(this).val()) {
+      case 'Moto':
+        $('#type_carb_mod,#type_carb').val('ESSENCE');
+        break;
+      case 'Tracteur':
+        $('#type_carb_mod,#type_carb').val('GASOIL');
+        break;
+
+      default:
+        break;
+    }
+  });
+</script>
 
 
 <?= $this->endSection(); ?>
