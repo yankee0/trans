@@ -3,13 +3,13 @@
 Pregate livraisons
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<div class="row">
+<div class="row mb-3">
   <div class="col-md">
     <h1 class="h3 mb-3"><strong>Livraisons</strong> pregate</h1>
   </div>
-  <div class="col-md d-flex justify-content-end">
+  <div class="col-md d-flex justify-content-md-end">
     <div>
-      <a class="btn btn-success" href="<?= base_url(session()->r . '/rapports/pregate') ?>" role="button">Rapport pregate</a>
+      <a class="btn btn-success" href="<?= base_url(session()->r . '/rapports/pregate') ?>" role="button"><i data-feather="file"></i> Rapport pregate</a>
     </div>
   </div>
 </div>
@@ -145,6 +145,9 @@ Pregate livraisons
     </div>
   </div>
 <?php else : ?>
+  <div class="row">
+    <h2><?= count($daily_pg) ?> enregistré(s) aujourd'hui</h2>
+  </div>
   <div class="row">
     <?php foreach ($daily_pg as $pg) : ?>
       <div class="col-sm-6 col-xl-4">
