@@ -6,10 +6,31 @@
 <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 <div class="row">
   <!-- nombre de clients -->
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col mt-0">
+            <h5 class="card-title"><a href="<?= base_url(session()->r.'/clients') ?>">Clients <i data-feather="link"></i></a></h5>
+          </div>
+          <div class="col-auto">
+            <div class="stat text-primary">
+              <i class="align-middle" data-feather="users"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="mt-1 mb-3 num"><?= $cli ?></h1>
+        <div class="mb-0">
+          <span class="text-muted">Total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="col-sm col-md-6 col-xl-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title"><strong>Solde de la carte carburant</strong></h5>
+        <h5 class="card-title"><a href="<?= base_url(session()->r.'/carburant') ?>"><strong>Solde de la carte carburant</strong> <i data-feather="link"></i></a></h5>
         <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $carte['solde'] ?></span> <strong>FCFA</strong></div>
         <div class="mb-2">
           <?php if (empty($recs)) : ?>
@@ -51,6 +72,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Encaissements hebdomadaires livraisons -->
   <div class="col-md-6 col-lg-4 col-xl-3">

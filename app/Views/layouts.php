@@ -17,11 +17,6 @@
 
 <body class="position-relative">
 
-  <!-- <div id="loadingOverlay" class="overlay">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Chargement en cours...</span>
-    </div>
-  </div> -->
   <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
       <div class="sidebar-content js-simplebar">
@@ -50,6 +45,11 @@
             <li class="sidebar-item <?= (session()->p == 'utilisateurs') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/utilisateurs') ?>">
                 <i class="align-middle" data-feather="user"></i> <span class="align-middle">Utilisateurs</span>
+              </a>
+            </li>
+            <li class="sidebar-item <?= (session()->p == 'clients') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/clients') ?>">
+                <i class="align-middle" data-feather="users"></i> <span class="align-middle">Clients</span>
               </a>
             </li>
             <li class="sidebar-item <?= (session()->p == 'factures') ? 'active' : '' ?>">
@@ -205,7 +205,7 @@
               </a>
             </li>
           <?php endif ?>
-            <li class="py-5"></li>
+          <li class="py-5"></li>
 
         </ul>
       </div>
