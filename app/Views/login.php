@@ -5,7 +5,16 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Yankee">
+  <meta name="author" content="Yankee" />
+  <meta name="description" content="Application de gestion POLY-TRANS SUARL, une entreprise spécialisée dans Transit - Transport - Manutention - Consignation - Entreposage - Groupage - Conseils de haute qualité, basée au Sénégal, à Dakar." />
+  <meta name="keywords" content="polytrans suarl, POLY-TRANS SUARL, gestion, matériaux plastiques, entreprise, Sénégal, Dakar" />
+  <meta itemprop="address" content="44, Av Lamine GUEYE Immeuble BHT 2ème étage porte B, Dakar, Sénégal" />
+  <meta itemprop="telephone" content="33 842 52 58" />
+  <meta itemprop="faxNumber" content="33 842 52 58" />
+  <meta itemprop="email" content="contact@poly-trans.sn" />
+  <meta name="RC" content="SN-DKR-2027-B-1563" />
+  <meta name="NINEA" content="006214332 2Y2" />
+  <meta name="url" content="https://www.poly-trans.sn" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" />

@@ -50,6 +50,16 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('search', 'Utilisateurs::search');
         });
 
+        //gestion des clients
+        $routes->group('clients', function ($routes) {
+            $routes->get('/', 'Clients::list');
+            $routes->post('/', 'Clients::add');
+            $routes->get('del/(:segment)', 'Clients::delete/$1');
+            $routes->post('del', 'Clients::delete');
+            $routes->post('edit', 'Clients::edit');
+            $routes->get('search', 'Clients::search');
+        });
+
         //gestion des factures
         $routes->group('factures', function ($routes) {
             $routes->get('/', 'Factures::dashboard');

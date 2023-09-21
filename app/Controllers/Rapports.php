@@ -20,10 +20,10 @@ class Rapports extends BaseController
         return view('rapports/livraisons/index', $data);
     }
 
-    public function generate_livraison()
+    public function generate_livraison($params = null)
     {
         session()->p = 'rapports';
-        $data = $this->request->getPost();
+        $data = $params ?? $this->request->getVar();
         $timestamp = strtotime($data['date']);
 
         $y = date('Y', $timestamp);

@@ -349,7 +349,7 @@ class Livraisons extends BaseController
             $res = (new FactLiv())
                 ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
                 ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-                ->orderBy('fact_liv.deadline', 'ASC')
+                ->orderBy('fact_liv.deadline', 'asc')
                 ->where('fact_liv.date_pg', $from)
                 ->find();
         }
