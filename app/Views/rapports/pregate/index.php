@@ -3,7 +3,14 @@
 <?= isset($name) ? $name : 'Rapports pregate' ?>
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Rapports</strong> pregate</h1>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?= base_url(session()->r . '/rapports') ?>">Rapports</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Rapports pregates</li>
+  </ol>
+</nav>
+<h1 class="h3 mb-3"><strong>Rapports</strong> pregates</h1>
 
 <div class="row">
   <div class="col-12">
@@ -15,7 +22,7 @@
         <div class="row">
           <div class="col-md mb-3">
             <label for="dateFrom" class="form-label">Du</label>
-            <input type="date" class="form-control" value="<?= isset($from) ? $from : date('Y-m'), '-01' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
+            <input type="date" class="form-control" value="<?= isset($from) ? $from : date('Y-m') . '-01' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3">
             <label for="dateTo" class="form-label">Au</label>

@@ -3,6 +3,12 @@
 <?= isset($name) ? $name : 'Rapports livraisons' ?>
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?= base_url(session()->r . '/rapports') ?>">Rapports</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Rapports livraisons</li>
+  </ol>
+</nav>
 <h1 class="h3 mb-3"><strong>Rapports</strong> Livraisons</h1>
 
 <div class="row">
