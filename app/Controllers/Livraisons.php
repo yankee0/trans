@@ -492,6 +492,7 @@ class Livraisons extends BaseController
                 fact_liv.paiement,
                 fact_liv.date_pg,
                 fact_liv.pregate,
+                fact_liv.deadline,
                 fact_liv.bl,
                 fact_liv.date_creation,
                 fact_liv.id as facture,

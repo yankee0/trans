@@ -9,13 +9,13 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Générer un rapport des pregate enregistrés</h5>
+        <h5 class="card-title">Générer un rapport des pregates enregistrés</h5>
         <?= form_open() ?>
         <?= csrf_field() ?>
         <div class="row">
           <div class="col-md mb-3">
             <label for="dateFrom" class="form-label">Du</label>
-            <input type="date" class="form-control" value="<?= isset($from) ? $from : date('Y-m'),'-01' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
+            <input type="date" class="form-control" value="<?= isset($from) ? $from : date('Y-m'), '-01' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3">
             <label for="dateTo" class="form-label">Au</label>
@@ -62,8 +62,8 @@
               </div>
               <div class="flex-fill flex-grow-1">
                 <div><small class=" text-black-50">Nº facture:</small><br><a href="<?= base_url('factures/livraisons/details/' . $pg['id']) ?>" target="_blank"><?= $pg['id'] ?> <i data-feather="link"></i></a></div>
-                <div><small class=" text-black-50">Date pregate:</small><br><?= $pg['date_pg'] ?></div>
-                <div><small class=" text-black-50">Deadline:</small><br><?= $pg['deadline'] ?></div>
+                <div><small class=" text-black-50">Pregate:</small><br><?= date('d/m/Y', strtotime($pg['date_pg'])) ?></div>
+                <div><small class=" text-black-50">Deadline:</small><br><span class="text-<?= (!empty($pg['deadline']) and date('Y-m-d', strtotime($pg['deadline'])) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($pg['deadline'])) ?></span></div>
               </div>
             </div>
             <hr>

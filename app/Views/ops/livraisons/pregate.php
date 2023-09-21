@@ -172,8 +172,8 @@ Pregate livraisons
               </div>
               <div class="flex-fill flex-grow-1">
                 <div><small class=" text-black-50">Nº facture:</small><br><a href="<?= base_url('factures/livraisons/details/' . $pg['id']) ?>" target="_blank"><?= $pg['id'] ?> <i data-feather="link"></i></a></div>
-                <div><small class=" text-black-50">Date pregate:</small><br><?= $pg['date_pg'] ?></div>
-                <div><small class=" text-black-50">Deadline:</small><br><?= $pg['deadline'] ?></div>
+                <div><small class=" text-black-50">Date pregate:</small><br><?= date('d/m/Y', strtotime($pg['date_pg'])) ?></div>
+                <div><small class=" text-black-50">Deadline:</small><br><span class="text-<?= (!empty($pg['deadline']) and date('Y-m-d', strtotime($pg['deadline'])) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($pg['deadline'])) ?></span></div>
               </div>
             </div>
             <hr>

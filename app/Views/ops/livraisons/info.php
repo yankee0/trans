@@ -44,7 +44,7 @@ Information de livraison
             </p>
             <p>
             <div class="text-sm text-muted">Date de réception du pregate</div>
-            <div><?= $date_pg ?></div>
+            <div><?= date('d/m/Y', strtotime($date_pg)) ?></div>
             </p>
           </div>
           <div class="col-md-6 col-lg-4  col-xl-3">
@@ -54,7 +54,7 @@ Information de livraison
             <div><a href="<?= base_url('factures/livraisons/details/' . $facture) ?>" target="_blank"><?= $facture ?> <i data-feather="link"></i></a></div>
             </p>
             <div class="text-sm text-muted">Date de facturation</div>
-            <div><?= $date_creation ?></div>
+            <div><?= date('d/m/Y', strtotime($date_creation)) ?> ?></div>
             </p>
             <div class="text-sm text-muted">Client</div>
             <div><?= $nom_client ?></div>
@@ -73,11 +73,7 @@ Information de livraison
             <div class="fs-2">Livraison</div>
             <p>
             <div class="text-sm text-muted">Deadline</div>
-            <?php if (!empty($facture['facture']['deadline']) and date('Y-m-d', strtotime($facture['facture']['deadline'])) <= date('Y-m-d', strtotime('+5days'))) : '' ?>
-              <div class="alert alert-warning text-center" role="alert">
-                <strong>Attention!</strong> La date de deadline est dépassée ou est dans moins de 5 jours.
-              </div>
-            <?php endif ?>
+            <div class="text-<?= (!empty($deadline) and date('Y-m-d', strtotime($deadline)) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($deadline)) ?></div>
             </p>
             <p>
             <div class="text-sm text-muted">Etat</div>
@@ -148,7 +144,7 @@ Information de livraison
             </p>
             <p>
             <div class="text-sm text-muted">Date ALLER</div>
-            <div><?= empty($date_aller) ? '<span class="badge bg-dark">INDÉFINI</span>' : $date_aller ?></div>
+            <div><?= empty($date_aller) ? '<span class="badge bg-dark">INDÉFINI</span>' : date('d/m/Y', $date_aller) ?></div>
             </p>
             <p>
             <div class="text-sm text-muted">Chauffeur ALLER</div>
@@ -161,7 +157,7 @@ Information de livraison
             <p>
             <p>
             <div class="text-sm text-muted">Date RETOUR</div>
-            <div><?= empty($date_retour) ? '<span class="badge bg-dark">INDÉFINI</span>' : $date_retour ?></div>
+            <div><?= empty($date_retour) ? '<span class="badge bg-dark">INDÉFINI</span>' : date('d/m/Y', $date_retour) ?></div>
             </p>
             <div class="text-sm text-muted">Chauffeur RETOUR</div>
             <div><?= empty($ch_retour) ? '<span class="badge bg-dark">INDÉFINI</span>' : $ch_retour ?></div>
