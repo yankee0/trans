@@ -15,11 +15,11 @@
         <div class="row">
           <div class="col-md mb-3">
             <label for="dateFrom" class="form-label">Du</label>
-            <input type="date" class="form-control" value="<?= isset($from) ? $from : '' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
+            <input type="date" class="form-control" value="<?= isset($from) ? $from : date('Y-m'),'-01' ?>" name="from" required id="dateFrom" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3">
             <label for="dateTo" class="form-label">Au</label>
-            <input type="date" class="form-control" value="<?= isset($to) ? $to : '' ?>" name="to" required id="dateTo" placeholder="Sélectionnez la date">
+            <input type="date" class="form-control" value="<?= isset($to) ? $to : date('Y-m-d') ?>" name="to" required id="dateTo" placeholder="Sélectionnez la date">
           </div>
           <div class="col-md mb-3 d-flex flex-column justify-content-end">
             <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center gap-3">
