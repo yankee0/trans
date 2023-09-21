@@ -273,11 +273,6 @@ Facturation livraisons
   const myModalcli = new bootstrap.Modal(document.getElementById('modalIdmodcompte'), options)
 </script>
 
-<!-- mod Date F -->
-<button type="button" class="btn btn-primary btn-lg">
-  Launch
-</button>
-
 
 <div class="modal fade" id="modID" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modidti" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
