@@ -6,8 +6,8 @@
 <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 <div class="row">
   <!-- nombre de clients -->
-  <div class="col-md-6 col-lg-4 col-xl-3">
-    <div class="card">
+  <div class="col-md-6 col-lg-4 col-xl-3 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="row">
           <div class="col mt-0">
