@@ -36,51 +36,53 @@ Facturation livraisons
         </div>
 
       <?php else : ?>
-        <table class="table table-hover my-0">
-          <thead>
-            <tr>
-              <th>Nº Facture</th>
-              <th class="table-cell">Client</th>
-              <th class="table-cell">BL</th>
-              <th class="table-cell">Compagnie</th>
-              <th class="d-none d-xl-table-cell">20'</th>
-              <th class="d-none d-xl-table-cell">40'</th>
-              <th class="d-none d-md-table-cell">Montant en FCFA TTC</th>
-              <th class="d-none d-xl-table-cell">Date</th>
-              <th>Annulée</th>
-              <th>pregate</th>
-              <th>Paiement</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($r as $line) : ?>
+        <div class="table-responsive">
+          <table class="table table-hover my-0">
+            <thead>
               <tr>
-                <td><?= $line['id'] ?></td>
-                <td class="table-cell"><?= $line['nom'] ?></td>
-                <td class="table-cell"><?= $line['bl'] ?></td>
-                <td class="table-cell"><?= $line['compagnie'] ?></td>
-                <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
-                <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
-                <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>
-                <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
-                <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
-                <td><span class="badge bg-<?= ($line['pregate'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['pregate'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
-                <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
-                <td>
-                  <div class="d-flex gap-1">
-                    <a class="btn text-warning btn-sm d-flex align-items-center justify-content-center gap-2" title="Modifier les informations" href="<?= base_url(session()->r . '/livraisons/edit/' . $line['id']) ?>" role="button"><i class="align-middle" data-feather="edit"></i></a>
-                    <button value="Nº <?= $line['id'] ?>" data-id="<?= $line['id'] ?>" class="annfLiv btn text-dark btn-sm d-flex align-items-center justify-content-center gap-2 <?= ($line['annulation'] == 'OUI') ? 'disabled text-white border-0' : '' ?> " type="button" title="Annuler la facture" data-bs-toggle="modal" data-bs-target="#modalIdannF"><i class="align-middle" data-feather="x"></i></button>
-                    <button value="Nº <?= $line['id'] ?>" class="delfLiv btn text-danger btn-sm d-flex align-items-center justify-content-center gap-2" type="button" title="Supprimer la facture" data-bs-toggle="modal" data-bs-target="#delFactLiv"><i class="align-middle" data-feather="trash"></i></button>
-                    <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
-                  </div>
-                </td>
+                <th>Nº Facture</th>
+                <th class="table-cell">Client</th>
+                <th class="table-cell">BL</th>
+                <th class="table-cell">Compagnie</th>
+                <th class="d-none d-xl-table-cell">20'</th>
+                <th class="d-none d-xl-table-cell">40'</th>
+                <th class="d-none d-md-table-cell">Montant en FCFA TTC</th>
+                <th class="d-none d-xl-table-cell">Date</th>
+                <th>Annulée</th>
+                <th>pregate</th>
+                <th>Paiement</th>
+                <th></th>
               </tr>
-            <?php endforeach ?>
-          </tbody>
-          <tfoot>
-          </tfoot>
-        </table>
+            </thead>
+            <tbody>
+              <?php foreach ($r as $line) : ?>
+                <tr>
+                  <td><?= $line['id'] ?></td>
+                  <td class="table-cell"><?= $line['nom'] ?></td>
+                  <td class="table-cell"><?= $line['bl'] ?></td>
+                  <td class="table-cell"><?= $line['compagnie'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $line['n40'] ?></td>
+                  <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>
+                  <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
+                  <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
+                  <td><span class="badge bg-<?= ($line['pregate'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['pregate'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
+                  <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <a class="btn text-warning btn-sm d-flex align-items-center justify-content-center gap-2" title="Modifier les informations" href="<?= base_url(session()->r . '/livraisons/edit/' . $line['id']) ?>" role="button"><i class="align-middle" data-feather="edit"></i></a>
+                      <button value="Nº <?= $line['id'] ?>" data-id="<?= $line['id'] ?>" class="annfLiv btn text-dark btn-sm d-flex align-items-center justify-content-center gap-2 <?= ($line['annulation'] == 'OUI') ? 'disabled text-white border-0' : '' ?> " type="button" title="Annuler la facture" data-bs-toggle="modal" data-bs-target="#modalIdannF"><i class="align-middle" data-feather="x"></i></button>
+                      <button value="Nº <?= $line['id'] ?>" class="delfLiv btn text-danger btn-sm d-flex align-items-center justify-content-center gap-2" type="button" title="Supprimer la facture" data-bs-toggle="modal" data-bs-target="#delFactLiv"><i class="align-middle" data-feather="trash"></i></button>
+                      <a class="btn text-info btn-sm d-flex align-items-center justify-content-center gap-2" title="Voir les informations" href="<?= base_url(session()->r . '/livraisons/details/' . $line['id']) ?>" target="_blank" role="button"><i class="align-middle" data-feather="info"></i></a>
+                    </div>
+                  </td>
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+        </div>
         <div class="card-footer text-muted d-flex align-items-center justify-content-end">
           <?= $pager->links() ?>
         </div>
