@@ -1,0 +1,14 @@
+[
+    {
+        "name": "test",
+        "type": "closure",
+        "action": "{}",
+        "environment": null,
+        "start_at": "2023-09-22 15:18:57",
+        "end_at": "2023-09-22 15:18:57",
+        "duration": "00:00:00",
+        "output": null,
+        "error": null,
+        "test_time": null
+    }
+]
