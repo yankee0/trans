@@ -1,9 +1,9 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-Conteneurs
+Gestion conteneurs
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
-<h1 class="h3 mb-3"><strong>Conteneurs</strong></h1>
+<h1 class="h3 mb-3"><strong>Gestion</strong> conteneurs</h1>
 
 <div class="row">
   <div class="col-12 d-flex">

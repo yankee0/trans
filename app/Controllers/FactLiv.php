@@ -316,12 +316,14 @@ class FactLiv extends BaseController
         $s = isset($data['search']) ? $data['search'] : '%';
         $modele = new ModelsFactLiv();
         $r = $modele
-            ->like('id', $s)
-            ->orLike('bl', $s)
-            ->orLike('id_client', $s)
+            ->select('fact_liv.*, clients.nom')
+            ->join('clients', 'clients.id = fact_liv.id_client')
+            ->like('fact_liv.id', $s)
+            ->orLike('fact_liv.bl', $s)
             ->orLike('compagnie', $s)
-            ->orLike('date_creation', $s)
-            ->orderBy('id', 'DESC')
+            ->orLike('clients.nom', $s)
+            ->orWhere('UNIX_TIMESTAMP(fact_liv.date_creation)', strtotime($s))
+            ->orderBy('date_creation', 'desc')
             ->paginate(20);
         // if (!empty($r)) {
         //     for ($i = 0; $i < sizeof($r); $i++) {
