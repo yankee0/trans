@@ -87,6 +87,7 @@
             <thead>
               <tr>
                 <th>Nº Facture</th>
+                <th class="table-cell">Client</th>
                 <th class="table-cell">BL</th>
                 <th class="table-cell">Compagnie</th>
                 <th class="d-none d-xl-table-cell">20'</th>
@@ -103,6 +104,7 @@
               <?php foreach ($fact_liv_last as $line) : ?>
                 <tr>
                   <td><?= $line['id'] ?></td>
+                  <td class="table-cell"><?= $line['nom'] ?></td>
                   <td class="table-cell"><?= $line['bl'] ?></td>
                   <td class="table-cell"><?= $line['compagnie'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>

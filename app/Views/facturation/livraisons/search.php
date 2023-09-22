@@ -1,3 +1,9 @@
+<?php
+//Pour permettre d'utiliser la page sans données
+if (!isset($r)) {
+  $r = [];
+}
+?>
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
 Facturation livraisons
@@ -10,7 +16,7 @@ Facturation livraisons
     <div class="card flex-fill">
       <div class="card-body ">
         <form action="<?= base_url(session()->r . '/livraisons/search') ?>" class="d-flex gap-2">
-          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher par Nº Facture, BL, Compagnie ou date d'enregistrement">
+          <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher par Nº Facture, BL, Compagnie, client ou date d'enregistrement">
           <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
         </form>
       </div>
@@ -23,8 +29,10 @@ Facturation livraisons
       </div>
 
       <?php if (sizeof($r) == 0) : ?>
-        <div class="alert alert-warning" role="alert">
-          Aucun résultat
+        <div class="card-body">
+          <div class="alert alert-warning" role="alert">
+            Aucun résultat
+          </div>
         </div>
 
       <?php else : ?>
@@ -32,11 +40,12 @@ Facturation livraisons
           <thead>
             <tr>
               <th>Nº Facture</th>
+              <th class="table-cell">Client</th>
               <th class="table-cell">BL</th>
               <th class="table-cell">Compagnie</th>
               <th class="d-none d-xl-table-cell">20'</th>
               <th class="d-none d-xl-table-cell">40'</th>
-              <th class="d-none d-md-table-cell">Montant</th>
+              <th class="d-none d-md-table-cell">Montant en FCFA TTC</th>
               <th class="d-none d-xl-table-cell">Date</th>
               <th>Annulée</th>
               <th>pregate</th>
@@ -48,6 +57,7 @@ Facturation livraisons
             <?php foreach ($r as $line) : ?>
               <tr>
                 <td><?= $line['id'] ?></td>
+                <td class="table-cell"><?= $line['nom'] ?></td>
                 <td class="table-cell"><?= $line['bl'] ?></td>
                 <td class="table-cell"><?= $line['compagnie'] ?></td>
                 <td class="d-none d-xl-table-cell"><?= $line['n20'] ?></td>
@@ -71,11 +81,11 @@ Facturation livraisons
           <tfoot>
           </tfoot>
         </table>
+        <div class="card-footer text-muted d-flex align-items-center justify-content-end">
+          <?= $pager->links() ?>
+        </div>
       <?php endif ?>
 
-      <div class="card-footer text-muted d-flex align-items-center justify-content-end">
-        <?= $pager->links() ?>
-      </div>
     </div>
   </div>
 

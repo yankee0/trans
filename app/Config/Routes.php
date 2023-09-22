@@ -127,6 +127,28 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('modifier', 'Carburant::modRav');
         });
 
+        //gestion des facturations de livraisons
+        $routes->group('livraisons', function ($routes) {
+            // $routes->get('/', 'FactLiv::list');
+            // $routes->post('/', 'FactLiv::add');
+            $routes->add('del/(:segment)', 'FactLiv::delete/$1');
+            $routes->post('edit', 'FactLiv::edit');
+            $routes->get('search', 'FactLiv::search');
+            $routes->group('edit', function ($routes) {
+                $routes->post('addzone', 'FactLiv::addZone');
+                $routes->get('(:segment)', 'FactLiv::showEdit/$1');
+                $routes->post('entete/(:segment)', 'FactLiv::editFactLiveHeader/$1');
+                $routes->get('zones/(:num)/(:num)', 'FactLiv::deleteZone/$1/$2');
+                $routes->post('zones/new', 'FactLiv::changeZone');
+                $routes->post('adresse/(:num)', 'FactLiv::editAddress/$1');
+                $routes->post('price/(:num)', 'FactLiv::editPrice/$1');
+                $routes->get('delete/container/(:num)', 'FactLiv::deleteContainer/$1');
+                $routes->post('container/(:num)', 'FactLiv::editContainer/$1');
+                $routes->post('container/add', 'FactLiv::addContainer');
+            });
+            $routes->post('annuler/(:segment)', 'FactLiv::abord/$1');
+        });
+
 
         //recherche operation
         $routes->get('search', 'Ops::search');
