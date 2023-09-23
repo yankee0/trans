@@ -1,0 +1,388 @@
+INFO - 2023-09-23 16:12:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2023-09-23 16:19:03 --> mysqli_sql_exception: Unknown column 'expiration' in 'where clause' in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *\nFROM `...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(15): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->pregateExpiration()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 16:19:03 --> Unknown column 'expiration' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *
+FROM `fact_liv`
+WHERE `expiration` < \'2023-09-25\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `fact_liv`
+WHERE `expiration` < \'2023-09-25\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `fact_liv`
+WHERE `expiration` < \'2023-09-25\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `fact_liv`
+WHERE `expiration` < :expiration:', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(15): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->pregateExpiration()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+INFO - 2023-09-23 16:19:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 16:19:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 16:19:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 16:20:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 16:20:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 16:20:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2023-09-23 16:22:53 --> mysqli_sql_exception: Unknown column 'fact_liv.client_id' in 'on clause' in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *\nFROM `...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(16): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->pregateExpiration()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 16:22:53 --> Unknown column 'fact_liv.client_id' in 'on clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *
+FROM `fact_liv`
+JOIN `clients` ON `fact_liv`.`client_id` = `clients`.`id`
+WHERE `deadline` <= \'2023-09-25\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `fact_liv`
+JOIN `clients` ON `fact_liv`.`client_id` = `clients`.`id`
+WHERE `deadline` <= \'2023-09-25\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `fact_liv`
+JOIN `clients` ON `fact_liv`.`client_id` = `clients`.`id`
+WHERE `deadline` <= \'2023-09-25\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `fact_liv`
+JOIN `clients` ON `fact_liv`.`client_id` = `clients`.`id`
+WHERE `deadline` <= :deadline:', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(16): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->pregateExpiration()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+ERROR - 2023-09-23 17:40:45 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'polytrans.livraisons.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *\nFROM `...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(23): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 17:40:45 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'polytrans.livraisons.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+GROUP BY `clients`.`id`', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+GROUP BY `clients`.`id`')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+GROUP BY `clients`.`id`')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = :fact_liv.deadline:
+AND `livraisons`.`etat` != :livraisons.etat:
+GROUP BY `clients`.`id`', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(23): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+ERROR - 2023-09-23 17:41:18 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'polytrans.livraisons.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *\nFROM `...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(23): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 17:41:18 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'polytrans.livraisons.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+GROUP BY `fact_liv`.`id`, `clients`.`id`', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+GROUP BY `fact_liv`.`id`, `clients`.`id`')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+GROUP BY `fact_liv`.`id`, `clients`.`id`')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = :fact_liv.deadline:
+AND `livraisons`.`etat` != :livraisons.etat:
+GROUP BY `fact_liv`.`id`, `clients`.`id`', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(23): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+INFO - 2023-09-23 17:44:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:44:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:46:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:46:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:46:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 17:46:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 18:41:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 18:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2023-09-23 18:50:42 --> mysqli_sql_exception: Unknown column 'fact_liv_lignes.description' in 'field list' in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT `fact_li...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `fact_li...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `fact_li...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `fact_li...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(28): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 18:50:42 --> Unknown column 'fact_liv_lignes.description' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.`description`
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+ORDER BY `fact_liv`.`deadline` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.`description`
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+ORDER BY `fact_liv`.`deadline` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.`description`
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+ORDER BY `fact_liv`.`deadline` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.`description`
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = :fact_liv.deadline:
+AND `livraisons`.`etat` != :livraisons.etat:
+ORDER BY `fact_liv`.`deadline` ASC', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(28): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+ERROR - 2023-09-23 18:50:49 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fa' at line 2 in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT `fact_li...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `fact_li...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `fact_li...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `fact_li...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(28): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 18:50:49 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fa' at line 2
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+ORDER BY `fact_liv`.`deadline` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+ORDER BY `fact_liv`.`deadline` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = \'2023-09-25\'
+AND `livraisons`.`etat` != \'LIVRÉ\'
+ORDER BY `fact_liv`.`deadline` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `fact_liv_lignes`.`conteneur`, `fact_liv_lignes`.`type`, `fact_liv_lignes`.
+FROM `livraisons`
+LEFT JOIN `fact_liv_lignes` ON `fact_liv_lignes`.`id` = `id_fact_ligne`
+LEFT JOIN `fact_liv_lieux` ON `fact_liv_lignes`.`id_lieu` = `fact_liv_lieux`.`id`
+LEFT JOIN `fact_liv` ON `fact_liv`.`id` = `fact_liv_lieux`.`id_fact`
+LEFT JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`deadline` = :fact_liv.deadline:
+AND `livraisons`.`etat` != :livraisons.etat:
+ORDER BY `fact_liv`.`deadline` ASC', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(28): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+ERROR - 2023-09-23 19:09:58 --> mysqli_sql_exception: Unknown column 'prifil' in 'where clause' in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *\nFROM `...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(557): CodeIgniter\Model->doFind(false, NULL)
+#6 /Users/mac/Desktop/polytrans/app/app/Controllers/Cron.php(41): CodeIgniter\BaseModel->find()
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#11 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#12 {main}
+CRITICAL - 2023-09-23 19:09:58 --> Unknown column 'prifil' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT *
+FROM `utilisateurs`
+WHERE `profil` = \'ADMIN\'
+OR `prifil` = \'OPS\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `utilisateurs`
+WHERE `profil` = \'ADMIN\'
+OR `prifil` = \'OPS\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `utilisateurs`
+WHERE `profil` = \'ADMIN\'
+OR `prifil` = \'OPS\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `utilisateurs`
+WHERE `profil` = :profil:
+OR `prifil` = :prifil:', [...], false)
+ 5 SYSTEMPATH/Model.php(203): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(557): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH/Controllers/Cron.php(41): CodeIgniter\BaseModel->find()
+ 8 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Cron->TCDeadline()
+ 9 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cron))
+10 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+INFO - 2023-09-23 20:26:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-23 20:26:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
