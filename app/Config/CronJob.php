@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\Cron;
 use CodeIgniter\Config\BaseConfig;
 use Daycry\CronJob\Scheduler;
 
@@ -119,11 +120,8 @@ class CronJob extends \Daycry\CronJob\Config\CronJob
     public function init(Scheduler $schedule)
     {
         $schedule
-            ->call(
-                function () {
-                    
-                }
-            )->everyMinute()
+            ->url(base_url('cron'))
+            ->everyMinute()
             ->named('test');
     }
 }

@@ -36,6 +36,12 @@ $routes->get('/(:segment)/livraisons/details/(:segment)', 'FactLiv::showInvoice/
 
 $routes->get('/check','Check::checkDoubleRav');
 
+//Cron routes
+$routes->group('cron', function($routes)
+{
+    $routes->add('tc-deadline','Cron::TCDeadline');
+});
+
 $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('admin', ['filter' => 'admin'], function ($routes) {
         $routes->get('/', 'Admin::index');
