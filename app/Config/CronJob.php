@@ -105,7 +105,7 @@ class CronJob extends \Daycry\CronJob\Config\CronJob
     */
     public bool $enableDashboard = true;
     public string $username = 'yankee';
-    public string $password = 'yankee';
+    public string $password = 'YeetGotTheJuice';
 
     /*
     |--------------------------------------------------------------------------
@@ -119,9 +119,7 @@ class CronJob extends \Daycry\CronJob\Config\CronJob
     */
     public function init(Scheduler $schedule)
     {
-        $schedule
-            ->url(base_url('cron'))
-            ->everyMinute()
-            ->named('test');
+        // Planifier l'exécution quotidienne à 8h
+        $schedule->url(base_url('cron/tc-deadline'))->daily('08:00 am')->named('Alertes deadlines');
     }
 }

@@ -24,6 +24,6 @@ class Mailer extends BaseController
             }
         }
 
-        return count($data) . 'alerts sent to ' . $sent . ' out of ' . count($to);
+        return count($data) . ' alerts sent to ' . $sent . ' out of ' . count($to).' users.';
     }
 }
