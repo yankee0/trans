@@ -120,6 +120,6 @@ class CronJob extends \Daycry\CronJob\Config\CronJob
     public function init(Scheduler $schedule)
     {
         // Planifier l'exécution quotidienne à 8h
-        $schedule->url(base_url('cron/tc-deadline'))->daily('08:00 am')->named('Alertes deadlines');
+        $schedule->url(base_url('cron/tc-deadline'))->daily('07:31 am')->named('Alertes deadlines');
     }
 }
