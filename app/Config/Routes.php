@@ -42,6 +42,12 @@ $routes->group('cron', function($routes)
     $routes->add('tc-deadline','Cron::TCDeadline');
 });
 
+//OnlinePay
+$routes->group('pay', function($routes)
+{
+    $routes->add('delivery/(:segment)','Pay::payDelivery/$1');
+});
+
 $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('admin', ['filter' => 'admin'], function ($routes) {
         $routes->get('/', 'Admin::index');

@@ -164,7 +164,7 @@
         </div>
         <div>
           <p><strong>Compte Nº</strong> <?= $facture['id_client'] ?></p>
-          <p><strong>Date de facturation</strong> <?= date('d/m/Y',strtotime($facture['date_creation'])) ?></p>
+          <p><strong>Date de facturation</strong> <?= date('d/m/Y', strtotime($facture['date_creation'])) ?></p>
         </div>
       </div>
       <table class="table table-sm">
@@ -300,8 +300,11 @@
   </script>
 
   <!-- Bouton pour imprimer la page -->
-  <div class="text-center mt-4 mb-3 ">
-    <button class="btn btn-primary" onclick="printInvoice()">Imprimer la facture</button>
+  <div class="text-center mt-4 mb-3 d-flex gap-2 justify-content-center pb-5">
+    <?php if ($facture['paiement'] == 'NON') : ?>
+      <a class="btn btn-success" href="<?= base_url('pay/delivery/' . $facture['id']) ?>" role="button"><i data-feather="credit-card"></i> Payer la facture</a>
+    <?php endif ?>
+    <button class="btn btn-primary" onclick="printInvoice()"><i data-feather="printer"></i> Imprimer la facture</button>
   </div>
   <script>
     generateQRCode(
@@ -349,6 +352,7 @@
       return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
   </script>
+  <script src="<?= base_url('assets/js/app.js') ?>"></script>
 </body>
 
 
