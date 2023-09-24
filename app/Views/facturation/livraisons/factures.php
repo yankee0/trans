@@ -120,7 +120,7 @@
   <?php if (session()->has('n')) : ?>
     <div class="container">
       <div class="alert alert-danger" role="alert">
-        <strong>Erreur!</strong> Echec du paiement.
+        <strong>Erreur!</strong> Echec du paiement: <?= session()->n ?>
       </div>
     </div>
   <?php endif ?>
