@@ -43,7 +43,7 @@ $routes->group('cron', function ($routes) {
 
 //OnlinePay
 $routes->group('pay', function ($routes) {
-    $routes->post('ipn-delivery', 'Pay::IPNDelivery');
+    $routes->post('ipn-delivery/(:segment)', 'Pay::IPNDelivery/$1');
     $routes->get('delivery/(:segment)', 'Pay::payDelivery/$1');
 });
 

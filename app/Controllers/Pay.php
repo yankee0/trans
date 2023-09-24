@@ -27,7 +27,7 @@ class Pay extends BaseController
             "ref_command"  => $invoice['id'] . '_yankee_' . date('YmdHis'),
             "command_name" => "Facture Nº" . $invoice['id'] . ' de ' . $invoice['nom_client'] . ' facturé le ' . $invoice['date_creation'],
             "env"          => 'test',
-            "ipn_url"      => base_url(),
+            "ipn_url"      => base_url('pay/ipn-delivery/' . $invoice['id']),
             "success_url"  => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']),
             "cancel_url"   => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']),
         );
@@ -68,7 +68,7 @@ class Pay extends BaseController
         return !empty($_POST[$name]) ? $_POST[$name] : '';
     }
 
-    public function IPNDelivery()
+    public function IPNDelivery($inv)
     {
 
         $type_event = $this->get('type_event');
@@ -87,13 +87,13 @@ class Pay extends BaseController
 
 
         if (!(hash('sha256', $my_api_secret) === $api_secret_sha256 && hash('sha256', $my_api_key) === $api_key_sha256)) {
-            $inv = explode('_yankee_', $ref_command);
+
             //Enregistrement du paiement
-            // (new FactLiv())->save([
-            //     'id' => $inv[0],
-            //     'paiement' => 'OUI',
-            //     'date_paiement' => date('Y-m-d'),
-            // ]);
+            (new FactLiv())->save([
+                'id' => $inv,
+                'paiement' => 'OUI',
+                'date_paiement' => date('Y-m-d'),
+            ]);
 
             //rechercher de la facture
             $invoice = (new Facturations)
@@ -101,7 +101,7 @@ class Pay extends BaseController
                     (new FactLiv)
                         ->select('fact_liv.*,clients.nom as nom_client')
                         ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-                        ->find($inv[0])
+                        ->find($inv)
                 );
 
             //Envoie de l'email de confirmation de paiement
