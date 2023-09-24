@@ -38,7 +38,12 @@ class Pay extends BaseController
         ]);
 
         $response = json_decode($jsonResponse, true);
-        dd($response);
+
+        if ($response['success']) {
+            return redirect()->back()->with('n',true);
+        }else{
+            return redirect()->to($response['redirect_url']);
+        }
     }
 
     protected function postPay($url, $data = [], $header = [])

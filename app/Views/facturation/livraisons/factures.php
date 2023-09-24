@@ -117,6 +117,14 @@
 </head>
 
 <body class="text-dark py-3 print">
+  <?php if (session()->has('n')) : ?>
+    <div class="container">
+      <div class="alert alert-danger" role="alert">
+        <strong>Erreur!</strong> Echec du paiement.
+      </div>
+    </div>
+  <?php endif ?>
+
   <div id="invoice" class="container invoice-container bg-white" style="width: 794px;">
     <?php if (
       $facture['annulation'] == 'NON'
