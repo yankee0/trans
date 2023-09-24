@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\FactLiv;
 use App\Controllers\Facturations;
 use App\Models\Utilisateurs;
-use CodeIgniter\I18n\Time;
 
 class Pay extends BaseController
 {
