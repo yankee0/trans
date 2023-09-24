@@ -77,11 +77,11 @@ class CronJob extends \Daycry\CronJob\Config\CronJob
     | Notification of each task
     |
     */
-    public bool $notification = false;
-    public string $from = 'your@example.com';
-    public string $fromName = 'CronJob';
-    public string $to = 'your@example.com';
-    public string $toName = 'User';
+    public bool $notification = true;
+    public string $from = 'poly-cronjob@poly-trans.sn';
+    public string $fromName = 'PolyCron🗿';
+    public string $to = 'gorguifaye@poly-trans.sn';
+    public string $toName = 'Yankee Suprem';
 
     /*
     |--------------------------------------------------------------------------
