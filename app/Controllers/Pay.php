@@ -21,10 +21,10 @@ class Pay extends BaseController
 
 
         $postFields = array(
-            "item_name"    => 'Facture livraisons Nº' . $invoice['id'] ,
+            "item_name"    => 'Facture livraisons Nº' . $invoice['id'],
             "item_price"   => $invoice['total'],
             "currency"     => "XOF",
-            "ref_command"  => $invoice['id'].'_yankee_'.date('YmdHis'),
+            "ref_command"  => $invoice['id'] . '_yankee_' . date('YmdHis'),
             "command_name" => "Facture Nº" . $invoice['id'] . ' de ' . $invoice['nom_client'] . ' facturé le ' . $invoice['date_creation'],
             "env"          => 'test',
             "ipn_url"      => base_url(),
@@ -38,10 +38,10 @@ class Pay extends BaseController
         ]);
 
         $response = json_decode($jsonResponse, true);
-
-        if ($response['success']) {
-            return redirect()->back()->with('n',$response['message']['0']);
-        }else{
+        dd($response);
+        if (!$response['success']) {
+            return redirect()->back()->with('n', $response['message']['0']);
+        } else {
             return redirect()->to($response['redirect_url']);
         }
     }
