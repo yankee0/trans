@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\FactLiv;
 use App\Controllers\Facturations;
 use App\Models\Utilisateurs;
+use CodeIgniter\I18n\Time;
 
 class Pay extends BaseController
 {
@@ -21,10 +22,10 @@ class Pay extends BaseController
 
 
         $postFields = array(
-            "item_name"    => 'Facture de livraisons',
+            "item_name"    => 'Facture livraisons Nº' . $invoice['id'] ,
             "item_price"   => $invoice['total'],
             "currency"     => "XOF",
-            "ref_command"  => $invoice['id'],
+            "ref_command"  => $invoice['id'].'_yankee_'.date('YmdHis'),
             "command_name" => "Facture Nº" . $invoice['id'] . ' de ' . $invoice['nom_client'] . ' facturé le ' . $invoice['date_creation'],
             "env"          => 'test',
             "ipn_url"      => base_url(),
@@ -83,10 +84,10 @@ class Pay extends BaseController
 
 
         if (!(hash('sha256', $my_api_secret) === $api_secret_sha256 && hash('sha256', $my_api_key) === $api_key_sha256)) {
-
+            $inv = explode('_yankee_', $ref_command);
             //Enregistrement du paiement
             // (new FactLiv())->save([
-            //     'id' => $ref_command,
+            //     'id' => $inv[0],
             //     'paiement' => 'OUI',
             //     'date_paiement' => date('Y-m-d'),
             // ]);
@@ -97,7 +98,7 @@ class Pay extends BaseController
                     (new FactLiv)
                         ->select('fact_liv.*,clients.nom as nom_client')
                         ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-                        ->find($ref_command)
+                        ->find($inv[0])
                 );
 
             //Envoie de l'email de confirmation de paiement
