@@ -92,6 +92,7 @@ class Pay extends BaseController
             (new FactLiv())->save([
                 'id' => $inv,
                 'paiement' => 'OUI',
+                'reglement' => 'PAYTECH',
                 'date_paiement' => date('Y-m-d'),
             ]);
 
