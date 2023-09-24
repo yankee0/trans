@@ -38,7 +38,7 @@ class Pay extends BaseController
         ]);
 
         $response = json_decode($jsonResponse, true);
-
+        dd($response);
         if (!($response['success'] == 1)) {
             return redirect()->back()->with('n',true);
         }else{
