@@ -308,7 +308,7 @@
   </div>
   <script>
     generateQRCode(
-      "<?= base_url('docs/livraisons/details/' . $facture['id']) ?>",
+      "<?= base_url('espace-client/livraisons/details/' . $facture['id']) ?>",
       'qrcode'
     )
 

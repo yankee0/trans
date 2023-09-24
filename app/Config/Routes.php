@@ -34,18 +34,17 @@ $routes->post('/', 'Auth::login');
 $routes->get('/deconnexion', 'Auth::logout');
 $routes->get('/(:segment)/livraisons/details/(:segment)', 'FactLiv::showInvoice/$2');
 
-$routes->get('/check','Check::checkDoubleRav');
+$routes->get('/check', 'Check::checkDoubleRav');
 
 //Cron routes
-$routes->group('cron', function($routes)
-{
-    $routes->add('tc-deadline','Cron::TCDeadline');
+$routes->group('cron', function ($routes) {
+    $routes->add('tc-deadline', 'Cron::TCDeadline');
 });
 
 //OnlinePay
-$routes->group('pay', function($routes)
-{
-    $routes->add('delivery/(:segment)','Pay::payDelivery/$1');
+$routes->group('pay', function ($routes) {
+    $routes->post('ipn-delivery', 'Pay::IPNDelivery');
+    $routes->get('delivery/(:segment)', 'Pay::payDelivery/$1');
 });
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
@@ -172,8 +171,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->get('/', 'Rapports::index_pregate');
                 $routes->post('/', 'Rapports::generate_pregate');
             });
-            
-            
+
+
             $routes->group('livraisons', function ($routes) {
                 $routes->get('/', 'Rapports::index_livraison');
                 $routes->post('/', 'Rapports::generate_livraison');
@@ -332,8 +331,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->get('/', 'Rapports::index_pregate');
                 $routes->post('/', 'Rapports::generate_pregate');
             });
-            
-            
+
+
             $routes->group('livraisons', function ($routes) {
                 $routes->get('/', 'Rapports::index_livraison');
                 $routes->post('/', 'Rapports::generate_livraison');
@@ -393,8 +392,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->get('/', 'Rapports::index_pregate');
                 $routes->post('/', 'Rapports::generate_pregate');
             });
-            
-            
+
+
             $routes->group('livraisons', function ($routes) {
                 $routes->get('/', 'Rapports::index_livraison');
                 $routes->post('/', 'Rapports::generate_livraison');
