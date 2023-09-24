@@ -80,7 +80,7 @@
       <p>Ci-dessous la liste des <strong class="red"><?= count($tcs) ?> conteneurs</strong> à moins de <strong>48H</strong> de leurs deadlines:</p>
       <ul>
         <?php foreach ($tcs as $tc) : ?>
-          <li><strong><?= $tc['designation'] ?></strong> du TC <strong class="red"><?= $tc['conteneur'] ?> <?= $tc['type'] ?>'</strong> pour le client <strong><?= $tc['client'] ?></strong>. Pregate reçu le <strong><?= date('d/m/Y', strtotime($tc['date_creation'])) ?></strong> et <strong><?= $tc['paiement'] == 'OUI' ? 'payé le ' . date('d/m/Y', strtotime($tc['date_creation'])).'.' : 'NON PAYÉ.' ?></strong>
+          <li><strong><?= $tc['designation'] ?></strong> du TC <strong class="red"><?= $tc['conteneur'] ?> de type <?= $tc['type'] ?>'</strong> pour le client <strong><?= $tc['client'] ?></strong>.Deadline prévu le <strong><?= date('d/m/Y', strtotime($tc['deadline'])) ?></strong>, Pregate reçu le <strong><?= date('d/m/Y', strtotime($tc['date_creation'])) ?></strong> et <strong><?= $tc['paiement'] == 'OUI' ? 'payé le ' . date('d/m/Y', strtotime($tc['date_creation'])).'.' : 'NON PAYÉ.' ?></strong>
           <?php endforeach ?>
       </ul>
       <p>Pour plus d'informations connectez vous à votre interface de gestion:</p>
