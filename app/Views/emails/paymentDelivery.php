@@ -78,7 +78,7 @@
     <main>
       <p>Bonjour <?= $nom ?>,</p>
       <p>
-        La facture <strong>Nº <?= $data['id'] ?></strong> du client <strong><?= $data['nom_client'] ?></strong> du montant de <strong><?= $data['total'] ?> XOF TTC</strong> a été payée avec succès.
+        La facture <strong>Nº <?= $data['id'] ?></strong> du client <strong><?= $data['nom_client'] ?></strong> d'un montant de <strong><?= $data['total'] ?> (<span class=" text-uppercase" id="lettre"></span>) XOF TTC</strong> a été payée avec succès.
       </p>
 
       <p>Pour plus d'informations connectez vous à votre interface de gestion:</p>
@@ -92,6 +92,12 @@
     </footer>
 
   </div>
+  <script src="<?= base_url('assets/js/compter.js') ?>"></script>
+  <script>
+    const nombre = <?= $ttc ?>;
+    const resultat = NumberToLetter(nombre);
+    document.getElementById('lettre').innerHTML = resultat
+  </script>
 </body>
 
 </html>

@@ -26,7 +26,7 @@ class Pay extends BaseController
             "currency"     => "XOF",
             "ref_command"  => $invoice['id'] . '_yankee_' . date('YmdHis'),
             "command_name" => "Facture Nº" . $invoice['id'] . ' de ' . $invoice['nom_client'] . ' facturé le ' . $invoice['date_creation'],
-            "env"          => 'test',
+            "env"          => 'prod',
             "ipn_url"      => base_url('pay/ipn-delivery/' . $invoice['id']),
             "success_url"  => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']),
             "cancel_url"   => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']),
