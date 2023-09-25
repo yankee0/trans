@@ -21,15 +21,15 @@ class Pay extends BaseController
 
 
         $postFields = array(
-            "item_name"    => 'Facture livraisons Nº' . $invoice['id'],
+            "item_name"    => 'Facture Nº' . $invoice['id'],
             "item_price"   => $invoice['total'],
             "currency"     => "XOF",
             "ref_command"  => $invoice['id'] . '_yankee_' . date('YmdHis'),
-            "command_name" => "Facture Nº" . $invoice['id'] . ' de ' . $invoice['nom_client'] . ' facturé le ' . $invoice['date_creation'],
+            "command_name" => "Facture de livraison Nº" . $invoice['id'] . ' du client ' . $invoice['nom_client'] . ' créé le ' . $invoice['date_creation'],
             "env"          => 'prod',
             "ipn_url"      => base_url('pay/ipn-delivery/' . $invoice['id']),
-            "success_url"  => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']) . '?reload=true',
-            "cancel_url"   => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']) . '?reload=true',
+            "success_url"  => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']) . '?reload=reload',
+            "cancel_url"   => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']) . '?reload=reload',
         );
 
         $jsonResponse = $this->postPay('https://paytech.sn/api/payment/request-payment', $postFields, [
@@ -38,7 +38,7 @@ class Pay extends BaseController
         ]);
 
         $response = json_decode($jsonResponse, true);
-        if (!$response['success']) {
+        if (!isset($response['redirect_url'])) {
             return redirect()->back()->with('n', $response['error'][0]);
         } else {
             return redirect()->to($response['redirect_url']);

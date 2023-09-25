@@ -201,7 +201,7 @@
 
                       <div class="row">
                         <?php foreach ($z['c_20'] as $c) : ?>
-                          <div class="col-6 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
+                          <div class="col-4 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
                         <?php endforeach ?>
                       </div>
                     </div>
@@ -212,7 +212,7 @@
 
                       <div class="row">
                         <?php foreach ($z['c_40'] as $c) : ?>
-                          <div class="col-6 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
+                          <div class="col-4 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
                         <?php endforeach ?>
                       </div>
                     </div>
