@@ -28,8 +28,8 @@ class Pay extends BaseController
             "command_name" => "Facture de livraison Nº" . $invoice['id'] . ' du client ' . $invoice['nom_client'] . ' créé le ' . $invoice['date_creation'],
             "env"          => 'prod',
             "ipn_url"      => base_url('pay/ipn-delivery/' . $invoice['id']),
-            "success_url"  => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']) . '?reload=reload',
-            "cancel_url"   => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']) . '?reload=reload',
+            "success_url"  => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']),
+            "cancel_url"   => base_url(session()->has('u') ? session()->r . '/livraisons/details/' . $invoice['id'] : 'espace-client' . '/livraisons/details/' . $invoice['id']),
         );
 
         $jsonResponse = $this->postPay('https://paytech.sn/api/payment/request-payment', $postFields, [
