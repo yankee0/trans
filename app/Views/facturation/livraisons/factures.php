@@ -360,12 +360,6 @@
       return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
   </script>
-  <?php if (isset($_GET['reload'])) : ?>
-    <script>
-      const reload = window.location.host + window.location.pathname;
-      window.location = reload;
-    </script>
-  <?php endif ?>
   <script src="<?= base_url('assets/js/app.js') ?>"></script>
 </body>
 
