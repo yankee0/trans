@@ -201,7 +201,7 @@
 
                       <div class="row">
                         <?php foreach ($z['c_20'] as $c) : ?>
-                          <div class="col-6 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
+                          <div class="col-4 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
                         <?php endforeach ?>
                       </div>
                     </div>
@@ -212,7 +212,7 @@
 
                       <div class="row">
                         <?php foreach ($z['c_40'] as $c) : ?>
-                          <div class="col-6 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
+                          <div class="col-4 text-uppercase text-sm text-muted"><small><?= $c['conteneur'] ?></small></div>
                         <?php endforeach ?>
                       </div>
                     </div>
@@ -360,6 +360,12 @@
       return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
   </script>
+  <?php if (isset($_GET['reload'])) : ?>
+    <script>
+      const reload = window.location.host + window.location.pathname;
+      window.location = reload;
+    </script>
+  <?php endif ?>
   <script src="<?= base_url('assets/js/app.js') ?>"></script>
 </body>
 
