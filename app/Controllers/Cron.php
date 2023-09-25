@@ -28,7 +28,7 @@ class Cron extends BaseController
             ->join('fact_liv', 'fact_liv.id = fact_liv_lieux.id_fact', 'left')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->where('fact_liv.annulation', 'NON')
-            ->where('fact_liv.deadline', !null)
+            ->where('fact_liv.deadline !=', null)
             ->where('fact_liv.deadline <=', date('Y-m-d', strtotime('+2 days')))
             ->where('livraisons.etat !=', 'LIVRÉ')
             ->where('livraisons.etat !=', 'EN COURS')
