@@ -146,53 +146,53 @@ Pregate livraisons
   </div>
 <?php else : ?>
   <div class="row">
-    <h2><?= count($daily_pg) ?> enregistré(s) aujourd'hui</h2>
+    <h2>Derniers enregistrements</h2>
   </div>
   <div class="row">
-    <?php foreach ($daily_pg as $pg) : ?>
+    <?php foreach ($pg as $p) : ?>
       <div class="col-sm-6 col-xl-4">
         <div class="card flex-fill">
           <div class="card-body">
             <div>
-              <?php if ($pg['livres'] != 0 and $pg['restants'] == 0 and $pg['encours'] == 0) : ?>
+              <?php if ($p['livres'] != 0 and $p['restants'] == 0 and $p['encours'] == 0) : ?>
                 <span class="badge bg-success">Lot achevé</span>
               <?php endif ?>
-              <span class="badge bg-<?= $pg['paiement'] == 'OUI' ? 'success' : 'danger' ?>"><?= $pg['paiement'] == 'OUI' ? 'Payé le ' . $pg['date_paiement'] : 'Non payé' ?></span>
-              <?php if ($pg['amendement'] == 'OUI') : ?>
+              <span class="badge bg-<?= $p['paiement'] == 'OUI' ? 'success' : 'danger' ?>"><?= $p['paiement'] == 'OUI' ? 'Payé le ' . $p['date_paiement'] : 'Non payé' ?></span>
+              <?php if ($p['amendement'] == 'OUI') : ?>
                 <span class="badge bg-warning">Amendement</span>
               <?php endif ?>
             </div>
-            <div class="h2"><a href="<?= base_url(session()->r . '/search?search=' . $pg['bl']) ?>">Lot de <?= $pg['livres'] + $pg['encours'] + $pg['restants'] ?> conteneur(s) <i data-feather="link"></i></a></div>
+            <div class="h2"><a href="<?= base_url(session()->r . '/search?search=' . $p['bl']) ?>">Lot de <?= $p['livres'] + $p['encours'] + $p['restants'] ?> conteneur(s) <i data-feather="link"></i></a></div>
             <hr>
             <div class="d-flex gap-3">
               <div class="flex-fill flex-grow-1">
-                <div><small class=" text-black-50">Client:</small><br><?= $pg['nom'] ?></div>
-                <div><small class=" text-black-50">Compagnie:</small><br><?= $pg['compagnie'] ?></div>
-                <div><small class=" text-black-50">BL:</small><br><?= $pg['bl'] ?></div>
+                <div><small class=" text-black-50">Client:</small><br><?= $p['nom'] ?></div>
+                <div><small class=" text-black-50">Compagnie:</small><br><?= $p['compagnie'] ?></div>
+                <div><small class=" text-black-50">BL:</small><br><?= $p['bl'] ?></div>
               </div>
               <div class="flex-fill flex-grow-1">
-                <div><small class=" text-black-50">Nº facture:</small><br><a href="<?= base_url('factures/livraisons/details/' . $pg['id']) ?>" target="_blank"><?= $pg['id'] ?> <i data-feather="link"></i></a></div>
-                <div><small class=" text-black-50">Date pregate:</small><br><?= date('d/m/Y', strtotime($pg['date_pg'])) ?></div>
-                <div><small class=" text-black-50">Deadline:</small><br><span class="text-<?= (!empty($pg['deadline']) and date('Y-m-d', strtotime($pg['deadline'])) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($pg['deadline'])) ?></span></div>
+                <div><small class=" text-black-50">Nº facture:</small><br><a href="<?= base_url('factures/livraisons/details/' . $p['id']) ?>" target="_blank"><?= $p['id'] ?> <i data-feather="link"></i></a></div>
+                <div><small class=" text-black-50">Date pregate:</small><br><?= date('d/m/Y', strtotime($p['date_pg'])) ?></div>
+                <div><small class=" text-black-50">Deadline:</small><br><span class="text-<?= (!empty($p['deadline']) and date('Y-m-d', strtotime($p['deadline'])) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($p['deadline'])) ?></span></div>
               </div>
             </div>
             <hr>
             <div class="d-flex justify-content-between">
               <div>
                 <span class="text-sm text-black-50">LIVRÉS</span> <br>
-                <span class="fs-2 text-success"><?= $pg['livres'] ?></span>
+                <span class="fs-2 text-success"><?= $p['livres'] ?></span>
               </div>
               <div>
                 <span class="text-sm text-black-50">EN COURS</span> <br>
-                <span class="fs-2 text-warning"><?= $pg['encours'] ?></span>
+                <span class="fs-2 text-warning"><?= $p['encours'] ?></span>
               </div>
               <div>
                 <span class="text-sm text-black-50">ANNULÉS</span> <br>
-                <span class="fs-2 text-danger"><?= $pg['annules'] ?></span>
+                <span class="fs-2 text-danger"><?= $p['annules'] ?></span>
               </div>
               <div>
                 <span class="text-sm text-black-50">RESTANTS</span> <br>
-                <span class="fs-2 text-info"><?= $pg['restants'] ?></span>
+                <span class="fs-2 text-info"><?= $p['restants'] ?></span>
               </div>
             </div>
           </div>
