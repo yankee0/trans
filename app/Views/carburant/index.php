@@ -20,9 +20,14 @@ Gestion du carburant
             <small class="text-muted">Dernière recharge de <span class="num"><?= $recs[0]['montant'] ?></span> de FCFA par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
           <?php endif ?>
         </div>
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
-        </div>
+        <?php if (
+          session()->u == 'ADMIN'
+          or session()->u == 'FINANCE'
+        ) : ?>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
+          </div>
+        <?php endif ?>
       </div>
     </div>
   </div>

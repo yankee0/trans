@@ -315,7 +315,7 @@ class Livraisons extends BaseController
     {
         session()->p = 'pregate';
         return view('ops/livraisons/pregate', [
-            'daily_pg' => $this->getLastpregate(date('Y-m-d')),
+            'pg' => $this->getLastpregate(date('Y-m-d', strtotime('-1 week')), date('Y-m-d')),
 
             'drivers' => (new Chauffeurs())
                 ->orderBy('nom')
@@ -333,7 +333,7 @@ class Livraisons extends BaseController
             $res = (new FactLiv())
                 ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
                 ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-                ->orderBy('fact_liv.date_pg', 'DESC')
+                ->orderBy('fact_liv.date_pg', 'desc')
                 ->find();
             $occ = [];
             for ($i = 0; $i < sizeof($res); $i++) {
@@ -349,12 +349,12 @@ class Livraisons extends BaseController
             $res = (new FactLiv())
                 ->select('fact_liv.*, fact_liv.id as facture, clients.nom AS nom')
                 ->join('clients', 'clients.id = fact_liv.id_client', 'left')
-                ->orderBy('fact_liv.deadline', 'asc')
+                ->orderBy('fact_liv.date_pg', 'desc')
                 ->where('fact_liv.date_pg', $from)
                 ->find();
         }
 
-        
+
 
 
         //Recuperation des zones
@@ -400,7 +400,7 @@ class Livraisons extends BaseController
                                 $res[$i]['encours'] += 1;
                             } else if ($etat == 'LIVRÉ') {
                                 $res[$i]['livres'] += 1;
-                            }else if ($etat == 'ANNULÉ') {
+                            } else if ($etat == 'ANNULÉ') {
                                 $res[$i]['annules'] += 1;
                             } else if (
                                 $etat == 'SUR PLATEAU'

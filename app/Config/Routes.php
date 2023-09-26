@@ -226,7 +226,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('carburant', function ($routes) {
             $routes->get('/', 'Carburant::index');
             $routes->post('/', 'Carburant::ravitaillement');
-            $routes->post('recharge', 'Carburant::recharge');
+            // $routes->post('recharge', 'Carburant::recharge');
             $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
             $routes->post('modifier', 'Carburant::modRav');
         });
@@ -376,11 +376,124 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
         });
 
+        //gestion des chauffeurs
+        $routes->group('chauffeurs', function ($routes) {
+            $routes->get('/', 'Chauffeurs::list');
+            $routes->post('/', 'Chauffeurs::add');
+            $routes->get('del/(:segment)', 'Chauffeurs::delete/$1');
+            $routes->post('del', 'Chauffeurs::delete');
+            $routes->post('edit', 'Chauffeurs::edit');
+            $routes->get('search', 'Chauffeurs::search');
+        });
+
+        //gestion des camions
+        $routes->group('camions', function ($routes) {
+            $routes->get('/', 'Camions::list');
+            $routes->post('/', 'Camions::add');
+            $routes->get('del/(:segment)', 'Camions::delete/$1');
+            $routes->post('del', 'Camions::delete');
+            $routes->post('edit', 'Camions::edit');
+            $routes->get('search', 'Camions::search');
+        });
+
+        //gestion des remorques
+        $routes->group('remorques', function ($routes) {
+            $routes->get('/', 'Remorques::list');
+            $routes->post('/', 'Remorques::add');
+            $routes->get('del/(:segment)', 'Remorques::delete/$1');
+            $routes->post('del', 'Remorques::delete');
+            $routes->post('edit', 'Remorques::edit');
+            $routes->get('search', 'Remorques::search');
+        });
+
+        // rapport
+        $routes->group('rapports', function ($routes) {
+            $routes->get('/', 'Rapports::index');
+            $routes->group('pregate', function ($routes) {
+                $routes->get('/', 'Rapports::index_pregate');
+                $routes->post('/', 'Rapports::generate_pregate');
+            });
+
+
+            $routes->group('livraisons', function ($routes) {
+                $routes->get('/', 'Rapports::index_livraison');
+                $routes->post('/', 'Rapports::generate_livraison');
+            });
+            // not able
+            // $routes->group('finance', function ($routes) {
+            //     $routes->get('/', 'Rapports::index_finance');
+            //     $routes->post('/', 'Rapports::generate_finance');
+            // });
+            $routes->group('carburant', function ($routes) {
+                $routes->get('/', 'Rapports::index_carburant');
+                $routes->post('/', 'Rapports::generate_carburant');
+            });
+        });
+    });
+
+    $routes->group('ops-terrain', ['filter' => 'ops-terrain'], function ($routes) {
+        $routes->get('/', 'Ops::index');
+        $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
+        $routes->get('search', 'Ops::search');
+
+        //gestion des zones
+        $routes->group('zones', function ($routes) {
+            $routes->get('/', 'Zones::list');
+            $routes->post('/', 'Zones::add');
+            $routes->get('del/(:segment)', 'Zones::delete/$1');
+            $routes->post('del', 'Zones::delete');
+            $routes->post('edit', 'Zones::edit');
+            $routes->get('search', 'Zones::search');
+        });
+
+        //gestion des livraisons
+        $routes->group('livraisons', function ($routes) {
+            $routes->get('/', 'Livraisons::index');
+            $routes->get('infos/(:segment)/(:segment)', 'Livraisons::info/$1/$2');
+            $routes->post('/', 'Livraisons::save');
+            $routes->post('abord', 'Livraisons::abord');
+            $routes->get('drop/(:segment)', 'Livraisons::drop/$1');
+            $routes->get('up/(:segment)', 'Livraisons::up/$1');
+            $routes->get('pregate', 'Livraisons::pregate');
+            $routes->post('pregate', 'Livraisons::checkPreGate');
+            $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
+        });
+
+        //gestion des chauffeurs
+        $routes->group('chauffeurs', function ($routes) {
+            $routes->get('/', 'Chauffeurs::list');
+            $routes->post('/', 'Chauffeurs::add');
+            $routes->get('del/(:segment)', 'Chauffeurs::delete/$1');
+            $routes->post('del', 'Chauffeurs::delete');
+            $routes->post('edit', 'Chauffeurs::edit');
+            $routes->get('search', 'Chauffeurs::search');
+        });
+
+        //gestion des camions
+        $routes->group('camions', function ($routes) {
+            $routes->get('/', 'Camions::list');
+            $routes->post('/', 'Camions::add');
+            $routes->get('del/(:segment)', 'Camions::delete/$1');
+            $routes->post('del', 'Camions::delete');
+            $routes->post('edit', 'Camions::edit');
+            $routes->get('search', 'Camions::search');
+        });
+
+        //gestion des remorques
+        $routes->group('remorques', function ($routes) {
+            $routes->get('/', 'Remorques::list');
+            $routes->post('/', 'Remorques::add');
+            $routes->get('del/(:segment)', 'Remorques::delete/$1');
+            $routes->post('del', 'Remorques::delete');
+            $routes->post('edit', 'Remorques::edit');
+            $routes->get('search', 'Remorques::search');
+        });
+
         //gestion du carburant
         $routes->group('carburant', function ($routes) {
             $routes->get('/', 'Carburant::index');
             $routes->post('/', 'Carburant::ravitaillement');
-            $routes->post('recharge', 'Carburant::recharge');
+            // $routes->post('recharge', 'Carburant::recharge');
             $routes->get('supprimer/(:segment)', 'Carburant::supRav/$1');
             $routes->post('modifier', 'Carburant::modRav');
         });
