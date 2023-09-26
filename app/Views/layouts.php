@@ -30,6 +30,7 @@
             or (session()->r == 'facturation')
             or (session()->r == 'finance')
             or (session()->r == 'ops')
+            or (session()->r == 'ops-terrain')
           ) : ?>
             <li class="sidebar-item <?= (session()->p == 'dashboard') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r) ?>">
@@ -61,6 +62,7 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'flotte'
+            or session()->r == 'ops-terrain'
           ) : ?>
 
             <li class="sidebar-header">
@@ -95,6 +97,7 @@
           <?php if (
             session()->r == 'admin'
             or session()->r == 'ops'
+            or session()->r == 'ops-terrain'
             or session()->r == 'facturation'
           ) : ?>
             <li class="sidebar-header">
@@ -194,6 +197,7 @@
             session()->r == 'admin'
             or session()->r == 'finance'
             or session()->r == 'ops'
+            or session()->r == 'ops-terrain'
           ) : ?>
             <li class="sidebar-header">
               Statisques
