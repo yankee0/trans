@@ -155,9 +155,10 @@ Liste des utilisateurs
           <label for="profil" class="form-label">Profil<span class="text-danger">*</span> </label>
           <select class="form-select" name="profil" id="profil" required>
             <option <?= set_select('profil', '', true) ?> hidden value="">Sélectionner un profil</option>
-            <option <?= set_select('profil', 'AMDIN') ?> value="ADMIN">ADMIN</option>
+            <option <?= set_select('profil', 'ADMIN') ?> value="ADMIN">ADMIN</option>
             <option <?= set_select('profil', 'FACTURATION') ?> value="FACTURATION">FACTURATION</option>
             <option <?= set_select('profil', 'OPS') ?> value="OPS">OPS</option>
+            <option <?= set_select('profil', 'OPS TERRAIN') ?> value="OPS TERRAIN">OPS TERRAIN</option>
             <option <?= set_select('profil', 'FINANCE') ?> value="FINANCE">FINANCE</option>
             <option <?= set_select('profil', 'FLOTTE') ?> value="FLOTTE">FLOTTE</option>
           </select>
@@ -200,9 +201,10 @@ Liste des utilisateurs
           <label for="profilmod" class="form-label">Profil<span class="text-danger">*</span> </label>
           <select class="form-select" name="profil" id="profilmod" required>
             <option class="op" <?= set_select('profil', '', true) ?> hidden value="">Sélectionner un profil</option>
-            <option class="op" <?= set_select('profil', 'AMDIN') ?> value="ADMIN">ADMIN</option>
+            <option class="op" <?= set_select('profil', 'ADMIN') ?> value="ADMIN">ADMIN</option>
             <option class="op" <?= set_select('profil', 'FACTURATION') ?> value="FACTURATION">FACTURATION</option>
             <option class="op" <?= set_select('profil', 'OPS') ?> value="OPS">OPS</option>
+            <option class="op" <?= set_select('profil', 'OPS TERRAIN') ?> value="OPS TERRAIN">OPS TERRAIN</option>
             <option class="op" <?= set_select('profil', 'FINANCE') ?> value="FINANCE">FINANCE</option>
             <option class="op" <?= set_select('profil', 'FLOTTE') ?> value="FLOTTE">FLOTTE</option>
           </select>

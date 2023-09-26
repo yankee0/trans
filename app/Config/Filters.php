@@ -9,6 +9,7 @@ use App\Filters\Facturation;
 use App\Filters\Finance;
 use App\Filters\Flotte;
 use App\Filters\Ops;
+use App\Filters\OpsTerrain;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -34,7 +35,8 @@ class Filters extends BaseConfig
         'facturation'   => Facturation::class,
         'api-auth'      => Api::class,
         'finance'       => Finance::class,
-        'ops'           => Ops::class
+        'ops'           => Ops::class,
+        'ops-terrain'   => OpsTerrain::class,
     ];
 
     /**

@@ -55,6 +55,10 @@ class Auth extends BaseController
                     session()->set('r', 'ops');
                     return redirect()->to(session()->r);
                     break;
+                case 'OPS TERRAIN':
+                    session()->set('r', 'ops-terrain');
+                    return redirect()->to(session()->r);
+                    break;
                 default:
                     return redirect()
                         ->back()

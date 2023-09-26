@@ -215,3 +215,55 @@ in SYSTEMPATH/BaseModel.php on line 924.
 INFO - 2023-09-26 10:22:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-09-26 10:22:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-09-26 10:22:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:29:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2023-09-26 10:29:52 --> mysqli_sql_exception: Table 'polytrans.utilisateur' doesn't exist in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('ALTER TABLE `ut...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ut...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ut...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/Forge.php(806): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ut...')
+#4 /Users/mac/Desktop/polytrans/app/app/Database/Migrations/2023-09-26-102553_OpsTerrain.php(11): CodeIgniter\Database\Forge->modifyColumn('utilisateur', Array)
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(877): App\Database\Migrations\OpsTerrain->up()
+#6 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CLI/Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CLI/Console.php(37): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 /Users/mac/Desktop/polytrans/app/spark(97): CodeIgniter\CLI\Console->run()
+#11 {main}
+ERROR - 2023-09-26 10:30:00 --> mysqli_sql_exception: Table 'polytrans.utilisateur' doesn't exist in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('ALTER TABLE `ut...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ut...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ut...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/Forge.php(806): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ut...')
+#4 /Users/mac/Desktop/polytrans/app/app/Database/Migrations/2023-09-26-102553_OpsTerrain.php(11): CodeIgniter\Database\Forge->modifyColumn('utilisateur', Array)
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(877): App\Database\Migrations\OpsTerrain->up()
+#6 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CLI/Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CLI/Console.php(37): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 /Users/mac/Desktop/polytrans/app/spark(97): CodeIgniter\CLI\Console->run()
+#11 {main}
+INFO - 2023-09-26 10:38:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:53:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:56:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:56:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:56:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:56:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:56:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:56:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:58:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:58:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:58:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:58:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:58:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:59:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
