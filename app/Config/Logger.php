@@ -38,7 +38,7 @@ class Logger extends BaseConfig
      *
      * @var array|int
      */
-    public $threshold = (ENVIRONMENT === 'production') ? 9 : 9;
+    public $threshold = (ENVIRONMENT === 'production') ? 0 : 9;
 
     /**
      * --------------------------------------------------------------------------
@@ -117,7 +117,7 @@ class Logger extends BaseConfig
              * By default, logs are written to WRITEPATH . 'logs/'
              * Specify a different destination here, if desired.
              */
-            'path' => 'public',
+            'path' => '',
         ],
 
         /*
