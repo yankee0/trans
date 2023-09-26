@@ -17,7 +17,7 @@ Liste des utilisateurs
     <div class="col-12 d-flex">
       <div class="card flex-fill">
         <div class="card-body ">
-          <form action="<?= base_url(session()->r.'/utilisateurs/search') ?>" class="d-flex gap-2">
+          <form action="<?= base_url(session()->r . '/utilisateurs/search') ?>" class="d-flex gap-2">
             <input type="search" value="<?= (isset($search)) ? $search : '' ?>" class="form-control flex-grow-1" name="search" id="search" placeholder="Rechercher un utilisateur">
             <button class="btn btn-primary d-flex gap-2 justify-content-center align-items-center"><i data-feather="search"></i> <span class="d-none d-md-flex">Rechercher</span></button>
           </form>
@@ -48,10 +48,11 @@ Liste des utilisateurs
                 <tr>
                   <th></th>
                   <th>Nom</th>
-                  <th class="d-none d-sm-table-cell">Profil</th>
-                  <th class="d-none d-xl-table-cell">Email</th>
-                  <th class="d-none d-xl-table-cell">Téléphone</th>
-                  <th class="d-none d-sm-table-cell">Date de création</th>
+                  <th>Profil</th>
+                  <th>Email</th>
+                  <th>Téléphone</th>
+                  <th>Date de création</th>
+                  <th>Connecté dernièrement le</th>
                   <th></th>
                 </tr>
               </thead>
@@ -65,10 +66,11 @@ Liste des utilisateurs
                       <input class="form-check-input" type="checkbox" name="id[]" value="<?= $l['id'] ?>" id="c-<?= $l['id'] ?>">
                     </td>
                     <td><?= $l['nom'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['profil'] ?></td>
-                    <td class="d-none d-xl-table-cell"><?= $l['email'] ?></td>
-                    <td class="d-none d-xl-table-cell"><?= $l['tel'] ?></td>
-                    <td class="d-none d-sm-table-cell"><?= $l['created_at'] ?></td>
+                    <td><?= $l['profil'] ?></td>
+                    <td><?= $l['email'] ?></td>
+                    <td><?= $l['tel'] ?></td>
+                    <td><?= $l['created_at'] ?></td>
+                    <td><?= $l['last_login'] ? date('d/m/Y à H:i:s', strtotime($l['last_login'])) : '' ?></td>
                     <td>
                       <div class="d-flex gap-2">
                         <button type="button" data-id="<?= $l['id'] ?>" data-nom="<?= $l['nom'] ?>" data-profil="<?= $l['profil'] ?>" data-tel="<?= $l['tel'] ?>" data-email="<?= $l['email'] ?>" class="delete btn text-danger" title="Supprimer l'utilisateur" data-bs-toggle="modal" data-bs-target="#delete">
@@ -257,7 +259,7 @@ Liste des utilisateurs
     $('#telmod').val($(this).data('tel'));
     $('#submod').val($(this).data('id'));
     $('#profilmod').val($(this).data('profil'));
-    
+
   });
 </script>
 <?= $this->endSection(); ?>

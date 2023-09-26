@@ -135,3 +135,83 @@ INFO - 2023-09-26 09:40:28 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2023-09-26 09:40:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-09-26 09:40:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-09-26 09:40:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:14:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:15:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:15:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:15:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:15:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:15:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:15:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:20:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-09-26 10:20:14 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH/Views/utilisateurs/list.php on line 73.
+ 1 APPPATH/Views/utilisateurs/list.php(73): strtotime(null)
+ 2 SYSTEMPATH/View/View.php(213): include('/Users/mac/Desktop/polytrans/app/app/Views/utilisateurs/list.php')
+ 3 SYSTEMPATH/View/View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1184): CodeIgniter\View\View->render('utilisateurs/list', [], true)
+ 5 APPPATH/Controllers/Utilisateurs.php(76): view('utilisateurs/list', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Utilisateurs->list()
+ 7 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Utilisateurs))
+ 8 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+WARNING - 2023-09-26 10:20:14 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH/Views/utilisateurs/list.php on line 73.
+ 1 APPPATH/Views/utilisateurs/list.php(73): strtotime(null)
+ 2 SYSTEMPATH/View/View.php(213): include('/Users/mac/Desktop/polytrans/app/app/Views/utilisateurs/list.php')
+ 3 SYSTEMPATH/View/View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1184): CodeIgniter\View\View->render('utilisateurs/list', [], true)
+ 5 APPPATH/Controllers/Utilisateurs.php(76): view('utilisateurs/list', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Utilisateurs->list()
+ 7 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Utilisateurs))
+ 8 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+WARNING - 2023-09-26 10:20:14 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH/Views/utilisateurs/list.php on line 73.
+ 1 APPPATH/Views/utilisateurs/list.php(73): strtotime(null)
+ 2 SYSTEMPATH/View/View.php(213): include('/Users/mac/Desktop/polytrans/app/app/Views/utilisateurs/list.php')
+ 3 SYSTEMPATH/View/View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1184): CodeIgniter\View\View->render('utilisateurs/list', [], true)
+ 5 APPPATH/Controllers/Utilisateurs.php(76): view('utilisateurs/list', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Utilisateurs->list()
+ 7 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Utilisateurs))
+ 8 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+WARNING - 2023-09-26 10:20:14 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH/Views/utilisateurs/list.php on line 73.
+ 1 APPPATH/Views/utilisateurs/list.php(73): strtotime(null)
+ 2 SYSTEMPATH/View/View.php(213): include('/Users/mac/Desktop/polytrans/app/app/Views/utilisateurs/list.php')
+ 3 SYSTEMPATH/View/View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1184): CodeIgniter\View\View->render('utilisateurs/list', [], true)
+ 5 APPPATH/Controllers/Utilisateurs.php(76): view('utilisateurs/list', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Utilisateurs->list()
+ 7 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Utilisateurs))
+ 8 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+WARNING - 2023-09-26 10:20:14 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH/Views/utilisateurs/list.php on line 73.
+ 1 APPPATH/Views/utilisateurs/list.php(73): strtotime(null)
+ 2 SYSTEMPATH/View/View.php(213): include('/Users/mac/Desktop/polytrans/app/app/Views/utilisateurs/list.php')
+ 3 SYSTEMPATH/View/View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1184): CodeIgniter\View\View->render('utilisateurs/list', [], true)
+ 5 APPPATH/Controllers/Utilisateurs.php(76): view('utilisateurs/list', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Utilisateurs->list()
+ 7 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Utilisateurs))
+ 8 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+INFO - 2023-09-26 10:21:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:21:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:21:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:21:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-09-26 10:21:44 --> There is no data to update.
+in SYSTEMPATH/BaseModel.php on line 924.
+ 1 SYSTEMPATH/BaseModel.php(924): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(756): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/Auth.php(36): CodeIgniter\Model->update('1', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Auth->login()
+ 5 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 6 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+INFO - 2023-09-26 10:22:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:22:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 10:22:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

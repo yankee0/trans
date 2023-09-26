@@ -19,6 +19,7 @@ class Utilisateurs extends Model
         'tel',
         'email',
         'mdp',
+        'last_login',
         'id'
     ];
 

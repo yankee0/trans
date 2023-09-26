@@ -9,7 +9,7 @@ class Auth extends BaseController
 {
     public function index()
     {
-        
+
         return session()->has('u') ? redirect()->to(session()->r) : view('login');
     }
 
@@ -31,6 +31,9 @@ class Auth extends BaseController
             unset($occ['mdp']);
             session()->set('u', $occ);
             session()->set('p', 'dashboard');
+
+            // last login set
+            $modele->update(session()->u['id'], ['last_login' => date('Y-m-d H:i:s')]);
             switch (session()->u['profil']) {
                 case 'ADMIN':
                     session()->set('r', 'admin');
