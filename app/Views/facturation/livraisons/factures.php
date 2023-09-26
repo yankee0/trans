@@ -70,11 +70,19 @@
       font-weight: bold;
     }
 
+    td {
+      vertical-align: top;
+    }
 
     @media print {
       @page {
         size: A4;
         padding: 0;
+        margin: 20px;
+      }
+
+      td {
+        vertical-align: top;
       }
 
       #invoice {
@@ -219,10 +227,10 @@
                   <?php endif ?>
                 </div>
               </td>
-              <td class="num"><?= sizeof($z['c_20']) ?></td>
-              <td class="num"><?= (isset($z['c_20'][0]['prix'])) ? $z['c_20'][0]['prix'] : '' ?></td>
-              <td class="num"><?= sizeof($z['c_40']) ?></td>
-              <td class="num"><?= (isset($z['c_40'][0]['prix'])) ? $z['c_40'][0]['prix'] : '' ?></td>
+              <td class="num justify-content-start align-items-start"><?= sizeof($z['c_20']) ?></td>
+              <td class="num justify-content-start align-items-start"><?= (isset($z['c_20'][0]['prix'])) ? $z['c_20'][0]['prix'] : '' ?></td>
+              <td class="num justify-content-start align-items-start"><?= sizeof($z['c_40']) ?></td>
+              <td class="num justify-content-start align-items-start"><?= (isset($z['c_40'][0]['prix'])) ? $z['c_40'][0]['prix'] : '' ?></td>
               <?php
               $tc = 0;
               if (isset($z['c_20'][0]['prix'])) {
