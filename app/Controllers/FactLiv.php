@@ -799,6 +799,7 @@ class FactLiv extends BaseController
             ')
             ->groupBy('fact_liv.id, fact_liv_lignes.prix')
             ->orderBy('fact_liv.id', 'DESC')
+            ->orderBy('fact_liv.date_creation', 'DESC')
             ->join('clients', 'clients.id = fact_liv.id_client', 'left')
             ->join('fact_liv_lieux', 'fact_liv_lieux.id_fact = fact_liv.id', 'left')
             ->join('fact_liv_lignes', 'fact_liv_lieux.id = fact_liv_lignes.id_lieu', 'left');

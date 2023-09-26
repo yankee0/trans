@@ -1,0 +1,83 @@
+INFO - 2023-09-26 08:43:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:44:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:44:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:44:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:44:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:44:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:44:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:45:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:52:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:57:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:57:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:58:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2023-09-26 08:58:09 --> mysqli_sql_exception: Unknown column 'fact_liv.creation' in 'order clause' in /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query('SELECT `fact_li...', 0)
+#1 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `fact_li...')
+#2 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `fact_li...')
+#3 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `fact_li...', Array, false)
+#4 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+#5 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(618): CodeIgniter\Model->doFindAll(20, 0)
+#6 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/BaseModel.php(1192): CodeIgniter\BaseModel->findAll(20, 0)
+#7 /Users/mac/Desktop/polytrans/app/app/Controllers/Factures.php(26): CodeIgniter\BaseModel->paginate(20)
+#8 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Factures->dashboard()
+#9 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Factures))
+#10 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Users/mac/Desktop/polytrans/app/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#12 /Users/mac/Desktop/polytrans/app/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desk...')
+#13 {main}
+CRITICAL - 2023-09-26 08:58:09 --> Unknown column 'fact_liv.creation' in 'order clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query('SELECT `fact_liv`.*, `clients`.`nom`
+FROM `fact_liv`
+JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`id` LIKE \'%%%\' ESCAPE \'!\'
+OR  `fact_liv`.`bl` LIKE \'%%%\' ESCAPE \'!\'
+OR  `compagnie` LIKE \'%%%\' ESCAPE \'!\'
+OR  `clients`.`nom` LIKE \'%%%\' ESCAPE \'!\'
+OR UNIX_TIMESTAMP(fact_liv.date_creation) = 0
+ORDER BY `fact_liv`.`creation` ASC
+ LIMIT 20', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `fact_liv`.*, `clients`.`nom`
+FROM `fact_liv`
+JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`id` LIKE \'%%%\' ESCAPE \'!\'
+OR  `fact_liv`.`bl` LIKE \'%%%\' ESCAPE \'!\'
+OR  `compagnie` LIKE \'%%%\' ESCAPE \'!\'
+OR  `clients`.`nom` LIKE \'%%%\' ESCAPE \'!\'
+OR UNIX_TIMESTAMP(fact_liv.date_creation) = 0
+ORDER BY `fact_liv`.`creation` ASC
+ LIMIT 20')
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `fact_liv`.*, `clients`.`nom`
+FROM `fact_liv`
+JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`id` LIKE \'%%%\' ESCAPE \'!\'
+OR  `fact_liv`.`bl` LIKE \'%%%\' ESCAPE \'!\'
+OR  `compagnie` LIKE \'%%%\' ESCAPE \'!\'
+OR  `clients`.`nom` LIKE \'%%%\' ESCAPE \'!\'
+OR UNIX_TIMESTAMP(fact_liv.date_creation) = 0
+ORDER BY `fact_liv`.`creation` ASC
+ LIMIT 20')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `fact_liv`.*, `clients`.`nom`
+FROM `fact_liv`
+JOIN `clients` ON `clients`.`id` = `fact_liv`.`id_client`
+WHERE `fact_liv`.`id` LIKE :fact_liv.id: ESCAPE \'!\'
+OR  `fact_liv`.`bl` LIKE :fact_liv.bl: ESCAPE \'!\'
+OR  `compagnie` LIKE :compagnie: ESCAPE \'!\'
+OR  `clients`.`nom` LIKE :clients.nom: ESCAPE \'!\'
+OR UNIX_TIMESTAMP(fact_liv.date_creation) = :UNIX_TIMESTAMP(fact_liv.date_creation):
+ORDER BY `fact_liv`.`creation` ASC
+ LIMIT 20', [...], false)
+ 5 SYSTEMPATH/Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(618): CodeIgniter\Model->doFindAll(20, 0)
+ 7 SYSTEMPATH/BaseModel.php(1192): CodeIgniter\BaseModel->findAll(20, 0)
+ 8 APPPATH/Controllers/Factures.php(26): CodeIgniter\BaseModel->paginate(20)
+ 9 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Factures->dashboard()
+10 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Factures))
+11 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/mac/Desktop/polytrans/app/public/index.php')
+INFO - 2023-09-26 08:58:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 08:58:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 09:00:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-09-26 09:00:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

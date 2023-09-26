@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Controllers\FactLiv as ControllersFactLiv;
+use App\Models\FactLiv as ModelsFactLiv;
 
 class Factures extends BaseController
 {
@@ -11,7 +11,29 @@ class Factures extends BaseController
     {
         session()->p = 'factures';
 
-        return view('facturation/livraisons/search');
+        $data = $this->request->getGet();
+        $s = isset($data['search']) ? $data['search'] : '%';
+        $modele = new ModelsFactLiv();
+        $r = $modele
+            ->select('fact_liv.*, clients.nom')
+            ->join('clients', 'clients.id = fact_liv.id_client')
+            ->like('fact_liv.id', $s)
+            ->orLike('fact_liv.bl', $s)
+            ->orLike('compagnie', $s)
+            ->orLike('clients.nom', $s)
+            ->orWhere('UNIX_TIMESTAMP(fact_liv.date_creation)', strtotime($s))
+            ->orderBy('fact_liv.date_creation', 'desc')
+            ->paginate(20);
+        for ($i = 0; $i < sizeof($r); $i++) {
+            $r[$i] = (new Facturations)->FactLivInfos($r[$i]);
+        }
+        $data = [
+            'r' => $r,
+            'pager' => $modele->pager,
+            'search' => $s
+        ];
+
+        return view('facturation/livraisons/search', $data);
     }
 
     protected function setFees(array $data)
