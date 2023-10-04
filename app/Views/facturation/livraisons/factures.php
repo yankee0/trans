@@ -315,11 +315,11 @@
     }
   </script>
 
-  <!-- Bouton pour imprimer la page -->
+  <!-- Bouton pour imprimer la page et payer factures -->
   <div class="text-center mt-4 mb-3 d-flex gap-2 justify-content-center pb-5">
-    <?php if ($facture['paiement'] == 'NON') : ?>
+    <!-- <?php if ($facture['paiement'] == 'NON') : ?>
       <a class="btn btn-success" href="<?= base_url('pay/delivery/' . $facture['id']) ?>" role="button"><i data-feather="credit-card"></i> Payer la facture</a>
-    <?php endif ?>
+    <?php endif ?> -->
     <button class="btn btn-primary" onclick="printInvoice()"><i data-feather="printer"></i> Imprimer la facture</button>
   </div>
   <script>

@@ -16,6 +16,18 @@ Facturation livraisons
       zones = response;
     },
   };
+  let clients = [];
+  configCli = {
+    type: "get",
+    url: "<?= base_url('api/clients') ?>",
+    data: {
+      token: '<?= csrf_hash() ?>'
+    },
+    dataType: "JSON",
+    success: function(response) {
+      clients = response;
+    },
+  };
 </script>
 
 <h1 class="h3 mb-3"><strong>Facturations</strong> Livraisons</h1>
@@ -97,14 +109,11 @@ Facturation livraisons
         </div>
         <div class="row mb-3">
           <div class="col-md-6 col-xl">
-            <h5 class="card-title mb-0 text-dark mb-2">Client</h5>
-            <div class="mb-3">
-              <select class="form-select" name="id_client" id="id_client" required>
-                <option selected value="" hidden>Sélectionner un compte</option>
-                <?php foreach ($cli as $c) : ?>
-                  <option value="<?= $c['id'] ?>" <?= set_select('id_client', $c['id'], false) ?>><?= $c['id'] . ' - ' . $c['nom'] ?></option>
-                <?php endforeach ?>
-              </select>
+            <h5 class="card-title mb-0 text-dark mb-2">Compte client <span class="text-primary" id="cpt"></span></h5>
+            <div class="mb-3 position-relative">
+              <input type="text" name="id_client" readonly hidden required id="id_client">
+              <input type="text" id="cli" placeholder="Compte client" class="form-control text-uppercase" required>
+              <div class="clientList shadow position-absolute w-100 overflow-scroll" style="max-height: 200px;display:none"></div>
             </div>
             <div class="mb-3">
               <input type="text" value="<?= set_value('consignataire') ?>" class="form-control text-uppercase" name="consignataire" id="consignataire" aria-describedby="helpId" placeholder="Consignataire" required>
@@ -326,6 +335,32 @@ Facturation livraisons
   $('#non').click(function(e) {
     $('#hammar').attr('disabled', true);
   });
+</script>
+
+<script>
+  $('#cli').on('keydown focus', function() {
+    if ($(this).val() != '') {
+      $('.clientList').show();
+      let result = '';
+      for (let index = 0; index < clients.length; index++) {
+        const e = clients[index];
+        if ((e.nom.toLowerCase().indexOf($(this).val().toLowerCase()) > -1) || (e.id.toLowerCase().indexOf($(this).val().toLowerCase()) > -1)) {
+          result += `<button value="${e.id}" type="button" onclick="setClient(${e.id},'${e.nom}')" class="cliIDSetter btn btn-primary rounded-0 border-bottom text-start w-100">${e.id} - ${e.nom}</button>`;
+        }
+        $('.clientList').html(result);
+      }
+    } else {
+      $('.clientList').hide();
+    }
+  });
+
+  const setClient = (id, text) => {
+    $('#cli').val(text);
+    $('#id_client').val(id);
+    $('.clientList').hide();
+    $('#cpt').html('Nº ' + id);
+  }
+  
 </script>
 
 <?= $this->endSection(); ?>
