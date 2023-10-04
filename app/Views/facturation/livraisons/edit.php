@@ -16,6 +16,18 @@ Facturation livraisons
       zones = response;
     },
   };
+  let clients = [];
+  configCli = {
+    type: "get",
+    url: "<?= base_url('api/clients') ?>",
+    data: {
+      token: '<?= csrf_hash() ?>'
+    },
+    dataType: "JSON",
+    success: function(response) {
+      clients = response;
+    },
+  };
 </script>
 <script>
   $(document).ready(function() {
@@ -93,13 +105,13 @@ Facturation livraisons
             <p class="text-center display-2 text-bg-danger">ANNULÉE</p>
             <p class="text-center text-bg-danger"><?= $facture['motif'] ?></p>
           </div>
-          <?php endif ?>
-          <div class="card-body">
-            <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
-            <p class="fs-3 "><span class="text-primary" id="lettre"></span> FCFA TTC</p>
-            <p class="fs-3">
-              <span>Crée le <?= $facture['date_creation'] ?></span>
-              <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modID"><i data-feather="edit" class="text-warning"></i> Modifier la date</button>
+        <?php endif ?>
+        <div class="card-body">
+          <p class="fs-1 mb-0">Total TTC: <span class="text-primary"><?= $ttc ?></span> FCFA</p>
+          <p class="fs-3 "><span class="text-primary" id="lettre"></span> FCFA TTC</p>
+          <p class="fs-3">
+            <span>Crée le <?= $facture['date_creation'] ?></span>
+            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modID"><i data-feather="edit" class="text-warning"></i> Modifier la date</button>
           </p>
           <p class="d-grid d-sm-flex gap-2">
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delFactLiv">Supprimer la facture</button>
@@ -251,12 +263,12 @@ Facturation livraisons
         ) ?>
 
         <div>
-          <select class="form-select" name="id_client" id="id_client" required>
-            <option selected value="" hidden>Sélectionner un compte</option>
-            <?php foreach ($cli as $c) : ?>
-              <option value="<?= $c['id'] ?>" <?= set_select('id_client', $c['id'], ($facture['id_client'] == $c['id']) ? true : false) ?>><?= $c['id'] . ' - ' . $c['nom'] ?></option>
-            <?php endforeach ?>
-          </select>
+          <h5 class="card-title mb-0 text-dark mb-2">Compte client <span class="text-primary" id="cpt"></span></h5>
+          <div class="mb-3 position-relative">
+            <input type="text" name="id_client" readonly hidden required id="id_client">
+            <input type="text" id="cli" placeholder="Compte client" class="form-control text-uppercase" required>
+            <div class="clientList shadow position-absolute w-100 overflow-scroll" style="max-height: 200px;display:none"></div>
+          </div>
         </div>
 
         <?= csrf_field() ?>
@@ -282,7 +294,7 @@ Facturation livraisons
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <?= form_open(
+        <?= form_open(
           base_url(session()->r . '/livraisons/edit/entete/' . $facture['id']),
           [
             'id' => 'modidform'
@@ -291,7 +303,7 @@ Facturation livraisons
 
         <div class="mb-3">
           <label for="id" class="form-label">Numéro de facture <span class="text-primary">*</span></label>
-          <input type="date"  class="form-control" name="date_creation" value="<?= set_value('date_creation',$facture['date_creation']) ?>" placeholder="Date de création de la facture" required>
+          <input type="date" class="form-control" name="date_creation" value="<?= set_value('date_creation', $facture['date_creation']) ?>" placeholder="Date de création de la facture" required>
         </div>
 
         <?= csrf_field() ?>
@@ -810,6 +822,30 @@ Facturation livraisons
 </div>
 <script>
   const myModaldelfliv = new bootstrap.Modal(document.getElementById('delFactLiv'), options)
+</script>
+<script>
+  $('#cli').on('keydown focus', function() {
+    if ($(this).val() != '') {
+      $('.clientList').show();
+      let result = '';
+      for (let index = 0; index < clients.length; index++) {
+        const e = clients[index];
+        if ((e.nom.toLowerCase().indexOf($(this).val().toLowerCase()) > -1) || (e.id.toLowerCase().indexOf($(this).val().toLowerCase()) > -1)) {
+          result += `<button value="${e.id}" type="button" onclick="setClient(${e.id},'${e.nom}')" class="cliIDSetter btn btn-primary rounded-0 border-bottom text-start w-100">${e.id} - ${e.nom}</button>`;
+        }
+        $('.clientList').html(result);
+      }
+    } else {
+      $('.clientList').hide();
+    }
+  });
+
+  const setClient = (id, text) => {
+    $('#cli').val(text);
+    $('#id_client').val(id);
+    $('.clientList').hide();
+    $('#cpt').html('Nº ' + id);
+  }
 </script>
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>

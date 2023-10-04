@@ -7,23 +7,19 @@ Gestion du carburant
 <h1 class="h3 mb-3"><strong>Gestion</strong> Carburant</h1>
 
 <div class="row">
-
-  <div class="col-sm col-md-6 col-xl-4 ">
+  <div class="col-sm col-md-6 col-xl-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title"><strong>Solde de la carte</strong></h5>
+        <h5 class="card-title"><a href="<?= base_url(session()->r.'/carburant') ?>"><strong>Solde de la carte carburant</strong> <i data-feather="link"></i></a></h5>
         <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $carte['solde'] ?></span> <strong>FCFA</strong></div>
         <div class="mb-2">
           <?php if (empty($recs)) : ?>
             <small>Pas de recharge enregistrée</small>
           <?php else : ?>
-            <small class="text-muted">Dernière recharge de <span class="num"><?= $recs[0]['montant'] ?></span> de FCFA par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
+            <small class="text-muted">Dernier ravitallement de <span class="num"><?= $recs[0]['montant'] ?></span> par <?= $recs[0]['nom'] ?> le <?= $recs[0]['created_at'] ?></small>
           <?php endif ?>
         </div>
-        <?php if (
-          session()->u == 'ADMIN'
-          or session()->u == 'FINANCE'
-        ) : ?>
+        <?php if (session()->r == 'admin') : ?>
           <div class="d-flex justify-content-end">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
           </div>
@@ -74,7 +70,7 @@ Gestion du carburant
 
             <div class="mb-3">
               <label for="created_at" class="form-label">Date de ravitaillement <span class="text-danger"><strong>*</strong></span></label>
-              <input required type="datetime-local" class="form-control" name="created_at" id="created_at" value="<?= set_value('created_at') ?>" placeholder="Date de ravitaillent" required>
+              <input required type="datetime-local" class="form-control" name="created_at" id="created_at" value="<?= set_value('created_at') ?>" max="<?= date('Y-m-d H:i:s') ?>" placeholder="Date de ravitaillent" required>
             </div>
 
             <div class="mb-3">
@@ -269,7 +265,7 @@ Gestion du carburant
 
             <div class="mb-3">
               <label for="created_at_mod" class="form-label">Date de ravitaillement <span class="text-danger"><strong>*</strong></span></label>
-              <input required type="datetime-local" class="form-control" name="created_at" id="created_at_mod" value="<?= set_value('created_at') ?>" placeholder="Date de ravitaillent" required>
+              <input required type="datetime-local" class="form-control" name="created_at" id="created_at_mod" value="<?= set_value('created_at') ?>" max="<?= date('Y-m-d H:i:s') ?>" placeholder="Date de ravitaillent" required>
             </div>
 
             <div class="mb-3">

@@ -11,8 +11,7 @@ class Clients extends BaseController
     {
         $id = $this->request->getVar('index');
         $occ = (new ModelsClients())
-            ->where('id', $id)
-            ->find();
+            ->findAll();
         $this->response->setStatusCode(200);
         $this->response->setJSON($occ);
         $this->response->send();
