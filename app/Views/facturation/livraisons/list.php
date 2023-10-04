@@ -112,7 +112,7 @@ Facturation livraisons
             <h5 class="card-title mb-0 text-dark mb-2">Compte client <span class="text-primary" id="cpt"></span></h5>
             <div class="mb-3 position-relative">
               <input type="text" name="id_client" readonly hidden required id="id_client">
-              <input type="text" id="cli" placeholder="Compte client" class="form-control text-uppercase" required>
+              <input autocomplete="off" type="text" id="cli" placeholder="Compte client" class="form-control text-uppercase" required>
               <div class="clientList shadow position-absolute w-100 overflow-scroll" style="max-height: 200px;display:none"></div>
             </div>
             <div class="mb-3">
@@ -360,7 +360,6 @@ Facturation livraisons
     $('.clientList').hide();
     $('#cpt').html('Nº ' + id);
   }
-  
 </script>
 
 <?= $this->endSection(); ?>
