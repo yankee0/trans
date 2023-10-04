@@ -1,5 +1,4 @@
-$.ajax(config);
-$.ajax(configCli);
+$.ajax(config).then($.ajax(configCli));
 
 const { useState } = React;
 
