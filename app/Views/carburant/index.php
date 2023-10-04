@@ -265,7 +265,7 @@ Gestion du carburant
 
             <div class="mb-3">
               <label for="created_at_mod" class="form-label">Date de ravitaillement <span class="text-danger"><strong>*</strong></span></label>
-              <input required type="datetime-local" class="form-control" name="created_at" id="created_at_mod" value="<?= set_value('created_at') ?>" placeholder="Date de ravitaillent" required>
+              <input required type="datetime-local" class="form-control" name="created_at" id="created_at_mod" value="<?= set_value('created_at') ?>" max="<?= date('Y-m-d H:i:s') ?>" placeholder="Date de ravitaillent" required>
             </div>
 
             <div class="mb-3">

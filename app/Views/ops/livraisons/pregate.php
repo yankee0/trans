@@ -115,7 +115,7 @@ Pregate livraisons
                     </div>
                     <div class="mb-3">
                       <label for="date_pg" class="form-label">Date de réception</label>
-                      <input type="date" class="form-control" value="<?= $facture['facture']['date_pg'] ?>" name="date_pg" id="date_pg" placeholder="Saisir la date">
+                      <input type="date" class="form-control" value="<?= $facture['facture']['date_pg'] ?>" max="<?= date('Y-m-d H:i:s') ?>" name="date_pg" id="date_pg" placeholder="Saisir la date">
                     </div>
                     <div class="mb-3">
                       <label for="deadline" class="form-label">Deadline</label>
