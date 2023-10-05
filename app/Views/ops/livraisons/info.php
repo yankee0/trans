@@ -54,7 +54,7 @@ Information de livraison
             <div><a href="<?= base_url('factures/livraisons/details/' . $facture) ?>" target="_blank"><?= $facture ?> <i data-feather="link"></i></a></div>
             </p>
             <div class="text-sm text-muted">Date de facturation</div>
-            <div><?= date('d/m/Y', strtotime($date_creation)) ?> ?></div>
+            <div><?= date('d/m/Y', strtotime($date_creation)) ?></div>
             </p>
             <div class="text-sm text-muted">Client</div>
             <div><?= $nom_client ?></div>
@@ -144,7 +144,7 @@ Information de livraison
             </p>
             <p>
             <div class="text-sm text-muted">Date ALLER</div>
-            <div><?= empty($date_aller) ? '<span class="badge bg-dark">INDÉFINI</span>' : date('d/m/Y', $date_aller) ?></div>
+            <div><?= empty($date_aller) ? '<span class="badge bg-dark">INDÉFINI</span>' : date('d/m/Y', strtotime($date_aller)) ?></div>
             </p>
             <p>
             <div class="text-sm text-muted">Chauffeur ALLER</div>
@@ -157,7 +157,7 @@ Information de livraison
             <p>
             <p>
             <div class="text-sm text-muted">Date RETOUR</div>
-            <div><?= empty($date_retour) ? '<span class="badge bg-dark">INDÉFINI</span>' : date('d/m/Y', $date_retour) ?></div>
+            <div><?= empty($date_retour) ? '<span class="badge bg-dark">INDÉFINI</span>' : date('d/m/Y', strtotime($date_retour)) ?></div>
             </p>
             <div class="text-sm text-muted">Chauffeur RETOUR</div>
             <div><?= empty($ch_retour) ? '<span class="badge bg-dark">INDÉFINI</span>' : $ch_retour ?></div>
