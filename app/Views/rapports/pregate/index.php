@@ -235,6 +235,7 @@
   $(document).ready(function() {
     $('.table').DataTable({
       responsive: true,
+      ordering: false,
       dom: 'Bfrtip',
       buttons: [
         'copyHtml5',
