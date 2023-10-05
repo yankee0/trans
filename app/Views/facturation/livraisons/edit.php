@@ -267,7 +267,7 @@ Facturation livraisons
           <div class="mb-3 position-relative">
             <input type="text" name="id_client" readonly hidden required id="id_client">
             <input type="text" autocomplete="off" id="cli" placeholder="Compte client" class="form-control text-uppercase" required>
-            <div class="clientList shadow position-absolute w-100 overflow-scroll" style="max-height: 200px;display:none"></div>
+            <div class="clientList shadow w-100 overflow-scroll" style="max-height: 200px;display:none;z-index:50"></div>
           </div>
         </div>
 

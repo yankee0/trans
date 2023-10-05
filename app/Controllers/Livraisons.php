@@ -315,15 +315,7 @@ class Livraisons extends BaseController
     {
         session()->p = 'pregate';
         return view('ops/livraisons/pregate', [
-            'pg' => $this->getLastpregate(date('Y-m-d', strtotime('-1 week')), date('Y-m-d')),
-
-            'drivers' => (new Chauffeurs())
-                ->orderBy('nom')
-                ->findAll(),
-
-            'trucks' => (new Camions())
-                ->orderBy('im')
-                ->findAll()
+            'pg' => $this->getLastpregate(date('Y-m-d', strtotime('-2 weeks')), date('Y-m-d')),
         ]);
     }
 
@@ -387,6 +379,11 @@ class Livraisons extends BaseController
                     //recuperation des informations de livraisons
                     for ($k = 0; $k < sizeof($res[$i]['zones'][$j]['tc']); $k++) {
                         $res[$i]['zones'][$j]['tc'][$k]['infos'] = (new ModelsLivraisons())
+                            ->select('livraisons.*, chauffeurs.nom AS nom_ch_aller, chauffeur2.nom AS nom_ch_retour, camions.im AS cam_aller, camion2.im AS cam_retour')
+                            ->join('chauffeurs', 'chauffeurs.id = livraisons.ch_aller', 'left')
+                            ->join('chauffeurs AS chauffeur2', 'chauffeur2.id = livraisons.ch_retour', 'left')
+                            ->join('camions', 'camions.id = livraisons.cam_aller', 'left')
+                            ->join('camions AS camion2', 'camion2.id = livraisons.cam_retour', 'left')
                             ->where('id_fact_ligne', $res[$i]['zones'][$j]['tc'][$k]['id'])
                             ->first();
                     }
