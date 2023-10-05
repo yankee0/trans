@@ -349,7 +349,7 @@ Gestion du carburant
 <script>
   $('.table').DataTable({
     fixedHeader: true,
-    "ordering": false,
+    ordering: false,
     dom: 'Bfrtip',
     buttons: [{
       extend: 'excelHtml5',
