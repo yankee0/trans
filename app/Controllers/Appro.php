@@ -82,4 +82,23 @@ class Appro extends BaseController
             ->with('n', true)
             ->with('m', 'Modification approvision de ' . $data['montant'] . 'FCFA enregistrée.');
     }
+
+    public function supprimerAppro()
+    {
+        $data = $this->request->getPost();
+
+        $modelAppro = new ApproModel();
+        $anc_appro = $modelAppro->find($data['id']);
+
+        $modelCompte = new CompteAppro();
+        $compte = $modelCompte->first();
+        $compte['solde'] = $compte['solde'] + $anc_appro['montant'];
+        $modelCompte->save($compte);
+
+        $modelAppro->delete($data['id']);
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Suppression approvision de ' . $anc_appro['montant'] . 'FCFA.');
+    }
 }

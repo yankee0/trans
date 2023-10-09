@@ -191,6 +191,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->group('approvisionnements', function ($routes) {
             $routes->get('/', 'Appro::index');
             $routes->post('modifier', 'Appro::modifierAppro');
+            $routes->post('supprimer', 'Appro::supprimerAppro');
             $routes->post('/', 'Appro::appro');
             $routes->post('recharge', 'Appro::recharge');
         });

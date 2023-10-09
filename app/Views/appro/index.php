@@ -147,7 +147,7 @@ Approvisionnements
                   <td>
                     <div class="d-flex gap-2">
                       <button data-bs-toggle="modal" data-bs-target="#modalIdAppro" data-id="<?= $r['id'] ?>" data-nature="<?= $r['nature'] ?>" data-montant="<?= $r['montant'] ?>" data-description="<?= $r['description'] ?>" data-date="<?= $r['date'] ?>" class="btn mod text-warning">Modifier</button>
-                      <button data-bs-toggle="modal" data-bs-target="#modalIdAppro" data-id="<?= $r['id'] ?>" data-nature="<?= $r['nature'] ?>" data-montant="<?= $r['montant'] ?>" data-description="<?= $r['description'] ?>" data-date="<?= $r['date'] ?>" class="btn del text-danger">Supprimer</button>
+                      <button data-bs-toggle="modal" data-bs-target="#modalIdDelAppro" data-id="<?= $r['id'] ?>" data-nature="<?= $r['nature'] ?>" data-montant="<?= $r['montant'] ?>" data-description="<?= $r['description'] ?>" data-date="<?= $r['date'] ?>" class="btn del text-danger">Supprimer</button>
                     </div>
                   </td>
                 </tr>
@@ -225,7 +225,40 @@ Approvisionnements
   });
 </script>
 <script>
-  const myModal = new bootstrap.Modal(document.getElementById('modalIdAppro'), options)
+  const myModalap = new bootstrap.Modal(document.getElementById('modalIdAppro'), options)
+</script>
+
+<!-- Suppression d'approvisionnement -->
+<div class="modal fade" id="modalIdDelAppro" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdDelAppro" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdDelAppro">Supprimer un approvisionnement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Supprimer l'approvisionnement <span class="natureDel text-primary"></span> du <span class="text-primary dateDel"></span>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <?= form_open(base_url(session()->r.'/approvisionnements/supprimer')) ?>
+        <button type="submit" name="id" class="btn idDel btn-primary">Supprimer</button>
+        <?= form_close() ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.del').click(function(e) {
+    e.preventDefault();
+    $('.idDel').val($(this).data('id'));
+    $('.natureDel').text($(this).data('nature'));
+    $('.dateDel').text($(this).data('date'));
+  });
+</script>
+<script>
+  const myModalDelAppro = new bootstrap.Modal(document.getElementById('modalIdDelAppro'), options)
 </script>
 
 
