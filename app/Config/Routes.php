@@ -186,6 +186,12 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->post('/', 'Rapports::generate_carburant');
             });
         });
+
+        // gestion des appro
+        $routes->group('approvisionnements', function ($routes) {
+            $routes->get('/', 'Appro::index');
+            $routes->post('recharge', 'Appro::recharge');
+        });
     });
 
     $routes->group('flotte', ['filter' => 'flotte'], function ($routes) {
