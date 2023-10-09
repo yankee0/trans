@@ -190,6 +190,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         // gestion des appro
         $routes->group('approvisionnements', function ($routes) {
             $routes->get('/', 'Appro::index');
+            $routes->post('/', 'Appro::appro');
             $routes->post('recharge', 'Appro::recharge');
         });
     });

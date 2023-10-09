@@ -42,4 +42,23 @@ class Appro extends BaseController
             ->with('n', true)
             ->with('m', 'Nouvelle recharge de ' . $data['montant'] . ' FCFA enregistrée.');
     }
+
+    public function appro()
+    {
+        $data = $this->request->getPost();
+        $data['auteur'] = session()->u['nom'];
+
+        $modelAppro = new ApproModel();
+        $modelAppro->save($data);
+
+        $modelCompte = new CompteAppro();
+        $compte = $modelCompte->first();
+        $compte['solde'] = $compte['solde'] - $data['montant'];
+        $modelCompte->save($compte);
+
+        return redirect()
+            ->back()
+            ->with('n', true)
+            ->with('m', 'Nouvel approvision de ' . $data['montant'] . 'FCFA enregistré.');
+    }
 }

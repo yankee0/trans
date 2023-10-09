@@ -20,7 +20,7 @@ Approvisionnements
           <?php if (empty($recs)) : ?>
             <small>Pas de recharge enregistrée</small>
           <?php else : ?>
-            <small class="text-muted">Dernier rechargement de <span class="num"><?= $recs[0]['montant'] ?></span> par <?= $recs[0]['auteur'] ?> le <?= date('d/m/Y à H:i', strtotime($recs[0]['date'])) ?></small>
+            <small class="text-muted">Dernier rechargement de <span class="num"><?= $recs[0]['montant'] ?></span> FCFA par <?= $recs[0]['auteur'] ?> le <?= date('d/m/Y à H:i', strtotime($recs[0]['date'])) ?></small>
           <?php endif ?>
         </div>
         <?php if (session()->r == 'admin') : ?>
@@ -66,6 +66,100 @@ Approvisionnements
   </div>
 </div>
 
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Nouvel appro</div>
+      </div>
+      <div class="card-body">
+        <?= form_open() ?>
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <div class="mb-3">
+              <label for="nature" class="form-label">Nature<span class="text-danger">*</span></label>
+              <select required class="form-select " name="nature" id="nature">
+                <option selected value="" hidden>Sélectionnez la nature</option>
+                <option value="PIECES DE RECHANGE">PIECES DE RECHANGE</option>
+                <option value="REPARATION ET ENTRETIEN">REPARATION ET ENTRETIEN</option>
+                <option value="RATION">RATION</option>
+                <option value="CONTRAVENTION">CONTRAVENTION</option>
+                <option value="AUTRES">AUTRES</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="mb-3">
+              <label for="montant" class="form-label">Montant<span class="text-danger">*</span></label>
+              <input type="number" required min="0" class="form-control" name="montant" id="montant" aria-describedby="" placeholder="Montant de l'appros">
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="mb-3">
+              <label for="date" class="form-label">Date<span class="text-danger">*</span></label>
+              <input type="datetime-local" required max="<?= date('Y-m-d H:i:s', strtotime('+1 hour')) ?>" class="form-control" name="date" id="date" aria-describedby="" placeholder="Date de l'appros">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mb-3">
+              <label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+              <textarea class="form-control" required name="description" id="description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="col-12 d-flex gap-3">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="reset" class="btn btn-light">Effacer</button>
+          </div>
+        </div>
+
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">Liste des approvisionnements</div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Nature</th>
+                <th>Montant en FCFA</th>
+                <th>Description</th>
+                <th>Auteur</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($ravs as $r) : ?>
+                <tr>
+                  <td><?= date('d/m/Y à H:i', strtotime($r['date'])) ?></td>
+                  <td><?= $r['nature'] ?></td>
+                  <td><?= $r['montant'] ?></td>
+                  <td><?= $r['description'] ?></td>
+                  <td><?= $r['auteur'] ?></td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn text-warning">Modifier</button>
+                      <button class="btn text-danger">Supprimer</button>
+                    </div>
+                  </td>
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
@@ -80,12 +174,30 @@ Approvisionnements
   $(document).ready(function() {
     $('.table').DataTable({
       responsive: true,
+      order: [
+        [0, 'desc']
+      ],
       dom: 'Bfrtip',
       buttons: [
         'copyHtml5',
-        'excelHtml5',
-        'csvHtml5',
-        'pdfHtml5',
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: ':not(:last-child)' // Excludes the last column
+          }
+        },
+        {
+          extend: 'csvHtml5',
+          exportOptions: {
+            columns: ':not(:last-child)' // Excludes the last column
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            columns: ':not(:last-child)' // Excludes the last column
+          }
+        },
       ],
       language: {
         decimal: ',',
