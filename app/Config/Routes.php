@@ -201,6 +201,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', 'Chauffeurs::list');
         $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
 
+        // gestion des appro
+        $routes->group('approvisionnements', function ($routes) {
+            $routes->get('/', 'Appro::index');
+            $routes->post('modifier', 'Appro::modifierAppro');
+            $routes->post('supprimer', 'Appro::supprimerAppro');
+            $routes->post('/', 'Appro::appro');
+            $routes->post('recharge', 'Appro::recharge');
+        });
+
         //gestion des chauffeurs
         $routes->group('chauffeurs', function ($routes) {
             $routes->get('/', 'Chauffeurs::list');
@@ -306,6 +315,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('finance', ['filter' => 'finance'], function ($routes) {
         $routes->get('/', 'Finance::index');
         $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
+
+        // gestion des appro
+        $routes->group('approvisionnements', function ($routes) {
+            $routes->get('/', 'Appro::index');
+            $routes->post('modifier', 'Appro::modifierAppro');
+            $routes->post('supprimer', 'Appro::supprimerAppro');
+            $routes->post('/', 'Appro::appro');
+            $routes->post('recharge', 'Appro::recharge');
+        });
 
         //gestion des clients
         $routes->group('clients', function ($routes) {
@@ -444,6 +462,15 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', 'Ops::index');
         $routes->post('modifier_mdp', 'Utilisateurs::modifier_mdp');
         $routes->get('search', 'Ops::search');
+
+        // gestion des appro
+        $routes->group('approvisionnements', function ($routes) {
+            $routes->get('/', 'Appro::index');
+            $routes->post('modifier', 'Appro::modifierAppro');
+            $routes->post('supprimer', 'Appro::supprimerAppro');
+            $routes->post('/', 'Appro::appro');
+            $routes->post('recharge', 'Appro::recharge');
+        });
 
         //gestion des zones
         $routes->group('zones', function ($routes) {

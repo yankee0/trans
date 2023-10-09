@@ -14,7 +14,7 @@ Approvisionnements
   <div class="col-sm col-md-6 col-xl-4">
     <div class="card">
       <div class="card-body">
-        <h5><strong>Solde compte appro</strong></h5>
+        <h5 class="card-title"><strong>Solde compte appro</strong></h5>
         <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $carte['solde'] ?></span> <strong>FCFA</strong></div>
         <div class="mb-2">
           <?php if (empty($recs)) : ?>
@@ -23,7 +23,7 @@ Approvisionnements
             <small class="text-muted">Dernier rechargement de <span class="num"><?= $recs[0]['montant'] ?></span> FCFA par <?= $recs[0]['auteur'] ?> le <?= date('d/m/Y à H:i', strtotime($recs[0]['date'])) ?></small>
           <?php endif ?>
         </div>
-        <?php if (session()->r == 'admin') : ?>
+        <?php if (session()->u['profil'] === 'ADMIN' or session()->u['profil'] === 'FINANCE') : ?>
           <div class="d-flex justify-content-end">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approModal">Recharger le compte</button>
           </div>
@@ -65,6 +65,38 @@ Approvisionnements
     </script>
   </div>
 </div>
+
+<?php if (session()->u['profil'] === 'ADMIN' or session()->u['profil'] === 'FINANCE') : ?>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Recharges</div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Montant</th>
+                  <th>Auteur de l'enregistrement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($recs as $r) : ?>
+                  <tr>
+                    <td scope="row"><?= date('d/m/Y', strtotime($r['date'])) ?></td>
+                    <td><?= $r['montant'] ?></td>
+                    <td><?= $r['auteur'] ?></td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endif ?>
 
 <div class="row">
   <div class="col">
@@ -241,7 +273,7 @@ Approvisionnements
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <?= form_open(base_url(session()->r.'/approvisionnements/supprimer')) ?>
+        <?= form_open(base_url(session()->r . '/approvisionnements/supprimer')) ?>
         <button type="submit" name="id" class="btn idDel btn-primary">Supprimer</button>
         <?= form_close() ?>
       </div>

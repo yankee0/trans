@@ -9,6 +9,12 @@ use App\Models\RavApproModel;
 
 class Appro extends BaseController
 {
+
+    public function __construct()
+    {
+        session()->p = 'approvisionnements';
+    }
+
     public function index()
     {
         return view('appro/index', [

@@ -10,6 +10,8 @@ use App\Models\Chauffeurs;
 use App\Models\Livraisons;
 use App\Models\Rechargement;
 use App\Controllers\BaseController;
+use App\Models\CompteAppro;
+use App\Models\RavApproModel;
 
 class Admin extends BaseController
 {
@@ -78,7 +80,7 @@ class Admin extends BaseController
             $sumFactLivD += $i['total'];
         }
 
-        
+
 
         return view('admin/dashboard', [
 
@@ -87,7 +89,7 @@ class Admin extends BaseController
             'recs' => (new Rechargement())
                 ->select('rechargements.*, utilisateurs.nom')
                 ->join('utilisateurs', 'utilisateur = utilisateurs.id')
-                 ->orderBy('created_at', 'DESC')
+                ->orderBy('created_at', 'DESC')
                 ->findAll(),
 
             //client count
@@ -105,6 +107,12 @@ class Admin extends BaseController
                     ->where('paiement', 'NON')
                     ->find()
             ),
+
+            // Informarions sur le compte appro
+            'cpt_appro' => (new CompteAppro())->first(),
+            'recs_appro' => (new RavApproModel())
+                ->orderBy('DATE(date)', 'DESC')
+                ->findAll(),
 
             //liv count
             'livsDailyCount' => sizeof(

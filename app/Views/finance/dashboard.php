@@ -50,10 +50,10 @@ Dashboard yhjgh
       </div>
     </div>
 
-    <div class="d-flex col-md-6 col-lg-4 col-xl-6">
+    <div class="d-flex col-md-6 col-lg-4 col-xl-3">
       <div class="card flex-fill">
         <div class="card-body">
-          <h5 class="card-title"><strong>Solde de la carte carburant</strong></h5>
+          <h5 class="card-title"><a href="<?= base_url(session()->r . '/carburant') ?>"><strong>Solde carte carburant</strong> <i data-feather="link"></i></a></h5>
           <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $carte['solde'] ?></span> <strong>FCFA</strong></div>
           <div class="mb-2">
             <?php if (empty($recs)) : ?>
@@ -65,6 +65,26 @@ Dashboard yhjgh
           <?php if (session()->r == 'finance' or session()->r == 'admin') : ?>
             <div class="d-flex justify-content-end">
               <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#recharge">Recharger la carte</button>
+            </div>
+          <?php endif ?>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><a href="<?= base_url(session()->r . '/approvisionnements') ?>"><strong>Solde compte appro</strong> <i data-feather="link"></i></a></h5>
+          <div class="fs-2 <?= $cpt_appro['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $cpt_appro['solde'] ?></span> <strong>FCFA</strong></div>
+          <div class="mb-2">
+            <?php if (empty($recs_appro)) : ?>
+              <small>Pas de recharge enregistrée</small>
+            <?php else : ?>
+              <small class="text-muted">Dernier rechargement de <span class="num"><?= $recs_appro[0]['montant'] ?></span> FCFA par <?= $recs_appro[0]['auteur'] ?> le <?= date('d/m/Y à H:i', strtotime($recs_appro[0]['date'])) ?></small>
+            <?php endif ?>
+          </div>
+          <?php if (session()->u['profil'] === 'ADMIN' or session()->u['profil'] === 'FINANCE') : ?>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approModal">Recharger le compte</button>
             </div>
           <?php endif ?>
         </div>
@@ -378,6 +398,40 @@ Dashboard yhjgh
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="approModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="approTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="approTitle">Recharger le compte appro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?= form_open(session()->r . '/approvisionnements/recharge', ['id' => 'form']) ?>
+
+        <div class="mb-3">
+          <label for="montantR" class="form-label">Montant en FCFA</label>
+          <input type="number" min="0" class="form-control" name="montant" id="montantR" placeholder="Montant de la recharge" required>
+        </div>
+        <div class="mb-3">
+          <label for="dateR" class="form-label">Date</label>
+          <input type="datetime-local" class="form-control" name="date" id="dateR" required max="<?= date('Y-m-d') ?>">
+        </div>
+
+        <?= csrf_field() ?>
+        <?= form_close() ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" form="form" class="btn btn-success">Recharger le compte</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalAppro = new bootstrap.Modal(document.getElementById('approModal'), options)
+</script>
+
 <script>
   const recharge = new bootstrap.Modal(document.getElementById('recharge'), options)
 </script>
