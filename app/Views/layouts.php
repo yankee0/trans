@@ -58,6 +58,19 @@
                 <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Factures</span>
               </a>
             </li>
+            <li class="sidebar-item <?= (session()->p == 'approvisionnements') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/approvisionnements') ?>">
+                <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Approvisionnements</span>
+              </a>
+            </li>
+          <?php endif ?>
+          <?php if (session()->u['profil'] == 'FLOTTE') : ?>
+            <li class="sidebar-header">Finances</li>
+            <li class="sidebar-item <?= (session()->p == 'approvisionnements') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/approvisionnements') ?>">
+                <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Approvisionnements</span>
+              </a>
+            </li>
           <?php endif ?>
           <?php if (
             session()->r == 'admin'
@@ -176,6 +189,11 @@
             <li class="sidebar-item <?= (session()->p == 'clients') ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= base_url(session()->r . '/clients') ?>">
                 <i class="align-middle" data-feather="users"></i> <span class="align-middle">Clients</span>
+              </a>
+            </li>
+            <li class="sidebar-item <?= (session()->p == 'approvisionnements') ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= base_url(session()->r . '/approvisionnements') ?>">
+                <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Approvisionnements</span>
               </a>
             </li>
             <li class="sidebar-item <?= (session()->p == 'f-liv') ? 'active' : '' ?>">

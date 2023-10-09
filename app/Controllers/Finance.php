@@ -9,6 +9,8 @@ use App\Models\FactLiv;
 use CodeIgniter\I18n\Time;
 use App\Models\Rechargement;
 use App\Controllers\BaseController;
+use App\Models\CompteAppro;
+use App\Models\RavApproModel;
 
 class Finance extends BaseController
 {
@@ -113,7 +115,13 @@ class Finance extends BaseController
             'recs' => (new Rechargement())
                 ->select('rechargements.*, utilisateurs.nom')
                 ->join('utilisateurs', 'utilisateur = utilisateurs.id')
-                 ->orderBy('created_at', 'DESC')
+                 ->orderBy('DATE(rechargements.created_at)', 'DESC')
+                ->findAll(),
+
+            // Informarions sur le compte appro
+            'cpt_appro' => (new CompteAppro())->first(),
+            'recs_appro' => (new RavApproModel())
+                 ->orderBy('DATE(date)', 'DESC')
                 ->findAll(),
         ];
         return view('finance/dashboard', $data);
