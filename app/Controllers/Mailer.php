@@ -56,7 +56,7 @@ class Mailer extends BaseController
             $email->setMessage(view('emails/alert_vt_as', [
                 'nom' => $u['nom'],
                 'vts' => $data['vt'],
-                'ass' => $data['as'],
+                // 'ass' => $data['as'],
             ]));
             if ($email->send()) {
                 $sent++;
