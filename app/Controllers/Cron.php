@@ -57,20 +57,23 @@ class Cron extends BaseController
      */
     public function VtAs()
     {
-        $as = (new Camions())
-            ->where('as !=', null)
-            ->where('as <=', date('Y-m-d', strtotime('+5 days')))
-            ->find();
+        // $as = (new Camions())
+        //     ->where('as !=', null)
+        //     ->where('as <=', date('Y-m-d', strtotime('+5 days')))
+        //     ->find();
         $vt = (new Camions())
             ->where('vt !=', null)
             ->where('vt <=', date('Y-m-d', strtotime('+5 days')))
             ->find();
 
         $data = [
-            'as' => $as,
+            // 'as' => $as,
             'vt' => $vt,
         ];
 
+        if (!empty($data['vt'])) {
+
+        }
         $users = (new Utilisateurs())
             ->where('profil', 'ADMIN')
             ->orWhere('profil', 'OPS')
