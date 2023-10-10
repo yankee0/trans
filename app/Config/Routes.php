@@ -39,6 +39,7 @@ $routes->get('/check', 'Check::checkDoubleRav');
 //Cron routes
 $routes->group('cron', function ($routes) {
     $routes->add('tc-deadline', 'Cron::TCDeadline');
+    $routes->add('vt-as', 'Cron::VtAs');
 });
 
 //OnlinePay

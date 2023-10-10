@@ -9,8 +9,8 @@
 </head>
 <style>
   body {
-    padding: 20px, 20px, 20px, 20px;
     margin: 0;
+    padding: 20px, 20px, 20px, 20px;
     box-sizing: border-box;
     min-height: 100vh;
     width: 100vw;
@@ -32,7 +32,7 @@
 
   header {
     text-align: center;
-    color: #2ecc71;
+    color: #e74c3c;
   }
 
   .red {
@@ -45,17 +45,6 @@
 
   main {
     padding: 20px;
-  }
-
-  a {
-    background: #e74c3c;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-decoration: none;
-    color: white;
-    border-radius: 5px;
   }
 
   footer {
@@ -72,16 +61,42 @@
 <body>
   <div class="container">
     <header>
-      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="3rem" width="3rem" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M12 9H2V8h10v1zm4-6v9c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h14c.55 0 1 .45 1 1zm-1 3H1v6h14V6zm0-3H1v1h14V3zm-9 7H2v1h4v-1z"></path>
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+        <path fill="none" stroke="#e74c3c" stroke-width="2" d="M12,17 L12,19 M12,10 L12,16 M12,3 L2,22 L22,22 L12,3 Z"></path>
       </svg>
-      <h1>NOTIFICATION DE PAIEMENT</h1>
+      <h1>ALERTE VT/AS EXPIRÉES</h1>
       <small class="red">Ne pas répondre à ce mail</small>
     </header>
     <main>
       <p>Bonjour <?= $nom ?>,</p>
       <p>
-        La facture <strong>Nº <?= $data['id'] ?></strong> du client <strong><?= $data['nom_client'] ?></strong> d'un montant de <strong><?= $data['total'] ?> (<span class=" text-uppercase" id="lettre"></span>) XOF TTC</strong> a été payée avec succès.
+        Ci-dessous les tracteurs ayant des dates d'expiration de VT ou d'AS dans moins de 5 jours:
+      <ul>
+        <li>
+          <strong>Expiration visite technique: </strong> <?= empty($vts) ? 'AUCUN' : '' ?>
+          <?php for ($i = 0; $i < count($vts); $i++) {
+            if ($i == 0) {
+              echo $vts[$i]['im'];
+            } elseif ($i == count($vts) - 1) {
+              echo ' et ' . $vts[$i]['im'] . '.';
+            } else {
+              echo ', ' . $vts[$i]['im'];
+            }
+          } ?>
+        </li>
+        <li>
+          <strong>Expiration d'assurance: </strong> <?= empty($ass) ? 'AUCUN' : '' ?>
+          <?php for ($i = 0; $i < count($ass); $i++) {
+            if ($i == 0) {
+              echo $ass[$i]['im'];
+            } elseif ($i == count($ass) - 1) {
+              echo ' et ' . $ass[$i]['im'] . '.';
+            } else {
+              echo ', ' . $ass[$i]['im'];
+            }
+          } ?>
+        </li>
+      </ul>
       </p>
 
       <p>Pour plus d'informations connectez vous à votre interface de gestion <br>
@@ -94,12 +109,6 @@
     </footer>
 
   </div>
-  <script src="<?= base_url('assets/js/compter.js') ?>"></script>
-  <script>
-    const nombre = <?= $ttc ?>;
-    const resultat = NumberToLetter(nombre);
-    document.getElementById('lettre').innerHTML = resultat
-  </script>
 </body>
 
 </html>

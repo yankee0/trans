@@ -3,11 +3,15 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Camions;
 use App\Models\Livraisons;
 use App\Models\Utilisateurs;
 
 class Cron extends BaseController
 {
+    /**
+     * Deadline des TC
+     */
     public function TCDeadline()
     {
         $modelTC = new Livraisons();
@@ -46,5 +50,33 @@ class Cron extends BaseController
         } else {
             return 'R.A.S.';
         }
+    }
+
+    /**
+     * Alerts visites techniques
+     */
+    public function VtAs()
+    {
+        $as = (new Camions())
+            ->where('as !=', null)
+            ->where('as <=', date('Y-m-d', strtotime('+5 days')))
+            ->find();
+        $vt = (new Camions())
+            ->where('vt !=', null)
+            ->where('vt <=', date('Y-m-d', strtotime('+5 days')))
+            ->find();
+
+        $data = [
+            'as' => $as,
+            'vt' => $vt,
+        ];
+
+        $users = (new Utilisateurs())
+            ->where('profil', 'ADMIN')
+            ->orWhere('profil', 'OPS')
+            ->orWhere('profil', 'OPS TERRAIN')
+            ->orWhere('profil', 'FLOTTE')
+            ->find();
+        return (new Mailer)->sendVTASMail($users, $data);
     }
 }

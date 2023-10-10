@@ -9,6 +9,7 @@
 </head>
 <style>
   body {
+    padding: 20px, 20px, 20px, 20px;
     margin: 0;
     box-sizing: border-box;
     min-height: 100vh;
@@ -24,6 +25,9 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    padding-top: 30px;
+    overflow: hidden;
   }
 
   header {
@@ -74,18 +78,16 @@
       <h1>ALERTE DEADLINE TC</h1>
       <small>Ne pas répondre à ce mail</small>
     </header>
-    <hr>
     <main>
       <p>Bonjour <?= $nom ?>,</p>
       <p>Ci-dessous la liste des <strong class="red"><?= count($tcs) ?> conteneurs</strong> à moins de <strong>48H</strong> de leurs deadlines:</p>
       <ul>
         <?php foreach ($tcs as $tc) : ?>
-          <li><strong><?= $tc['designation'] ?></strong> du TC <strong class="red"><?= $tc['conteneur'] ?> de type <?= $tc['type'] ?>'</strong> pour le client <strong><?= $tc['client'] ?></strong>.Deadline prévu le <strong><?= date('d/m/Y', strtotime($tc['deadline'])) ?></strong>, Pregate reçu le <strong><?= date('d/m/Y', strtotime($tc['date_creation'])) ?></strong> et <strong><?= $tc['paiement'] == 'OUI' ? 'payé le ' . date('d/m/Y', strtotime($tc['date_creation'])).'.' : 'NON PAYÉ.' ?></strong>
+          <li><strong><?= $tc['designation'] ?></strong> du TC <strong class="red"><?= $tc['conteneur'] ?> de type <?= $tc['type'] ?>'</strong> pour le client <strong><?= $tc['client'] ?></strong>.Deadline prévu le <strong><?= date('d/m/Y', strtotime($tc['deadline'])) ?></strong>, Pregate reçu le <strong><?= date('d/m/Y', strtotime($tc['date_creation'])) ?></strong> et <strong><?= $tc['paiement'] == 'OUI' ? 'payé le ' . date('d/m/Y', strtotime($tc['date_creation'])) . '.' : 'NON PAYÉ.' ?></strong>
           <?php endforeach ?>
       </ul>
-      <p>Pour plus d'informations connectez vous à votre interface de gestion:</p>
-      <p><a href="<?= base_url() ?>">Se connecter</a></p>
-      <p>Cordialement,</p>
+      <p>Pour plus d'informations connectez vous à votre interface de gestion <br>
+        Cordialement,</p>
       <strong>SERVICE I.T. POLY-TRANS SUARL</strong>
     </main>
     <footer>
