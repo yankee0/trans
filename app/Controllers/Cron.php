@@ -73,13 +73,15 @@ class Cron extends BaseController
 
         if (!empty($data['vt'])) {
 
+            $users = (new Utilisateurs())
+                ->where('profil', 'ADMIN')
+                ->orWhere('profil', 'OPS')
+                ->orWhere('profil', 'OPS TERRAIN')
+                ->orWhere('profil', 'FLOTTE')
+                ->find();
+            return (new Mailer)->sendVTASMail($users, $data);
+        } else {
+            return "RAS.";
         }
-        $users = (new Utilisateurs())
-            ->where('profil', 'ADMIN')
-            ->orWhere('profil', 'OPS')
-            ->orWhere('profil', 'OPS TERRAIN')
-            ->orWhere('profil', 'FLOTTE')
-            ->find();
-        return (new Mailer)->sendVTASMail($users, $data);
     }
 }
