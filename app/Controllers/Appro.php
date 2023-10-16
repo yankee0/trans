@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ApproModel;
 use App\Models\CompteAppro;
 use App\Models\RavApproModel;
+use CodeIgniter\Files\File;
 
 class Appro extends BaseController
 {
@@ -51,7 +52,13 @@ class Appro extends BaseController
 
     public function appro()
     {
+        $img = $this->request->getFile('img');
         $data = $this->request->getPost();
+        //Record file
+        if ($img->getSize() > 0) {
+            $img->move(ROOTPATH . '/public/images/approvisionnements');
+            $data['img'] = $img->getName();
+        }
         $data['auteur'] = session()->u['nom'];
 
         $modelAppro = new ApproModel();
@@ -71,6 +78,12 @@ class Appro extends BaseController
     public function modifierAppro()
     {
         $data = $this->request->getPost();
+        //Record file
+        $img = $this->request->getFile('img');
+        if ($img->getSize() > 0) {
+            $img->move(ROOTPATH . '/public/images/approvisionnements');
+            $data['img'] = $img->getName();
+        }
         $data['auteur'] = session()->u['nom'];
 
         $modelAppro = new ApproModel();
