@@ -105,7 +105,7 @@ Approvisionnements
         <div class="card-title">Nouvel appro</div>
       </div>
       <div class="card-body">
-        <?= form_open() ?>
+        <?= form_open_multipart() ?>
         <div class="row">
           <div class="col-md-6 col-lg-4">
             <div class="mb-3">
@@ -138,6 +138,12 @@ Approvisionnements
               <textarea class="form-control" required name="description" id="description" rows="3"></textarea>
             </div>
           </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="mb-3">
+              <label for="img" class="form-label">Ajouter un fichier joint</label>
+              <input type="file" class="form-control" name="img" id="img" accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/heic" placeholder="Importer un fichier">
+            </div>
+          </div>
           <div class="col-12 d-flex gap-3">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
             <button type="reset" class="btn btn-light">Effacer</button>
@@ -164,6 +170,7 @@ Approvisionnements
                 <th>Nature</th>
                 <th>Montant en FCFA</th>
                 <th>Description</th>
+                <th>Fichier joint</th>
                 <th>Auteur</th>
                 <th></th>
               </tr>
@@ -175,6 +182,7 @@ Approvisionnements
                   <td><?= $r['nature'] ?></td>
                   <td><?= $r['montant'] ?></td>
                   <td><?= $r['description'] ?></td>
+                  <td><?= empty($r['img']) ? "<span class='badge bg-dark'>Indéfini</span>" : "<button data-bs-toggle='modal' data-bs-target='#modalIdshowImg' data-imgurl=" . base_url('images/approvisionnements/' . $r['img']) . " class='peekImg btn btn-primary btn-sm d-flex align-items-center gap-2' >Apperçu <i data-feather='external-link'></i></button>" ?></td>
                   <td><?= $r['auteur'] ?></td>
                   <td>
                     <div class="d-flex gap-2">
@@ -291,6 +299,39 @@ Approvisionnements
 </script>
 <script>
   const myModalDelAppro = new bootstrap.Modal(document.getElementById('modalIdDelAppro'), options)
+</script>
+
+
+<!-- show img -->
+<div class="modal fade" id="modalIdshowImg" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleIdImgShow" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleIdImgShow">Apperçu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" class="margin-auto" id="imgField">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <a type="button" download href="" id="downloadImg" class="btn btn-primary"><i data-feather="download"></i> Télécharger</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModalImg = new bootstrap.Modal(document.getElementById('modalIdshowImg'), options)
+</script>
+<script>
+  $(document).ready(function() {
+    $('.peekImg').click(function(e) {
+      e.preventDefault();
+      console.log($(this).data('imgurl'));
+      $("#imgField").attr("src", $(this).data('imgurl'));
+      $('#downloadImg').attr('href', $(this).data('imgurl'));
+    });
+  });
 </script>
 
 

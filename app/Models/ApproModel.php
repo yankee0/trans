@@ -19,6 +19,7 @@ class ApproModel extends Model
         'nature',
         'auteur',
         'montant',
+        "img",
     ];
 
     // Dates
