@@ -141,7 +141,7 @@ Approvisionnements
           <div class="col-md-6 col-lg-4">
             <div class="mb-3">
               <label for="img" class="form-label">Ajouter un fichier joint</label>
-              <input type="file" class="form-control" name="img" id="img" accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/heic" placeholder="Importer un fichier">
+              <input type="file" class="form-control" name="img" id="img" accept="image/png, image/gif, image/jpeg, image/jpg, image/webp" placeholder="Importer un fichier">
             </div>
           </div>
           <div class="col-12 d-flex gap-3">
