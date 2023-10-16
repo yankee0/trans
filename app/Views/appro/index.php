@@ -311,7 +311,7 @@ Approvisionnements
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="" class="margin-auto" id="imgField">
+        <img src="" height="500px" class="margin-auto" id="imgField">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
