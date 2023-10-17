@@ -256,7 +256,7 @@ class Rapports extends BaseController
                 /**
                  * Solde initial
                  */
-                $So = 0;
+                $So = 0.00;
 
                 $Roc = $modelRec
                     ->select('SUM(montant) as montant')
@@ -286,7 +286,7 @@ class Rapports extends BaseController
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
-                $res[$i]['solde_fin'] = $res[$i]['solde_init'] + $Rcd - $Dcd;
+                $res[$i]['solde_fin'] = $res[$i]['solde_init'] + doubleval($Rcd) - doubleval($Dcd);
 
                 $res[$i]['appros'] = $Dcd_liste;
             }
