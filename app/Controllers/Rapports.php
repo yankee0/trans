@@ -296,7 +296,7 @@ class Rapports extends BaseController
         $data = [
             'recs' => $model->orderBy('date', 'desc')->find(),
             'res' => $res,
-            'recs' => $recs,
+            'rechs' => $recs,
         ];
         return view("rapports/approvisionnements/index", $data);
     }
