@@ -5,9 +5,16 @@ namespace App\Controllers;
 use App\Controllers\Livraisons;
 use App\Controllers\BaseController;
 use App\Controllers\Camions as ControllersCamions;
+use App\Models\ApproModel;
+use App\Models\RavApproModel;
 
 class Rapports extends BaseController
 {
+    public function __construct()
+    {
+        session()->p = 'rapports';
+    }
+    
     public function index()
     {
         session()->p = 'rapports';
@@ -210,5 +217,86 @@ class Rapports extends BaseController
                 'name' => $name
             ]
         );
+    }
+
+    public function index_approvisionnements()
+    {
+        $model = new RavApproModel();
+        $data = [
+            'recs' => $model->orderBy('date', 'desc')->find(),
+            'res' => [],
+        ];
+        return view("rapports/approvisionnements/index", $data);
+    }
+
+    public function generate_approvisionnements()
+    {
+        $data = $this->request->getVar();
+        $modelAppro = new ApproModel();
+        $modelRec = new RavApproModel();
+
+        $recs = $modelRec
+            ->where('UNIX_TIMESTAMP(date) >=', strtotime($data['from']))
+            ->where('UNIX_TIMESTAMP(date) <=', strtotime($data['to']))
+            ->orderBy('date', 'asc')
+            ->findAll();
+
+        $res = [];
+
+        /**
+         * Equation de l'approvisionnement
+         * 
+         *  Sc = So + Roc - Doc
+         *  Sd = So + Rcd - Dcd
+         */
+        for ($i = 0; $i < sizeof($recs); $i++) {
+            if ($i + 1 < sizeof($recs)) {
+                $res[$i]['recharge'] = "Rechargement de " . $recs[$i]['montant'] . " FCFA le " . date('d/m/Y à H:i', strtotime($recs[$i]['date']));
+
+                /**
+                 * Solde initial
+                 */
+                $So = 0;
+
+                $Roc = $modelRec
+                    ->select('SUM(montant) as montant')
+                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i + 1]['date']))
+                    ->find()[0]['montant'];
+
+                $Doc = $modelAppro
+                    ->select('SUM(montant) as montant')
+                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i]['date']))
+                    ->find()[0]['montant'];
+
+                $Rcd = $modelRec
+                    ->select('SUM(montant) as montant')
+                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i]['date']))
+                    ->where('UNIX_TIMESTAMP(date) >', strtotime($recs[$i + 1]['date']))
+                    ->find()[0]['montant'];
+
+                $Dcd = $modelAppro
+                    ->select('SUM(montant) as montant')
+                    ->where('UNIX_TIMESTAMP(date) >', strtotime($recs[$i]['date']))
+                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i + 1]['date']))
+                    ->find()[0]['montant'];
+
+                $Dcd_liste = $modelAppro
+                    ->where('UNIX_TIMESTAMP(date) >', strtotime($recs[$i]['date']))
+                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i + 1]['date']))
+                    ->find();
+
+                $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
+                $res[$i]['solde_fin'] = $res[$i]['solde_init'] + $Rcd - $Dcd;
+
+                $res[$i]['appros'] = $Dcd_liste;
+            }
+        }
+
+        $model = new RavApproModel();
+        $data = [
+            'recs' => $model->orderBy('date', 'desc')->find(),
+            'res' => $res,
+        ];
+        return view("rapports/approvisionnements/index", $data);
     }
 }

@@ -84,7 +84,7 @@ Approvisionnements
               <tbody>
                 <?php foreach ($recs as $r) : ?>
                   <tr>
-                    <td scope="row"><?= date('d/m/Y', strtotime($r['date'])) ?></td>
+                    <td scope="row"><?= date('d/m/Y à H:i', strtotime($r['date'])) ?></td>
                     <td><?= $r['montant'] ?></td>
                     <td><?= $r['auteur'] ?></td>
                   </tr>
@@ -352,27 +352,19 @@ Approvisionnements
         [0, 'desc']
       ],
       dom: 'Bfrtip',
-      buttons: [
-        'copyHtml5',
-        {
-          extend: 'excelHtml5',
-          exportOptions: {
-            columns: ':not(:last-child)' // Excludes the last column
-          }
-        },
-        {
-          extend: 'csvHtml5',
-          exportOptions: {
-            columns: ':not(:last-child)' // Excludes the last column
-          }
-        },
-        {
-          extend: 'pdfHtml5',
-          exportOptions: {
-            columns: ':not(:last-child)' // Excludes the last column
-          }
-        },
-      ],
+      // buttons: [
+      //   'copyHtml5',
+      //   {
+      //     extend: 'excelHtml5',
+      //   },
+      //   {
+      //     extend: 'csvHtml5',
+
+      //   }, {
+      //     extend: 'pdfHtml5',
+
+      //   },
+      // ],
       language: {
         decimal: ',',
         thousands: '.'

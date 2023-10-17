@@ -161,6 +161,14 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('annuler/(:segment)', 'FactLiv::abord/$1');
         });
 
+        // gestion des appro
+        $routes->group('approvisionnements', function ($routes) {
+            $routes->get('/', 'Appro::index');
+            $routes->post('modifier', 'Appro::modifierAppro');
+            $routes->post('supprimer', 'Appro::supprimerAppro');
+            $routes->post('/', 'Appro::appro');
+            $routes->post('recharge', 'Appro::recharge');
+        });
 
         //recherche operation
         $routes->get('search', 'Ops::search');
@@ -186,15 +194,10 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
                 $routes->get('/', 'Rapports::index_carburant');
                 $routes->post('/', 'Rapports::generate_carburant');
             });
-        });
-
-        // gestion des appro
-        $routes->group('approvisionnements', function ($routes) {
-            $routes->get('/', 'Appro::index');
-            $routes->post('modifier', 'Appro::modifierAppro');
-            $routes->post('supprimer', 'Appro::supprimerAppro');
-            $routes->post('/', 'Appro::appro');
-            $routes->post('recharge', 'Appro::recharge');
+            $routes->group('approvisionnements', function ($routes) {
+                $routes->get('/', 'Rapports::index_approvisionnements');
+                $routes->post('/', 'Rapports::generate_approvisionnements');
+            });
         });
     });
 

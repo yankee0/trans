@@ -80,7 +80,7 @@ class Appro extends BaseController
         $data = $this->request->getPost();
         //Record file
         $img = $this->request->getFile('img');
-        if ($img->getSize() > 0) {
+        if (!empty($img) and $img->getSize() > 0) {
             $img->move(ROOTPATH . '/public/images/approvisionnements');
             $data['img'] = $img->getName();
         }
