@@ -260,29 +260,29 @@ class Rapports extends BaseController
 
                 $Roc = $modelRec
                     ->select('SUM(montant) as montant')
-                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i + 1]['date']))
+                    ->where('date <', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Doc = $modelAppro
                     ->select('SUM(montant) as montant')
-                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i]['date']))
+                    ->where('date <', $recs[$i]['date'])
                     ->find()[0]['montant'];
 
                 $Rcd = $modelRec
                     ->select('SUM(montant) as montant')
-                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i]['date']))
-                    ->where('UNIX_TIMESTAMP(date) >', strtotime($recs[$i + 1]['date']))
+                    ->where('date <', $recs[$i]['date'])
+                    ->where('date >', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Dcd = $modelAppro
                     ->select('SUM(montant) as montant')
-                    ->where('UNIX_TIMESTAMP(date) >', strtotime($recs[$i]['date']))
-                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i + 1]['date']))
+                    ->where('date >', $recs[$i]['date'])
+                    ->where('date <', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Dcd_liste = $modelAppro
-                    ->where('UNIX_TIMESTAMP(date) >', strtotime($recs[$i]['date']))
-                    ->where('UNIX_TIMESTAMP(date) <', strtotime($recs[$i + 1]['date']))
+                    ->where('date >', $recs[$i]['date'])
+                    ->where('date <', $recs[$i + 1]['date'])
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);

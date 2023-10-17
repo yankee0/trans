@@ -61,7 +61,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-hover border w-100" id="tableau">
+            <table class="table border w-100" id="tableau">
               <thead class="d-none">
                 <tr>
                   <td></td>
