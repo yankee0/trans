@@ -51,6 +51,16 @@ Rapports
         </div>
       </div>
     </div>
+    <div class="d-flex col-md-6 col-xl-3">
+      <div class="card flex-fill">
+        <img src="<?= base_url('assets/img/appro.webp') ?>" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Rapport Appro</h5>
+          <p class="card-text">Rapports sur les approvisionnements de <?= APP_NAME ?>.</p>
+          <a href="<?= base_url(session()->r . '/rapports/approvisionnements') ?>" class="btn btn-sm btn-primary">Accéder <i data-feather="arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
   <?php endif ?>
 
 </div>

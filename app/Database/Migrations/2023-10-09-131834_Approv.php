@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Appro extends Migration
+class Approv extends Migration
 {
     public function up()
     {
