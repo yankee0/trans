@@ -236,8 +236,8 @@ class Rapports extends BaseController
         $modelRec = new RavApproModel();
 
         $recs = $modelRec
-            ->where('UNIX_TIMESTAMP(date) >=', strtotime($data['from']))
-            ->where('UNIX_TIMESTAMP(date) <=', strtotime($data['to']))
+            ->where('date >=', $data['from'])
+            ->where('date <=', $data['to'])
             ->orderBy('date', 'asc')
             ->findAll();
 
@@ -247,7 +247,7 @@ class Rapports extends BaseController
          * Equation de l'approvisionnement
          * 
          *  Sc = So + Roc - Doc
-         *  Sd = So + Rcd - Dcd
+         *  Sd = Sc + Rcd - Dcd
          */
         for ($i = 0; $i < sizeof($recs); $i++) {
             if ($i + 1 < sizeof($recs)) {
@@ -260,29 +260,29 @@ class Rapports extends BaseController
 
                 $Roc = $modelRec
                     ->select('SUM(montant) as montant')
-                    ->where('date <', $recs[$i + 1]['date'])
+                    ->where('date <=', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Doc = $modelAppro
                     ->select('SUM(montant) as montant')
-                    ->where('date <', $recs[$i]['date'])
+                    ->where('date <=', $recs[$i]['date'])
                     ->find()[0]['montant'];
 
                 $Rcd = $modelRec
                     ->select('SUM(montant) as montant')
-                    ->where('date <', $recs[$i]['date'])
-                    ->where('date >', $recs[$i + 1]['date'])
+                    ->where('date <=', $recs[$i]['date'])
+                    ->where('date >=', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Dcd = $modelAppro
                     ->select('SUM(montant) as montant')
-                    ->where('date >', $recs[$i]['date'])
-                    ->where('date <', $recs[$i + 1]['date'])
+                    ->where('date >=', $recs[$i]['date'])
+                    ->where('date <=', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Dcd_liste = $modelAppro
-                    ->where('date >', $recs[$i]['date'])
-                    ->where('date <', $recs[$i + 1]['date'])
+                    ->where('date >=', $recs[$i]['date'])
+                    ->where('date <=', $recs[$i + 1]['date'])
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
@@ -296,6 +296,7 @@ class Rapports extends BaseController
         $data = [
             'recs' => $model->orderBy('date', 'desc')->find(),
             'res' => $res,
+            'recs' => $recs,
         ];
         return view("rapports/approvisionnements/index", $data);
     }
