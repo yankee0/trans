@@ -108,7 +108,7 @@
                   </tr>
                   <?php foreach ($r['appros'] as $a) : ?>
                     <tr>
-                      <td><?= date('d/m/Y à H:i') ?></td>
+                      <td><?= date('d/m/Y à H:i', strtotime($a['date'])) ?></td>
                       <td><?= $a['nature'] ?></td>
                       <td><?= number_format($a['montant']) ?></td>
                       <td><?= $a['description'] ?></td>
