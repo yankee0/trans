@@ -141,6 +141,7 @@
     $('.table').DataTable({
       responsive: true,
       ordering: false,
+      paging: false,
       dom: 'Bfrtip',
       buttons: [
         'copyHtml5',
