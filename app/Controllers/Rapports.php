@@ -14,7 +14,7 @@ class Rapports extends BaseController
     {
         session()->p = 'rapports';
     }
-    
+
     public function index()
     {
         session()->p = 'rapports';
@@ -251,12 +251,12 @@ class Rapports extends BaseController
          */
         for ($i = 0; $i < sizeof($recs); $i++) {
             if ($i + 1 < sizeof($recs)) {
-                $res[$i]['recharge'] = "Rechargement de " . $recs[$i]['montant'] . " FCFA le " . date('d/m/Y à H:i', strtotime($recs[$i]['date']));
+                $res[$i]['recharge'] = "Rechargement de " . number_format($recs[$i]['montant']) . " FCFA le " . date('d/m/Y à H:i', strtotime($recs[$i]['date']));
 
                 /**
                  * Solde initial
                  */
-                $So = 0;
+                $So = 0.00;
 
                 $Roc = $modelRec
                     ->select('SUM(montant) as montant')
@@ -286,7 +286,7 @@ class Rapports extends BaseController
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
-                $res[$i]['solde_fin'] = $res[$i]['solde_init'] + $Rcd - $Dcd;
+                $res[$i]['solde_fin'] = $res[$i]['solde_init'] + doubleval($Rcd) - doubleval($Dcd);
 
                 $res[$i]['appros'] = $Dcd_liste;
             }
