@@ -70,7 +70,7 @@
               <tbody>
                 <?php foreach ($res as $r) : ?>
                   <tr class="bg-success text-white">
-                    <td class=" fw-bold"><?= $r['recharge'] ?></td>
+                    <td class=" fw-bold"><?= $r['titre'] ?></td>
                     <td></td>
                     <td></td>
                     <td></td>

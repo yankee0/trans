@@ -251,7 +251,8 @@ class Rapports extends BaseController
          */
         for ($i = 0; $i < sizeof($recs); $i++) {
             if ($i + 1 < sizeof($recs)) {
-                $res[$i]['recharge'] = "Rechargement de " . number_format($recs[$i]['montant']) . " FCFA le " . date('d/m/Y à H:i', strtotime($recs[$i]['date']));
+                $res[$i]['titre'] = "Rechargement du " . date('d/m/Y à H:i', strtotime($recs[$i]['date']));
+                $res[$i]['recharge'] = $recs[$i]['montant'];
 
                 /**
                  * Solde initial
@@ -286,7 +287,6 @@ class Rapports extends BaseController
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
-                $res[$i]['recharge'] = $Rcd;
                 $res[$i]['depenses'] = $Dcd;
                 $res[$i]['solde_fin'] = $res[$i]['solde_init'] + doubleval($Rcd) - doubleval($Dcd);
 
