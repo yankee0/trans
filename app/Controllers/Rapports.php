@@ -286,7 +286,6 @@ class Rapports extends BaseController
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
-                $res[$i]['recharge'] = $Rcd;
                 $res[$i]['depenses'] = $Dcd;
                 $res[$i]['solde_fin'] = $res[$i]['solde_init'] + doubleval($Rcd) - doubleval($Dcd);
 
