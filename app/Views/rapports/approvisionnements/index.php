@@ -1,29 +1,24 @@
 <?= $this->extend('layouts'); ?>
 <?= $this->section('title'); ?>
-<?= isset($name) ? $name : 'Rapports approvisionnements' ?>
+<?= isset($name) ? $name : 'Caisse logistique' ?>
 <?= $this->endSection(); ?>
 <?= $this->section('main'); ?>
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?= base_url(session()->r . '/rapports') ?>">Rapports</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Rapports approvisionnements</li>
+    <li class="breadcrumb-item active" aria-current="page">Caisse logistique</li>
   </ol>
 </nav>
-<h1 class="h3 mb-3"><strong>Rapports</strong> approvisionnements</h1>
+<h1 class="h3 mb-3"><strong>Rapports</strong> caisse logistique</h1>
 
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Générer un rapport appro</h5>
+        <h5 class="card-title">Générer un rapport</h5>
         <?= form_open() ?>
         <?= csrf_field() ?>
         <div class="row">
-          <div class="col-12">
-            <div class="alert alert-info" role="alert">
-              <strong>Info!</strong> Ce rapport procure le l'état des approvisionnements entre deux rechargements distincts.
-            </div>
-          </div>
           <div class="col-md mb-3">
             <label for="from" class="form-label">Du </label>
             <select class="form-select" name="from" id="from" required>
@@ -85,6 +80,22 @@
                   <tr class="bg-light">
                     <td class=" fw-bold">Solde d'ouverture en FCFA</td>
                     <td><?= number_format($r['solde_init']) ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr class="bg-light">
+                    <td class=" fw-bold">Montant de la recharge en FCFA</td>
+                    <td><?= number_format($r['recharge']) ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr class="bg-light">
+                    <td class=" fw-bold">Montant des dépenses en FCFA</td>
+                    <td><?= number_format($r['depenses']) ?></td>
                     <td></td>
                     <td></td>
                     <td></td>

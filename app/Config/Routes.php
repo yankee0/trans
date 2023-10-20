@@ -354,6 +354,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->post('modifier', 'Carburant::modRav');
         });
 
+
         // rapport
         $routes->group('rapports', function ($routes) {
             $routes->get('/', 'Rapports::index');
@@ -375,6 +376,11 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->group('carburant', function ($routes) {
                 $routes->get('/', 'Rapports::index_carburant');
                 $routes->post('/', 'Rapports::generate_carburant');
+            });
+
+            $routes->group('approvisionnements', function ($routes) {
+                $routes->get('/', 'Rapports::index_approvisionnements');
+                $routes->post('/', 'Rapports::generate_approvisionnements');
             });
         });
     });

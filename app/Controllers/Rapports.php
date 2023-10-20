@@ -260,24 +260,24 @@ class Rapports extends BaseController
 
                 $Roc = $modelRec
                     ->select('SUM(montant) as montant')
-                    ->where('date <=', $recs[$i + 1]['date'])
+                    ->where('date <', $recs[$i]['date'])
                     ->find()[0]['montant'];
 
                 $Doc = $modelAppro
                     ->select('SUM(montant) as montant')
-                    ->where('date <=', $recs[$i]['date'])
+                    ->where('date <', $recs[$i]['date'])
                     ->find()[0]['montant'];
 
                 $Rcd = $modelRec
                     ->select('SUM(montant) as montant')
-                    ->where('date <=', $recs[$i]['date'])
-                    ->where('date >=', $recs[$i + 1]['date'])
+                    ->where('date >=', $recs[$i]['date'])
+                    ->where('date <', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Dcd = $modelAppro
                     ->select('SUM(montant) as montant')
                     ->where('date >=', $recs[$i]['date'])
-                    ->where('date <=', $recs[$i + 1]['date'])
+                    ->where('date <', $recs[$i + 1]['date'])
                     ->find()[0]['montant'];
 
                 $Dcd_liste = $modelAppro
@@ -286,6 +286,8 @@ class Rapports extends BaseController
                     ->find();
 
                 $res[$i]['solde_init'] = $So + doubleval($Roc) - doubleval($Doc);
+                $res[$i]['recharge'] = $Rcd;
+                $res[$i]['depenses'] = $Dcd;
                 $res[$i]['solde_fin'] = $res[$i]['solde_init'] + doubleval($Rcd) - doubleval($Dcd);
 
                 $res[$i]['appros'] = $Dcd_liste;

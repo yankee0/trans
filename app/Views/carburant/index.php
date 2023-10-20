@@ -10,7 +10,7 @@ Gestion du carburant
   <div class="col-sm col-md-6 col-xl-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title"><a href="<?= base_url(session()->r.'/carburant') ?>"><strong>Solde de la carte carburant</strong> <i data-feather="link"></i></a></h5>
+        <h5 class="card-title"><a href="<?= base_url(session()->r . '/carburant') ?>"><strong>Solde de la carte carburant</strong> <i data-feather="link"></i></a></h5>
         <div class="fs-2 <?= $carte['solde'] <= 70000 ? 'text-danger' : 'text-success' ?>"><span class="num"><?= $carte['solde'] ?></span> <strong>FCFA</strong></div>
         <div class="mb-2">
           <?php if (empty($recs)) : ?>
@@ -47,7 +47,7 @@ Gestion du carburant
                 <?php foreach ($recs as $rec) : ?>
                   <tr>
                     <td><?= $rec['created_at'] ?></td>
-                    <td><?= $rec['montant'] ?></td>
+                    <td><?= number_format($rec['montant']) ?></td>
                     <td><?= $rec['nom'] ?></td>
                   </tr>
                 <?php endforeach ?>
@@ -137,8 +137,8 @@ Gestion du carburant
                 <th>Carburant</th>
                 <th>Date</th>
                 <th>Prix</th>
-                <th>Nombre de litres</th>
-                <th>Montant</th>
+                <th>Nombre de litres en FCFA/Litre</th>
+                <th>Montant en FCFA</th>
                 <th>Conducteur</th>
                 <th>Véhicule</th>
                 <th>Immatriculation</th>
@@ -151,9 +151,9 @@ Gestion du carburant
                 <tr>
                   <td><?= $rav['type_carb'] ?></td>
                   <td><?= $rav['created_at'] ?></td>
-                  <td><?= $rav['prix_litre'] ?> FCFA/Litre</td>
+                  <td><?= $rav['prix_litre'] ?></td>
                   <td><?= $rav['litres'] ?></td>
-                  <td><?= $rav['prix_litre'] * $rav['litres'] ?> FCFA</td>
+                  <td><?= number_format($rav['prix_litre'] * $rav['litres']) ?></td>
                   <td><?= $rav['conducteur'] ?></td>
                   <td><?= $rav['type_veh'] ?></td>
                   <td><?= $rav['imm'] ?></td>
