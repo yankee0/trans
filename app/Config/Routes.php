@@ -34,6 +34,10 @@ $routes->post('/', 'Auth::login');
 $routes->get('/deconnexion', 'Auth::logout');
 $routes->get('/(:segment)/livraisons/details/(:segment)', 'FactLiv::showInvoice/$2');
 
+$routes->get('/yeet', static function () {
+    return view('emails/TCDeadline');
+});
+
 $routes->get('/check', 'Check::checkDoubleRav');
 
 //Cron routes

@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 
 class Mailer extends BaseController
 {
-    public function sendTCDealineMail(array $to, array $data)
+    public function sendTCDealineMail(array $to, int $data)
     {
         $sent = 0;
         $email = \Config\Services::email();
@@ -16,6 +16,7 @@ class Mailer extends BaseController
             $email->setTo($u['email']);
             $email->setMessage(view('emails/TCDeadline', [
                 'nom' => $u['nom'],
+                'profil' => $u['profil'],
                 'tcs' => $data,
             ]));
             if ($email->send()) {
@@ -23,7 +24,7 @@ class Mailer extends BaseController
             }
         }
 
-        return count($data) . ' alerts sent to ' . $sent . ' out of ' . count($to) . ' users.';
+        return $data . ' alerts sent to ' . $sent . ' out of ' . count($to) . ' users.';
     }
 
     public function sendPaymentMail(array $to, array $data)

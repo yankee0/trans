@@ -5,29 +5,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <title>Deadline TC</title>
 </head>
 <style>
   body {
-    padding: 20px, 20px, 20px, 20px;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
-    min-height: 100vh;
     width: 100vw;
     background-color: #ffffff;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .container {
     width: 100%;
-    max-width: 750px;
-    border-radius: 5px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-    padding-top: 30px;
     overflow: hidden;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   header {
@@ -43,52 +43,69 @@
     margin-bottom: 10px;
   }
 
-  main {
-    padding: 20px;
-  }
 
   a {
-    background: #e74c3c;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-decoration: none;
-    color: white;
-    border-radius: 5px;
+    color: #e74c3c;
   }
 
   footer {
-    background-color: #e74c3c;
-    color: #ffffff;
     margin-top: 20px;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
+  #heroImg {
+    height: 250px;
+    width: 250px;
+    margin: auto;
+  }
+
+  #num {
+    font-size: 7rem;
+    text-align: center;
+  }
+
+  .text-center {
+    text-align: center;
+    font-weight: bold;
+  }
 </style>
 
 <body>
   <div class="container">
     <header>
-      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
-        <path fill="none" stroke="#e74c3c" stroke-width="2" d="M12,17 L12,19 M12,10 L12,16 M12,3 L2,22 L22,22 L12,3 Z"></path>
-      </svg>
+      <img id="heroImg" src="<?= base_url('assets/img/container.svg') ?>" alt="Conteneur">
       <h1>ALERTE DEADLINE TC</h1>
       <small>Ne pas répondre à ce mail</small>
     </header>
     <main>
-      <p>Bonjour <?= $nom ?>,</p>
-      <p>Ci-dessous la liste des <strong class="red"><?= count($tcs) ?> conteneurs</strong> à moins de <strong>48H</strong> de leurs deadlines:</p>
-      <ul>
-        <?php foreach ($tcs as $tc) : ?>
-          <li><strong><?= $tc['designation'] ?></strong> du TC <strong class="red"><?= $tc['conteneur'] ?> de type <?= $tc['type'] ?>'</strong> pour le client <strong><?= $tc['client'] ?></strong>.Deadline prévu le <strong><?= date('d/m/Y', strtotime($tc['deadline'])) ?></strong>, Pregate reçu le <strong><?= date('d/m/Y', strtotime($tc['date_creation'])) ?></strong> et <strong><?= $tc['paiement'] == 'OUI' ? 'payé le ' . date('d/m/Y', strtotime($tc['date_creation'])) . '.' : 'NON PAYÉ.' ?></strong>
-          <?php endforeach ?>
-      </ul>
-      <p>Pour plus d'informations connectez vous à votre interface de gestion <br>
-        Cordialement,</p>
-      <strong>SERVICE I.T. POLY-TRANS SUARL</strong>
+      <div id="num"><?= $tcs ?></div>
+      <div class="text-center">Conteneurs proches deadlines</div>
+      <p>Bonjour <?= $tcs ?>,</p>
+      <p>
+        Ci-joint la liste des TCs non livrés à moins de 24h avant leurs dates de deadline: <br>
+        <?php
+        $r = '';
+        switch ($profil) {
+          case 'ADMIN':
+            $r =  'admin';
+            break;
+          case 'OPS':
+            $r =  'ops';
+            break;
+          case 'OPS TERRAIN':
+            $r =  'ops-terrain';
+            return redirect()->to(session()->r);
+            break;
+        }
+        ?>
+        <a href="<?= base_url($r . "/livraisons/pregate") ?>">Listes des TCs</a>
+      </p>
+      <p>Cordialement,<br>
+        <strong>Services IT POLY-TRANS SUARL</strong>
+      </p>
     </main>
     <footer>
       <img src="<?= base_url('assets/img/logo.png') ?>" height="50px" width="auto" alt="">

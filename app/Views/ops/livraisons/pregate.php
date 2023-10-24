@@ -151,16 +151,16 @@ Pregate livraisons
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link d-flex align-items-center justify-content-center gap-2 active" id="dernier-enregistrement" data-bs-toggle="tab" data-bs-target="#last-recs" type="button" role="tab" aria-controls="last-recs" aria-selected="true"><i data-feather="clock"></i> Derniers enregistrement</button>
+      <button class="nav-link d-flex align-items-center justify-content-center gap-2 " id="dernier-enregistrement" data-bs-toggle="tab" data-bs-target="#last-recs" type="button" role="tab" aria-controls="last-recs" aria-selected="false"><i data-feather="clock"></i> Derniers enregistrement</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link d-flex align-items-center justify-content-center gap-2" id="alerts-dl" data-bs-toggle="tab" data-bs-target="#alertdl" type="button" role="tab" aria-controls="alertdl" aria-selected="false"><i data-feather="alert-triangle"></i> Deadline dans moins de 48h</button>
+      <button class="nav-link d-flex align-items-center justify-content-center gap-2 active" id="alerts-dl" data-bs-toggle="tab" data-bs-target="#alertdl" type="button" role="tab" aria-controls="alertdl" aria-selected="true"><i data-feather="alert-triangle"></i> Deadline dans moins de 48h</button>
     </li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div class="tab-pane active" id="last-recs" role="tabpanel" aria-labelledby="dernier-enregistrement">
+    <div class="tab-pane" id="last-recs" role="tabpanel" aria-labelledby="dernier-enregistrement">
       <div class="row">
         <div class="col-12">
           <!-- Nav tabs -->
@@ -333,7 +333,7 @@ Pregate livraisons
         </div>
       </div>
     </div>
-    <div class="tab-pane" id="alertdl" role="tabpanel" aria-labelledby="alerts-dl">
+    <div class="tab-pane  active" id="alertdl" role="tabpanel" aria-labelledby="alerts-dl">
       <div class="row pt-3">
         <div class="col d-flex">
           <div class="card flex-fill">
