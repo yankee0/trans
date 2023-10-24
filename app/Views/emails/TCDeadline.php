@@ -83,7 +83,7 @@
     <main>
       <div id="num"><?= $tcs ?></div>
       <div class="text-center">Conteneurs proches deadlines</div>
-      <p>Bonjour <?= $tcs ?>,</p>
+      <p>Bonjour <?= $nom ?>,</p>
       <p>
         Ci-joint la liste des TCs non livrés à moins de 24h avant leurs dates de deadline: <br>
         <?php

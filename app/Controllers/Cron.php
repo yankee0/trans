@@ -41,7 +41,7 @@ class Cron extends BaseController
             ->where('livraisons.etat !=', 'ANNULÉ')
             ->orderBy('fact_liv.deadline', 'ASC')
             ->countAllResults();
-        if (!empty($tcs)) {
+        if ($tcs > 0) {
             $uModel = new Utilisateurs();
             $us = $uModel
                 ->where('profil', 'ADMIN')
