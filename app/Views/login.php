@@ -26,8 +26,8 @@
   <main class="container">
     <div class="row flex-md-row-reverse">
       <div class="col-md d-flex align-items-center">
-        <div>
-          <h1>Portail de connexion</h1>
+        <div class="text-center flex-fill">
+          <!-- <h1>Portail de connexion</h1>
           <p>Connecter-vous pour accèder à votre interface de gestion.</p>
           <div class="p-2 bg-opacity-25 bg-info text-info rounded mb-3">
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,10 @@
               <path d="M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"></path>
             </svg>
             Pour plus de sécurité, nous vous conseillons de modifier votre mot de passe plus souvent.
-          </div>
+          </div> -->
+          <img src="<?= base_url('assets/img/cake.svg') ?>" height="250px" class="m-auto" alt="Jo's">
+          <h1>🥳HBD Jooo, Portail de connexion</h1>
+          <p>Dieundeul gateau!🤣</p>
         </div>
       </div>
       <div class="col-md">
