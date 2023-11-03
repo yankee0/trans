@@ -29,7 +29,7 @@ Liste des remorques
                 Aucun résultat.
               </div>
             </div>
-  
+
           <?php else : ?>
             <?= form_open(base_url(session()->r . '/remorques/del'), [
               'id' => 'gd'
@@ -43,6 +43,7 @@ Liste des remorques
                     <th class="d-none d-xl-table-cell">Société</th>
                     <th class="d-none d-sm-table-cell">Fin visite technique</th>
                     <th class="d-none d-xl-table-cell">Fin assurance</th>
+                    <th class="d-none d-xl-table-cell" style="max-width: 400px;">Commentaire</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -56,12 +57,13 @@ Liste des remorques
                       <td class="d-none d-xl-table-cell"><?= $l['societe'] ?></td>
                       <td class="d-none d-sm-table-cell"><?= $l['vt'] ?></td>
                       <td class="d-none d-xl-table-cell"><?= $l['as'] ?></td>
+                      <td class="d-none d-xl-table-cell" style="max-width: 400px;"><?= $l['commentaire'] ?></td>
                       <td>
                         <div class="d-flex gap-2">
-                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la remorque" data-bs-toggle="modal" data-bs-target="#delete">
+                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la remorque" data-bs-toggle="modal" data-bs-target="#delete">
                             <i cla data-feather="trash"></i>
                           </button>
-                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la remorque" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la remorque" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                             <i cla data-feather="edit"></i>
                           </button>
                         </div>
@@ -112,6 +114,10 @@ Liste des remorques
           <input type="date" class="form-control" name="as" id="as" aria-describedby="helpIdas" value="<?= set_value('as', null) ?>">
           <small id="helpIdas" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
         </div>
+        <div class="mb-3">
+          <label for="commentaire" class="form-label">Commentaire</label>
+          <textarea class="form-control" name="commentaire" id="commentaire" rows="3"></textarea>
+        </div>
 
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -160,6 +166,10 @@ Liste des remorques
           <label for="asmod" class="form-label">Fin assurrance</label>
           <input type="date" class="form-control" name="as" id="asmod" aria-describedby="helpIdas" value="<?= set_value('as', null) ?>">
           <small id="helpIdas" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
+        </div>
+        <div class="mb-3">
+          <label for="commentaireMod" class="form-label">Commentaire</label>
+          <textarea class="form-control" name="commentaire" id="commentaireMod" rows="3"></textarea>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -228,7 +238,7 @@ Liste des remorques
   $('.delete').click(function(e) {
     e.preventDefault();
     $('#zn').html($(this).data('im'));
-    $('#znb').attr('href','<?= base_url(session()->r . '/remorques/del/') ?>'+$(this).data('id'));
+    $('#znb').attr('href', '<?= base_url(session()->r . '/remorques/del/') ?>' + $(this).data('id'));
   });
 
   $('.update').click(function(e) {
@@ -237,6 +247,7 @@ Liste des remorques
     $('#vtmod').val($(this).data('vt'));
     $('#asmod').val($(this).data('as'));
     $('#societemod').val($(this).data('societe'));
+    $('#commentairemod').val($(this).data('commentaire'));
     $('#eznb').val($(this).data('id'));
   });
 </script>

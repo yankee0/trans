@@ -18,7 +18,8 @@ class Remorques extends Model
         'societe',
         'vt',
         'as',
-        'id'
+        'id',
+        'commentaire',
     ];
 
     // Dates

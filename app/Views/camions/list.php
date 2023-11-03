@@ -29,7 +29,7 @@ Liste des camions
                 Aucun résultat.
               </div>
             </div>
-  
+
           <?php else : ?>
             <?= form_open(base_url(session()->r . '/camions/del'), [
               'id' => 'gd'
@@ -43,6 +43,7 @@ Liste des camions
                     <th class="">Société</th>
                     <th class="">Fin visite technique</th>
                     <th class="">Fin assurance</th>
+                    <th class="" style="max-width: 400px;">Commentaires</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -56,12 +57,13 @@ Liste des camions
                       <td class=""><?= $l['societe'] ?></td>
                       <td class=""><?= $l['vt'] ?></td>
                       <td class=""><?= $l['as'] ?></td>
+                      <td class="" style="max-width: 400px;"><?= $l['commentaire'] ?></td>
                       <td>
                         <div class="d-flex gap-2">
-                          <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
+                          <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" data-as="<?= $l['as'] ?>" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la camion" data-bs-toggle="modal" data-bs-target="#delete">
                             <i cla data-feather="trash"></i>
                           </button>
-                          <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-as="<?= $l['as'] ?>" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la camion" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                          <button type="button" data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" data-as="<?= $l['as'] ?>" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la camion" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                             <i cla data-feather="edit"></i>
                           </button>
                         </div>
@@ -112,6 +114,10 @@ Liste des camions
           <input type="date" class="form-control" name="as" id="as" aria-describedby="helpIdas" value="<?= set_value('as', null) ?>">
           <small id="helpIdas" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
         </div>
+        <div class="mb-3">
+          <label for="commentaire" class="form-label">Commentaire</label>
+          <textarea class="form-control" name="commentaire" id="commentaire" rows="3"></textarea>
+        </div>
 
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -160,6 +166,10 @@ Liste des camions
           <label for="asmod" class="form-label">Fin assurrance</label>
           <input type="date" class="form-control" name="as" id="asmod" aria-describedby="helpIdas" value="<?= set_value('as', null) ?>">
           <small id="helpIdas" class="form-text text-muted">À laisser vide en cas d'indisponibilité.</small>
+        </div>
+        <div class="mb-3">
+          <label for="commentaireMod" class="form-label">Commentaire</label>
+          <textarea class="form-control" name="commentaire" id="commentaireMod"  rows="3"></textarea>
         </div>
         <?= csrf_field() ?>
         <?= form_close() ?>
@@ -229,7 +239,7 @@ Liste des camions
   $('.delete').click(function(e) {
     e.preventDefault();
     $('#zn').html($(this).data('im'));
-    $('#znb').attr("href",'<?= base_url(session()->r . '/camions/del/') ?>'+$(this).data('id'));
+    $('#znb').attr("href", '<?= base_url(session()->r . '/camions/del/') ?>' + $(this).data('id'));
   });
 
   $('.update').click(function(e) {
@@ -237,8 +247,10 @@ Liste des camions
     $('#immod').val($(this).data('im'));
     $('#vtmod').val($(this).data('vt'));
     $('#asmod').val($(this).data('as'));
+    $('#commentairemod').val($(this).data('commentaire'));
     $('#societemod').val($(this).data('societe'));
     $('#eznb').val($(this).data('id'));
+    console.log($(this).data('commentaire'));
   });
 </script>
 
