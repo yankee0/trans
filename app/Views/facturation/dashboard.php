@@ -33,7 +33,6 @@
             <div class="col mt-0">
               <h5 class="card-title">Facture livraisons</h5>
             </div>
-
             <div class="col-auto">
               <div class="stat text-primary">
                 <i class="align-middle" data-feather="box"></i>
@@ -112,7 +111,7 @@
                   <td class="d-none d-md-table-cell num"><?= $line['total'] ?></td>
                   <td class="d-none d-xl-table-cell"><?= $line['date_creation'] ?></td>
                   <td><span class="badge bg-<?= ($line['annulation'] == 'OUI') ? 'danger' : 'success' ?>"><?= $line['annulation'] ?></span></td>
-                  <td><span class="badge bg-<?= ($line['pregate'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['pregate'] == 'NON') ? 'NON REÇU' : 'REÇU' ?></span></td>
+                  <td><span class="badge bg-<?= ($line['pregate'] == 'NON' or $line['pregate'] == null) ? 'warning' : 'success' ?>"><?= ($line['pregate'] == 'NON' or $line['pregate'] == null) ? 'NON REÇU' : 'REÇU' ?></span></td>
                   <td><span class="badge bg-<?= ($line['paiement'] == 'NON') ? 'warning' : 'success' ?>"><?= ($line['paiement'] == 'NON') ? 'NON REÇU' : 'PAYÉ' ?></span></td>
                   <td>
                     <div class="d-flex gap-1">

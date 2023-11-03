@@ -14,7 +14,7 @@ Information de livraison
       <div class="card-body">
         <div class="row">
           <div class="col-12">
-            <?php if ($pregate == 'NON') : ?>
+            <?php if ($pregate == 'NON' or $pregate == null) : ?>
               <div class="alert alert-warning text-center" role="alert">
                 pregate non reçu
               </div>
@@ -44,7 +44,7 @@ Information de livraison
             </p>
             <p>
             <div class="text-sm text-muted">Date de réception du pregate</div>
-            <div><?= date('d/m/Y', strtotime($date_pg)) ?></div>
+            <div><?= $date_pg != null ? date('d/m/Y', strtotime($date_pg)) : '' ?></div>
             </p>
           </div>
           <div class="col-md-6 col-lg-4  col-xl-3">
@@ -73,7 +73,7 @@ Information de livraison
             <div class="fs-2">Livraison</div>
             <p>
             <div class="text-sm text-muted">Deadline</div>
-            <div class="text-<?= (!empty($deadline) and date('Y-m-d', strtotime($deadline)) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($deadline)) ?></div>
+            <div class="text-<?= (!empty($date_pg) and date('Y-m-d', strtotime($deadline)) <= date('Y-m-d', strtotime('+2days'))) ? 'danger' : 'success' ?>"><?= date('d/m/Y', strtotime($deadline)) ?></div>
             </p>
             <p>
             <div class="text-sm text-muted">Etat</div>
