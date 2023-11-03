@@ -60,10 +60,10 @@ Liste des remorques
                       <td class="d-none d-xl-table-cell" style="max-width: 400px;"><?= $l['commentaire'] ?></td>
                       <td>
                         <div class="d-flex gap-2">
-                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la remorque" data-bs-toggle="modal" data-bs-target="#delete">
+                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-as="<?= $l['as'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" type="button" class="delete btn text-danger" value="<?= $l['id'] ?>" data-bs-toggle="modal" data-bs-target="#modalIdDelete" title="Supprimer la remorque" data-bs-toggle="modal" data-bs-target="#delete">
                             <i cla data-feather="trash"></i>
                           </button>
-                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la remorque" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
+                          <button data-id="<?= $l['id'] ?>" data-im="<?= $l['im'] ?>" data-societe="<?= $l['societe'] ?>" data-as="<?= $l['as'] ?>" data-vt="<?= $l['vt'] ?>" data-commentaire="<?= $l['commentaire'] ?>" type="button" value="<?= $l['id'] ?>" class="update btn text-warning" title="Modifier les informations de la remorque" data-bs-toggle="modal" data-bs-target="#modalIdEdit">
                             <i cla data-feather="edit"></i>
                           </button>
                         </div>
