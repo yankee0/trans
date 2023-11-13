@@ -56,9 +56,12 @@
               <thead>
                 <tr>
                   <th class="d-table-cell">Nº Facture</th>
+                  <th class="d-table-cell">Nº BL</th>
                   <th class="d-table-cell">Nº Compte client</th>
                   <th class="d-table-cell">Client</th>
                   <th class="d-table-cell">Consignataire</th>
+                  <th class="d-table-cell">Pregate</th>
+                  <th class="d-table-cell">Date pregate</th>
                   <th class="d-table-cell">Paiement</th>
                   <th class="d-table-cell">Montant TTC</th>
                   <th class="d-table-cell">Date de paiement</th>
@@ -68,11 +71,14 @@
                 <?php foreach ($data as $l) : ?>
                   <tr>
                     <td><?= $l['facture'] ?></td>
+                    <td><?= $l['bl'] ?></td>
                     <td><?= $l['client'] ?></td>
                     <td><?= $l['nom'] ?></td>
                     <td><?= $l['consignataire'] ?></td>
+                    <td><?= $l['pregate'] ?></td>
+                    <td><?= date('d/m/Y', strtotime($l['date_pg'])) ?></td>
                     <td><?= $l['paiement'] ?></td>
-                    <td><?= intval($l['total']) ?></td>
+                    <td><?= number_format(intval($l['total'])) ?></td>
                     <td><?= $l['date_paiement'] ?></td>
                   </tr>
                 <?php endforeach ?>
@@ -103,6 +109,7 @@
   $(document).ready(function() {
     $('#table').DataTable({
       responsive: true,
+      ordering: false,
       dom: 'Bfrtip',
       buttons: [
         'copyHtml5',
