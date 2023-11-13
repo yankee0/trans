@@ -216,6 +216,7 @@
             or session()->r == 'finance'
             or session()->r == 'ops'
             or session()->r == 'ops-terrain'
+            or session()->r == 'facturation'
           ) : ?>
             <li class="sidebar-header">
               Statisques

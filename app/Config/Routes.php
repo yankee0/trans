@@ -306,6 +306,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 
         //recherche operation
         $routes->get('search', 'Ops::search');
+
         //gestion des livraisons
         $routes->group('livraisons', function ($routes) {
             // $routes->get('/', 'Livraisons::index');
@@ -317,6 +318,33 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
             $routes->get('pregate', 'Livraisons::pregate');
             $routes->post('pregate', 'Livraisons::checkPreGate');
             $routes->post('pregate/(:segment)', 'Livraisons::handlePG/$1');
+        });
+
+        // rapport
+        $routes->group('rapports', function ($routes) {
+            $routes->get('/', 'Rapports::index');
+            $routes->group('pregate', function ($routes) {
+                $routes->get('/', 'Rapports::index_pregate');
+                $routes->post('/', 'Rapports::generate_pregate');
+            });
+
+
+            $routes->group('livraisons', function ($routes) {
+                $routes->get('/', 'Rapports::index_livraison');
+                $routes->post('/', 'Rapports::generate_livraison');
+            });
+            $routes->group('finance', function ($routes) {
+                $routes->get('/', 'Rapports::index_finance');
+                $routes->post('/', 'Rapports::generate_finance');
+            });
+            // $routes->group('carburant', function ($routes) {
+            //     $routes->get('/', 'Rapports::index_carburant');
+            //     $routes->post('/', 'Rapports::generate_carburant');
+            // });
+            $routes->group('approvisionnements', function ($routes) {
+                $routes->get('/', 'Rapports::index_approvisionnements');
+                $routes->post('/', 'Rapports::generate_approvisionnements');
+            });
         });
     });
 
