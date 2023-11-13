@@ -64,7 +64,8 @@ class Clients extends BaseController
         // dd($data);
         try {
             $data['nom'] = strtoupper($data['nom']);
-            (new ModelsClients())->update($data['idmod'], $data);
+            (new ModelsClients())->delete($data['idmod']);
+            (new ModelsClients())->insert($data);
         } catch (Exception $e) {
             return redirect()
                 ->back()

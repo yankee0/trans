@@ -29,18 +29,21 @@ Rapports
     </div>
   </div>
 
-  <div class="d-flex col-md-6 col-xl-3">
-    <div class="card flex-fill">
-      <img src="<?= base_url('assets/img/fuel.jpeg') ?>" class="card-img-top">
-      <div class="card-body">
-        <h5 class="card-title">Rapport carburant</h5>
-        <p class="card-text">Rapports sur la consommation de carburant.</p>
-        <a href="<?= base_url(session()->r . '/rapports/carburant') ?>" class="btn btn-sm btn-primary">Accéder <i data-feather="arrow-right"></i></a>
+  <?php if (session()->r != 'facturation') : ?>
+
+    <div class="d-flex col-md-6 col-xl-3">
+      <div class="card flex-fill">
+        <img src="<?= base_url('assets/img/fuel.jpeg') ?>" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Rapport carburant</h5>
+          <p class="card-text">Rapports sur la consommation de carburant.</p>
+          <a href="<?= base_url(session()->r . '/rapports/carburant') ?>" class="btn btn-sm btn-primary">Accéder <i data-feather="arrow-right"></i></a>
+        </div>
       </div>
     </div>
-  </div>
+  <?php endif ?>
 
-  <?php if (session()->r == 'finance' or session()->r == 'admin') : ?>
+  <?php if (session()->r == 'finance' or session()->r == 'admin' or session()->r == 'facturation') : ?>
     <div class="d-flex col-md-6 col-xl-3">
       <div class="card flex-fill">
         <img src="<?= base_url('assets/img/money.jpeg') ?>" class="card-img-top">
