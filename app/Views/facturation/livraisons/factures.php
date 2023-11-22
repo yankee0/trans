@@ -196,7 +196,7 @@
         </thead>
         <tbody>
           <?php foreach ($zones as $z) : ?>
-            <tr class="">
+            <tr>
               <td>
                 <div>
                   <p class="d-flex g-1 flex-column">
@@ -263,8 +263,8 @@
               </td>
             </tr>
           <?php endif ?>
-          <?php if ($facture['copie'] > 0) : ?>
-            <tr class=" ">
+          <?php if ($facture['avec_copie'] == "OUI") : ?>
+            <tr>
               <td colspan="5">
                 <b>Impression</b>
               </td>
@@ -275,7 +275,7 @@
           <?php endif ?>
         </tbody>
         <tfoot>
-          <tr class="">
+          <tr>
             <td colspan="5" class="invoice-total ">
               Total Hors Taxe <br>
               TVA <br>
@@ -298,7 +298,7 @@
           </tr>
         </tfoot>
       </table>
-      <p class=""><strong>Arrête la présente facture à la somme de Francs CFA: <span id="lettre" class=" text-uppercase "></span></strong></p>
+      <p><strong>Arrête la présente facture à la somme de Francs CFA: <span id="lettre" class=" text-uppercase "></span></strong></p>
       <p class="text-sm">
         44, Av Lamine GUEYE Immeuble BHT 2ème étage porte B <br>
         Tél/Fax: 33 842 52 58 <br>
