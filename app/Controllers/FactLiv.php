@@ -457,7 +457,7 @@ class FactLiv extends BaseController
         if (isset($data['honeypot'])) {
             $data['avec_ages'] = isset($data['avec_ages']) ? 'OUI' : 'NON';
             $data['avec_copie'] = isset($data['avec_copie']) ? 'OUI' : 'NON';
-            $data['copie'] = 500;
+            $data['copie'] = isset($data['avec_copie']) ? 500 : 0;
             $data['avec_tva'] = isset($data['avec_tva']) ? 'OUI' : 'NON';
         }
         try {
