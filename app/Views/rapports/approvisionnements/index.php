@@ -124,7 +124,7 @@
                       <td><?= number_format($a['montant']) ?></td>
                       <td><?= $a['description'] ?></td>
                       <td>
-                        <?= empty($a['img']) ? '<i>pas de fichier joint</i>' : '<a target="_blank" href="' . base_url('images/approvisionnements/' . $a['img']) . '">Fichier joint</a>' ?>
+                        <?= empty($a['img']) ? '<i>pas de fichier joint</i>' : '<a target="_blank" href="' . base_url('images/approvisionnements/' . $a['img']) . '">' . base_url('images/approvisionnements/' . $a['img']) . '</a>' ?>
                       </td>
                       <td><?= $a['auteur'] ?></td>
                     </tr>
